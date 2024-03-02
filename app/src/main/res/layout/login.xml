@@ -84,8 +84,15 @@
             android:layout_marginTop="550dp"
             android:background="@drawable/login_facebook"
             android:text="Tiếp tục bằng Facebook"
+            android:paddingStart="53dp"
             android:layout_centerHorizontal="true"
             />
+        <ImageView
+            android:layout_width="17dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="555dp"
+            android:layout_marginLeft="105dp"
+            android:src="@drawable/facebook"/>
 
         <Button
             app:backgroundTint="@null"
@@ -95,7 +102,15 @@
             android:background="@drawable/login_google"
             android:text="Tiếp tục bằng Google"
             android:textColor="@color/black"
+            android:paddingStart="53dp"
             android:layout_centerHorizontal="true"
             />
+
+        <ImageView
+            android:layout_width="17dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="610dp"
+            android:layout_marginLeft="115dp"
+            android:src="@drawable/google"/>
     </RelativeLayout>
 </layout>
