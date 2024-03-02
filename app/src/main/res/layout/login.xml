@@ -88,10 +88,10 @@
             android:layout_centerHorizontal="true"
             />
         <ImageView
-            android:layout_width="17dp"
-            android:layout_height="38dp"
-            android:layout_marginTop="555dp"
-            android:layout_marginLeft="105dp"
+            android:layout_width="15dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="558dp"
+            android:layout_marginLeft="110dp"
             android:src="@drawable/facebook"/>
 
         <Button
@@ -112,5 +112,39 @@
             android:layout_marginTop="610dp"
             android:layout_marginLeft="115dp"
             android:src="@drawable/google"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tiếng Việt"
+            android:layout_marginTop="680dp"
+            android:layout_centerHorizontal="true"/>
+
+        <View
+            android:layout_width="130dp"
+            android:layout_height="1dp"
+            android:background="#CCCCCC"
+            android:layout_marginTop="515dp"
+            android:layout_marginLeft="30dp"
+        />
+
+        <View
+            android:layout_width="130dp"
+            android:layout_height="1dp"
+            android:background="#CCCCCC"
+            android:layout_marginTop="515dp"
+            android:layout_marginLeft="225dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HOẶC"
+            android:textSize="12sp"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginTop="507dp"
+            android:textColor="#9e9d9d"
+            android:textStyle="bold"/>
+
     </RelativeLayout>
 </layout>
