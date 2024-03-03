@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/home__1_"
+        android:title="Trang chủ"
+        />
+    <item
+        android:id="@+id/order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Đặt hàng"
+        android:icon="@drawable/coffee_cup"
+        />
+    <item
+        android:id="@+id/shop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Cửa hàng"
+        android:icon="@drawable/shop"
+        />
+    <item
+        android:id="@+id/voucher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Ưu đãi"
+        android:icon="@drawable/discount_voucher"/>
+    <item
+        android:id="@+id/menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Khác"
+        android:icon="@drawable/menu_icon"/>
+</menu>

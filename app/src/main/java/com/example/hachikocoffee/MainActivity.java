@@ -1,14 +1,54 @@
 package com.example.hachikocoffee;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
+import com.example.hachikocoffee.databinding.ActivityMainBinding;
+
 public class MainActivity extends AppCompatActivity {
 
+    ActivityMainBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        replaceFragment(new HomeFragment());
+        final int shopId = R.id.shop;
+        final int homeId = R.id.home;
+        final int orderId = R.id.order;
+        final int menuId = R.id.menu;
+        final int voucherId = R.id.voucher;
+
+        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
+
+            int curId = item.getItemId();
+
+            if (curId == R.id.home) {
+                replaceFragment(new HomeFragment());
+            } else if (curId == R.id.order) {
+                replaceFragment(new OrderFragment());
+            } else if (curId == R.id.shop) {
+                replaceFragment(new ShopFragment());
+            } else if (curId == R.id.voucher) {
+                replaceFragment(new DiscountFragment());
+            } else if (curId == R.id.menu) {
+                replaceFragment(new OtherFragment());
+            }
+
+            return true;
+        });
+    }
+
+    private void replaceFragment(Fragment fragment){
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, fragment);
+        fragmentTransaction.commit();
     }
 }
