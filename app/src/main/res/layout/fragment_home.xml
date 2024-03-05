@@ -1,16 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    tools:context=".Fragment.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Home Fragment"
-        android:layout_gravity="center"
-        android:textSize="26dp"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginTop="12dp"
+                    android:text="HOÀNG ơi, Hi-Tea đi!"
+                    android:fontFamily="sans-serif"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="4dp"
+                    android:src="@drawable/peach_tea"
+                    app:layout_constraintEnd_toStartOf="@+id/textView2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView_Shortcut"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="14dp"
+                        android:paddingStart="11dp"
+                        android:paddingEnd="11dp"
+                        android:clipToPadding="false"
+                        app:layout_constraintTop_toBottomOf="@+id/editTextText5" />
+
+                    <EditText
+                        android:id="@+id/editTextText5"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="14dp"
+                        android:background="@drawable/search_edit_background"
+                        android:drawableStart="@drawable/search"
+                        android:drawablePadding="10dp"
+                        android:ems="10"
+                        android:fontFamily="sans-serif"
+                        android:hint="Search here ..."
+                        android:inputType="text"
+                        android:paddingStart="20dp"
+                        android:textStyle="italic"
+                        app:layout_constraintEnd_toEndOf="@+id/view"
+                        app:layout_constraintStart_toStartOf="@+id/view"
+                        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+                    <View
+                        android:id="@+id/view"
+                        android:layout_width="350dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/background_color"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </ScrollView>
 </FrameLayout>
