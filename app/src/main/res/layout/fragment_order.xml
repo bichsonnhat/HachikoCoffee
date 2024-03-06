@@ -6,6 +6,12 @@
     tools:context=".OrderFragment">
 
     <!-- TODO: Update blank fragment layout -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#cfcfcf"
+        android:layout_marginTop="50dp"
+        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
