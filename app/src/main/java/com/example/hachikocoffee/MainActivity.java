@@ -7,6 +7,9 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.PopupWindow;
 
 import com.example.hachikocoffee.Fragment.DiscountFragment;
 import com.example.hachikocoffee.Fragment.HomeFragment;
@@ -22,32 +25,39 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        replaceFragment(new HomeFragment());
-        final int shopId = R.id.shop;
-        final int homeId = R.id.home;
-        final int orderId = R.id.order;
-        final int menuId = R.id.menu;
-        final int voucherId = R.id.voucher;
+        setContentView(R.layout.login);
+        boolean checkLogin = false;
+        LayoutInflater inflater = getLayoutInflater();
+        View anotherView = inflater.inflate(R.layout.activity_login_otp, null);
+        setContentView(anotherView);
+        if (checkLogin == true) {
+            setContentView(binding.getRoot());
+            replaceFragment(new HomeFragment());
+            final int shopId = R.id.shop;
+            final int homeId = R.id.home;
+            final int orderId = R.id.order;
+            final int menuId = R.id.menu;
+            final int voucherId = R.id.voucher;
 
-        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
+            binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
-            int curId = item.getItemId();
+                int curId = item.getItemId();
 
-            if (curId == R.id.home) {
-                replaceFragment(new HomeFragment());
-            } else if (curId == R.id.order) {
-                replaceFragment(new OrderFragment());
-            } else if (curId == R.id.shop) {
-                replaceFragment(new ShopFragment());
-            } else if (curId == R.id.voucher) {
-                replaceFragment(new DiscountFragment());
-            } else if (curId == R.id.menu) {
-                replaceFragment(new OtherFragment());
-            }
+                if (curId == R.id.home) {
+                    replaceFragment(new HomeFragment());
+                } else if (curId == R.id.order) {
+                    replaceFragment(new OrderFragment());
+                } else if (curId == R.id.shop) {
+                    replaceFragment(new ShopFragment());
+                } else if (curId == R.id.voucher) {
+                    replaceFragment(new DiscountFragment());
+                } else if (curId == R.id.menu) {
+                    replaceFragment(new OtherFragment());
+                }
 
-            return true;
-        });
+                return true;
+            });
+        }
     }
 
     private void replaceFragment(Fragment fragment){

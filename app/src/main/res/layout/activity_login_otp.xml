@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".LoginOTPActivity"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Xác nhận Mã OTP"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginTop="100dp"
+            android:textSize="25sp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="140dp"
+            android:text="Mã xác thực gồm 6 số đã được gửi đến số điện thoại"
+            android:textSize="16sp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="160dp"
+            android:text="0924569122"
+            android:textSize="16sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="220dp"
+            android:textSize="16sp"
+            android:text="Nhập mã để tiếp tục"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="6"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="250dp">
+            <EditText
+                android:id="@+id/otpET1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/rounded_otp"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLines="1"
+                android:textColor="#000000"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:maxLength="1"/>
+
+            <EditText
+                android:id="@+id/otpET2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/rounded_otp"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLines="1"
+                android:textColor="#000000"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:maxLength="1"/>
+
+            <EditText
+                android:id="@+id/otpET3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/rounded_otp"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLines="1"
+                android:textColor="#000000"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:maxLength="1"/>
+
+            <EditText
+                android:id="@+id/otpET4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/rounded_otp"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLines="1"
+                android:textColor="#000000"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:maxLength="1"/>
+
+            <EditText
+                android:id="@+id/otpET5"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/rounded_otp"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLines="1"
+                android:textColor="#000000"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:maxLength="1"/>
+
+            <EditText
+                android:id="@+id/otpET6"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/rounded_otp"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLines="1"
+                android:textColor="#000000"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:maxLength="1"/>
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/verifyButton"
+            android:layout_width="270dp"
+            android:layout_height="wrap_content"
+            android:text="Xác nhận"
+            android:layout_marginTop="550dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/verify_button"
+            android:textColor="#FFFFFF"
+            />
+
+
+    </RelativeLayout>
+</layout>
