@@ -6,7 +6,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +17,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.hachikocoffee.Photo;
+import com.example.hachikocoffee.PhotoAdapter;
 import com.example.hachikocoffee.R;
 import com.example.hachikocoffee.ShortcutDomain;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import me.relex.circleindicator.CircleIndicator;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +36,14 @@ public class HomeFragment extends Fragment {
     private RecyclerView.Adapter adapter;
     private RecyclerView recyclerViewShortcutList;
     private ArrayList<ShortcutDomain> itemList;
+
+    private ViewPager viewPager;
+    private CircleIndicator circleIndicator;
+    private PhotoAdapter photoAdapter;
+
+    private Handler handler;
+    private Runnable runnable;
+    private int delay = 3000;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -78,6 +93,8 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         recyclerViewShortcutList = view.findViewById(R.id.recyclerView_Shortcut);
+        viewPager = view.findViewById(R.id.viewpager);
+        circleIndicator = view.findViewById(R.id.circle_indicator);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
 
@@ -93,8 +110,37 @@ public class HomeFragment extends Fragment {
         adapter = new MyAdapter(itemList);
         recyclerViewShortcutList.setAdapter(adapter);
 
+        photoAdapter = new PhotoAdapter(requireContext(), getListPhoto());
+        viewPager.setAdapter(photoAdapter);
+
+        circleIndicator.setViewPager(viewPager);
+        photoAdapter.registerDataSetObserver(circleIndicator.getDataSetObserver());
+
+        handler = new Handler();
+        runnable = new Runnable() {
+            public void run() {
+                int position = viewPager.getCurrentItem();
+                position = (position + 1) % photoAdapter.getCount();
+                viewPager.setCurrentItem(position);
+                handler.postDelayed(this, delay);
+            }
+        };
+        handler.postDelayed(runnable, delay);
+
         return view;
     }
+
+    private List<Photo> getListPhoto(){
+        List<Photo> list = new ArrayList<>();
+        list.add(new Photo(R.drawable.image_1));
+        list.add(new Photo(R.drawable.image_2));
+        list.add(new Photo(R.drawable.image_3));
+        list.add(new Photo(R.drawable.image_4));
+
+        return list;
+    }
+
+
 
     public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
