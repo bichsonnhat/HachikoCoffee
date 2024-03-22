@@ -24,12 +24,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+//        binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(R.layout.login);
         boolean checkLogin = false;
-        LayoutInflater inflater = getLayoutInflater();
-        View anotherView = inflater.inflate(R.layout.activity_login_otp, null);
-        setContentView(anotherView);
+//        LayoutInflater inflater = getLayoutInflater();
+//        View anotherView = inflater.inflate(R.layout.login, null);
+//        setContentView(anotherView);
         if (checkLogin == true) {
             setContentView(binding.getRoot());
             replaceFragment(new HomeFragment());
