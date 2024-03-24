@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
@@ -77,7 +78,7 @@ public class Login extends AppCompatActivity {
 
         @Override
         public void onVerificationFailed(@NonNull FirebaseException e) {
-            Toast.makeText(Login.this, "Verification Failed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Login.this, e.toString(), Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -107,4 +108,13 @@ public class Login extends AppCompatActivity {
                 });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null){
+            startActivity(new Intent(Login.this, LoginOTPActivity.class));
+            finish();
+        }
+    }
 }
