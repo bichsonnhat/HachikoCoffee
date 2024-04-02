@@ -3,6 +3,9 @@
     <style name="Base.Theme.HachikoCoffee" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <item name="colorPrimary">#E47905</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:textColorHint">@color/m3_hint_foreground</item>
     </style>
 
     <style name="Theme.HachikoCoffee" parent="Base.Theme.HachikoCoffee" />

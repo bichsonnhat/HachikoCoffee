@@ -6,9 +6,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.PopupWindow;
 
 import com.example.hachikocoffee.Fragment.DiscountFragment;
@@ -17,19 +19,30 @@ import com.example.hachikocoffee.Fragment.OrderFragment;
 import com.example.hachikocoffee.Fragment.OtherFragment;
 import com.example.hachikocoffee.Fragment.ShopFragment;
 import com.example.hachikocoffee.databinding.ActivityMainBinding;
+import com.example.hachikocoffee.databinding.LoginBinding;
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
+    LoginBinding loginBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+        loginBinding = LoginBinding.inflate(getLayoutInflater());
         setContentView(R.layout.login);
         boolean checkLogin = false;
-        LayoutInflater inflater = getLayoutInflater();
-        View anotherView = inflater.inflate(R.layout.activity_login_otp, null);
-        setContentView(anotherView);
+
+        Button btDangNhap = (Button) findViewById(R.id.buttonDangNhap);
+        btDangNhap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LoginOTPActivity.class);
+
+                startActivity(intent);
+            }
+        });
+
         if (checkLogin == true) {
             setContentView(binding.getRoot());
             replaceFragment(new HomeFragment());

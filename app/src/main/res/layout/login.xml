@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
+        android:theme="@style/Base.Theme.HachikoCoffee"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
@@ -69,11 +70,13 @@
             android:src="@drawable/vietnam_flag"/>
 
         <Button
+            android:id="@+id/buttonDangNhap"
             android:layout_width="330dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="435dp"
             android:background="@drawable/login_color"
             android:text="Đăng nhập"
+            android:textColor="@color/white"
             android:layout_centerHorizontal="true"
             />
 
@@ -84,6 +87,7 @@
             android:layout_marginTop="550dp"
             android:background="@drawable/login_facebook"
             android:text="Tiếp tục bằng Facebook"
+            android:textColor="@color/white"
             android:paddingStart="53dp"
             android:layout_centerHorizontal="true"
             />
