@@ -32,5 +32,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
+        app:menu="@menu/bottom_nav_menu"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

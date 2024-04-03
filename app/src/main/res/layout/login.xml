@@ -30,9 +30,9 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="295dp"
-            android:fontFamily="@font/lobster"
+            android:fontFamily="sans-serif"
             android:text="Chào mừng bạn đến với"
-            android:textSize="20dp" />
+            android:textSize="16dp" />
 
         <ImageView
             android:layout_width="350dp"

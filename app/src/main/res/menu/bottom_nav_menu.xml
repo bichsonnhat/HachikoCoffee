@@ -5,7 +5,7 @@
         android:id="@+id/home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:icon="@drawable/home__1_"
+        android:icon="@drawable/icon_home_foreground"
         android:title="Trang chủ"
         />
     <item
@@ -13,21 +13,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="Đặt hàng"
-        android:icon="@drawable/coffee_cup"
+        android:icon="@drawable/icon_booked_foreground"
         />
     <item
         android:id="@+id/shop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="Cửa hàng"
-        android:icon="@drawable/shop"
+        android:icon="@drawable/icon_store_foreground"
         />
     <item
         android:id="@+id/voucher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="Ưu đãi"
-        android:icon="@drawable/discount_voucher"/>
+        android:icon="@drawable/icon_coupon_foreground"/>
     <item
         android:id="@+id/menu"
         android:layout_width="wrap_content"
