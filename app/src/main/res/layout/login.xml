@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Login">
 
     <RelativeLayout
         android:theme="@style/Base.Theme.HachikoCoffee"
@@ -12,7 +14,7 @@
 
             <ImageView
                 android:layout_width="411dp"
-                android:layout_height="411dp"
+                android:layout_height="406dp"
                 android:layout_alignParentTop="true"
                 android:src="@drawable/tradao_login" />
         </LinearLayout>
@@ -40,7 +42,7 @@
             android:layout_centerHorizontal="true"/>
 
         <EditText
-            android:id="@+id/phone_number_edit_text"
+            android:id="@+id/phone"
             android:layout_width="330dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -59,12 +61,19 @@
         <ImageView
             android:layout_width="65dp"
             android:layout_height="38dp"
-            android:layout_marginTop="382dp"
-            android:layout_marginLeft="50dp"
-            android:src="@drawable/phone_vietnam"/>
+            android:layout_marginTop="385dp"
+            android:layout_marginLeft="40dp"
+
+            android:src="@drawable/phone_vietnam" />
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="384dp"
+            android:layout_marginLeft="42dp"
+            android:src="@drawable/vietnam_flag"/>
 
         <Button
-            android:id="@+id/buttonDangNhap"
+            android:id="@+id/btngenerateOTP"
             android:layout_width="330dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -109,7 +118,6 @@
             android:layout_marginTop="605dp"
             android:background="@drawable/login_google"
             android:text="Tiếp tục bằng Google"
-            android:textSize="16dp"
             android:textColor="@color/black"
             android:paddingStart="53dp"
             android:layout_centerHorizontal="true"
@@ -134,7 +142,7 @@
             android:layout_height="1dp"
             android:background="#CCCCCC"
             android:layout_marginTop="515dp"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="30dp"
         />
 
         <View
@@ -142,7 +150,7 @@
             android:layout_height="1dp"
             android:background="#CCCCCC"
             android:layout_marginTop="515dp"
-            android:layout_marginLeft="240dp"
+            android:layout_marginLeft="230dp"
             />
         <TextView
             android:layout_width="wrap_content"
