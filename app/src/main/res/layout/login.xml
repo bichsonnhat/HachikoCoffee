@@ -27,15 +27,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="300dp"
+            android:layout_marginTop="295dp"
+            android:fontFamily="@font/lobster"
             android:text="Chào mừng bạn đến với"
-            android:fontFamily="sans-serif"
-            android:textSize="12sp"/>
+            android:textSize="20dp" />
 
         <ImageView
             android:layout_width="350dp"
-            android:layout_height="16dp"
-            android:layout_marginTop="330dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="340dp"
             android:src="@drawable/hachiko_coffee_font"
             android:layout_centerHorizontal="true"/>
 
@@ -48,6 +48,7 @@
             android:background="@drawable/rounded_corner"
             android:padding="10dp"
             android:hint="Nhập số điện thoại"
+            android:textSize="18dp"
             android:paddingStart="90dp"
             android:paddingEnd="40dp"
             android:inputType="phone"
@@ -58,27 +59,20 @@
         <ImageView
             android:layout_width="65dp"
             android:layout_height="38dp"
-            android:layout_marginTop="385dp"
-            android:layout_marginLeft="40dp"
-
-            android:src="@drawable/phone_vietnam" />
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="38dp"
-            android:layout_marginTop="384dp"
-            android:layout_marginLeft="42dp"
-            android:src="@drawable/vietnam_flag"/>
+            android:layout_marginTop="382dp"
+            android:layout_marginLeft="50dp"
+            android:src="@drawable/phone_vietnam"/>
 
         <Button
             android:id="@+id/buttonDangNhap"
             android:layout_width="330dp"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="435dp"
             android:background="@drawable/login_color"
             android:text="Đăng nhập"
             android:textColor="@color/white"
-            android:layout_centerHorizontal="true"
-            />
+            android:textSize="16dp" />
 
         <Button
             app:backgroundTint="@null"
@@ -87,16 +81,26 @@
             android:layout_marginTop="550dp"
             android:background="@drawable/login_facebook"
             android:text="Tiếp tục bằng Facebook"
+            android:textSize="16dp"
             android:textColor="@color/white"
             android:paddingStart="53dp"
             android:layout_centerHorizontal="true"
             />
-        <ImageView
-            android:layout_width="15dp"
-            android:layout_height="33dp"
-            android:layout_marginTop="558dp"
-            android:layout_marginLeft="110dp"
-            android:src="@drawable/facebook"/>
+        <androidx.cardview.widget.CardView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            app:cardCornerRadius="20dp"
+            android:layout_marginTop="555dp"
+            android:layout_marginLeft="75dp"
+            android:elevation="10dp"
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/facebook">
+            </ImageView>
+        </androidx.cardview.widget.CardView>
+
 
         <Button
             app:backgroundTint="@null"
@@ -105,16 +109,17 @@
             android:layout_marginTop="605dp"
             android:background="@drawable/login_google"
             android:text="Tiếp tục bằng Google"
+            android:textSize="16dp"
             android:textColor="@color/black"
             android:paddingStart="53dp"
             android:layout_centerHorizontal="true"
             />
 
         <ImageView
-            android:layout_width="17dp"
-            android:layout_height="38dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginTop="610dp"
-            android:layout_marginLeft="115dp"
+            android:layout_marginLeft="90dp"
             android:src="@drawable/google"/>
 
         <TextView
@@ -129,7 +134,7 @@
             android:layout_height="1dp"
             android:background="#CCCCCC"
             android:layout_marginTop="515dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="40dp"
         />
 
         <View
@@ -137,7 +142,7 @@
             android:layout_height="1dp"
             android:background="#CCCCCC"
             android:layout_marginTop="515dp"
-            android:layout_marginLeft="230dp"
+            android:layout_marginLeft="240dp"
             />
         <TextView
             android:layout_width="wrap_content"

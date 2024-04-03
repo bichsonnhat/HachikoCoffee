@@ -22,6 +22,7 @@
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:itemActiveIndicatorStyle="@style/Base.Theme.HachikoCoffee"
         app:backgroundTint="#FFFFFF"
         app:itemHorizontalTranslationEnabled="false"
         app:itemIconSize="26dp"
