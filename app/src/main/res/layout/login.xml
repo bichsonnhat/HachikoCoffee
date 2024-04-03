@@ -93,23 +93,15 @@
             android:textSize="16dp"
             android:textColor="@color/white"
             android:paddingStart="53dp"
-            android:layout_centerHorizontal="true"
-            />
-        <androidx.cardview.widget.CardView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            app:cardCornerRadius="20dp"
-            android:layout_marginTop="555dp"
-            android:layout_marginLeft="75dp"
-            android:elevation="10dp"
-            >
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/facebook">
-            </ImageView>
-        </androidx.cardview.widget.CardView>
+            android:layout_centerHorizontal="true"/>
 
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="75dp"
+            android:layout_marginTop="555dp"
+            android:background="#00000000"
+            android:src="@drawable/facebook" />
 
         <Button
             app:backgroundTint="@null"
@@ -142,16 +134,15 @@
             android:layout_height="1dp"
             android:background="#CCCCCC"
             android:layout_marginTop="515dp"
-            android:layout_marginLeft="30dp"
-        />
+            android:layout_marginLeft="30dp"/>
 
         <View
             android:layout_width="130dp"
             android:layout_height="1dp"
             android:background="#CCCCCC"
             android:layout_marginTop="515dp"
-            android:layout_marginLeft="230dp"
-            />
+            android:layout_marginLeft="230dp"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
