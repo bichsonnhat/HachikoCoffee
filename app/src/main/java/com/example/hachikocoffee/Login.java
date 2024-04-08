@@ -40,7 +40,6 @@ public class Login extends AppCompatActivity {
         phone = findViewById(R.id.phone);
         btnGenOTP = (Button) findViewById(R.id.btngenerateOTP);
         mAuth = FirebaseAuth.getInstance();
-
         btnGenOTP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,7 +63,6 @@ public class Login extends AppCompatActivity {
                         .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
                         .build();
         PhoneAuthProvider.verifyPhoneNumber(options);
-        startActivity(new Intent(Login.this, LoginOTPActivity.class));
     }
 
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -91,8 +89,10 @@ public class Login extends AppCompatActivity {
     };
 
     private void verifyCode(String code) {
-        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
-        signInByCredentials(credential);
+        ((GetVerificationCode) this.getApplication()).setVerificationCode(code);
+//        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
+//        signInByCredentials(credential);
+        startActivity(new Intent(Login.this, LoginOTPActivity.class));
     }
 
     private void signInByCredentials(PhoneAuthCredential credential) {

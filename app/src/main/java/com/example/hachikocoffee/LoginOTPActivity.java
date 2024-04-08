@@ -1,6 +1,7 @@
 package com.example.hachikocoffee;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginOTPActivity extends AppCompatActivity {
     private String phoneNumber;
+    public String verificationCode;
     private EditText otpEt1, otpEt2, otpEt3, otpEt4, otpEt5, otpEt6;
 
     private int selectedETPosition = 0;
@@ -23,6 +25,7 @@ public class LoginOTPActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_otp);
+        verificationCode = ((GetVerificationCode) this.getApplication()).getVerificationCode();        verificationCode = ((GetVerificationCode) this.getApplication()).getVerificationCode();
 
         otpEt1 = findViewById(R.id.otpET1);
         otpEt2 = findViewById(R.id.otpET2);
@@ -48,6 +51,10 @@ public class LoginOTPActivity extends AppCompatActivity {
                                          + otpEt3.getText().toString() + otpEt4.getText().toString()
                                          + otpEt5.getText().toString() + otpEt6.getText().toString();
                 if (generateOTP.length() == 6) {
+                    if (generateOTP.equals(verificationCode)){
+                        startActivity(new Intent(LoginOTPActivity.this, MainActivity.class));
+                        finish();
+                    }
                     // handle your otp verification here
                 }
             }
