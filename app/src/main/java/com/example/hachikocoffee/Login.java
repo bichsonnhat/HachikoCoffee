@@ -79,7 +79,12 @@ public class Login extends AppCompatActivity {
 
         @Override
         public void onVerificationFailed(@NonNull FirebaseException e) {
-            Toast.makeText(Login.this, e.toString(), Toast.LENGTH_SHORT).show();
+            String errorMessage = e.getMessage();
+            if (errorMessage != null) {
+                Toast.makeText(Login.this, errorMessage, Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(Login.this, e.toString(), Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override

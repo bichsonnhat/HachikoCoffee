@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "171989758395",
-    "project_id": "the-hachiko-coffee",
-    "storage_bucket": "the-hachiko-coffee.appspot.com"
+    "project_number": "948312710607",
+    "project_id": "thehachikocoffee",
+    "storage_bucket": "thehachikocoffee.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:171989758395:android:f191c701bc37e8a585549e",
+        "mobilesdk_app_id": "1:948312710607:android:0c541a11f1fdfdeb3706ba",
         "android_client_info": {
           "package_name": "com.example.hachikocoffee"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDjsks7JaBXnn0LzVp9uy43h3mhaxCWJyU"
+          "current_key": "AIzaSyBJQLxIxSB8tVb5RxhTnzjLapUJO-TP-MA"
         }
       ],
       "services": {

@@ -52,4 +52,5 @@ dependencies {
     implementation("com.google.code.gson:gson:2.8.8")
     implementation ("me.relex:circleindicator:2.1.6")
     implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
+    implementation("androidx.browser:browser:1.8.0")
 }
