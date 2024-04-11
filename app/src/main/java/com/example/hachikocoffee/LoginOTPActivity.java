@@ -10,14 +10,24 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthProvider;
+
 public class LoginOTPActivity extends AppCompatActivity {
-    private String phoneNumber;
-    public String verificationCode;
-    private EditText otpEt1, otpEt2, otpEt3, otpEt4, otpEt5, otpEt6;
+    private TextView textMobile;
+    private String verificationId;
+    private EditText inputCode1, inputCode2, inputCode3, inputCode4, inputCode5, inputCode6;
 
     private int selectedETPosition = 0;
 
@@ -25,112 +35,153 @@ public class LoginOTPActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_otp);
-        verificationCode = ((GetVerificationCode) this.getApplication()).getVerificationCode();        verificationCode = ((GetVerificationCode) this.getApplication()).getVerificationCode();
+        textMobile = findViewById(R.id.textMobile);
+        textMobile.setText(String.format(
+                "%s", getIntent().getStringExtra("mobile")
+        ));
+        inputCode1 = findViewById(R.id.otpET1);
+        inputCode2 = findViewById(R.id.otpET2);
+        inputCode3 = findViewById(R.id.otpET3);
+        inputCode4 = findViewById(R.id.otpET4);
+        inputCode5 = findViewById(R.id.otpET5);
+        inputCode6 = findViewById(R.id.otpET6);
 
-        otpEt1 = findViewById(R.id.otpET1);
-        otpEt2 = findViewById(R.id.otpET2);
-        otpEt3 = findViewById(R.id.otpET3);
-        otpEt4 = findViewById(R.id.otpET4);
-        otpEt5 = findViewById(R.id.otpET5);
-        otpEt6 = findViewById(R.id.otpET6);
+        setupOTPInputs();
 
-        otpEt1.addTextChangedListener(textWatcher);
-        otpEt2.addTextChangedListener(textWatcher);
-        otpEt3.addTextChangedListener(textWatcher);
-        otpEt4.addTextChangedListener(textWatcher);
-        otpEt5.addTextChangedListener(textWatcher);
-        otpEt6.addTextChangedListener(textWatcher);
+        final Button buttonVerify = findViewById(R.id.verifyButton);
+        verificationId = getIntent().getStringExtra("verificationId");
 
-        showKeyBoard(otpEt1);
-
-        final Button verifyButton = findViewById(R.id.verifyButton);
-        verifyButton.setOnClickListener(new View.OnClickListener() {
+        buttonVerify.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                final String generateOTP = otpEt1.getText().toString() + otpEt2.getText().toString()
-                                         + otpEt3.getText().toString() + otpEt4.getText().toString()
-                                         + otpEt5.getText().toString() + otpEt6.getText().toString();
-                if (generateOTP.length() == 6) {
-                    if (generateOTP.equals(verificationCode)){
-                        startActivity(new Intent(LoginOTPActivity.this, MainActivity.class));
-                        finish();
-                    }
-                    // handle your otp verification here
+                if (inputCode1.getText().toString().trim().isEmpty()
+                || inputCode2.getText().toString().trim().isEmpty()
+                || inputCode3.getText().toString().trim().isEmpty()
+                || inputCode4.getText().toString().trim().isEmpty()
+                || inputCode5.getText().toString().trim().isEmpty()
+                || inputCode6.getText().toString().trim().isEmpty()){
+                    Toast.makeText(LoginOTPActivity.this, "Please enter valid code", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                String code = inputCode1.getText().toString() +
+                        inputCode2.getText().toString() +
+                        inputCode3.getText().toString() +
+                        inputCode4.getText().toString() +
+                        inputCode5.getText().toString() +
+                        inputCode6.getText().toString();
+                if (verificationId != null) {
+                    PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(
+                            verificationId,
+                            code
+                    );
+                    FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                        intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(intent);
+                                    } else {
+                                        Toast.makeText(LoginOTPActivity.this, "The verification code entered was invalid", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
                 }
             }
         });
     }
 
-    private void showKeyBoard(EditText otpET) {
-        otpET.requestFocus();
+    private void setupOTPInputs() {
+        inputCode1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.showSoftInput(otpET, InputMethodManager.SHOW_IMPLICIT);
-    }
-    private final TextWatcher textWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            if (s.length() > 0) {
-                if (selectedETPosition == 0){
-                    selectedETPosition = 1;
-                    showKeyBoard(otpEt2);
-                }
-                else if (selectedETPosition == 1){
-                    selectedETPosition = 2;
-                    showKeyBoard(otpEt3);
-                }
-                else if (selectedETPosition == 2){
-                    selectedETPosition = 3;
-                    showKeyBoard(otpEt4);
-                }
-                else if (selectedETPosition == 3){
-                    selectedETPosition = 4;
-                    showKeyBoard(otpEt5);
-                }
-                else if (selectedETPosition == 4){
-                    selectedETPosition = 5;
-                    showKeyBoard(otpEt6);
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!s.toString().trim().isEmpty()) {
+                    inputCode2.requestFocus();
                 }
             }
-        }
-    };
 
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_DEL){
-            if (selectedETPosition == 5){
-                selectedETPosition = 4;
-                showKeyBoard(otpEt5);
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
-            else if (selectedETPosition == 4){
-                selectedETPosition = 3;
-                showKeyBoard(otpEt4);
+        });
+        inputCode2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
-            else if (selectedETPosition == 3){
-                selectedETPosition = 2;
-                showKeyBoard(otpEt3);
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!s.toString().trim().isEmpty()) {
+                    inputCode3.requestFocus();
+                }
             }
-            else if (selectedETPosition == 2){
-                selectedETPosition = 1;
-                showKeyBoard(otpEt2);
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
-            else if (selectedETPosition == 1){
-                selectedETPosition = 0;
-                showKeyBoard(otpEt1);
+        });
+        inputCode3.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
-            return true;
-        } else {
-            return super.onKeyUp(keyCode, event);
-        }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!s.toString().trim().isEmpty()) {
+                    inputCode4.requestFocus();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        inputCode4.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!s.toString().trim().isEmpty()) {
+                    inputCode5.requestFocus();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        inputCode5.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!s.toString().trim().isEmpty()) {
+                    inputCode6.requestFocus();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 }
