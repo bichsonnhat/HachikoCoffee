@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ProductDetail">
+    <androidx.core.widget.NestedScrollView
+        android:fillViewport="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/product_image_scr"
+                android:layout_width="match_parent"
+                android:layout_height="406dp"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/oolong_vai" />
+            <TextView
+                android:id="@+id/productName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="420dp"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:layout_marginStart="16dp"
+                android:text="Oolong Tứ Quý Vải"/>
+
+            <TextView
+                android:id="@+id/productCost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="455dp"
+                android:layout_weight="1"
+                android:text="59.000đ"
+                android:textColor="#807d7d"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/productDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="485dp"
+                android:text="Đậm hương trà, thanh mát sắc xuân với Oolong Tứ Quý Vải. Cảm nhận hương hoa đầu mùa, hoà quyện cùng vị vải chín mọng căn tràn sự sống."
+                android:layout_marginStart="16dp"
+                />
+            <TextView
+                android:id="@+id/productSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="540dp"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginStart="16dp"
+                android:text="Size"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="565dp"
+                android:layout_weight="1"
+                android:text="Chọn 1 loại size"
+                android:textColor="#807d7d"
+                android:layout_marginStart="16dp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/productRecyclerSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="585dp"
+                tools:listitem="@layout/item_size"
+                />
+
+            <TextView
+                android:id="@+id/productLargeSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="599dp"
+                android:gravity="right"
+                android:text="65.000đ"
+                android:layout_marginStart="325dp"
+                android:textSize="15sp" />
+            <TextView
+                android:id="@+id/productMediumSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="649dp"
+                android:gravity="right"
+                android:text="55.000đ"
+                android:layout_marginStart="325dp"
+                android:textSize="15sp" />
+            <TextView
+                android:id="@+id/productMinimumSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="696dp"
+                android:gravity="right"
+                android:text="45.000đ"
+                android:layout_marginStart="325dp"
+                android:textSize="15sp" />
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>
