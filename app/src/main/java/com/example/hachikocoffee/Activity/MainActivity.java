@@ -1,4 +1,4 @@
-package com.example.hachikocoffee;
+package com.example.hachikocoffee.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -16,6 +16,7 @@ import com.example.hachikocoffee.Fragment.HomeFragment;
 import com.example.hachikocoffee.Fragment.OrderFragment;
 import com.example.hachikocoffee.Fragment.OtherFragment;
 import com.example.hachikocoffee.Fragment.ShopFragment;
+import com.example.hachikocoffee.R;
 import com.example.hachikocoffee.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
