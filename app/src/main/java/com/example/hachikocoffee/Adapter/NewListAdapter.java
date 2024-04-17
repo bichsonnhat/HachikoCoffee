@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.hachikocoffee.Activity.DetailActivity;
 import com.example.hachikocoffee.Domain.ItemsDomain;
+import com.example.hachikocoffee.ProductDetail;
 import com.example.hachikocoffee.R;
 
 import java.util.ArrayList;
@@ -74,7 +75,8 @@ public class NewListAdapter extends RecyclerView.Adapter<NewListAdapter.Viewhold
             @Override
             public void onClick(View v) {
                 ItemsDomain item = items.get(position);
-                DetailActivity detailBottomSheetDialog = new DetailActivity(item);
+                ProductDetail detailBottomSheetDialog = new ProductDetail(item);
+
                 detailBottomSheetDialog.show(((AppCompatActivity) context).getSupportFragmentManager(), "DetailBottomSheetDialog");
             }
         });
