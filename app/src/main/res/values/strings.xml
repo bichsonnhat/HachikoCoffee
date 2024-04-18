@@ -2,4 +2,9 @@
     <string name="app_name">HachikoCoffee</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="size">
+        <item>Lớn</item>
+        <item>Vừa</item>
+        <item>Nhỏ</item>
+    </string-array>
 </resources>

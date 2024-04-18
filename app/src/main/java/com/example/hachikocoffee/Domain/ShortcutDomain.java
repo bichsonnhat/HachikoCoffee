@@ -1,4 +1,4 @@
-package com.example.hachikocoffee;
+package com.example.hachikocoffee.Domain;
 
 public class ShortcutDomain {
     private String title;

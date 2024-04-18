@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".LoginOTPActivity"
+    tools:context=".Activity.LoginOTPActivity"
     >
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,21 +17,20 @@
             android:layout_marginTop="100dp"
             android:textSize="25sp"
             />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="140dp"
-            android:text="Mã xác thực gồm 6 số đã được gửi đến số điện thoại"
-            android:textSize="16sp"
-            />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:text="Mã xác thực gồm 6 số đã được gửi đến số điện thoại"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textMobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
             android:layout_marginTop="160dp"
-            android:text="0924569122"
             android:textSize="16sp"/>
         <TextView
             android:layout_width="match_parent"
