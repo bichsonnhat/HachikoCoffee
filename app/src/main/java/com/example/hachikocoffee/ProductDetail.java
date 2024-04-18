@@ -30,11 +30,13 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.ArrayList;
 
-public class ProductDetail extends BottomSheetDialogFragment {
+public class ProductDetail extends BottomSheetDialogFragment implements ToppingListener {
     ItemsDomain object;
     RecyclerView recyclerView;
+    RecyclerView recyclerViewTopping;
     ItemClickListener itemClickListener;
     MainAdapter adapter;
+    ToppingAdapter toppingAdapter;
 
     public ProductDetail(ItemsDomain object){ this.object = object;};
     @Override
@@ -43,6 +45,8 @@ public class ProductDetail extends BottomSheetDialogFragment {
         TextView productName = view.findViewById(R.id.productName);
         TextView productCost = view.findViewById(R.id.productCost);
         ImageView productImage = view.findViewById(R.id.product_image_scr);
+        recyclerViewTopping = view.findViewById(R.id.productRecyclerTopping);
+        setRecycleViewTopping();
 
         productName.setText(object.getTitle());
         productCost.setText(object.getPrice() + "đ");
@@ -77,6 +81,25 @@ public class ProductDetail extends BottomSheetDialogFragment {
         return view;
     }
 
+    private void setRecycleViewTopping() {
+        recyclerViewTopping.setHasFixedSize(true);
+        recyclerViewTopping.setLayoutManager(new LinearLayoutManager(getContext()));
+        toppingAdapter = new ToppingAdapter(getContext(), getToppingList(), this);
+        recyclerViewTopping.setAdapter(toppingAdapter);
+    }
+
+    private ArrayList<String> getToppingList() {
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add("Trân châu trắng");
+        arrayList.add("Hạt Sen");
+        arrayList.add("Trái vải");
+        arrayList.add("Kem Phô Mai Macchiato");
+        arrayList.add("Trái Nhãn");
+        arrayList.add("Thạch Cà Phê");
+        arrayList.add("Đào Miếng");
+        return arrayList;
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -98,5 +121,11 @@ public class ProductDetail extends BottomSheetDialogFragment {
         ViewGroup.LayoutParams layoutParams = bottomSheet.getLayoutParams();
         layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT;
         bottomSheet.setLayoutParams(layoutParams);
+    }
+
+    @Override
+    public void onToppingChange(ArrayList<String> arrayList) {
+        // Handle your Topping List
+        Toast.makeText(getContext(), arrayList.toString(), Toast.LENGTH_SHORT).show();
     }
 }

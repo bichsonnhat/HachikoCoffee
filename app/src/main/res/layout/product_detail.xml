@@ -68,14 +68,14 @@
                 android:text="Chọn 1 loại size"
                 android:textColor="#807d7d"
                 android:layout_marginStart="16dp"/>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/productRecyclerSize"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="585dp"
-                tools:listitem="@layout/item_size"
-                />
+                tools:listitem="@layout/item_size" />
 
             <TextView
                 android:id="@+id/productLargeSize"
@@ -104,6 +104,31 @@
                 android:text="45.000đ"
                 android:layout_marginStart="325dp"
                 android:textSize="15sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="722dp"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginStart="16dp"
+                android:text="Topping"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="747dp"
+                android:layout_weight="1"
+                android:text="Chọn topping"
+                android:textColor="#807d7d"
+                android:layout_marginStart="16dp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/productRecyclerTopping"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="772dp"
+                tools:listitem="@layout/item_size" />
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
