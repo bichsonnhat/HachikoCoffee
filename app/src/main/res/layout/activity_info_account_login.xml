@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".InfoAccountLoginActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <Button
+            app:backgroundTint="@null"
+            android:layout_width="25dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="23dp"
+            android:layout_marginLeft="11dp"
+            android:background="@drawable/icon_back"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="23dp"
+            android:text="Tạo tài khoản"
+            android:fontFamily="sans-serif"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#CCCCCC"
+            android:layout_marginTop="60dp" />
+
+        <EditText
+            android:layout_width="340dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            android:background="@drawable/rounded_corner"
+            android:padding="10dp"
+            android:hint="Nhập tên của bạn*"
+            android:singleLine="true"
+            android:ellipsize="end" />
+
+        <EditText
+            android:layout_width="340dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="170dp"
+            android:background="@drawable/rounded_corner"
+            android:padding="10dp"
+            android:hint="Nhập họ của bạn"
+            android:singleLine="true"
+            android:ellipsize="end" />
+
+        <EditText
+            android:layout_width="340dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="240dp"
+            android:background="@drawable/rounded_corner"
+            android:padding="10dp"
+            android:hint="Email của bạn"
+            android:singleLine="true"
+            android:ellipsize="end" />
+
+        <EditText
+            android:layout_width="340dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="310dp"
+            android:background="@drawable/rounded_corner"
+            android:padding="10dp"
+            android:hint="Chọn ngày sinh"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:paddingEnd="70dp"/>
+
+        <Button
+            app:backgroundTint="@null"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_marginTop="317dp"
+            android:layout_marginLeft="336dp"
+            android:background="@drawable/calendar"/>
+
+
+        <View
+            android:layout_width="340dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="380dp"
+            android:layout_marginLeft="35dp"
+            android:background="@drawable/rounded_corner"/>
+
+        <Spinner
+            android:id="@+id/spinnerGender"
+            android:layout_width="340dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="380dp"
+            android:layout_marginLeft="35dp"
+            android:spinnerMode="dropdown"/>
+
+        <CheckBox
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="460dp"
+            android:layout_marginLeft="37dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="457dp"
+            android:layout_marginLeft="70dp"
+            android:text="Tôi đồng ý với các Điều khoản điều kiện của \nThe Coffee House"
+            android:fontFamily="sans-serif"
+            android:textSize="15sp"/>
+
+    </RelativeLayout>
+</layout>
