@@ -13,29 +13,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HachikoCoffee"
         tools:targetApi="31">
-<<<<<<< HEAD
         <activity
             android:name=".InfoAccountLoginActivity"
             android:exported="true" >
-=======
-        <activity android:name=".Activity.LoginOTPActivity"
-            android:exported="true">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity android:name=".Login"
-            android:exported="true">
->>>>>>> main
             <intent-filter>
 <!--                <action android:name="android.intent.action.MAIN" />-->
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginOTPActivity"
+            android:name=".Activity.LoginOTPActivity"
             android:exported="true">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -45,9 +32,7 @@
             android:name=".Login"
             android:exported="true">
             <intent-filter>
-
                 <!-- <action android:name="android.intent.action.MAIN" /> -->
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -65,10 +50,8 @@
             android:exported="true">
             <intent-filter>
 <!--                <action android:name="android.intent.action.MAIN" />-->
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
-
 </manifest>
