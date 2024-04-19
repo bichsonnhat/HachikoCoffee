@@ -1,28 +1,23 @@
 package com.example.hachikocoffee;
 
 import android.app.Dialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.hachikocoffee.Adapter.SizeAdapter;
+import com.example.hachikocoffee.Adapter.ToppingAdapter;
 import com.example.hachikocoffee.Domain.ItemsDomain;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -35,7 +30,7 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
     RecyclerView recyclerView;
     RecyclerView recyclerViewTopping;
     ItemClickListener itemClickListener;
-    MainAdapter adapter;
+    SizeAdapter adapter;
     ToppingAdapter toppingAdapter;
 
     public ProductDetail(ItemsDomain object){ this.object = object;};
@@ -75,7 +70,7 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
         };
 
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        adapter = new MainAdapter(arrayList, itemClickListener);
+        adapter = new SizeAdapter(arrayList, itemClickListener);
         recyclerView.setAdapter(adapter);
 
         return view;

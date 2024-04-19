@@ -1,4 +1,4 @@
-package com.example.hachikocoffee;
+package com.example.hachikocoffee.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,15 +9,18 @@ import android.widget.RadioButton;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hachikocoffee.ItemClickListener;
+import com.example.hachikocoffee.R;
+
 import java.util.ArrayList;
 
-public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
+public class SizeAdapter extends RecyclerView.Adapter<SizeAdapter.ViewHolder> {
 
     ArrayList<String> arrayList;
     ItemClickListener itemClickListener;
     int selectPosition = -1;
 
-    public MainAdapter(ArrayList<String> arrayList, ItemClickListener itemClickListener) {
+    public SizeAdapter(ArrayList<String> arrayList, ItemClickListener itemClickListener) {
         this.arrayList = arrayList;
         this.itemClickListener = itemClickListener;
     }
