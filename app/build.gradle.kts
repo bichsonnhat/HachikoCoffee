@@ -53,4 +53,10 @@ dependencies {
     implementation ("me.relex:circleindicator:2.1.6")
     implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
     implementation("androidx.browser:browser:1.8.0")
+
+    // CardView
+    implementation("androidx.cardview:cardview:1.0.0")
+
+    // RecyclerView
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
 }
