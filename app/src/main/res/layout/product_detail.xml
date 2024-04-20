@@ -166,6 +166,7 @@
                 android:background="@drawable/edit_button"
                 />
             <TextView
+                android:id="@+id/numberOfProduct"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:textColor="@color/black"
