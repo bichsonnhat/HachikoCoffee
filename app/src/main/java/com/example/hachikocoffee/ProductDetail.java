@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +24,8 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class ProductDetail extends BottomSheetDialogFragment implements ToppingListener {
@@ -32,6 +35,9 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
     ItemClickListener itemClickListener;
     SizeAdapter adapter;
     ToppingAdapter toppingAdapter;
+    int countProduct = 0;
+    String SizeProduct = null;
+    ArrayList<String> toppingList = new ArrayList<>();
 
     public ProductDetail(ItemsDomain object){ this.object = object;};
     @Override
@@ -41,6 +47,41 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
         TextView productCost = view.findViewById(R.id.productCost);
         ImageView productImage = view.findViewById(R.id.product_image_scr);
         recyclerViewTopping = view.findViewById(R.id.productRecyclerTopping);
+        TextView minusProduct = view.findViewById(R.id.minusProduct);
+        TextView plusProduct = view.findViewById(R.id.plusProduct);
+        TextView numberOfProduct = view.findViewById(R.id.numberOfProduct);
+        AppCompatButton totalProductCost = view.findViewById(R.id.totalProductCost);
+        minusProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                countProduct--;
+                countProduct = Math.max(countProduct, 0);
+                numberOfProduct.setText(""+countProduct);
+            }
+        });
+
+        plusProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                countProduct++;
+                numberOfProduct.setText(""+countProduct);
+            }
+        });
+
+        totalProductCost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (SizeProduct == null){
+                    Toast.makeText(getContext(), "Vui lòng chọn size đồ uống", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (countProduct == 0){
+                    Toast.makeText(getContext(), "Vui lòng chọn số lượng", Toast.LENGTH_SHORT).show();
+                }
+                Toast.makeText(getContext(), toppingList.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
         setRecycleViewTopping();
 
         productName.setText(object.getTitle());
@@ -65,6 +106,7 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
                         adapter.notifyDataSetChanged();
                     }
                 });
+                SizeProduct = s;
                 Toast.makeText(getContext(), "Selected " + s, Toast.LENGTH_SHORT).show();
             }
         };
@@ -121,6 +163,7 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
     @Override
     public void onToppingChange(ArrayList<String> arrayList) {
         // Handle your Topping List
+        toppingList = arrayList;
         Toast.makeText(getContext(), arrayList.toString(), Toast.LENGTH_SHORT).show();
     }
 }
