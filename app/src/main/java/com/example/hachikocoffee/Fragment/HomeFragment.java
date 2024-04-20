@@ -1,9 +1,11 @@
 package com.example.hachikocoffee.Fragment;
 
+import android.graphics.Outline;
 import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -12,20 +14,27 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
+import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.hachikocoffee.Activity.MainActivity;
+import com.example.hachikocoffee.Adapter.NewListAdapter;
+import com.example.hachikocoffee.Domain.ItemsDomain;
 import com.example.hachikocoffee.Photo;
-import com.example.hachikocoffee.PhotoAdapter;
+import com.example.hachikocoffee.Adapter.PhotoAdapter;
 import com.example.hachikocoffee.R;
-import com.example.hachikocoffee.ShortcutDomain;
+import com.example.hachikocoffee.Domain.ShortcutDomain;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import me.relex.circleindicator.CircleIndicator;
+import com.example.hachikocoffee.Adapter.ShortcutAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,8 +43,12 @@ import me.relex.circleindicator.CircleIndicator;
  */
 public class HomeFragment extends Fragment {
     private RecyclerView.Adapter adapter;
+    private RecyclerView.Adapter adapter1;
     private RecyclerView recyclerViewShortcutList;
+    private RecyclerView recyclerViewNewList;
+
     private ArrayList<ShortcutDomain> itemList;
+    private ArrayList<ItemsDomain> itemList1;
 
     private ViewPager viewPager;
     private CircleIndicator circleIndicator;
@@ -43,7 +56,7 @@ public class HomeFragment extends Fragment {
 
     private Handler handler;
     private Runnable runnable;
-    private int delay = 3000;
+    private int delay = 5000;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -92,12 +105,37 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+
+        initShorcut(view);
+        initViewPager(view);
+        initNewList(view);
+        return view;
+    }
+
+    public  void initNewList(View view){
+        recyclerViewNewList = view.findViewById(R.id.recyclerView_Newlist);
+        //recyclerViewNewList.setHasFixedSize(true);
+
+        itemList1 = new ArrayList<>();
+
+        itemList1.add(new ItemsDomain("Trà đào", 20000.0 , "peach_tea" ));
+        itemList1.add(new ItemsDomain("Trà đào", 30000.0,"peach_tea"));
+        itemList1.add(new ItemsDomain("Trà đào", 10000.0, "peach_tea"));
+        itemList1.add(new ItemsDomain("Trà đào", 50000.0, "peach_tea"));
+        itemList1.add(new ItemsDomain("Trà đào", 50000.0, "peach_tea"));
+
+        adapter1 = new NewListAdapter(itemList1);
+        recyclerViewNewList.setAdapter(adapter1);
+
+        recyclerViewNewList.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+
+
+
+    }
+
+    public void initShorcut(View view){
         recyclerViewShortcutList = view.findViewById(R.id.recyclerView_Shortcut);
-        viewPager = view.findViewById(R.id.viewpager);
-        circleIndicator = view.findViewById(R.id.circle_indicator);
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-
         recyclerViewShortcutList.setLayoutManager(layoutManager);
 
         itemList = new ArrayList<>();
@@ -107,8 +145,22 @@ public class HomeFragment extends Fragment {
         itemList.add(new ShortcutDomain("Giao hàng", "shipping"));
         itemList.add(new ShortcutDomain("Giao hàng", "shipping"));
 
-        adapter = new MyAdapter(itemList);
+        adapter = new ShortcutAdapter(itemList);
         recyclerViewShortcutList.setAdapter(adapter);
+    }
+
+    public void initViewPager(View view){
+        viewPager = view.findViewById(R.id.viewpager);
+
+        viewPager.setOutlineProvider(new ViewOutlineProvider() {
+            @Override
+            public void getOutline(View view, Outline outline) {
+                outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(), 16);
+            }
+        });
+        viewPager.setClipToOutline(true);
+
+        circleIndicator = view.findViewById(R.id.circle_indicator);
 
         photoAdapter = new PhotoAdapter(requireContext(), getListPhoto());
         viewPager.setAdapter(photoAdapter);
@@ -126,8 +178,6 @@ public class HomeFragment extends Fragment {
             }
         };
         handler.postDelayed(runnable, delay);
-
-        return view;
     }
 
     private List<Photo> getListPhoto(){
@@ -138,91 +188,5 @@ public class HomeFragment extends Fragment {
         list.add(new Photo(R.drawable.image_4));
 
         return list;
-    }
-
-
-
-    public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
-
-        private ArrayList<ShortcutDomain> itemList;
-
-        public MyAdapter(ArrayList<ShortcutDomain> itemList) {
-            this.itemList = itemList;
-        }
-
-        @Override
-        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_shortcut, parent, false);
-            return new MyViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(MyViewHolder holder, int position) {
-            holder.shortcutName.setText(itemList.get(position).getTitle());
-            String picUrl ="";
-            switch (position){
-                case 0: {
-                    picUrl = "shipping";
-                    break;
-                }
-                case 1: {
-                    picUrl = "takeaway";
-                    break;
-                }
-                case 2: {
-                    picUrl = "shipping";
-                    break;
-                }
-                case 3: {
-                    picUrl = "shipping";
-                    break;
-                }
-                case 4: {
-                    picUrl = "shipping";
-                    break;
-                }
-            }
-
-            int drawableResourceId = holder.itemView.getContext().getResources()
-                    .getIdentifier(picUrl, "drawable",
-                            holder.itemView.getContext().getPackageName());
-            Glide.with(holder.itemView.getContext())
-                    .load(drawableResourceId)
-                    .into(holder.shortcutPic);
-
-
-
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-//                    ShortcutDomain item = itemList.get(position);
-//                    Toast.makeText(holder.itemView.getContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
-                }
-            });
-
-            // Thiết lập background cho itemView
-            holder.itemView.setBackgroundResource(R.drawable.background_shortcut);
-        }
-
-        @Override
-        public int getItemCount() {
-            return itemList.size();
-        }
-    }
-
-    // Tạo ViewHolder
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-
-        TextView shortcutName;
-        ImageView shortcutPic;
-        ConstraintLayout mainLayout;
-
-        public MyViewHolder(View itemView) {
-            super(itemView);
-            shortcutName = itemView.findViewById(R.id.shortcutName);
-            shortcutPic = itemView.findViewById(R.id.shortcutPic);
-            mainLayout = itemView.findViewById(R.id.mainLayout);
-        }
-
     }
 }

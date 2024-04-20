@@ -15,8 +15,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Order Fragment"
-        android:layout_gravity="center"
-        android:textSize="26dp"/>
+        android:layout_marginStart="25dp"
+        android:text="Danh mục"
+        android:textSize="21sp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        />
+
 
 </FrameLayout>
