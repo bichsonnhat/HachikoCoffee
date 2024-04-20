@@ -40,14 +40,17 @@
 
 
         <LinearLayout
-            android:layout_width="380dp"
+            android:layout_width="370dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="220dp"
-            android:background="#FFFFFFFF"
-            android:orientation="vertical">
+            android:layout_marginBottom="210dp"
+            android:orientation="vertical"
+            android:padding="6dp"
+            android:elevation="6dp"
+            android:background="@drawable/white_background">
 
-            <Button
+
+        <Button
                 android:id="@+id/btnFeedback"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -58,23 +61,25 @@
                 android:text="Liên hệ và góp ý"
                 android:textAlignment="viewStart"
                 android:textColor="#000000"
-                android:textSize="20sp"
+                android:textSize="19sp"
                 app:backgroundTint="@null" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="380dp"
+            android:layout_width="370dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="80dp"
-            android:background="#FFFFFFFF"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="6dp"
+            android:elevation="6dp"
+            android:background="@drawable/white_background">
 
             <Button
                 android:id="@+id/btnInfo"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="8dp"
                 android:background="#FFFFFF"
                 android:drawableEnd="@drawable/arrow_right"
@@ -82,7 +87,7 @@
                 android:text="Thông tin cá nhân"
                 android:textAlignment="viewStart"
                 android:textColor="#000000"
-                android:textSize="20sp"
+                android:textSize="19sp"
                 app:backgroundTint="@null" />
 
             <View
@@ -93,7 +98,7 @@
             <Button
                 android:id="@+id/btnAddress"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="8dp"
                 android:background="#FFFFFF"
                 android:drawableEnd="@drawable/arrow_right"
@@ -101,7 +106,7 @@
                 android:text="Địa chỉ đã lưu"
                 android:textAlignment="viewStart"
                 android:textColor="#000000"
-                android:textSize="20sp"
+                android:textSize="19sp"
                 app:backgroundTint="@null" />
 
             <View
@@ -112,7 +117,7 @@
             <Button
                 android:id="@+id/btnSignOut"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="8dp"
                 android:background="#FFFFFF"
                 android:drawableEnd="@drawable/arrow_right"
@@ -120,7 +125,7 @@
                 android:text="Đăng xuất"
                 android:textAlignment="viewStart"
                 android:textColor="#000000"
-                android:textSize="20sp"
+                android:textSize="19sp"
                 app:backgroundTint="@null" />
         </LinearLayout>
 
