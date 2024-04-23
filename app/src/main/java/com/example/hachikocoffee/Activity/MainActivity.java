@@ -1,5 +1,6 @@
 package com.example.hachikocoffee.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -7,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.PopupWindow;
@@ -18,6 +20,11 @@ import com.example.hachikocoffee.Fragment.OtherFragment;
 import com.example.hachikocoffee.Fragment.ShopFragment;
 import com.example.hachikocoffee.R;
 import com.example.hachikocoffee.databinding.ActivityMainBinding;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
             return true;
         });
+
     }
 
     private void replaceFragment(Fragment fragment){
