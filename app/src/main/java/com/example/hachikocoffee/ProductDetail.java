@@ -92,6 +92,7 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
         Glide.with(requireContext())
                 .load(drawableResourceId)
                 .into(productImage);
+
         recyclerView = view.findViewById(R.id.productRecyclerSize);
         ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("Lớn");
@@ -151,6 +152,8 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
 
             }
         });
+
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         return dialog;
     }
 
