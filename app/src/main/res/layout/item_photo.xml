@@ -5,11 +5,11 @@
     android:layout_height="match_parent">
 
     <ImageView
-        
+
         android:id="@+id/img_photo"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:src="@drawable/image_1"
-        android:scaleType="centerCrop"/>
+        android:layout_height="match_parent"
+        android:scaleType="matrix"
+        android:src="@drawable/image_1" />
 
 </LinearLayout>
