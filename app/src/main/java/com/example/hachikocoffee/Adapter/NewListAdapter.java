@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -40,36 +41,33 @@ public class NewListAdapter extends RecyclerView.Adapter<NewListAdapter.Viewhold
     @Override
     public void onBindViewHolder(@NonNull NewListAdapter.Viewholder holder, int position) {
         holder.title.setText(items.get(position).getTitle());
-        holder.priceTxt.setText(items.get(position).getPrice() +"đ");
+        holder.priceTxt.setText(items.get(position).getPrice() +"00đ");
         String picUrl ="";
         switch (position){
             case 0: {
-                picUrl = "peach_tea";
+                picUrl = items.get(position).getPicUrl().toString();
                 break;
             }
             case 1: {
-                picUrl = "peach_tea";
+                picUrl = items.get(position).getPicUrl().toString();
                 break;
             }
-            case 2: {
-                picUrl = "peach_tea";
-                break;
-            }
-            case 3: {
-                picUrl = "peach_tea";
-                break;
-            }
-            case 4: {
-                picUrl = "peach_tea";
-                break;
-            }
+//            case 2: {
+//                picUrl = "peach_tea";
+//                break;
+//            }
+//            case 3: {
+//                picUrl = "peach_tea";
+//                break;
+//            }
+//            case 4: {
+//                picUrl = "peach_tea";
+//                break;
+//            }
         }
 
-        int drawableResourceId = holder.itemView.getContext().getResources()
-                .getIdentifier(picUrl, "drawable",
-                        holder.itemView.getContext().getPackageName());
         Glide.with(holder.itemView.getContext())
-                .load(drawableResourceId)
+                .load(picUrl)
                 .into(holder.pic);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

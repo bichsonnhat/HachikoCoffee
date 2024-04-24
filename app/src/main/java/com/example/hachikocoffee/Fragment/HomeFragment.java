@@ -3,6 +3,7 @@ package com.example.hachikocoffee.Fragment;
 import android.graphics.Outline;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +22,12 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.hachikocoffee.Activity.MainActivity;
 import com.example.hachikocoffee.Adapter.NewListAdapter;
+import com.example.hachikocoffee.Domain.CategoryDomain;
 import com.example.hachikocoffee.Domain.ItemsDomain;
 import com.example.hachikocoffee.Photo;
 import com.example.hachikocoffee.Adapter.PhotoAdapter;
@@ -35,6 +39,11 @@ import java.util.List;
 
 import me.relex.circleindicator.CircleIndicator;
 import com.example.hachikocoffee.Adapter.ShortcutAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,6 +66,7 @@ public class HomeFragment extends Fragment {
     private Handler handler;
     private Runnable runnable;
     private int delay = 5000;
+    private int MonMoiPhaiThuID = 0;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -114,20 +124,59 @@ public class HomeFragment extends Fragment {
 
     public  void initNewList(View view){
         recyclerViewNewList = view.findViewById(R.id.recyclerView_Newlist);
-        //recyclerViewNewList.setHasFixedSize(true);
-
         itemList1 = new ArrayList<>();
+        //recyclerViewNewList.setHasFixedSize(true);
+        DatabaseReference categories = FirebaseDatabase.getInstance().getReference("CATEGORY");
+        DatabaseReference items = FirebaseDatabase.getInstance().getReference("PRODUCTS");
+        int CafeHighlight = 0;
+        categories.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot issue : snapshot.getChildren()) {
+                        CategoryDomain category = issue.getValue(CategoryDomain.class);
+                        if (category.getTitle().equals("Cafe Highlight")){
+                            MonMoiPhaiThuID = category.getCategoryID();
+                            items.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if (snapshot.exists()){
+                                        for (DataSnapshot value : snapshot.getChildren()){
+                                            ItemsDomain item = value.getValue(ItemsDomain.class);
+                                            if (item.getCategoryID() == MonMoiPhaiThuID){
+                                                itemList1.add(new ItemsDomain(item.getTitle(), item.getPrice(), item.getPicUrl(), item.getDescription(), item.getCategoryID(), item.getItemID()));
+                                            }
+                                        }
+                                    }
+                                    adapter1 = new NewListAdapter(itemList1);
+                                    recyclerViewNewList.setAdapter(adapter1);
 
-        itemList1.add(new ItemsDomain("Trà đào", 20000.0 , "peach_tea" ));
-        itemList1.add(new ItemsDomain("Trà đào", 30000.0,"peach_tea"));
-        itemList1.add(new ItemsDomain("Trà đào", 10000.0, "peach_tea"));
-        itemList1.add(new ItemsDomain("Trà đào", 50000.0, "peach_tea"));
-        itemList1.add(new ItemsDomain("Trà đào", 50000.0, "peach_tea"));
+                                    recyclerViewNewList.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+                                }
 
-        adapter1 = new NewListAdapter(itemList1);
-        recyclerViewNewList.setAdapter(adapter1);
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
 
-        recyclerViewNewList.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("FirebaseError", "Failed to read value.", error.toException());
+                // Notify user about the error
+            }
+        });
+
+//        itemList1.add(new ItemsDomain("Trà đào", 20000.0 , "peach_tea", "", 0, 0));
+//        itemList1.add(new ItemsDomain("Trà đào", 30000.0,"peach_tea", "", 0, 0));
+//        itemList1.add(new ItemsDomain("Trà đào", 10000.0, "peach_tea", "", 0, 0));
+//        itemList1.add(new ItemsDomain("Trà đào", 50000.0, "peach_tea", "", 0, 0));
+//        itemList1.add(new ItemsDomain("Trà đào", 50000.0, "peach_tea", "", 0, 0));
+
 
 
 
