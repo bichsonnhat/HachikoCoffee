@@ -78,9 +78,9 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
+                        android:layout_height="0.8dp"
                         android:layout_marginTop="38dp"
-                        android:background="#cfcfcf"
+                        android:background="#dfdfdf"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
