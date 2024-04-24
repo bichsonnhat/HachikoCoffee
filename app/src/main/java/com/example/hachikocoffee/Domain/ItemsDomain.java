@@ -20,13 +20,13 @@ public class ItemsDomain implements Serializable{
     private int CategoryID;
 
     @PropertyName("ProductID")
-    private int itemID;
+    private String itemID;
 
     public ItemsDomain(){
 
     };
 
-    public ItemsDomain(String title, double price, String picUrl, String description, int categoryID, int itemID) {
+    public ItemsDomain(String title, double price, String picUrl, String description, int categoryID, String itemID) {
         this.title = title;
         this.price = price;
         this.picUrl = picUrl;
@@ -51,11 +51,11 @@ public class ItemsDomain implements Serializable{
         CategoryID = categoryID;
     }
 
-    public int getItemID() {
+    public String getProductID() {
         return itemID;
     }
 
-    public void setItemID(int itemID) {
+    public void setProductID(String itemID) {
         this.itemID = itemID;
     }
 
@@ -75,11 +75,11 @@ public class ItemsDomain implements Serializable{
         this.price = price;
     }
 
-    public String getPicUrl() {
+    public String getImageURL() {
         return picUrl;
     }
 
-    public void setPicUrl(String picUrl) {
+    public void setImageURL(String picUrl) {
         this.picUrl = picUrl;
     }
 }

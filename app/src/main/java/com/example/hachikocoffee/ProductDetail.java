@@ -1,5 +1,6 @@
 package com.example.hachikocoffee;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -40,6 +41,7 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
     ArrayList<String> toppingList = new ArrayList<>();
 
     public ProductDetail(ItemsDomain object){ this.object = object;};
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.product_detail, container,false);
@@ -85,12 +87,11 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
         setRecycleViewTopping();
 
         productName.setText(object.getTitle());
-        productCost.setText(object.getPrice() + "đ");
-        String PicUrl = object.getPicUrl();
+        productCost.setText(Math.round(object.getPrice()) + "000đ");
+        String PicUrl = object.getImageURL();
 
-        int drawableResourceId = getResources().getIdentifier(PicUrl, "drawable", requireContext().getPackageName());
         Glide.with(requireContext())
-                .load(drawableResourceId)
+                .load(PicUrl)
                 .into(productImage);
 
         recyclerView = view.findViewById(R.id.productRecyclerSize);

@@ -1,5 +1,6 @@
 package com.example.hachikocoffee.Fragment;
 
+import android.annotation.SuppressLint;
 import android.graphics.Outline;
 import android.os.Bundle;
 
@@ -68,6 +69,12 @@ public class HomeFragment extends Fragment {
     private int delay = 5000;
     private int MonMoiPhaiThuID = 0;
 
+    DatabaseReference categories;
+    DatabaseReference items;
+    ValueEventListener categoryListener;
+    ValueEventListener itemsListener;
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -126,50 +133,54 @@ public class HomeFragment extends Fragment {
         recyclerViewNewList = view.findViewById(R.id.recyclerView_Newlist);
         itemList1 = new ArrayList<>();
         //recyclerViewNewList.setHasFixedSize(true);
-        DatabaseReference categories = FirebaseDatabase.getInstance().getReference("CATEGORY");
-        DatabaseReference items = FirebaseDatabase.getInstance().getReference("PRODUCTS");
-        int CafeHighlight = 0;
-        categories.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    for (DataSnapshot issue : snapshot.getChildren()) {
-                        CategoryDomain category = issue.getValue(CategoryDomain.class);
-                        if (category.getTitle().equals("Cafe Highlight")){
-                            MonMoiPhaiThuID = category.getCategoryID();
-                            items.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if (snapshot.exists()){
-                                        for (DataSnapshot value : snapshot.getChildren()){
-                                            ItemsDomain item = value.getValue(ItemsDomain.class);
-                                            if (item.getCategoryID() == MonMoiPhaiThuID){
-                                                itemList1.add(new ItemsDomain(item.getTitle(), item.getPrice(), item.getPicUrl(), item.getDescription(), item.getCategoryID(), item.getItemID()));
-                                            }
-                                        }
-                                    }
-                                    adapter1 = new NewListAdapter(itemList1);
-                                    recyclerViewNewList.setAdapter(adapter1);
+        categories = FirebaseDatabase.getInstance().getReference("CATEGORY");
+        items = FirebaseDatabase.getInstance().getReference("PRODUCTS");
+        setupCategoryListener();
 
-                                    recyclerViewNewList.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-
-                                }
-                            });
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("FirebaseError", "Failed to read value.", error.toException());
-                // Notify user about the error
-            }
-        });
+//        categories.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if (snapshot.exists()) {
+//                    for (DataSnapshot issue : snapshot.getChildren()) {
+//                        CategoryDomain category = issue.getValue(CategoryDomain.class);
+//                        if (category.getTitle().equals("Cafe Highlight")){
+//                            MonMoiPhaiThuID = category.getCategoryID();
+//                            items.addListenerForSingleValueEvent(new ValueEventListener() {
+//                                @Override
+//                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                    if (snapshot.exists()){
+//                                        for (DataSnapshot value : snapshot.getChildren()){
+//                                            ItemsDomain item = value.getValue(ItemsDomain.class);
+//                                            if (item.getCategoryID() == MonMoiPhaiThuID){
+//                                                itemList1.add(new ItemsDomain(item.getTitle(), item.getPrice(), item.getImageURL(), item.getDescription(), item.getCategoryID(), item.getProductID()));
+//                                                itemList1.add(item);
+//                                            }
+//                                        }
+//                                    }
+//                                   if (!itemList1.isEmpty()){
+//                                       adapter1 = new NewListAdapter(itemList1);
+//                                       recyclerViewNewList.setAdapter(adapter1);
+//
+//                                       recyclerViewNewList.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+//                                   }
+//                                }
+//
+//                                @Override
+//                                public void onCancelled(@NonNull DatabaseError error) {
+//
+//                                }
+//                            });
+//                        }
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                Log.e("FirebaseError", "Failed to read value.", error.toException());
+//                // Notify user about the error
+//            }
+//        });
 
 //        itemList1.add(new ItemsDomain("Trà đào", 20000.0 , "peach_tea", "", 0, 0));
 //        itemList1.add(new ItemsDomain("Trà đào", 30000.0,"peach_tea", "", 0, 0));
@@ -177,9 +188,76 @@ public class HomeFragment extends Fragment {
 //        itemList1.add(new ItemsDomain("Trà đào", 50000.0, "peach_tea", "", 0, 0));
 //        itemList1.add(new ItemsDomain("Trà đào", 50000.0, "peach_tea", "", 0, 0));
 
+    }
 
+    private void setupCategoryListener() {
+        categoryListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot categorySnapshot : snapshot.getChildren()) {
+                        CategoryDomain category = categorySnapshot.getValue(CategoryDomain.class);
+                        if (category != null && category.getTitle().equals("Cafe Highlight")) {
+                            setupItemsListener(category.getCategoryID());
+                            break;
+                        }
+                    }
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("FirebaseError", "Failed to read category values.", error.toException());
+            }
+        };
+        categories.addListenerForSingleValueEvent(categoryListener);
+    }
 
+    private void setupItemsListener(int categoryId) {
+        itemsListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                itemList1.clear();
+                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                    ItemsDomain item = itemSnapshot.getValue(ItemsDomain.class);
+                    if (item != null && item.getCategoryID() == categoryId) {
+                        itemList1.add(item);
+                    }
+                }
+                updateAdapter();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("FirebaseError", "Failed to read item values.", error.toException());
+            }
+        };
+        items.addValueEventListener(itemsListener);
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void updateAdapter() {
+        if (adapter1 == null) {
+            adapter1 = new NewListAdapter(itemList1);
+            recyclerViewNewList.setAdapter(adapter1);
+            recyclerViewNewList.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        } else {
+            adapter1.notifyDataSetChanged();
+        }
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        cleanupListeners();
+    }
+
+    private void cleanupListeners() {
+        if (categoryListener != null) {
+            categories.removeEventListener(categoryListener);
+        }
+        if (itemsListener != null) {
+            items.removeEventListener(itemsListener);
+        }
     }
 
     public void initShorcut(View view){
