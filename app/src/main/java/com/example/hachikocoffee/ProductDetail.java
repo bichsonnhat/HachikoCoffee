@@ -53,6 +53,10 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
         TextView plusProduct = view.findViewById(R.id.plusProduct);
         TextView numberOfProduct = view.findViewById(R.id.numberOfProduct);
         AppCompatButton totalProductCost = view.findViewById(R.id.totalProductCost);
+        TextView productDescription = view.findViewById(R.id.productDescription);
+        TextView productMinimumSize = view.findViewById(R.id.productMinimumSize);
+        TextView productMediumSize = view.findViewById(R.id.productMediumSize);
+        TextView productLargeSize = view.findViewById(R.id.productLargeSize);
         minusProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,9 +89,14 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
         });
 
         setRecycleViewTopping();
+        int itemCost = (int) object.getPrice();
 
         productName.setText(object.getTitle());
-        productCost.setText(Math.round(object.getPrice()) + "000đ");
+        productDescription.setText(object.getDescription());
+        productMinimumSize.setText(itemCost + ".000đ");
+        productMediumSize.setText(10 + itemCost + ".000đ");
+        productLargeSize.setText(20 + itemCost + ".000đ");
+        productCost.setText(itemCost + ".000đ");
         String PicUrl = object.getImageURL();
 
         Glide.with(requireContext())
