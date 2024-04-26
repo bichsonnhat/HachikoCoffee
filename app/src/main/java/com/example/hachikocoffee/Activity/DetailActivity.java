@@ -37,7 +37,7 @@ public class DetailActivity extends BottomSheetDialogFragment {
         titleDetail.setText(object.getTitle());
         priceDetail.setText(object.getPrice() + "đ");
 
-        String picUrl = object.getImageURL();
+        String picUrl = object.getPicUrl();
         int drawableResourceId = getResources().getIdentifier(picUrl, "drawable", requireContext().getPackageName());
 
         Glide.with(requireContext())

@@ -1,6 +1,5 @@
 package com.example.hachikocoffee;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,7 +12,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,8 +23,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 public class ProductDetail extends BottomSheetDialogFragment implements ToppingListener {
@@ -36,12 +32,8 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
     ItemClickListener itemClickListener;
     SizeAdapter adapter;
     ToppingAdapter toppingAdapter;
-    int countProduct = 0;
-    String SizeProduct = null;
-    ArrayList<String> toppingList = new ArrayList<>();
 
     public ProductDetail(ItemsDomain object){ this.object = object;};
-    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.product_detail, container,false);
@@ -49,60 +41,16 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
         TextView productCost = view.findViewById(R.id.productCost);
         ImageView productImage = view.findViewById(R.id.product_image_scr);
         recyclerViewTopping = view.findViewById(R.id.productRecyclerTopping);
-        TextView minusProduct = view.findViewById(R.id.minusProduct);
-        TextView plusProduct = view.findViewById(R.id.plusProduct);
-        TextView numberOfProduct = view.findViewById(R.id.numberOfProduct);
-        AppCompatButton totalProductCost = view.findViewById(R.id.totalProductCost);
-        TextView productDescription = view.findViewById(R.id.productDescription);
-        TextView productMinimumSize = view.findViewById(R.id.productMinimumSize);
-        TextView productMediumSize = view.findViewById(R.id.productMediumSize);
-        TextView productLargeSize = view.findViewById(R.id.productLargeSize);
-        minusProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                countProduct--;
-                countProduct = Math.max(countProduct, 0);
-                numberOfProduct.setText(""+countProduct);
-            }
-        });
-
-        plusProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                countProduct++;
-                numberOfProduct.setText(""+countProduct);
-            }
-        });
-
-        totalProductCost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (SizeProduct == null){
-                    Toast.makeText(getContext(), "Vui lòng chọn size đồ uống", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (countProduct == 0){
-                    Toast.makeText(getContext(), "Vui lòng chọn số lượng", Toast.LENGTH_SHORT).show();
-                }
-                Toast.makeText(getContext(), toppingList.toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
         setRecycleViewTopping();
-        int itemCost = (int) object.getPrice();
 
         productName.setText(object.getTitle());
-        productDescription.setText(object.getDescription());
-        productMinimumSize.setText(itemCost + ".000đ");
-        productMediumSize.setText(10 + itemCost + ".000đ");
-        productLargeSize.setText(20 + itemCost + ".000đ");
-        productCost.setText(itemCost + ".000đ");
-        String PicUrl = object.getImageURL();
+        productCost.setText(object.getPrice() + "đ");
+        String PicUrl = object.getPicUrl();
 
+        int drawableResourceId = getResources().getIdentifier(PicUrl, "drawable", requireContext().getPackageName());
         Glide.with(requireContext())
-                .load(PicUrl)
+                .load(drawableResourceId)
                 .into(productImage);
-
         recyclerView = view.findViewById(R.id.productRecyclerSize);
         ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("Lớn");
@@ -117,7 +65,6 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
                         adapter.notifyDataSetChanged();
                     }
                 });
-                SizeProduct = s;
                 Toast.makeText(getContext(), "Selected " + s, Toast.LENGTH_SHORT).show();
             }
         };
@@ -162,8 +109,6 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
 
             }
         });
-
-        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         return dialog;
     }
 
@@ -176,7 +121,6 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
     @Override
     public void onToppingChange(ArrayList<String> arrayList) {
         // Handle your Topping List
-        toppingList = arrayList;
         Toast.makeText(getContext(), arrayList.toString(), Toast.LENGTH_SHORT).show();
     }
 }

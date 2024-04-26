@@ -51,107 +51,93 @@
                 android:text="Đậm hương trà, thanh mát sắc xuân với Oolong Tứ Quý Vải. Cảm nhận hương hoa đầu mùa, hoà quyện cùng vị vải chín mọng căn tràn sự sống."
                 android:layout_marginStart="16dp"
                 />
-
             <TextView
                 android:id="@+id/productSize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/productDescription"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="540dp"
                 android:layout_weight="1"
-                android:text="Size"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:textStyle="bold" />
-
+                android:textStyle="bold"
+                android:layout_marginStart="16dp"
+                android:text="Size"/>
             <TextView
-                android:id="@+id/textView28"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/productSize"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="-2dp"
+                android:layout_marginTop="565dp"
                 android:layout_weight="1"
                 android:text="Chọn 1 loại size"
-                android:textColor="#807d7d" />
+                android:textColor="#807d7d"
+                android:layout_marginStart="16dp"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/productRecyclerSize"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView28"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="585dp"
                 tools:listitem="@layout/item_size" />
 
             <TextView
                 android:id="@+id/productLargeSize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/productRecyclerSize"
-                android:layout_marginStart="325dp"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="599dp"
                 android:gravity="right"
                 android:text="65.000đ"
+                android:layout_marginStart="325dp"
                 android:textSize="15sp" />
-
             <TextView
                 android:id="@+id/productMediumSize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/productLargeSize"
-                android:layout_marginStart="325dp"
-                android:layout_marginTop="31dp"
+                android:layout_marginTop="649dp"
                 android:gravity="right"
                 android:text="55.000đ"
+                android:layout_marginStart="325dp"
                 android:textSize="15sp" />
-
             <TextView
                 android:id="@+id/productMinimumSize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/productMediumSize"
-                android:layout_marginStart="325dp"
-                android:layout_marginTop="26dp"
+                android:layout_marginTop="696dp"
                 android:gravity="right"
                 android:text="45.000đ"
+                android:layout_marginStart="325dp"
                 android:textSize="15sp" />
-
             <TextView
-                android:id="@+id/textView29"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/productRecyclerSize"
-                android:layout_marginStart="16dp"
+                android:layout_marginTop="722dp"
                 android:layout_weight="1"
-                android:text="Topping"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:textStyle="bold" />
-
+                android:textStyle="bold"
+                android:layout_marginStart="16dp"
+                android:text="Topping"/>
             <TextView
-                android:id="@+id/textView30"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView29"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="747dp"
                 android:layout_weight="1"
                 android:text="Chọn topping"
-                android:textColor="#807d7d" />
+                android:textColor="#807d7d"
+                android:layout_marginStart="16dp"/>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/productRecyclerTopping"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView30"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="772dp"
                 tools:listitem="@layout/item_size" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="20dp"
-                android:layout_below="@+id/productRecyclerTopping"
+                android:layout_marginTop="1175dp"
+                app:layout_constraintBottom_toBottomOf="@+id/productRecyclerTopping"
+                app:layout_constraintEnd_toEndOf="@+id/productRecyclerTopping"
+                app:layout_constraintStart_toStartOf="@+id/productRecyclerTopping"
                 />
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
@@ -180,7 +166,6 @@
                 android:background="@drawable/edit_button"
                 />
             <TextView
-                android:id="@+id/numberOfProduct"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:textColor="@color/black"
