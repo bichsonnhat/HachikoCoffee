@@ -25,113 +25,88 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
             android:text="Cửa hàng"
-            android:textSize="16sp"
+            android:textSize="25sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/voucherBtn"
-            android:layout_width="72dp"
-            android:layout_height="36dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:clickable="true"
-            app:cardCornerRadius="100dp"
-            app:cardElevation="10dp"
-            app:cardPreventCornerOverlap="true"
-            app:layout_constraintEnd_toStartOf="@id/notiBtn"
+        <RelativeLayout
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="345dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:paddingStart="6dp">
+                android:background="@drawable/bg_ic_notification"
+                app:backgroundTint="@null" />
 
-                <ImageView
-                    android:id="@+id/voucherBtn_icon"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:src="@drawable/ic_voucher"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/notiBtn_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_notification"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.285"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/voucherBtn_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="11"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/voucherBtn_icon"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginLeft="33dp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/bg_notification" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/notBtn_cntFinal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="4dp"
+                android:text="11"
+                android:textColor="@color/white"
+                android:textSize="9sp" />
+        </RelativeLayout>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/notiBtn"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:clickable="true"
-            app:cardCornerRadius="999dp"
-            app:cardElevation="10dp"
-            app:cardPreventCornerOverlap="true"
-            app:layout_constraintEnd_toEndOf="parent"
+        <RelativeLayout
+            android:layout_width="70dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="270dp"
+            android:layout_marginTop="13dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <Button
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_ic_voucher"
+                app:backgroundTint="@null" />
 
-                <ImageView
-                    android:id="@+id/notiBtn_icon"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_notification"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_coupon" />
 
-                <ImageView
-                    android:id="@+id/notiBtn_cnt"
-                    android:layout_width="13dp"
-                    android:layout_height="13dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="4dp"
-                    android:src="@drawable/bg_notification"
-                    android:visibility="visible"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/notBtn_cntFinal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="11"
-                    android:textColor="@color/white"
-                    android:textSize="8sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/notiBtn_cnt"
-                    app:layout_constraintEnd_toEndOf="@+id/notiBtn_cnt"
-                    app:layout_constraintStart_toStartOf="@+id/notiBtn_cnt"
-                    app:layout_constraintTop_toTopOf="@+id/notiBtn_cnt" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/voucherBtn_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="43dp"
+                android:layout_marginTop="11dp"
+                android:text="11"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
 
         <EditText
             android:id="@+id/search"
@@ -197,6 +172,76 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/demo_shop"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_margin="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_store"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_list1">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/coffeee_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:background="@drawable/bg_store"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/coffee_store" />
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/the_hachiko_coffee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="8dp"
+                        android:text="THE HACHIKO COFFEE"
+                        android:textColor="#EC787878"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@+id/coffeee_img"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/dia_chi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="8dp"
+                        android:text="HCM Cao Thắng"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toEndOf="@+id/coffeee_img"
+                        app:layout_constraintTop_toBottomOf="@+id/the_hachiko_coffee" />
+
+                    <TextView
+                        android:id="@+id/khoang_cach"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="Cách đây 0,01 km"
+                        android:textColor="#ECA3A2A2"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/coffeee_img" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/list1"
                     android:layout_width="match_parent"
@@ -204,7 +249,7 @@
                     android:layout_marginTop="4dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_list1">
+                    app:layout_constraintTop_toBottomOf="@+id/demo_shop">
                 </androidx.recyclerview.widget.RecyclerView>
 
                 <TextView
