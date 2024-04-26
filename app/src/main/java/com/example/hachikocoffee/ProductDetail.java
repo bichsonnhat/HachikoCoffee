@@ -37,7 +37,7 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
     SizeAdapter adapter;
     ToppingAdapter toppingAdapter;
     int countProduct = 1;
-    String SizeProduct = null;
+    String SizeProduct = "Nhỏ";
     ArrayList<String> toppingList = new ArrayList<>();
     int sizeToping = 0;
 
