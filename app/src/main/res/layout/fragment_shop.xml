@@ -172,84 +172,14 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/demo_shop"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_margin="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@drawable/bg_store"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_list1">
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/coffeee_img"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
-                        app:cardCornerRadius="5dp"
-                        app:cardElevation="0dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:background="@drawable/bg_store"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/coffee_store" />
-                    </androidx.cardview.widget.CardView>
-
-                    <TextView
-                        android:id="@+id/the_hachiko_coffee"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="8dp"
-                        android:text="THE HACHIKO COFFEE"
-                        android:textColor="#EC787878"
-                        android:textSize="10sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toEndOf="@+id/coffeee_img"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/dia_chi"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="8dp"
-                        android:text="HCM Cao Thắng"
-                        android:textSize="16sp"
-                        app:layout_constraintStart_toEndOf="@+id/coffeee_img"
-                        app:layout_constraintTop_toBottomOf="@+id/the_hachiko_coffee" />
-
-                    <TextView
-                        android:id="@+id/khoang_cach"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginBottom="8dp"
-                        android:text="Cách đây 0,01 km"
-                        android:textColor="#ECA3A2A2"
-                        android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/coffeee_img" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/list1"
+                    android:id="@+id/rcv_list_shop1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/demo_shop">
+                    app:layout_constraintTop_toBottomOf="@+id/txt_list1">
                 </androidx.recyclerview.widget.RecyclerView>
 
                 <TextView
@@ -262,10 +192,10 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/list1" />
+                    app:layout_constraintTop_toBottomOf="@+id/rcv_list_shop1" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/list2"
+                    android:id="@+id/rcv_list_shop2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -284,10 +214,10 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/list2" />
+                    app:layout_constraintTop_toBottomOf="@+id/rcv_list_shop2" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/list3"
+                    android:id="@+id/rcv_list_shop3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"

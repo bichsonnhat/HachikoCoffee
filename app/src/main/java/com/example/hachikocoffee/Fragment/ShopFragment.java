@@ -3,12 +3,19 @@ package com.example.hachikocoffee.Fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.hachikocoffee.Adapter.ShopAdapter;
+import com.example.hachikocoffee.Domain.ShopDomain;
 import com.example.hachikocoffee.R;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +23,15 @@ import com.example.hachikocoffee.R;
  * create an instance of this fragment.
  */
 public class ShopFragment extends Fragment {
+
+    private RecyclerView recyclerView_listShop1;
+    private RecyclerView recyclerView_listShop2; // not used yet
+    private RecyclerView recyclerView_listShop3; // not used yet
+    //private RecyclerView.Adapter adapter;
+
+    private ArrayList<ShopDomain> shopList;
+
+    private ShopAdapter shopAdapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +77,24 @@ public class ShopFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_shop, container, false);
+        View view = inflater.inflate(R.layout.fragment_shop, container, false);
+
+        initShop(view);
+
+        return view;
+    }
+
+    public void initShop(View view) {
+        recyclerView_listShop1 = view.findViewById(R.id.rcv_list_shop1);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        recyclerView_listShop1.setLayoutManager(linearLayoutManager);
+
+        shopList = new ArrayList<>();
+        shopList.add(new ShopDomain(R.drawable.coffee_store, "HCM Cao Thắng", "0,01"));
+        shopList.add(new ShopDomain(R.drawable.coffee_store, "HCM Cao Thắng", "0,21"));
+        shopList.add(new ShopDomain(R.drawable.coffee_store, "HCM Cao Thắng", "3,21"));
+
+        shopAdapter = new ShopAdapter(shopList);
+        recyclerView_listShop1.setAdapter(shopAdapter);
     }
 }
