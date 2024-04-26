@@ -32,8 +32,15 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
     ItemClickListener itemClickListener;
     SizeAdapter adapter;
     ToppingAdapter toppingAdapter;
+    int countProduct = 1;
+    String SizeProduct = null;
+    ArrayList<String> toppingList = new ArrayList<>();
+    int sizeToping = 0;
 
     public ProductDetail(ItemsDomain object){ this.object = object;};
+    AppCompatButton totalProductCost;
+    int totalOrder = 0;
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.product_detail, container,false);
@@ -41,6 +48,52 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
         TextView productCost = view.findViewById(R.id.productCost);
         ImageView productImage = view.findViewById(R.id.product_image_scr);
         recyclerViewTopping = view.findViewById(R.id.productRecyclerTopping);
+        TextView minusProduct = view.findViewById(R.id.minusProduct);
+        TextView plusProduct = view.findViewById(R.id.plusProduct);
+        TextView numberOfProduct = view.findViewById(R.id.numberOfProduct);
+        totalProductCost = view.findViewById(R.id.totalProductCost);
+        TextView productDescription = view.findViewById(R.id.productDescription);
+        TextView productMinimumSize = view.findViewById(R.id.productMinimumSize);
+        TextView productMediumSize = view.findViewById(R.id.productMediumSize);
+        TextView productLargeSize = view.findViewById(R.id.productLargeSize);
+        totalProductCost.setText("Chọn • " + (int) (object.getPrice() + 10 * sizeToping) + ".000đ");
+        totalOrder = (int) object.getPrice();
+        minusProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                countProduct--;
+                if (countProduct == 0){
+                    countProduct = 1;
+                } else {
+                    numberOfProduct.setText(""+countProduct);
+                    totalProductCost.setText("Chọn • " + (totalOrder * countProduct + 10 * sizeToping) + ".000đ");
+                }
+            }
+        });
+
+        plusProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                countProduct++;
+                numberOfProduct.setText(""+countProduct);
+                totalProductCost.setText("Chọn • " + (totalOrder * countProduct + 10 * sizeToping) + ".000đ");
+            }
+        });
+
+        totalProductCost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (SizeProduct == null){
+                    Toast.makeText(getContext(), "Vui lòng chọn size đồ uống", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (countProduct == 0){
+                    Toast.makeText(getContext(), "Vui lòng chọn số lượng", Toast.LENGTH_SHORT).show();
+                }
+                Toast.makeText(getContext(), toppingList.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
         setRecycleViewTopping();
 
         productName.setText(object.getTitle());
@@ -66,6 +119,16 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
                     }
                 });
                 Toast.makeText(getContext(), "Selected " + s, Toast.LENGTH_SHORT).show();
+                if (SizeProduct.equals("Lớn")){
+                    totalOrder = 20 + itemCost;
+                }
+                if (SizeProduct.equals("Vừa")){
+                    totalOrder = 10 + itemCost;
+                }
+                if (SizeProduct.equals("Nhỏ")){
+                    totalOrder = itemCost;
+                }
+                totalProductCost.setText("Chọn • " + (totalOrder * countProduct + 10 * sizeToping) + ".000đ");
             }
         };
 
@@ -121,6 +184,10 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
     @Override
     public void onToppingChange(ArrayList<String> arrayList) {
         // Handle your Topping List
+        toppingList = arrayList;
+        sizeToping = arrayList.size();
+        totalOrder = (((int) object.getPrice() + 10 * sizeToping) * countProduct);
+        totalProductCost.setText("Chọn • " + totalOrder + ".000đ");
         Toast.makeText(getContext(), arrayList.toString(), Toast.LENGTH_SHORT).show();
     }
 }

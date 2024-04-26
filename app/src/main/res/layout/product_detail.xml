@@ -134,10 +134,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="1175dp"
-                app:layout_constraintBottom_toBottomOf="@+id/productRecyclerTopping"
-                app:layout_constraintEnd_toEndOf="@+id/productRecyclerTopping"
-                app:layout_constraintStart_toStartOf="@+id/productRecyclerTopping"
+                android:layout_marginTop="50dp"
+                android:layout_below="@+id/productRecyclerTopping"
                 />
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
@@ -172,7 +170,7 @@
                 android:textSize="16sp"
                 android:gravity="center"
                 android:layout_marginStart="58dp"
-                android:text="0"
+                android:text="1"
                 android:layout_marginTop="22dp"
                 />
             <TextView
