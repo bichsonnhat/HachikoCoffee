@@ -3,16 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/newlistLayout"
-    android:layout_width="150dp"
-    android:layout_height="230dp"
-    android:layout_margin="8dp"
+    android:layout_width="160dp"
+    android:layout_height="245dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    android:layout_marginEnd="8dp"
     android:background="@drawable/white_background"
-    android:elevation="3dp">
+    android:elevation="3dp"
+    >
 
     <ImageView
         android:id="@+id/pic"
-        android:layout_width="150dp"
-        android:layout_height="145dp"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
         android:src="@drawable/peach_tea"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
