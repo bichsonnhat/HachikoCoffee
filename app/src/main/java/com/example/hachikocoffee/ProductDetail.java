@@ -1,5 +1,6 @@
 package com.example.hachikocoffee;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -35,11 +36,15 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
     ItemClickListener itemClickListener;
     SizeAdapter adapter;
     ToppingAdapter toppingAdapter;
-    int countProduct = 0;
-    String SizeProduct = null;
+    int countProduct = 1;
+    String SizeProduct = "Nhỏ";
     ArrayList<String> toppingList = new ArrayList<>();
+    int sizeToping = 0;
 
     public ProductDetail(ItemsDomain object){ this.object = object;};
+    AppCompatButton totalProductCost;
+    int totalOrder = 0;
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.product_detail, container,false);
@@ -50,13 +55,23 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
         TextView minusProduct = view.findViewById(R.id.minusProduct);
         TextView plusProduct = view.findViewById(R.id.plusProduct);
         TextView numberOfProduct = view.findViewById(R.id.numberOfProduct);
-        AppCompatButton totalProductCost = view.findViewById(R.id.totalProductCost);
+        totalProductCost = view.findViewById(R.id.totalProductCost);
+        TextView productDescription = view.findViewById(R.id.productDescription);
+        TextView productMinimumSize = view.findViewById(R.id.productMinimumSize);
+        TextView productMediumSize = view.findViewById(R.id.productMediumSize);
+        TextView productLargeSize = view.findViewById(R.id.productLargeSize);
+        totalProductCost.setText("Chọn • " + (int) (object.getPrice() + 10 * sizeToping) + ".000đ");
+        totalOrder = (int) object.getPrice();
         minusProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 countProduct--;
-                countProduct = Math.max(countProduct, 0);
-                numberOfProduct.setText(""+countProduct);
+                if (countProduct == 0){
+                    countProduct = 1;
+                } else {
+                    numberOfProduct.setText(""+countProduct);
+                    totalProductCost.setText("Chọn • " + (totalOrder * countProduct + 10 * sizeToping) + ".000đ");
+                }
             }
         });
 
@@ -65,6 +80,7 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
             public void onClick(View v) {
                 countProduct++;
                 numberOfProduct.setText(""+countProduct);
+                totalProductCost.setText("Chọn • " + (totalOrder * countProduct + 10 * sizeToping) + ".000đ");
             }
         });
 
@@ -83,14 +99,18 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
         });
 
         setRecycleViewTopping();
+        int itemCost = (int) object.getPrice();
 
         productName.setText(object.getTitle());
-        productCost.setText(object.getPrice() + "đ");
-        String PicUrl = object.getPicUrl();
+        productDescription.setText(object.getDescription());
+        productMinimumSize.setText(itemCost + ".000đ");
+        productMediumSize.setText(10 + itemCost + ".000đ");
+        productLargeSize.setText(20 + itemCost + ".000đ");
+        productCost.setText(itemCost + ".000đ");
+        String PicUrl = object.getImageURL();
 
-        int drawableResourceId = getResources().getIdentifier(PicUrl, "drawable", requireContext().getPackageName());
         Glide.with(requireContext())
-                .load(drawableResourceId)
+                .load(PicUrl)
                 .into(productImage);
 
         recyclerView = view.findViewById(R.id.productRecyclerSize);
@@ -109,6 +129,16 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
                 });
                 SizeProduct = s;
                 Toast.makeText(getContext(), "Selected " + s, Toast.LENGTH_SHORT).show();
+                if (SizeProduct.equals("Lớn")){
+                    totalOrder = 20 + itemCost;
+                }
+                if (SizeProduct.equals("Vừa")){
+                    totalOrder = 10 + itemCost;
+                }
+                if (SizeProduct.equals("Nhỏ")){
+                    totalOrder = itemCost;
+                }
+                totalProductCost.setText("Chọn • " + (totalOrder * countProduct + 10 * sizeToping) + ".000đ");
             }
         };
 
@@ -167,6 +197,9 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
     public void onToppingChange(ArrayList<String> arrayList) {
         // Handle your Topping List
         toppingList = arrayList;
+        sizeToping = arrayList.size();
+        totalOrder = (((int) object.getPrice() + 10 * sizeToping) * countProduct);
+        totalProductCost.setText("Chọn • " + totalOrder + ".000đ");
         Toast.makeText(getContext(), arrayList.toString(), Toast.LENGTH_SHORT).show();
     }
 }

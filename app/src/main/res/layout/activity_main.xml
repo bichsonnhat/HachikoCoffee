@@ -19,8 +19,11 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
+        app:itemRippleColor="@null"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:labelVisibilityMode="labeled"
+        app:itemActiveIndicatorStyle="@style/Base.Theme.HachikoCoffee"
         app:backgroundTint="#FFFFFF"
         app:itemHorizontalTranslationEnabled="false"
         app:itemIconSize="26dp"

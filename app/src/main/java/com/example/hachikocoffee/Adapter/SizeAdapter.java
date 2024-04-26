@@ -18,7 +18,7 @@ public class SizeAdapter extends RecyclerView.Adapter<SizeAdapter.ViewHolder> {
 
     ArrayList<String> arrayList;
     ItemClickListener itemClickListener;
-    int selectPosition = -1;
+    int selectPosition = 2;
 
     public SizeAdapter(ArrayList<String> arrayList, ItemClickListener itemClickListener) {
         this.arrayList = arrayList;

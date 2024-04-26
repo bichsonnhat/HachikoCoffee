@@ -15,7 +15,7 @@ import com.example.hachikocoffee.databinding.ViewholderCategoryBinding;
 
 import java.util.ArrayList;
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Viewholder> {
-    private ArrayList<CategoryDomain> items;
+    private final ArrayList<CategoryDomain> items;
     private Context context;
 
     public CategoryAdapter(ArrayList<CategoryDomain> items){
@@ -30,18 +30,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Viewho
         return new Viewholder(binding);
     }
 
-//    @Override
-//    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
-//        super.onAttachedToRecyclerView(recyclerView);
-//
-//        GridLayoutManager layoutManager = (GridLayoutManager) recyclerView.getLayoutManager();
-//        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-//            @Override
-//            public int getSpanSize(int position) {
-//                return 1; // Mỗi item chiếm 1 cột
-//            }
-//        });
-//    }
 
     @Override
     public void onBindViewHolder(@NonNull CategoryAdapter.Viewholder holder, int position) {
