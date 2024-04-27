@@ -34,7 +34,7 @@
             android:layout_marginTop="17dp"
             android:text="Khác"
             android:textColor="@color/black"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <RelativeLayout
