@@ -5,7 +5,6 @@ import android.graphics.Outline;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,18 +17,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
-import android.widget.BaseAdapter;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.example.hachikocoffee.Activity.MainActivity;
 import com.example.hachikocoffee.Adapter.NewListAdapter;
 import com.example.hachikocoffee.Domain.CategoryDomain;
 import com.example.hachikocoffee.Domain.ItemsDomain;
+import com.example.hachikocoffee.EdgeItemDecoration;
 import com.example.hachikocoffee.Photo;
 import com.example.hachikocoffee.Adapter.PhotoAdapter;
 import com.example.hachikocoffee.R;
@@ -137,57 +129,6 @@ public class HomeFragment extends Fragment {
         items = FirebaseDatabase.getInstance().getReference("PRODUCTS");
         setupCategoryListener();
 
-//        categories.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if (snapshot.exists()) {
-//                    for (DataSnapshot issue : snapshot.getChildren()) {
-//                        CategoryDomain category = issue.getValue(CategoryDomain.class);
-//                        if (category.getTitle().equals("Cafe Highlight")){
-//                            MonMoiPhaiThuID = category.getCategoryID();
-//                            items.addListenerForSingleValueEvent(new ValueEventListener() {
-//                                @Override
-//                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                                    if (snapshot.exists()){
-//                                        for (DataSnapshot value : snapshot.getChildren()){
-//                                            ItemsDomain item = value.getValue(ItemsDomain.class);
-//                                            if (item.getCategoryID() == MonMoiPhaiThuID){
-//                                                itemList1.add(new ItemsDomain(item.getTitle(), item.getPrice(), item.getImageURL(), item.getDescription(), item.getCategoryID(), item.getProductID()));
-//                                                itemList1.add(item);
-//                                            }
-//                                        }
-//                                    }
-//                                   if (!itemList1.isEmpty()){
-//                                       adapter1 = new NewListAdapter(itemList1);
-//                                       recyclerViewNewList.setAdapter(adapter1);
-//
-//                                       recyclerViewNewList.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-//                                   }
-//                                }
-//
-//                                @Override
-//                                public void onCancelled(@NonNull DatabaseError error) {
-//
-//                                }
-//                            });
-//                        }
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                Log.e("FirebaseError", "Failed to read value.", error.toException());
-//                // Notify user about the error
-//            }
-//        });
-
-//        itemList1.add(new ItemsDomain("Trà đào", 20000.0 , "peach_tea", "", 0, 0));
-//        itemList1.add(new ItemsDomain("Trà đào", 30000.0,"peach_tea", "", 0, 0));
-//        itemList1.add(new ItemsDomain("Trà đào", 10000.0, "peach_tea", "", 0, 0));
-//        itemList1.add(new ItemsDomain("Trà đào", 50000.0, "peach_tea", "", 0, 0));
-//        itemList1.add(new ItemsDomain("Trà đào", 50000.0, "peach_tea", "", 0, 0));
-
     }
 
     private void setupCategoryListener() {
@@ -240,7 +181,11 @@ public class HomeFragment extends Fragment {
         if (adapter1 == null) {
             adapter1 = new NewListAdapter(itemList1);
             recyclerViewNewList.setAdapter(adapter1);
-            recyclerViewNewList.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+
+            GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+            recyclerViewNewList.setLayoutManager(layoutManager);
+            recyclerViewNewList.addItemDecoration(new EdgeItemDecoration(55));
+
         } else {
             adapter1.notifyDataSetChanged();
         }

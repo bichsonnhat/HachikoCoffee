@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/white_background"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ProductDetail">
     <androidx.core.widget.NestedScrollView
@@ -14,29 +15,31 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <ImageView
+                android:layout_marginTop="-11dp"
                 android:id="@+id/product_image_scr"
                 android:layout_width="match_parent"
                 android:layout_height="406dp"
                 android:layout_alignParentTop="true"
                 android:src="@drawable/oolong_vai" />
+
             <TextView
                 android:id="@+id/productName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="420dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="410dp"
                 android:layout_weight="1"
+                android:text="Oolong Tứ Quý Vải"
                 android:textColor="@color/black"
                 android:textSize="25sp"
-                android:textStyle="bold"
-                android:layout_marginStart="16dp"
-                android:text="Oolong Tứ Quý Vải"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/productCost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="455dp"
+                android:layout_marginTop="445dp"
                 android:layout_weight="1"
                 android:text="59.000đ"
                 android:textColor="#807d7d"

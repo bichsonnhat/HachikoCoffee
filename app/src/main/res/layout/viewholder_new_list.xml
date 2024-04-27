@@ -3,20 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/newlistLayout"
-    android:layout_width="160dp"
-    android:layout_height="245dp"
+    android:layout_width="170dp"
+    android:layout_height="255dp"
     android:layout_marginTop="8dp"
     android:layout_marginBottom="8dp"
-    android:layout_marginEnd="8dp"
-    android:background="@drawable/white_background"
-    android:elevation="3dp"
+
     >
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
+        android:scaleType="centerCrop"
         android:id="@+id/pic"
+        app:shapeAppearanceOverlay="@style/RoundedSquare"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:src="@drawable/peach_tea"
+        android:layout_height="170dp"
+        android:src="@drawable/oolong_vai"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -55,7 +55,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:text="60.000"
-        android:textSize="14sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/itemTitle" />
