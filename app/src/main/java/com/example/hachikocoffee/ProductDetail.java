@@ -24,6 +24,7 @@ import com.example.hachikocoffee.Domain.ItemsDomain;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.shape.ShapeAppearanceModel;
 
 import org.w3c.dom.Text;
 
@@ -184,6 +185,9 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
         });
 
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+
+
+
         return dialog;
     }
 

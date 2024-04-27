@@ -44,45 +44,6 @@ public class NewListAdapter extends RecyclerView.Adapter<NewListAdapter.Viewhold
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull NewListAdapter.Viewholder holder, @SuppressLint("RecyclerView") int position) {
-//        holder.title.setText(items.get(position).getTitle());
-//        holder.priceTxt.setText(items.get(position).getPrice() +"00đ");
-//        String picUrl ="";
-//        switch (position){
-//            case 0: {
-//                picUrl = items.get(position).getImageURL().toString();
-//                break;
-//            }
-//            case 1: {
-//                picUrl = items.get(position).getImageURL().toString();
-//                break;
-//            }
-//            case 2: {
-//                picUrl = "peach_tea";
-//                break;
-//            }
-//            case 3: {
-//                picUrl = "peach_tea";
-//                break;
-//            }
-//            case 4: {
-//                picUrl = "peach_tea";
-//                break;
-//            }
-//        }
-//
-//        Glide.with(holder.itemView.getContext())
-//                .load(picUrl)
-//                .into(holder.pic);
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                ItemsDomain item = items.get(position);
-//                ProductDetail detailBottomSheetDialog = new ProductDetail(item);
-//
-//                detailBottomSheetDialog.show(((AppCompatActivity) context).getSupportFragmentManager(), "DetailBottomSheetDialog");
-//            }
-//        });
-
         holder.binding.itemTitle.setText(items.get(position).getTitle());
         holder.binding.priceTxt.setText(Math.round(items.get(position).getPrice()) +"000đ");
 
@@ -108,18 +69,6 @@ public class NewListAdapter extends RecyclerView.Adapter<NewListAdapter.Viewhold
     }
 
     public static class Viewholder extends RecyclerView.ViewHolder{
-
-//        TextView title;
-//        ImageView pic;
-//        TextView priceTxt;
-//        ConstraintLayout mainLayout;
-//        public Viewholder(@NonNull View itemView) {
-//            super(itemView);
-//            title = itemView.findViewById(R.id.itemTitle);
-//            pic = itemView.findViewById(R.id.pic);
-//            priceTxt = itemView.findViewById(R.id.priceTxt);
-//            mainLayout = itemView.findViewById(R.id.newlistLayout);
-//        }
         ViewholderNewListBinding binding;
         public Viewholder(ViewholderNewListBinding binding){
             super(binding.getRoot());
