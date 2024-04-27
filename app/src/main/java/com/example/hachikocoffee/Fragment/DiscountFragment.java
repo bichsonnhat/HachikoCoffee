@@ -3,12 +3,19 @@ package com.example.hachikocoffee.Fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.hachikocoffee.Adapter.DiscountAdapter;
+import com.example.hachikocoffee.Domain.DiscountDomain;
 import com.example.hachikocoffee.R;
+import com.example.hachikocoffee.VerticalSpaceItemDecoration;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +23,14 @@ import com.example.hachikocoffee.R;
  * create an instance of this fragment.
  */
 public class DiscountFragment extends Fragment {
+
+    private RecyclerView recyclerView_listDiscount;
+
+    private ArrayList<DiscountDomain> discountList;
+
+    private DiscountAdapter discountAdapter;
+
+    //private static final int VERTICAL_ITEM_SPACE = 1;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +76,26 @@ public class DiscountFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_discount, container, false);
+        View view = inflater.inflate(R.layout.fragment_discount, container, false);
+
+        initDiscount(view);
+        return view;
+    }
+
+    public void initDiscount(View view) {
+        recyclerView_listDiscount = view.findViewById(R.id.rcv_list_coupon);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        recyclerView_listDiscount.setLayoutManager(linearLayoutManager);
+
+        // change space between items
+        //recyclerView_listDiscount.addItemDecoration(new VerticalSpaceItemDecoration(VERTICAL_ITEM_SPACE));
+
+        discountList = new ArrayList<>();
+        discountList.add(new DiscountDomain(R.drawable.voucher_img, "Bộ Ghiền 39K + Freeship", "4"));
+        discountList.add(new DiscountDomain(R.drawable.voucher_img, "Bộ Ghiền 40K + Freeship", "5"));
+        discountList.add(new DiscountDomain(R.drawable.voucher_img, "Bộ Ghiền 41K + Freeship", "6"));
+
+        discountAdapter = new DiscountAdapter(discountList);
+        recyclerView_listDiscount.setAdapter(discountAdapter);
     }
 }
