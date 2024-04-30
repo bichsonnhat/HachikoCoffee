@@ -10,7 +10,7 @@
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#CCCCCC"
+        android:background="#EDECEC"
         tools:layout_editor_absoluteX="28dp"
         tools:layout_editor_absoluteY="0dp">
 
@@ -54,7 +54,7 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="230dp"
-                    android:src="@drawable/dotted_line"
+                    android:src="@drawable/dotted_dashed_line"
                     tools:ignore="MissingConstraints" />
 
                 <ImageView
@@ -79,7 +79,7 @@
                 <View
                     android:layout_width="290dp"
                     android:layout_height="2dp"
-                    android:background="#CCCCCC"
+                    android:background="#EDECEC"
                     tools:ignore="MissingConstraints"
                     tools:layout_editor_absoluteX="15dp"
                     tools:layout_editor_absoluteY="440dp" />
@@ -114,7 +114,7 @@
                 <View
                     android:layout_width="290dp"
                     android:layout_height="2dp"
-                    android:background="#CCCCCC"
+                    android:background="#EDECEC"
                     tools:ignore="MissingConstraints"
                     tools:layout_editor_absoluteX="15dp"
                     tools:layout_editor_absoluteY="480dp" />
