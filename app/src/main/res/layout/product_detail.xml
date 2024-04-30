@@ -34,6 +34,15 @@
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
+            <ImageButton
+                android:visibility="visible"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="429dp"
+                android:background="@drawable/favourite"
+                android:layout_marginStart="360dp"
+                />
+
             <TextView
                 android:id="@+id/productCost"
                 android:layout_width="wrap_content"
@@ -51,6 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="485dp"
+                android:layout_marginEnd="16dp"
                 android:text="Đậm hương trà, thanh mát sắc xuân với Oolong Tứ Quý Vải. Cảm nhận hương hoa đầu mùa, hoà quyện cùng vị vải chín mọng căn tràn sự sống."
                 android:layout_marginStart="16dp"
                 />
@@ -86,6 +96,7 @@
                 android:layout_below="@+id/textView28"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="0dp"
+                android:layout_marginEnd="16dp"
                 tools:listitem="@layout/item_size" />
 
             <TextView
