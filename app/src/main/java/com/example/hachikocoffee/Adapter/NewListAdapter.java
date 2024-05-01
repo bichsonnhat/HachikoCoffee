@@ -45,7 +45,7 @@ public class NewListAdapter extends RecyclerView.Adapter<NewListAdapter.Viewhold
     @Override
     public void onBindViewHolder(@NonNull NewListAdapter.Viewholder holder, @SuppressLint("RecyclerView") int position) {
         holder.binding.itemTitle.setText(items.get(position).getTitle());
-        holder.binding.priceTxt.setText(Math.round(items.get(position).getPrice()) +"000đ");
+        holder.binding.priceTxt.setText(Math.round(items.get(position).getPrice()) +"đ");
 
         Glide.with(context)
                 .load(items.get(position).getImageURL())

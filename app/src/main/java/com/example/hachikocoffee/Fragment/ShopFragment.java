@@ -2,17 +2,25 @@ package com.example.hachikocoffee.Fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.hachikocoffee.Adapter.ShopAdapter;
+import com.example.hachikocoffee.Domain.CategoryDomain;
 import com.example.hachikocoffee.Domain.ShopDomain;
 import com.example.hachikocoffee.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -88,7 +96,6 @@ public class ShopFragment extends Fragment {
         recyclerView_listShop1 = view.findViewById(R.id.rcv_list_shop1);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView_listShop1.setLayoutManager(linearLayoutManager);
-
         shopList = new ArrayList<>();
         shopList.add(new ShopDomain(R.drawable.coffee_store, "HCM Cao Thắng", "0,01"));
         shopList.add(new ShopDomain(R.drawable.coffee_store, "HCM Cao Thắng", "0,21"));
