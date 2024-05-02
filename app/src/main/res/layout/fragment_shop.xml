@@ -7,7 +7,7 @@
     android:background="@color/gray"
     tools:context=".Fragment.ShopFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+      <!-- TODO: Update blank fragment layout -->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/first"
@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="21dp"
             android:text="Cửa hàng"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -33,9 +33,9 @@
         <RelativeLayout
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginStart="345dp"
             android:layout_marginTop="10dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginRight="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <Button
@@ -78,9 +78,9 @@
         <RelativeLayout
             android:layout_width="70dp"
             android:layout_height="45dp"
-            android:layout_marginStart="270dp"
+            android:layout_marginEnd="60dp"
             android:layout_marginTop="13dp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <Button
