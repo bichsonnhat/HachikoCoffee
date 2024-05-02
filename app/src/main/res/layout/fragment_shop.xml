@@ -33,9 +33,9 @@
         <RelativeLayout
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginStart="345dp"
             android:layout_marginTop="10dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginRight="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <Button
@@ -78,23 +78,23 @@
         <RelativeLayout
             android:layout_width="70dp"
             android:layout_height="45dp"
-            android:layout_marginStart="270dp"
             android:layout_marginTop="13dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginRight="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/bg_ic_voucher"
-                app:backgroundTint="@null" />
+                app:backgroundTint="@null"/>
 
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginLeft="14dp"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/ic_coupon" />
+                android:src="@drawable/ic_coupon"/>
 
             <TextView
                 android:id="@+id/voucherBtn_count"
@@ -105,7 +105,8 @@
                 android:text="11"
                 android:textColor="@color/black"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
+
         </RelativeLayout>
 
         <EditText
@@ -123,7 +124,7 @@
             android:paddingStart="18dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nameTab" />
+            app:layout_constraintTop_toBottomOf="@+id/nameTab"/>
 
         <TextView
             android:id="@+id/map"
@@ -138,7 +139,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/search"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/search" />
+            app:layout_constraintTop_toTopOf="@+id/search"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

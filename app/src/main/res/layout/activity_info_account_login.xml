@@ -7,7 +7,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:theme="@style/Base.Theme.HachikoCoffee">
 
         <Button
             app:backgroundTint="@null"
@@ -34,21 +35,25 @@
             android:layout_marginTop="60dp" />
 
         <EditText
-            android:layout_width="340dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="100dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:background="@drawable/rounded_corner"
             android:padding="10dp"
             android:hint="Nhập tên của bạn*"
             android:singleLine="true"
-            android:ellipsize="end" />
+            android:ellipsize="end"/>
 
         <EditText
-            android:layout_width="340dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="170dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:background="@drawable/rounded_corner"
             android:padding="10dp"
             android:hint="Nhập họ của bạn"
@@ -56,27 +61,32 @@
             android:ellipsize="end" />
 
         <EditText
-            android:layout_width="340dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="240dp"
             android:background="@drawable/rounded_corner"
             android:padding="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:hint="Email của bạn"
             android:singleLine="true"
             android:ellipsize="end" />
 
         <EditText
-            android:layout_width="340dp"
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="310dp"
+            android:layout_marginEnd="20dp"
             android:background="@drawable/rounded_corner"
-            android:padding="10dp"
-            android:hint="Chọn ngày sinh"
-            android:singleLine="true"
             android:ellipsize="end"
-            android:paddingEnd="70dp"/>
+            android:hint="Chọn ngày sinh"
+            android:padding="10dp"
+            android:paddingEnd="70dp"
+            android:singleLine="true" />
 
         <Button
             app:backgroundTint="@null"
@@ -88,18 +98,18 @@
 
 
         <View
-            android:layout_width="340dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="380dp"
-            android:layout_marginLeft="35dp"
+            android:layout_marginHorizontal="20dp"
             android:background="@drawable/rounded_corner"/>
 
         <Spinner
             android:id="@+id/spinnerGender"
-            android:layout_width="340dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="380dp"
-            android:layout_marginLeft="35dp"
+            android:layout_marginHorizontal="20dp"
             android:spinnerMode="dropdown"/>
 
         <CheckBox
