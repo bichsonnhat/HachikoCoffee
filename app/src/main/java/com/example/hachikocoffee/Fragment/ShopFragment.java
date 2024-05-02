@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.hachikocoffee.Adapter.ShopAdapter;
+import com.example.hachikocoffee.Domain.CategoryDomain;
 import com.example.hachikocoffee.Domain.ShopDomain;
 import com.example.hachikocoffee.R;
 import com.example.hachikocoffee.ShopClickListener;

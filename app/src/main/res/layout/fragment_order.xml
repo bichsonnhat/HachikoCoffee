@@ -62,7 +62,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="10dp"
                             android:text="Danh mục"
-                            android:textSize="16sp"
+                            android:textSize="18sp"
                             android:textStyle="bold"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -72,7 +72,7 @@
                             android:layout_width="10dp"
                             android:layout_height="10dp"
                             android:layout_marginStart="5dp"
-                            android:layout_marginTop="17dp"
+                            android:layout_marginTop="18dp"
                             android:src="@drawable/arrow_down" />
 
 
@@ -89,7 +89,7 @@
                         android:id="@+id/imageButton3"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:layout_marginStart="18dp"
+                        android:layout_marginStart="25dp"
                         android:layout_marginTop="10dp"
                         android:background="@android:color/transparent"
                         android:src="@drawable/ic_search"
