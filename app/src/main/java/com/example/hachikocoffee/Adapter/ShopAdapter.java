@@ -1,6 +1,8 @@
 package com.example.hachikocoffee.Adapter;
 
-import android.content.Context;
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.location.Location;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,31 +10,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.hachikocoffee.Domain.ShopDomain;
 import com.example.hachikocoffee.R;
+import com.example.hachikocoffee.ShopClickListener;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.List;
 
 public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder>{
 
-    private Context mContext;
-    private List<ShopDomain> mListShop;
+    private final List<ShopDomain> mListShop;
+    private final ShopClickListener shopClickListener;
 
-//    public ShopAdapter(Context mContext) {
-//        this.mContext = mContext;
-//    }
-
-
-    public ShopAdapter(List<ShopDomain> mListShop) {
+    public ShopAdapter(List<ShopDomain> mListShop, ShopClickListener shopClickListener) {
         this.mListShop = mListShop;
+        this.shopClickListener = shopClickListener;
     }
-
-//    public void setData(List<ShopDomain> list) {
-//        this.mListShop = list;
-//        notifyDataSetChanged();
-//    }
 
     @NonNull
     @Override
@@ -41,6 +40,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
         return new ShopViewHolder(view);
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public void onBindViewHolder(@NonNull ShopViewHolder holder, int position) {
         ShopDomain shop = mListShop.get(position);
@@ -48,9 +48,16 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
             return;
         }
 
-        holder.shopImage.setImageResource(shop.getResourceId());
+        Glide.with(holder.shopImage.getContext()).load(shop.getImageURL()).into(holder.shopImage);
         holder.shopAddress.setText(shop.getAddress());
-        holder.shopDistance.setText("Cách đây " + shop.getDistance() + " km");
+        holder.shopCoordinate.setText(shop.getCoordinate());
+
+        holder.shopItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shopClickListener.onClickShopItem(shop);
+            }
+        });
     }
 
     @Override
@@ -61,18 +68,20 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
         return 0;
     }
 
-    public class ShopViewHolder extends RecyclerView.ViewHolder {
+    public static class ShopViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView shopImage;
-        private TextView shopAddress;
-        private TextView shopDistance;
+        private final ConstraintLayout shopItem;
+        private final ImageView shopImage;
+        private final TextView shopAddress;
+        private final TextView shopCoordinate;
 
         public ShopViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            shopImage = itemView.findViewById(R.id.anh_cua_hang);
-            shopAddress = itemView.findViewById(R.id.dia_chi);
-            shopDistance = itemView.findViewById(R.id.khoang_cach);
+            shopItem = itemView.findViewById(R.id.shopitem);
+            shopImage = itemView.findViewById(R.id.shopimage);
+            shopAddress = itemView.findViewById(R.id.shopaddress);
+            shopCoordinate = itemView.findViewById(R.id.shopcoordinate);
         }
     }
 }

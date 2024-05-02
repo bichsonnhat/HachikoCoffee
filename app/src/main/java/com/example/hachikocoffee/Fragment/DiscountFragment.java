@@ -2,10 +2,12 @@ package com.example.hachikocoffee.Fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,11 @@ import com.example.hachikocoffee.Adapter.DiscountAdapter;
 import com.example.hachikocoffee.Domain.DiscountDomain;
 import com.example.hachikocoffee.R;
 import com.example.hachikocoffee.VerticalSpaceItemDecoration;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -87,15 +94,32 @@ public class DiscountFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView_listDiscount.setLayoutManager(linearLayoutManager);
 
-        // change space between items
-        //recyclerView_listDiscount.addItemDecoration(new VerticalSpaceItemDecoration(VERTICAL_ITEM_SPACE));
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("VOUCHER");
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    ArrayList<DiscountDomain> discountList = new ArrayList<>();
+                    for (DataSnapshot issue : snapshot.getChildren()) {
+                        DiscountDomain discount = issue.getValue(DiscountDomain.class);
+                        discountList.add(discount);
+                    }
+                    displayDiscountData(discountList);
+                }
+            }
 
-        discountList = new ArrayList<>();
-        discountList.add(new DiscountDomain(R.drawable.voucher_img, "Bộ Ghiền 39K + Freeship", "4"));
-        discountList.add(new DiscountDomain(R.drawable.voucher_img, "Bộ Ghiền 40K + Freeship", "5"));
-        discountList.add(new DiscountDomain(R.drawable.voucher_img, "Bộ Ghiền 41K + Freeship", "6"));
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("FirebaseError", "Failed to read value.", error.toException());
+                // Notify user about the error
+            }
+        });
+    }
 
-        discountAdapter = new DiscountAdapter(discountList);
-        recyclerView_listDiscount.setAdapter(discountAdapter);
+    private void displayDiscountData(ArrayList<DiscountDomain> discountList) {
+        if (!discountList.isEmpty()) {
+            DiscountAdapter discountAdapter = new DiscountAdapter(discountList);
+            recyclerView_listDiscount.setAdapter(discountAdapter);
+        }
     }
 }
