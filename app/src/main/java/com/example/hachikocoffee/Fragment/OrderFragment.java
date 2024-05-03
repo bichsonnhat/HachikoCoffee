@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -18,12 +17,13 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import com.example.hachikocoffee.Adapter.CategoryAdapter;
-import com.example.hachikocoffee.Adapter.CategoryDialogAdapter;
+import com.example.hachikocoffee.Adapter.ListHeaderItemAdapter;
 import com.example.hachikocoffee.CategoryDialog;
 import com.example.hachikocoffee.Domain.CategoryDomain;
-import com.example.hachikocoffee.MaxTwoRowsLayoutManager;
+import com.example.hachikocoffee.Domain.ItemsDomain;
 import com.example.hachikocoffee.OnDismissListener;
 import com.example.hachikocoffee.R;
 import com.google.firebase.database.DataSnapshot;
@@ -33,6 +33,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -81,6 +82,7 @@ public class OrderFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -94,11 +96,93 @@ public class OrderFragment extends Fragment {
         initCategory();
         initSeekbar();
         topBarOnClick(view);
-
+        initRecyclerViewItem(view);
 
         return view;
 
     }
+
+    private void initRecyclerViewItem(View view) {
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerViewItem);
+        DatabaseReference categoryRef = FirebaseDatabase.getInstance().getReference("CATEGORY");
+        ArrayList<Object> data = fetchRowData();
+        categoryRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    ArrayList<CategoryDomain> categoryList = new ArrayList<>();
+                    for (DataSnapshot issue : snapshot.getChildren()) {
+                        CategoryDomain category = issue.getValue(CategoryDomain.class);
+                        categoryList.add(category);
+                    }
+                    DatabaseReference productRef = FirebaseDatabase.getInstance().getReference("PRODUCTS");
+                    productRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()){
+                                ArrayList<ItemsDomain> productList = new ArrayList<>();
+                                for (DataSnapshot issue : snapshot.getChildren()) {
+                                    ItemsDomain product = issue.getValue(ItemsDomain.class);
+                                    productList.add(product);
+                                }
+//                                Toast.makeText(getContext(), categoryList.toString(), Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(getContext(), productList.toString(), Toast.LENGTH_SHORT).show();
+                                for (CategoryDomain category : categoryList){
+                                    String categoryName = category.getTitle();
+                                    int categoryID = category.getCategoryID();
+                                    data.add(categoryName);
+                                    for (ItemsDomain product : productList){
+                                        if (product.getCategoryID() == categoryID){
+                                            data.add(product);
+                                        }
+                                    }
+                                }
+
+                                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                // for Grid with header
+                                int spanCount = 1;
+                                GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),spanCount);
+                                GridLayoutManager.SpanSizeLookup sizeLookup = new GridLayoutManager.SpanSizeLookup() {
+                                    @Override
+                                    public int getSpanSize(int position) {
+                                        // Because header takes full width therefore return spanCount for it
+                                        return data.get(position) instanceof String ? spanCount : 1;
+                                    }
+                                };
+                                // for better performance according to android docs
+                                sizeLookup.setSpanGroupIndexCacheEnabled(true);
+                                sizeLookup.setSpanIndexCacheEnabled(true);
+                                gridLayoutManager.setSpanSizeLookup(sizeLookup);
+                                recyclerView.setLayoutManager(gridLayoutManager);
+
+                                recyclerView.setAdapter(new ListHeaderItemAdapter(data));
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("FirebaseError", "Failed to read value.", error.toException());
+                // Notify user about the error
+            }
+        });
+
+    }
+
+    private ArrayList<Object> fetchRowData() {
+        ArrayList<Object> data = new ArrayList<>();
+        return data;
+    }
+
+
+
 
     private void initSeekbar() {
         seekbarHorizontalScroll.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {

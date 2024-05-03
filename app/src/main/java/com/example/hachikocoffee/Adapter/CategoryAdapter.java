@@ -3,6 +3,7 @@ package com.example.hachikocoffee.Adapter;
 import android.content.Context;
 import android.view.LayoutInflater;
 
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -38,6 +39,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Viewho
         Glide.with(context)
                 .load(items.get(position).getImageURL())
                 .into(holder.binding.categryImage);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
 
