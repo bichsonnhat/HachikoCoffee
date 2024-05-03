@@ -62,7 +62,6 @@ dependencies {
 
     // RecyclerView
     implementation("androidx.recyclerview:recyclerview:1.3.2")
-
-    // Google Play services Location library
     implementation("com.google.android.gms:play-services-location:18.0.0")
+    implementation ("com.squareup.picasso:picasso:2.8")
 }
