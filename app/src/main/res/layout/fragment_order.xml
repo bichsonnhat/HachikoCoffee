@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragment.OrderFragment"
+    android:id="@+id/fragment_order_id"
     android:background="@drawable/white_background">
 
     <!-- TODO: Update blank fragment layout -->

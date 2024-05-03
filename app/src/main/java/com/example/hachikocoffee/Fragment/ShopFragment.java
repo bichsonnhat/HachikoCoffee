@@ -1,5 +1,6 @@
 package com.example.hachikocoffee.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,8 @@ import com.example.hachikocoffee.Adapter.ShopAdapter;
 import com.example.hachikocoffee.Domain.CategoryDomain;
 import com.example.hachikocoffee.Domain.ShopDomain;
 import com.example.hachikocoffee.R;
+import com.example.hachikocoffee.ShopClickListener;
+import com.example.hachikocoffee.ShopDetail;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,7 +38,6 @@ public class ShopFragment extends Fragment {
     private RecyclerView recyclerView_listShop1;
     private RecyclerView recyclerView_listShop2; // not used yet
     private RecyclerView recyclerView_listShop3; // not used yet
-    //private RecyclerView.Adapter adapter;
 
     private ArrayList<ShopDomain> shopList;
 
@@ -96,12 +98,43 @@ public class ShopFragment extends Fragment {
         recyclerView_listShop1 = view.findViewById(R.id.rcv_list_shop1);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView_listShop1.setLayoutManager(linearLayoutManager);
-        shopList = new ArrayList<>();
-        shopList.add(new ShopDomain(R.drawable.coffee_store, "HCM Cao Thắng", "0,01"));
-        shopList.add(new ShopDomain(R.drawable.coffee_store, "HCM Cao Thắng", "0,21"));
-        shopList.add(new ShopDomain(R.drawable.coffee_store, "HCM Cao Thắng", "3,21"));
 
-        shopAdapter = new ShopAdapter(shopList);
-        recyclerView_listShop1.setAdapter(shopAdapter);
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("STORE");
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    ArrayList<ShopDomain> shopList = new ArrayList<>();
+                    for (DataSnapshot issue : snapshot.getChildren()) {
+                        ShopDomain shop = issue.getValue(ShopDomain.class);
+                        shopList.add(shop);
+                    }
+                    displayShopData(shopList);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("FirebaseError", "Failed to read value.", error.toException());
+                // Notify user about the error
+            }
+        });
+    }
+
+    private void displayShopData(ArrayList<ShopDomain> shopList) {
+        if (!shopList.isEmpty()) {
+            shopAdapter = new ShopAdapter(shopList, new ShopClickListener() {
+                @Override
+                public void onClickShopItem(ShopDomain shop) {
+                    onClickToShopDetailFunc(shop);
+                }
+            });
+            recyclerView_listShop1.setAdapter(shopAdapter);
+        }
+    }
+
+    private void onClickToShopDetailFunc(ShopDomain shop) {
+        ShopDetail shopDetail = ShopDetail.newInstance(shop);
+        shopDetail.show(getFragmentManager(), shopDetail.getTag());
     }
 }
