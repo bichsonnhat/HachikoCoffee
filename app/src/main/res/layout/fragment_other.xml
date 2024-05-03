@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="17dp"
+            android:layout_marginTop="21dp"
             android:text="Khác"
             android:textColor="@color/black"
             android:textSize="20sp"
@@ -124,7 +124,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="95dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="16dp"
             android:text="Tiện ích"
             android:fontFamily="sans-serif-medium"
             android:textSize="21sp"
@@ -132,10 +132,11 @@
             android:textStyle="bold" />
 
         <RelativeLayout
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_marginTop="135dp"
-            android:layout_marginLeft="20dp">
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="215dp">
 
             <Button
                 app:backgroundTint="@null"
@@ -166,7 +167,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="225dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="16dp"
         android:text="Hỗ trợ"
         android:fontFamily="sans-serif-medium"
         android:textSize="21sp"
@@ -177,8 +178,8 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="270dp"
-            android:paddingRight="20dp"
-            android:paddingLeft="20dp">
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
 
             <Button
                 app:backgroundTint="@null"
@@ -218,7 +219,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="345dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="16dp"
         android:text="Tài khoản"
         android:fontFamily="sans-serif-medium"
         android:textSize="21sp"
@@ -229,8 +230,8 @@
             android:layout_width="match_parent"
             android:layout_height="152dp"
             android:layout_marginTop="395dp"
-            android:paddingRight="20dp"
-            android:paddingLeft="20dp">
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
