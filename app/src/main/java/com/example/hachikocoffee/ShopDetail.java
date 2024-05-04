@@ -1,18 +1,25 @@
 package com.example.hachikocoffee;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.example.hachikocoffee.Domain.ShopDomain;
+import com.example.hachikocoffee.Fragment.HomeFragment;
 import com.example.hachikocoffee.Fragment.OrderFragment;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -75,11 +82,15 @@ public class ShopDetail extends BottomSheetDialogFragment {
         shopdetailAddress.setText(shop.getAddress());
         shopdetailCoordinate.setText(shop.getCoordinate());
 
+
         shopdetailBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                OrderFragment orderFragment = new OrderFragment();
-                getFragmentManager().beginTransaction().replace(R.id.fragment_order_id, orderFragment).commit();
+                dismiss();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.frame_layout, new OrderFragment());
+                fragmentTransaction.commit();
             }
         });
     }

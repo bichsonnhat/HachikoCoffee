@@ -1,5 +1,6 @@
 package com.example.hachikocoffee.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import com.example.hachikocoffee.Activity.LoginOTPActivity;
 import com.example.hachikocoffee.Adapter.CategoryAdapter;
 import com.example.hachikocoffee.Adapter.ListHeaderItemAdapter;
 import com.example.hachikocoffee.CategoryDialog;
@@ -52,7 +54,7 @@ public class OrderFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    public GridLayoutManager gridLayoutManager;
     public OrderFragment() {
         // Required empty public constructor
     }
@@ -141,7 +143,7 @@ public class OrderFragment extends Fragment {
                                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                                 // for Grid with header
                                 int spanCount = 1;
-                                GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),spanCount);
+                                gridLayoutManager = new GridLayoutManager(getContext(),spanCount);
                                 GridLayoutManager.SpanSizeLookup sizeLookup = new GridLayoutManager.SpanSizeLookup() {
                                     @Override
                                     public int getSpanSize(int position) {
@@ -156,6 +158,9 @@ public class OrderFragment extends Fragment {
                                 recyclerView.setLayoutManager(gridLayoutManager);
 
                                 recyclerView.setAdapter(new ListHeaderItemAdapter(data));
+//                                Intent intent = new Intent(getContext(), CategoryAdapter.class);
+//                                intent.putExtra("GridLayoutManager", gridLayoutManager);
+//                                startActivity(intent);
                             }
                         }
 
