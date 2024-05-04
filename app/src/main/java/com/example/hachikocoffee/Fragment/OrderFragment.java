@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -46,10 +47,13 @@ public class OrderFragment extends Fragment {
     private RecyclerView recyclerViewCategory;
     private SeekBar seekbarHorizontalScroll;
 
+    private RecyclerView recyclerView;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    NestedScrollView nestedScrollView;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -94,10 +98,11 @@ public class OrderFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_order, container, false);
         recyclerViewCategory = view.findViewById(R.id.recyclerView_Category);
         seekbarHorizontalScroll = view.findViewById(R.id.seekbar);
+        nestedScrollView = view.findViewById(R.id.nestedScrollViewItem);
 
-        initCategory();
+//        initCategory();
         initSeekbar();
-        topBarOnClick(view);
+//        topBarOnClick(view);
         initRecyclerViewItem(view);
 
         return view;
@@ -105,7 +110,7 @@ public class OrderFragment extends Fragment {
     }
 
     private void initRecyclerViewItem(View view) {
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerViewItem);
+        recyclerView = view.findViewById(R.id.recyclerViewItem);
         DatabaseReference categoryRef = FirebaseDatabase.getInstance().getReference("CATEGORY");
         ArrayList<Object> data = fetchRowData();
         categoryRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -158,9 +163,9 @@ public class OrderFragment extends Fragment {
                                 recyclerView.setLayoutManager(gridLayoutManager);
 
                                 recyclerView.setAdapter(new ListHeaderItemAdapter(data));
-//                                Intent intent = new Intent(getContext(), CategoryAdapter.class);
-//                                intent.putExtra("GridLayoutManager", gridLayoutManager);
-//                                startActivity(intent);
+                                initCategory();
+                                topBarOnClick(view);
+//                                nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(10).getTop()));
                             }
                         }
 
@@ -171,6 +176,7 @@ public class OrderFragment extends Fragment {
                     });
                 }
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -215,7 +221,7 @@ public class OrderFragment extends Fragment {
 
     private void topBarOnClick(View view){
         LinearLayout topBar = view.findViewById(R.id.topBar);
-        CategoryDialog categoryDialog = new CategoryDialog();
+        CategoryDialog categoryDialog = new CategoryDialog(recyclerView, nestedScrollView);
         ImageView arrowBtn = view.findViewById(R.id.arrowBtn);
 
 
@@ -251,7 +257,7 @@ public class OrderFragment extends Fragment {
                         CategoryDomain category = issue.getValue(CategoryDomain.class);
                         items.add(category);
                     }
-                    displayCategoryData(items);
+                    displayCategoryData(items, nestedScrollView, recyclerView);
                 }
             }
 
@@ -263,7 +269,7 @@ public class OrderFragment extends Fragment {
         });
     }
 
-    private void displayCategoryData(ArrayList<CategoryDomain> items) {
+    private void displayCategoryData(ArrayList<CategoryDomain> items, NestedScrollView nestedScrollView, RecyclerView recyclerView) {
         if (!items.isEmpty()) {
             GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
 
@@ -274,7 +280,7 @@ public class OrderFragment extends Fragment {
             recyclerViewCategory.setLayoutManager(layoutManager);
 
             // Đặt Adapter cho RecyclerView
-            recyclerViewCategory.setAdapter(new CategoryAdapter(items));
+            recyclerViewCategory.setAdapter(new CategoryAdapter(items, nestedScrollView, recyclerView));
         }
     }
 
