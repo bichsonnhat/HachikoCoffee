@@ -24,10 +24,12 @@
 
             <TextView
                 android:id="@+id/productName"
-                android:layout_width="wrap_content"
+                android:layout_width="335dp"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/product_image_scr"
+                android:layout_alignParentStart="true"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="410dp"
+                android:layout_marginTop="12dp"
                 android:layout_weight="1"
                 android:text="Oolong Tứ Quý Vải"
                 android:textColor="@color/black"
@@ -35,21 +37,23 @@
                 android:textStyle="bold" />
 
             <CheckBox
-                android:buttonTint="@color/checkbox_filter_tint"
                 android:id="@+id/favouriteProduct"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="405dp"
-                android:button="@drawable/selector_wishlist_item"
+                android:layout_alignParentEnd="true"
                 android:layout_marginStart="345dp"
-                />
+                android:layout_marginTop="405dp"
+                android:layout_marginEnd="18dp"
+                android:button="@drawable/selector_wishlist_item"
+                android:buttonTint="@color/checkbox_filter_tint" />
 
             <TextView
                 android:id="@+id/productCost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/productName"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="445dp"
+                android:layout_marginTop="1dp"
                 android:layout_weight="1"
                 android:text="59.000đ"
                 android:textColor="#807d7d"
@@ -60,11 +64,11 @@
                 android:id="@+id/productDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="485dp"
-                android:layout_marginEnd="16dp"
-                android:text="Đậm hương trà, thanh mát sắc xuân với Oolong Tứ Quý Vải. Cảm nhận hương hoa đầu mùa, hoà quyện cùng vị vải chín mọng căn tràn sự sống."
+                android:layout_below="@+id/productCost"
                 android:layout_marginStart="16dp"
-                />
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="16dp"
+                android:text="Đậm hương trà, thanh mát sắc xuân với Oolong Tứ Quý Vải. Cảm nhận hương hoa đầu mùa, hoà quyện cùng vị vải chín mọng căn tràn sự sống." />
 
             <TextView
                 android:id="@+id/productSize"
