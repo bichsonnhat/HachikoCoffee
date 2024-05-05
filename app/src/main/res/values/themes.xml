@@ -21,4 +21,11 @@
         <item name="android:textAlignment">center</item>
     </style>
 
+    <style name="TopCornerRounded">
+        <item name="cornerSizeTopRight">20dp</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+
+        <item name="cornerSizeTopLeft">20dp</item>
+        <item name="cornerFamilyTopLeft">rounded</item>
+    </style>
 </resources>

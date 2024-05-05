@@ -3,12 +3,15 @@ package com.example.hachikocoffee.Adapter;
 import android.content.Context;
 import android.view.LayoutInflater;
 
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.hachikocoffee.CategoryDialog;
 import com.example.hachikocoffee.Domain.CategoryDomain;
 import com.example.hachikocoffee.databinding.ViewholderCategoryDialogBinding;
 
@@ -18,8 +21,16 @@ public class CategoryDialogAdapter extends RecyclerView.Adapter<CategoryDialogAd
     private ArrayList<CategoryDomain> items;
     private Context context;
 
-    public  CategoryDialogAdapter(ArrayList<CategoryDomain> items){
+    private RecyclerView recyclerView;
+    private NestedScrollView nestedScrollView;
+
+    private CategoryDialog categoryDialog;
+
+    public  CategoryDialogAdapter(ArrayList<CategoryDomain> items, RecyclerView recyclerView, NestedScrollView nestedScrollView, CategoryDialog categoryDialog){
         this.items = items;
+        this.recyclerView = recyclerView;
+        this.nestedScrollView = nestedScrollView;
+        this.categoryDialog = categoryDialog;
     }
     @NonNull
     @Override
@@ -36,6 +47,14 @@ public class CategoryDialogAdapter extends RecyclerView.Adapter<CategoryDialogAd
         Glide.with(context)
                 .load(items.get(position).getImageURL())
                 .into(holder.binding.categryImage);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                categoryDialog.dismiss();
+                nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(10).getTop()));
+            }
+        });
     }
 
     @Override

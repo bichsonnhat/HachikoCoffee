@@ -3,9 +3,12 @@ package com.example.hachikocoffee.Adapter;
 import android.content.Context;
 import android.view.LayoutInflater;
 
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,9 +20,13 @@ import java.util.ArrayList;
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Viewholder> {
     private final ArrayList<CategoryDomain> items;
     private Context context;
+    private final NestedScrollView nestedScrollView;
+    private final RecyclerView recyclerView;
 
-    public CategoryAdapter(ArrayList<CategoryDomain> items){
+    public CategoryAdapter(ArrayList<CategoryDomain> items, NestedScrollView nestedScrollView, RecyclerView recyclerView){
         this.items = items;
+        this.nestedScrollView = nestedScrollView;
+        this.recyclerView = recyclerView;
     }
 
     @NonNull
@@ -38,6 +45,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Viewho
         Glide.with(context)
                 .load(items.get(position).getImageURL())
                 .into(holder.binding.categryImage);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(10).getTop()));
+//                Toast.makeText(context, "Nhatwooo", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
