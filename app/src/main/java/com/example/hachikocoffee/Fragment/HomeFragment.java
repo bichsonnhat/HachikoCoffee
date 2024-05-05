@@ -128,7 +128,6 @@ public class HomeFragment extends Fragment {
         categories = FirebaseDatabase.getInstance().getReference("CATEGORY");
         items = FirebaseDatabase.getInstance().getReference("PRODUCTS");
         setupCategoryListener();
-
     }
 
     private void setupCategoryListener() {
@@ -138,7 +137,7 @@ public class HomeFragment extends Fragment {
                 if (snapshot.exists()) {
                     for (DataSnapshot categorySnapshot : snapshot.getChildren()) {
                         CategoryDomain category = categorySnapshot.getValue(CategoryDomain.class);
-                        if (category != null && category.getTitle().equals("Món mới phải thử")) {
+                        if (category != null && category.getTitle().equals("Món Mới Phải Thử")) {
                             setupItemsListener(category.getCategoryID());
                             break;
                         }

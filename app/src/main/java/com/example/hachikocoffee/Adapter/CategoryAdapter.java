@@ -48,8 +48,46 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Viewho
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(10).getTop()));
+//                Toast.makeText(context, items.get(position).getTitle().toString(), Toast.LENGTH_SHORT).show();
+                if (items.get(position).getTitle().toString().equals("Món Mới Phải Thử")){
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, 780));
+                }
+                if (items.get(position).getTitle().toString().equals("Trà Trái Cây")){
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, 8903));
+                }
+                if (items.get(position).getTitle().equals("CloudFee")){
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(50).getBottom() + 340));
+                }
+                if (items.get(position).getTitle().equals("Đá Xay Frosty")){
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(60).getTop() + 300));
+                }
+                if (items.get(position).getTitle().equals("Bánh Ngọt")){
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(76).getTop() + 300));
+                }
+                if (items.get(position).getTitle().equals("Cafe Tại Nhà")){
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(98).getTop() + 300));
+                }
+                if (items.get(position).getTitle().equals("Các Loại Đồ Ăn Khác")){
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(114).getTop() + 300));
+                }
+                if (items.get(position).getTitle().equals("Cafe")){
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, 1620));
+                }
+                if (items.get(position).getTitle().equals("Trà Sữa Macchiato")){
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(40).getTop() + 300));
+                }
+                if (items.get(position).getTitle().equals("Trà Xanh Tây Bắc")){
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(55).getTop() + 300));
+                }
+                if (items.get(position).getTitle().equals("Bánh Mặn")){
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(68).getTop() + 300));
+                }
+                if (items.get(position).getTitle().equals("Topping")){
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(90).getTop() + 300));
+                }
+                if (items.get(position).getTitle().equals("Chai Fresh Không Đá")){
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(106).getTop() + 300));
+                }
 //                Toast.makeText(context, "Nhatwooo", Toast.LENGTH_SHORT).show();
             }
         });
