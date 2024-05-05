@@ -34,20 +34,24 @@
             android:layout_marginTop="60dp" />
 
         <EditText
-            android:layout_width="340dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="100dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:background="@drawable/rounded_corner"
-            android:padding="10dp"
             android:hint="Nhập tên của bạn*"
+            android:padding="10dp"
             android:singleLine="true"
             android:ellipsize="end" />
 
         <EditText
-            android:layout_width="340dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_marginTop="170dp"
             android:background="@drawable/rounded_corner"
             android:padding="10dp"
@@ -56,9 +60,11 @@
             android:ellipsize="end" />
 
         <EditText
-            android:layout_width="340dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_marginTop="240dp"
             android:background="@drawable/rounded_corner"
             android:padding="10dp"
@@ -67,9 +73,11 @@
             android:ellipsize="end" />
 
         <EditText
-            android:layout_width="340dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_marginTop="310dp"
             android:background="@drawable/rounded_corner"
             android:padding="10dp"
@@ -83,39 +91,42 @@
             android:layout_width="34dp"
             android:layout_height="34dp"
             android:layout_marginTop="317dp"
-            android:layout_marginLeft="336dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
             android:background="@drawable/calendar"/>
 
 
         <View
-            android:layout_width="340dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="380dp"
-            android:layout_marginLeft="35dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:background="@drawable/rounded_corner"/>
 
         <Spinner
             android:id="@+id/spinnerGender"
-            android:layout_width="340dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="380dp"
-            android:layout_marginLeft="35dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:spinnerMode="dropdown"/>
 
         <CheckBox
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginTop="460dp"
-            android:layout_marginLeft="37dp" />
+            android:layout_marginLeft="22dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="457dp"
-            android:layout_marginLeft="70dp"
+            android:layout_marginLeft="60dp"
             android:text="Tôi đồng ý với các Điều khoản điều kiện của \nThe Coffee House"
             android:fontFamily="sans-serif"
-            android:textSize="15sp"/>
+            android:textSize="16sp"/>
 
     </RelativeLayout>
 </layout>

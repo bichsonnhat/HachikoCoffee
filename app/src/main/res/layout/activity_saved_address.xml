@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Activity.SavedAddressActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <Button
+            app:backgroundTint="@null"
+            android:layout_width="25dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="23dp"
+            android:layout_marginLeft="11dp"
+            android:background="@drawable/icon_back"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="23dp"
+            android:text="Địa chỉ đã lưu"
+            android:fontFamily="sans-serif"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#666666"
+            android:layout_marginTop="60dp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="62dp"
+            app:backgroundTint="@null"
+            android:background="@color/white"/>
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="83dp"
+            android:layout_marginLeft="22dp"
+            android:background="@drawable/ic_home"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thêm địa chỉ nhà"
+            android:textSize="16sp"
+            android:layout_marginTop="83dp"
+            android:layout_marginLeft="70dp"
+            android:textStyle="bold"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#CCCCCC"
+            android:layout_marginTop="122dp"
+            android:layout_marginLeft="70dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="123dp"
+            app:backgroundTint="@null"
+            android:background="@color/white"/>
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="143dp"
+            android:layout_marginLeft="22dp"
+            android:background="@drawable/ic_company"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thêm địa chỉ công ty"
+            android:textSize="16sp"
+            android:layout_marginTop="143dp"
+            android:layout_marginLeft="70dp"
+            android:textStyle="bold"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#CCCCCC"
+            android:layout_marginTop="183dp"
+            android:layout_marginLeft="70dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="184dp"
+            app:backgroundTint="@null"
+            android:background="@color/white"/>
+
+        <ImageView
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_marginTop="204dp"
+            android:layout_marginLeft="22dp"
+            android:background="@drawable/ic_plus"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thêm địa chỉ mới"
+            android:textSize="16sp"
+            android:layout_marginTop="204dp"
+            android:layout_marginLeft="70dp"
+            android:textStyle="bold"/>
+    </RelativeLayout>
+
+</layout>
