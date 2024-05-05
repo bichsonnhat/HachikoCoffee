@@ -19,6 +19,9 @@
         android:theme="@style/Theme.HachikoCoffee"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.SearchItemActivity"
+            android:exported="true" />
+        <activity
             android:name=".Activity.UpdateInfoActivity"
             android:exported="false" />
         <activity

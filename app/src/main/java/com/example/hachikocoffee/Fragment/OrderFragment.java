@@ -22,6 +22,7 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.example.hachikocoffee.Activity.LoginOTPActivity;
+import com.example.hachikocoffee.Activity.SearchItemActivity;
 import com.example.hachikocoffee.Adapter.CategoryAdapter;
 import com.example.hachikocoffee.Adapter.ListHeaderItemAdapter;
 import com.example.hachikocoffee.CategoryDialog;
@@ -99,6 +100,14 @@ public class OrderFragment extends Fragment {
         recyclerViewCategory = view.findViewById(R.id.recyclerView_Category);
         seekbarHorizontalScroll = view.findViewById(R.id.seekbar);
         nestedScrollView = view.findViewById(R.id.nestedScrollViewItem);
+        ImageView searchButton = view.findViewById(R.id.SearchItem);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), SearchItemActivity.class);
+                startActivity(intent);
+            }
+        });
 
 //        initCategory();
         initSeekbar();
@@ -132,8 +141,6 @@ public class OrderFragment extends Fragment {
                                     ItemsDomain product = issue.getValue(ItemsDomain.class);
                                     productList.add(product);
                                 }
-//                                Toast.makeText(getContext(), categoryList.toString(), Toast.LENGTH_SHORT).show();
-//                                Toast.makeText(getContext(), productList.toString(), Toast.LENGTH_SHORT).show();
                                 for (CategoryDomain category : categoryList){
                                     String categoryName = category.getTitle();
                                     int categoryID = category.getCategoryID();
