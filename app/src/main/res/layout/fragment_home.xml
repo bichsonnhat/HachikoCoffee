@@ -123,7 +123,7 @@
                             android:layout_alignParentStart="true"
                             android:layout_marginTop="5dp"
                             android:layout_weight="1"
-                            android:text="Món mới phải thử"
+                            android:text="Món Mới Phải Thử"
                             android:textColor="@color/black"
                             android:textSize="18sp"
                             android:textStyle="bold" />
