@@ -20,12 +20,6 @@
             android:background="#CCCCCC"
             android:layout_marginTop="68dp" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="69dp"
-            android:background="@color/gray" />
-
         <TextView
             android:id="@+id/nameTab"
             android:layout_width="wrap_content"
@@ -268,6 +262,13 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="15dp"
                     android:background="@drawable/arrow_right"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="69dp"
+                    android:layout_marginEnd="0dp"
+                    android:background="@color/gray" />
 
             </RelativeLayout>
 
