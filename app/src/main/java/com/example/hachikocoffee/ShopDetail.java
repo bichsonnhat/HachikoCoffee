@@ -18,11 +18,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
+import com.example.hachikocoffee.Activity.MainActivity;
 import com.example.hachikocoffee.Domain.ShopDomain;
 import com.example.hachikocoffee.Fragment.HomeFragment;
 import com.example.hachikocoffee.Fragment.OrderFragment;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
+import java.util.Objects;
 
 public class ShopDetail extends BottomSheetDialogFragment {
 
@@ -87,10 +90,7 @@ public class ShopDetail extends BottomSheetDialogFragment {
             @Override
             public void onClick(View view) {
                 dismiss();
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.frame_layout, new OrderFragment());
-                fragmentTransaction.commit();
+                ((MainActivity) requireActivity()).navigateToOrderFragment();
             }
         });
     }

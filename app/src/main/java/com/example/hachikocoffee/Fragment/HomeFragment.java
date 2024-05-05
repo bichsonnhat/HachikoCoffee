@@ -128,7 +128,6 @@ public class HomeFragment extends Fragment {
         categories = FirebaseDatabase.getInstance().getReference("CATEGORY");
         items = FirebaseDatabase.getInstance().getReference("PRODUCTS");
         setupCategoryListener();
-
     }
 
     private void setupCategoryListener() {
