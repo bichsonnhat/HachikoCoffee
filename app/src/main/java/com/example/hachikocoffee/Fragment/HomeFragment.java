@@ -138,7 +138,7 @@ public class HomeFragment extends Fragment {
                 if (snapshot.exists()) {
                     for (DataSnapshot categorySnapshot : snapshot.getChildren()) {
                         CategoryDomain category = categorySnapshot.getValue(CategoryDomain.class);
-                        if (category != null && category.getTitle().equals("Cafe Highlight")) {
+                        if (category != null && category.getTitle().equals("Món Mới Phải Thử")) {
                             setupItemsListener(category.getCategoryID());
                             break;
                         }

@@ -10,10 +10,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.hachikocoffee.Domain.DiscountDomain;
 import com.example.hachikocoffee.R;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public class DiscountAdapter extends RecyclerView.Adapter<DiscountAdapter.DiscountViewHolder>{
@@ -38,16 +38,10 @@ public class DiscountAdapter extends RecyclerView.Adapter<DiscountAdapter.Discou
             return;
         }
 
-        holder.discountImage.setImageResource(discount.getResourceId());
-        holder.discountDetail.setText(discount.getContent());
-        holder.discountExpired.setText("Hết hạn trong " + discount.getExpired() + " ngày");
-
-        //if (discount.getExpired().equals(LocalDate.now()))
-        //{
-        //    holder.discountExpired.setText("Hết hạn trong hôm nay");
-        //} else {
-        //    holder.discountExpired.setText("Hết hạn trong " + discount.getExpired() + " ngày");
-        //}
+        // Get image from firebase storage URL to discountImage
+        Glide.with(holder.discountImage.getContext()).load(discount.getImageURL()).into(holder.discountImage);
+        holder.discountTitle.setText(discount.getTitle());
+        holder.discountExpired.setText(discount.getExpiryDate());
     }
 
     @Override
@@ -61,13 +55,13 @@ public class DiscountAdapter extends RecyclerView.Adapter<DiscountAdapter.Discou
     public class DiscountViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView discountImage;
-        private TextView  discountDetail;
+        private TextView discountTitle;
         private TextView  discountExpired;
         public DiscountViewHolder(@NonNull View itemView) {
             super(itemView);
 
             discountImage = itemView.findViewById(R.id.coupon_img);
-            discountDetail = itemView.findViewById(R.id.coupon_detail);
+            discountTitle = itemView.findViewById(R.id.coupon_detail);
             discountExpired = itemView.findViewById(R.id.coupon_expired);
         }
     }

@@ -5,16 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragment.OrderFragment"
+    android:id="@+id/fragment_order_id"
     android:background="@drawable/white_background">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ScrollView
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollViewItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fillViewport="true"
             app:layout_constraintTop_toTopOf="parent">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -23,6 +28,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <LinearLayout
                         android:id="@+id/topBar"
                         android:layout_width="match_parent"
@@ -108,8 +114,8 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="8dp"
                     android:layout_marginStart="15dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="15dp">
 
                     <RelativeLayout
@@ -137,6 +143,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp">
+
                     <View
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -144,7 +151,7 @@
                         app:layout_constraintBottom_toBottomOf="@id/seekbar"
                         app:layout_constraintEnd_toEndOf="@id/seekbar"
                         app:layout_constraintStart_toStartOf="@id/seekbar"
-                        app:layout_constraintTop_toTopOf="@+id/seekbar"/>
+                        app:layout_constraintTop_toTopOf="@+id/seekbar" />
 
                     <SeekBar
                         android:id="@+id/seekbar"
@@ -158,8 +165,16 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
 
-        </ScrollView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recyclerViewItem"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"/>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </FrameLayout>

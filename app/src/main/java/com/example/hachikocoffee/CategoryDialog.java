@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 
 import androidx.annotation.NonNull;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,6 +33,8 @@ import java.util.ArrayList;
 public class CategoryDialog extends BottomSheetDialogFragment {
     public  OnDismissListener dismissListener;
     RecyclerView recyclerViewCategoryDialog;
+    RecyclerView recyclerView;
+    NestedScrollView nestedScrollView;
 
     public void setOnDismissListener(OnDismissListener listener) {
         this.dismissListener = listener;
@@ -44,7 +47,10 @@ public class CategoryDialog extends BottomSheetDialogFragment {
             dismissListener.onDissmiss();
         }
     }
-    public CategoryDialog(){}
+    public CategoryDialog(RecyclerView recyclerView, NestedScrollView nestedScrollView){
+        this.recyclerView = recyclerView;
+        this.nestedScrollView = nestedScrollView;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -110,7 +116,7 @@ public class CategoryDialog extends BottomSheetDialogFragment {
     private void displayCategoryData(ArrayList<CategoryDomain> items) {
         if (!items.isEmpty()) {
             recyclerViewCategoryDialog.setLayoutManager(new GridLayoutManager(getActivity(), 4));
-            recyclerViewCategoryDialog.setAdapter(new CategoryDialogAdapter(items));
+            recyclerViewCategoryDialog.setAdapter(new CategoryDialogAdapter(items, recyclerView, nestedScrollView, this));
             recyclerViewCategoryDialog.setHasFixedSize(true);
         }
     }
