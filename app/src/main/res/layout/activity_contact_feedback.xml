@@ -185,7 +185,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Gửi góp ý về ý dụng"
+                    android:text="Gửi góp ý về ứng dụng"
                     android:textSize="16sp"
                     android:layout_marginTop="290dp"
                     android:layout_marginLeft="60dp"
