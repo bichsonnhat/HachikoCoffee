@@ -13,43 +13,60 @@
         android:layout_height="match_parent">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="-12dp">
             <ImageView
-                android:layout_marginTop="-11dp"
                 android:id="@+id/product_image_scr"
                 android:layout_width="match_parent"
                 android:layout_height="409dp"
                 android:layout_alignParentTop="true"
                 android:src="@drawable/oolong_vai" />
 
-            <TextView
-                android:id="@+id/productName"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/TitleAndCheckBox"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="410dp"
-                android:layout_weight="1"
-                android:text="Oolong Tứ Quý Vải"
-                android:textColor="@color/black"
-                android:textSize="25sp"
-                android:textStyle="bold" />
+                android:layout_marginTop="-4dp"
+                android:layout_below="@+id/product_image_scr">
 
-            <CheckBox
-                android:buttonTint="@color/checkbox_filter_tint"
-                android:id="@+id/favouriteProduct"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="405dp"
-                android:button="@drawable/selector_wishlist_item"
-                android:layout_marginStart="345dp"
-                />
+                <TextView
+                    android:id="@+id/productName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="0dp"
+                    app:layout_constraintHorizontal_bias="0"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_weight="1"
+                    android:text="Oolong Tứ Quý Vải"
+                    android:textColor="@color/black"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@id/favouriteProduct"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <CheckBox
+                    android:id="@+id/favouriteProduct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="16dp"
+                    android:button="@drawable/selector_wishlist_item"
+                    android:buttonTint="@color/checkbox_filter_tint"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <TextView
                 android:id="@+id/productCost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/TitleAndCheckBox"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="445dp"
+                android:layout_marginTop="1dp"
                 android:layout_weight="1"
                 android:text="59.000đ"
                 android:textColor="#807d7d"
@@ -60,11 +77,11 @@
                 android:id="@+id/productDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="485dp"
-                android:layout_marginEnd="16dp"
-                android:text="Đậm hương trà, thanh mát sắc xuân với Oolong Tứ Quý Vải. Cảm nhận hương hoa đầu mùa, hoà quyện cùng vị vải chín mọng căn tràn sự sống."
+                android:layout_below="@+id/productCost"
                 android:layout_marginStart="16dp"
-                />
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="16dp"
+                android:text="Đậm hương trà, thanh mát sắc xuân với Oolong Tứ Quý Vải. Cảm nhận hương hoa đầu mùa, hoà quyện cùng vị vải chín mọng căn tràn sự sống." />
 
             <TextView
                 android:id="@+id/productSize"
@@ -106,7 +123,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/productRecyclerSize"
                 android:layout_marginStart="325dp"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="14dp"
                 android:gravity="right"
                 android:text="65.000đ"
                 android:textSize="15sp" />
@@ -117,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/productLargeSize"
                 android:layout_marginStart="325dp"
-                android:layout_marginTop="31dp"
+                android:layout_marginTop="28dp"
                 android:gravity="right"
                 android:text="55.000đ"
                 android:textSize="15sp" />
@@ -128,7 +145,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/productMediumSize"
                 android:layout_marginStart="325dp"
-                android:layout_marginTop="26dp"
+                android:layout_marginTop="28dp"
                 android:gravity="right"
                 android:text="45.000đ"
                 android:textSize="15sp" />
@@ -160,14 +177,125 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView30"
+                android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 tools:listitem="@layout/item_size" />
+
+            <TextView
+                android:id="@+id/toppingCost1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10.000đ"
+                android:layout_marginTop="14dp"
+                android:gravity="right"
+                android:textSize="15sp"
+                android:layout_alignTop="@+id/productRecyclerTopping"
+                android:layout_marginStart="325dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10.000đ"
+                android:id="@+id/toppingCost2"
+                android:layout_below="@+id/toppingCost1"
+                android:layout_marginTop="28dp"
+                android:gravity="right"
+                android:layout_marginStart="325dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10.000đ"
+                android:id="@+id/toppingCost3"
+                android:layout_below="@+id/toppingCost2"
+                android:layout_marginTop="28dp"
+                android:gravity="right"
+                android:layout_marginStart="325dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10.000đ"
+                android:id="@+id/toppingCost4"
+                android:layout_below="@+id/toppingCost3"
+                android:layout_marginTop="28dp"
+                android:gravity="right"
+                android:layout_marginStart="325dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10.000đ"
+                android:id="@+id/toppingCost5"
+                android:layout_below="@+id/toppingCost4"
+                android:layout_marginTop="28dp"
+                android:gravity="right"
+                android:layout_marginStart="325dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10.000đ"
+                android:id="@+id/toppingCost6"
+                android:layout_below="@+id/toppingCost5"
+                android:layout_marginTop="28dp"
+                android:gravity="right"
+                android:layout_marginStart="325dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10.000đ"
+                android:id="@+id/toppingCost7"
+                android:layout_below="@+id/toppingCost6"
+                android:layout_marginTop="28dp"
+                android:gravity="right"
+                android:layout_marginStart="325dp"/>
+
+            <TextView
+                android:id="@+id/anotherRequire"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_weight="1"
+                android:text="Yêu cầu khác"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_below="@+id/productRecyclerTopping"
+                />
+
+            <TextView
+                android:id="@+id/Option"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/anotherRequire"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="2dp"
+                android:layout_weight="1"
+                android:text="Những tuỳ chọn khác"
+                android:textColor="#807d7d" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:hint="Thêm ghi chú"
+                android:paddingStart="16dp"
+                android:id="@+id/notes"
+                android:textSize="14sp"
+                android:inputType="text"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/Option"
+                android:background="@drawable/bg_note"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="50dp"
-                android:layout_below="@+id/productRecyclerTopping"
+                android:layout_marginTop="60dp"
+                android:layout_below="@+id/notes"
                 />
+
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
     <androidx.constraintlayout.widget.ConstraintLayout

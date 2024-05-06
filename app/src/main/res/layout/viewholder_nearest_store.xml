@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
-    android:background="@drawable/bg_store">
+    android:background="@drawable/bg_store"
+    android:id="@+id/shopitem">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/coffeee_img"
@@ -21,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/anh_cua_hang"
+            android:id="@+id/shopimage"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@drawable/bg_store"
@@ -30,11 +31,11 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/the_hachiko_coffee"
+        android:id="@+id/shopname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="THE HACHIKO COFFEE"
         android:textColor="#EC787878"
         android:textSize="10sp"
@@ -43,22 +44,24 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/dia_chi"
-        android:layout_width="wrap_content"
+        android:id="@+id/shopaddress"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="2dp"
+        android:maxLines="3"
         android:text="TP X Đường Y"
         android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/coffeee_img"
-        app:layout_constraintTop_toBottomOf="@+id/the_hachiko_coffee" />
+        app:layout_constraintTop_toBottomOf="@+id/shopname" />
 
     <TextView
-        android:id="@+id/khoang_cach"
+        android:id="@+id/shopcoordinate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:text="Cách đây ... km"
         android:textColor="#ECA3A2A2"
         android:textSize="14sp"
