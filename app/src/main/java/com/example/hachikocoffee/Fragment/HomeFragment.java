@@ -59,7 +59,7 @@ public class HomeFragment extends Fragment {
     private Handler handler;
     private Runnable runnable;
     private int delay = 5000;
-    private int MonMoiPhaiThuID = 0;
+//    private int MonMoiPhaiThuID = 0;
 
     DatabaseReference categories;
     DatabaseReference items;

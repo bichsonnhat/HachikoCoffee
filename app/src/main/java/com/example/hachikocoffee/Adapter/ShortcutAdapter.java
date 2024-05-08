@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -74,7 +73,7 @@ public class ShortcutAdapter extends RecyclerView.Adapter<ShortcutAdapter.MyView
             }
         });
 
-        holder.itemView.setBackgroundResource(R.drawable.background_shortcut);
+        holder.itemView.setBackgroundResource(R.drawable.background_item);
     }
 
     @Override

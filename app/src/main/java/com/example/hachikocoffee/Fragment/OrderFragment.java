@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import com.example.hachikocoffee.Activity.FavouriteActivity;
 import com.example.hachikocoffee.Activity.LoginOTPActivity;
 import com.example.hachikocoffee.Activity.SearchItemActivity;
 import com.example.hachikocoffee.Adapter.CategoryAdapter;
@@ -101,6 +102,7 @@ public class OrderFragment extends Fragment {
         seekbarHorizontalScroll = view.findViewById(R.id.seekbar);
         nestedScrollView = view.findViewById(R.id.nestedScrollViewItem);
         ImageView searchButton = view.findViewById(R.id.SearchItem);
+        ImageView backButton = view.findViewById(R.id.FavouriteBtn);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,6 +110,19 @@ public class OrderFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), FavouriteActivity.class);
+                startActivity(intent);
+            }
+        });
+
+//        searchButton.setBackgroundResource(R.drawable.background_item);
+//        backButton.setBackgroundResource(R.drawable.background_item);
+
+
 
 //        initCategory();
         initSeekbar();
