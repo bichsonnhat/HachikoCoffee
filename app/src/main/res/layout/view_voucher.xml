@@ -3,138 +3,160 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#EDECEC"
+    tools:context=".Activity.MainActivity">
 
-    <FrameLayout
-        android:id="@+id/frame_layout"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#EDECEC"
-        tools:layout_editor_absoluteX="28dp"
-        tools:layout_editor_absoluteY="0dp">
+        android:layout_height="match_parent">
 
-        <ScrollView
-            android:layout_width="320dp"
-            android:layout_height="720dp"
-            android:layout_gravity="center"
-            android:background="@drawable/rounded4_rectangle">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/rounded4_rectangle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <TextView
+                android:id="@+id/txt_hachikocoffee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="The Hachiko Coffee"
+                android:textColor="#706E6E"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="TextSizeCheck" />
+
+            <TextView
+                android:id="@+id/txt_voucher_name"
+                android:layout_width="290dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="45dp"
+                android:text="Bộ ghiền 39K + Freeship"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView5"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="230dp"
+                android:src="@drawable/dotted_dashed_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints" />
 
-                <TextView
-                    android:id="@+id/txt_hachikocoffee"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="120dp"
-                    android:layout_marginTop="8dp"
-                    android:text="HachikoCoffee"
-                    android:textColor="#706E6E"
-                    android:textSize="12dp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="TextSizeCheck" />
+            <ImageView
+                android:id="@+id/voucherdetail_img"
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                android:layout_marginTop="72dp"
+                android:src="@drawable/voucher_img"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_voucher_name"
+                tools:ignore="MissingConstraints" />
 
-                <TextView
-                    android:id="@+id/txt_voucher_name"
-                    android:layout_width="290dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="45dp"
-                    android:text="Bộ ghiền 39K + Freeship"
-                    android:textAlignment="center"
-                    android:textSize="24dp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <Button
+                android:id="@+id/order_bt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Bắt đầu đặt hàng"
+                android:textSize="16sp"
+                app:backgroundTint="@null"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/voucherdetail_img"
+                tools:ignore="MissingConstraints" />
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="230dp"
-                    android:src="@drawable/dotted_dashed_line"
-                    tools:ignore="MissingConstraints" />
+            <View
+                android:id="@+id/view4"
+                android:layout_width="290dp"
+                android:layout_height="2dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="20dp"
+                android:background="#EDECEC"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/order_bt"
+                tools:ignore="MissingConstraints" />
 
-                <ImageView
-                    android:layout_width="170dp"
-                    android:layout_height="170dp"
-                    android:src="@drawable/voucher_img"
-                    tools:ignore="MissingConstraints"
-                    tools:layout_editor_absoluteX="75dp"
-                    tools:layout_editor_absoluteY="156dp" />
+            <TextView
+                android:id="@+id/txt_view2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="Ngày hết hạn:"
+                android:textColor="#706E6E"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@+id/view5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view4"
+                tools:ignore="TextSizeCheck" />
 
-                <Button
-                    android:id="@+id/order_bt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Bắt đầu đặt hàng"
-                    android:textSize="16sp"
-                    app:backgroundTint="@null"
-                    tools:ignore="MissingConstraints"
-                    tools:layout_editor_absoluteX="74dp"
-                    tools:layout_editor_absoluteY="365dp" />
+            <TextView
+                android:id="@+id/txt_expired_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:text="Trong 3 ngày"
+                android:textAlignment="textEnd"
+                android:textColor="#C1780C"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@+id/view5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view4"
+                tools:ignore="TextSizeCheck" />
 
-                <View
-                    android:layout_width="290dp"
-                    android:layout_height="2dp"
-                    android:background="#EDECEC"
-                    tools:ignore="MissingConstraints"
-                    tools:layout_editor_absoluteX="15dp"
-                    tools:layout_editor_absoluteY="440dp" />
+            <View
+                android:id="@+id/view5"
+                android:layout_width="290dp"
+                android:layout_height="2dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="20dp"
+                android:background="#EDECEC"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view4"
+                tools:ignore="MissingConstraints" />
 
-                <TextView
-                    android:id="@+id/txt_view2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="450dp"
-                    android:text="Ngày hết hạn:"
-                    android:textColor="#706E6E"
-                    android:textSize="14dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="TextSizeCheck" />
-
-                <TextView
-                    android:id="@+id/txt_expired_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="223dp"
-                    android:layout_marginTop="450dp"
-                    android:text="Trong 3 ngày"
-                    android:textAlignment="textEnd"
-                    android:textColor="#C1780C"
-                    android:textSize="14dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="TextSizeCheck" />
-
-                <View
-                    android:layout_width="290dp"
-                    android:layout_height="2dp"
-                    android:background="#EDECEC"
-                    tools:ignore="MissingConstraints"
-                    tools:layout_editor_absoluteX="15dp"
-                    tools:layout_editor_absoluteY="480dp" />
-
-                <TextView
-                    android:id="@+id/txt_description"
-                    android:layout_width="280dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginTop="500dp"
-                    android:text="- Áp dụng cho toàn bộ sản phẩm nước khi đặt hàng từ 10 ly trở lên.\n- Áp dụng dịch vụ Giao hàng (Delivery) khi đặt hàng qua App HachikoCoffee trên toàn quốc.\n- Áp dụng lũy tiến.\n- Không áp dụng cho topping và các sản phẩm đóng chai Fresh, topping.\n- Không áp dụng song song các chương trình khác.\n- Trường hợp sản phẩm nằm trong danh sách nhiều chương trình khác nhau (Khuyến mãi gạch giá &amp; khuyến mãi từ voucher), hệ thống sẽ ưu tiến áp dụng Voucher.\n- Chương trình có thể kết thúc sớm hơn dự kiến nếu hết lượng ưu đãi."
-                    android:textColor="#706E6E"
-                    android:textSize="12dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="TextSizeCheck" />
+            <TextView
+                android:id="@+id/txt_description"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="20dp"
+                android:text="- Áp dụng cho toàn bộ sản phẩm nước khi đặt hàng từ 10 ly trở lên.\n- Áp dụng dịch vụ Giao hàng (Delivery) khi đặt hàng qua App HachikoCoffee trên toàn quốc.\n- Áp dụng lũy tiến.\n- Không áp dụng cho topping và các sản phẩm đóng chai Fresh, topping.\n- Không áp dụng song song các chương trình khác.\n- Trường hợp sản phẩm nằm trong danh sách nhiều chương trình khác nhau (Khuyến mãi gạch giá &amp; khuyến mãi từ voucher), hệ thống sẽ ưu tiến áp dụng Voucher.\n- Chương trình có thể kết thúc sớm hơn dự kiến nếu hết lượng ưu đãi.\n\n\n\n\n\n\ntext\n\n\n\ntxt"
+                android:textColor="#706E6E"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view5"
+                tools:ignore="TextSizeCheck" />
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
-    </FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
 
     <ImageView
         android:id="@+id/voucher_closeBtn"
