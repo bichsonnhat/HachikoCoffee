@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.hachikocoffee.Activity.FavouriteActivity;
 import com.example.hachikocoffee.Adapter.FavouriteAdapter;
 import com.example.hachikocoffee.Adapter.SizeAdapter;
 import com.example.hachikocoffee.Adapter.ToppingAdapter;
@@ -60,6 +61,7 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
     String SizeProduct = "Nhỏ";
     ArrayList<String> toppingList = new ArrayList<>();
     int sizeToping = 0;
+    private UpdateUIListener updateUIListener;
 
     public ProductDetail(ItemsDomain object){ this.object = object;};
     public ProductDetail(ItemsDomain object, ArrayList<ItemsDomain> items, FavouriteAdapter adapter){
@@ -127,12 +129,21 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
                                 FavouriteItemDomain favouriteItem = product.getValue(FavouriteItemDomain.class);
                                 if (favouriteItem != null && favouriteItem.getProductID().equals(ProductID)) {
                                     product.getRef().removeValue();
-                                    items.remove(object);
+                                    if (items != null){
+                                        items.remove(object);
+                                        if (items.isEmpty()){
+                                            updateUIListener.updateUI(0);
+                                        }
+                                    }
+                                    //
                                     Toast.makeText(getContext(), "Xóa thành công khỏi danh sách yêu thích", Toast.LENGTH_SHORT).show();
                                 }
                             }
 
-                            adapter1.notifyDataSetChanged();
+                            if (adapter1 != null){
+                                adapter1.notifyDataSetChanged();
+                            }
+
                         }
 
                         @Override
@@ -310,5 +321,9 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
         totalOrder = (((int) object.getPrice() + 10 * sizeToping) * countProduct);
         totalProductCost.setText("Chọn • " + totalOrder + "đ");
         Toast.makeText(getContext(), arrayList.toString(), Toast.LENGTH_SHORT).show();
+    }
+
+    public void setUpdateUIListener(UpdateUIListener listener) {
+        this.updateUIListener = listener;
     }
 }
