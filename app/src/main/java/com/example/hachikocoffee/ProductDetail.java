@@ -157,7 +157,6 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
                     }
                 }
 
-                // Cập nhật trạng thái của checkbox dựa trên kết quả tìm kiếm
                 favouriteProduct.setChecked(isProductFavorite);
             }
 

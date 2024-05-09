@@ -55,7 +55,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.View
             }
         });
 
-        ((FavouriteActivity) holder.itemView.getContext()).updateUI(getItemCount());
+        //((FavouriteActivity) holder.itemView.getContext()).updateUI(getItemCount());
     }
 
     @Override

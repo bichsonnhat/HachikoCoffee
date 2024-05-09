@@ -256,7 +256,7 @@ public class OrderFragment extends Fragment {
                 arrowBtn.startAnimation(rotateUpAnimation);
                 arrowBtn.setImageResource(R.drawable.arrow_up);
                 categoryDialog.show(getChildFragmentManager(), "category_dialog");
-                
+
                 categoryDialog.setOnDismissListener(new OnDismissListener() {
                     @Override
                     public void onDissmiss() {

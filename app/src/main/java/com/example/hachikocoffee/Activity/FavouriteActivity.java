@@ -48,8 +48,7 @@ public class FavouriteActivity extends AppCompatActivity {
 
         listFavourites = new ArrayList<>();
         recyclerViewFavourites.setLayoutManager(new GridLayoutManager(this, 1));
-
-        updateUI(0);
+        updateUI(previousItemCount);
 
 //        GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
 //        recyclerViewFavourites.setLayoutManager(layoutManager);
@@ -131,7 +130,8 @@ public class FavouriteActivity extends AppCompatActivity {
         if (adapter == null) {
             adapter = new FavouriteAdapter(listFavourites);
             recyclerViewFavourites.setAdapter(adapter);
-        } else {
+        }
+        else {
             adapter.notifyDataSetChanged();
         }
         adapter.setOnItemClickListener(item -> {
