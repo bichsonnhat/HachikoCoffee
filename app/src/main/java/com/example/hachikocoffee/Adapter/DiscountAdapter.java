@@ -15,7 +15,6 @@ import com.bumptech.glide.Glide;
 import com.example.hachikocoffee.DiscountClickListener;
 import com.example.hachikocoffee.Domain.DiscountDomain;
 import com.example.hachikocoffee.R;
-import com.example.hachikocoffee.ShopClickListener;
 
 import java.util.List;
 
