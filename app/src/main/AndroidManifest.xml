@@ -77,7 +77,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ProductDetail"
+            android:name=".BottomSheetDialog.ProductDetail"
             android:exported="true">
             <intent-filter>
 
@@ -86,7 +86,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ShopDetail"
+            android:name=".BottomSheetDialog.ShopDetail"
             android:exported="true">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />

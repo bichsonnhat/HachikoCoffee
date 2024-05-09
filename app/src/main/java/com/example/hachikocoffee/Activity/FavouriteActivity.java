@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
-import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,19 +15,19 @@ import android.widget.TextView;
 import com.example.hachikocoffee.Adapter.FavouriteAdapter;
 import com.example.hachikocoffee.Domain.FavouriteItemDomain;
 import com.example.hachikocoffee.Domain.ItemsDomain;
-import com.example.hachikocoffee.ProductDetail;
+import com.example.hachikocoffee.BottomSheetDialog.ProductDetail;
 import com.example.hachikocoffee.R;
+import com.example.hachikocoffee.Listener.UpdateUIListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavouriteActivity extends AppCompatActivity {
+public class FavouriteActivity extends AppCompatActivity implements UpdateUIListener {
 
     private ArrayList<ItemsDomain> listFavourites;
     private TextView textViewNoFavourites;
@@ -48,8 +47,7 @@ public class FavouriteActivity extends AppCompatActivity {
 
         listFavourites = new ArrayList<>();
         recyclerViewFavourites.setLayoutManager(new GridLayoutManager(this, 1));
-
-        updateUI(0);
+        updateUI(previousItemCount);
 
 //        GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
 //        recyclerViewFavourites.setLayoutManager(layoutManager);
@@ -115,7 +113,7 @@ public class FavouriteActivity extends AppCompatActivity {
             }
         });
     }
-
+    @Override
     public void updateUI(int itemCount) {
         if (itemCount > 0) {
             textViewNoFavourites.setVisibility(View.GONE);
@@ -131,11 +129,13 @@ public class FavouriteActivity extends AppCompatActivity {
         if (adapter == null) {
             adapter = new FavouriteAdapter(listFavourites);
             recyclerViewFavourites.setAdapter(adapter);
-        } else {
+        }
+        else {
             adapter.notifyDataSetChanged();
         }
         adapter.setOnItemClickListener(item -> {
             ProductDetail bottomSheetDialogFragment = new ProductDetail(item, listFavourites, adapter);
+            bottomSheetDialogFragment.setUpdateUIListener(FavouriteActivity.this);
             bottomSheetDialogFragment.show(getSupportFragmentManager(), "BottomSheetDialogFragment");
         });
     }

@@ -1,31 +1,22 @@
-package com.example.hachikocoffee;
+package com.example.hachikocoffee.BottomSheetDialog;
 
-import android.app.Activity;
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.example.hachikocoffee.Activity.MainActivity;
 import com.example.hachikocoffee.Domain.ShopDomain;
-import com.example.hachikocoffee.Fragment.HomeFragment;
-import com.example.hachikocoffee.Fragment.OrderFragment;
+import com.example.hachikocoffee.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-
-import java.util.Objects;
 
 public class ShopDetail extends BottomSheetDialogFragment {
 

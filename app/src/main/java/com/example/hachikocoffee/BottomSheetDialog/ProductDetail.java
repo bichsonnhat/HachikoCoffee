@@ -1,10 +1,7 @@
-package com.example.hachikocoffee;
+package com.example.hachikocoffee.BottomSheetDialog;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.ClipData;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,20 +25,21 @@ import com.example.hachikocoffee.Adapter.SizeAdapter;
 import com.example.hachikocoffee.Adapter.ToppingAdapter;
 import com.example.hachikocoffee.Domain.FavouriteItemDomain;
 import com.example.hachikocoffee.Domain.ItemsDomain;
+import com.example.hachikocoffee.Listener.ItemClickListener;
+import com.example.hachikocoffee.Listener.ToppingListener;
+import com.example.hachikocoffee.Listener.UpdateUIListener;
+import com.example.hachikocoffee.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.android.material.shape.ShapeAppearanceModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -60,6 +57,7 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
     String SizeProduct = "Nhỏ";
     ArrayList<String> toppingList = new ArrayList<>();
     int sizeToping = 0;
+    private UpdateUIListener updateUIListener;
 
     public ProductDetail(ItemsDomain object){ this.object = object;};
     public ProductDetail(ItemsDomain object, ArrayList<ItemsDomain> items, FavouriteAdapter adapter){
@@ -127,12 +125,21 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
                                 FavouriteItemDomain favouriteItem = product.getValue(FavouriteItemDomain.class);
                                 if (favouriteItem != null && favouriteItem.getProductID().equals(ProductID)) {
                                     product.getRef().removeValue();
-                                    items.remove(object);
+                                    if (items != null){
+                                        items.remove(object);
+                                        if (items.isEmpty()){
+                                            updateUIListener.updateUI(0);
+                                        }
+                                    }
+                                    //
                                     Toast.makeText(getContext(), "Xóa thành công khỏi danh sách yêu thích", Toast.LENGTH_SHORT).show();
                                 }
                             }
 
-                            adapter1.notifyDataSetChanged();
+                            if (adapter1 != null){
+                                adapter1.notifyDataSetChanged();
+                            }
+
                         }
 
                         @Override
@@ -157,7 +164,6 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
                     }
                 }
 
-                // Cập nhật trạng thái của checkbox dựa trên kết quả tìm kiếm
                 favouriteProduct.setChecked(isProductFavorite);
             }
 
@@ -311,5 +317,9 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
         totalOrder = (((int) object.getPrice() + 10 * sizeToping) * countProduct);
         totalProductCost.setText("Chọn • " + totalOrder + "đ");
         Toast.makeText(getContext(), arrayList.toString(), Toast.LENGTH_SHORT).show();
+    }
+
+    public void setUpdateUIListener(UpdateUIListener listener) {
+        this.updateUIListener = listener;
     }
 }
