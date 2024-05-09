@@ -24,7 +24,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import java.util.List;
 
 public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder>{
-
     private final List<ShopDomain> mListShop;
     private final ShopClickListener shopClickListener;
 

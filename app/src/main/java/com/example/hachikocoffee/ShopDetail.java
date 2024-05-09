@@ -33,6 +33,7 @@ public class ShopDetail extends BottomSheetDialogFragment {
     private ShopDomain shop;
 
     ImageView shopdetailImage;
+    ImageView shopdetailClose;
     TextView shopdetailName;
     TextView shopdetailAddress;
     TextView shopdetailCoordinate;
@@ -74,6 +75,7 @@ public class ShopDetail extends BottomSheetDialogFragment {
         shopdetailName = view.findViewById(R.id.shopdetail_name);
         shopdetailAddress = view.findViewById(R.id.shopdetail_address);
         shopdetailCoordinate = view.findViewById(R.id.shopdetail_coordinate);
+        shopdetailClose = view.findViewById(R.id.shop_closeBtn);
         shopdetailBtn = view.findViewById(R.id.shopdetail_orderbtn);
 
         if (shop == null) {
@@ -85,6 +87,12 @@ public class ShopDetail extends BottomSheetDialogFragment {
         shopdetailAddress.setText(shop.getAddress());
         shopdetailCoordinate.setText(shop.getCoordinate());
 
+        shopdetailClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
 
         shopdetailBtn.setOnClickListener(new View.OnClickListener() {
             @Override

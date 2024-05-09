@@ -1,10 +1,14 @@
 package com.example.hachikocoffee.Domain;
 
-public class DiscountDomain {
-    //private int resourceId;
-    //private String content;
-    //private String expired;
+import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 
+public class DiscountDomain implements Serializable {
     private int VoucherID;
     private String Description;
     private String ExpiryDate;
@@ -36,14 +40,59 @@ public class DiscountDomain {
     }
 
     public String getDescription() {
+        if (Description != null) {
+            int firstIndex = Description.indexOf("-");
+            int lastIndex = Description.lastIndexOf("-");
+            if (firstIndex != lastIndex) {
+                String firstPart = Description.substring(0, firstIndex + 1);
+                String secondPart = Description.substring(firstIndex + 1).replace("-", "\n-");
+                return firstPart + secondPart;
+            }
+        }
         return Description;
     }
+
+    /*
+    public String getDescription() {
+        if (Description != null) {
+            long count = Description.chars().filter(ch -> ch == '-').count();
+            if (count > 1) {
+                boolean isFirst = true;
+                StringBuilder sb = new StringBuilder();
+                for (char ch : Description.toCharArray()) {
+                    if (ch == '-') {
+                        if (isFirst) {
+                            isFirst = false;
+                            sb.append(ch);
+                        } else {
+                            sb.append("\n-");
+                        }
+                    } else {
+                        sb.append(ch);
+                    }
+                }
+                return sb.toString();
+            }
+        }
+        return Description;
+    }
+    */
 
     public void setDescription(String description) {
         Description = description;
     }
 
     public String getExpiryDate() {
+        SimpleDateFormat originalFormat = new SimpleDateFormat("MM/dd/yyyy");
+        SimpleDateFormat targetFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date;
+        try {
+            date = originalFormat.parse(ExpiryDate);
+            String formattedDate = targetFormat.format(date);
+            return formattedDate;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         return ExpiryDate;
     }
 
