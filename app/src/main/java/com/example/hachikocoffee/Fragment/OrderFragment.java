@@ -19,17 +19,15 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
-import android.widget.Toast;
 
 import com.example.hachikocoffee.Activity.FavouriteActivity;
-import com.example.hachikocoffee.Activity.LoginOTPActivity;
 import com.example.hachikocoffee.Activity.SearchItemActivity;
 import com.example.hachikocoffee.Adapter.CategoryAdapter;
 import com.example.hachikocoffee.Adapter.ListHeaderItemAdapter;
-import com.example.hachikocoffee.CategoryDialog;
+import com.example.hachikocoffee.BottomSheetDialog.CategoryDialog;
 import com.example.hachikocoffee.Domain.CategoryDomain;
 import com.example.hachikocoffee.Domain.ItemsDomain;
-import com.example.hachikocoffee.OnDismissListener;
+import com.example.hachikocoffee.Listener.OnDismissListener;
 import com.example.hachikocoffee.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,7 +36,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
