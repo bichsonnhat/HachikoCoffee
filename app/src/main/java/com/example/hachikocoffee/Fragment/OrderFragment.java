@@ -19,16 +19,15 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
-import android.widget.Toast;
 
-import com.example.hachikocoffee.Activity.LoginOTPActivity;
+import com.example.hachikocoffee.Activity.FavouriteActivity;
 import com.example.hachikocoffee.Activity.SearchItemActivity;
 import com.example.hachikocoffee.Adapter.CategoryAdapter;
 import com.example.hachikocoffee.Adapter.ListHeaderItemAdapter;
-import com.example.hachikocoffee.CategoryDialog;
+import com.example.hachikocoffee.BottomSheetDialog.CategoryDialog;
 import com.example.hachikocoffee.Domain.CategoryDomain;
 import com.example.hachikocoffee.Domain.ItemsDomain;
-import com.example.hachikocoffee.OnDismissListener;
+import com.example.hachikocoffee.Listener.OnDismissListener;
 import com.example.hachikocoffee.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,7 +36,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -101,6 +99,7 @@ public class OrderFragment extends Fragment {
         seekbarHorizontalScroll = view.findViewById(R.id.seekbar);
         nestedScrollView = view.findViewById(R.id.nestedScrollViewItem);
         ImageView searchButton = view.findViewById(R.id.SearchItem);
+        ImageView backButton = view.findViewById(R.id.FavouriteBtn);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,6 +107,19 @@ public class OrderFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), FavouriteActivity.class);
+                startActivity(intent);
+            }
+        });
+
+//        searchButton.setBackgroundResource(R.drawable.background_item);
+//        backButton.setBackgroundResource(R.drawable.background_item);
+
+
 
 //        initCategory();
         initSeekbar();
@@ -241,7 +253,7 @@ public class OrderFragment extends Fragment {
                 arrowBtn.startAnimation(rotateUpAnimation);
                 arrowBtn.setImageResource(R.drawable.arrow_up);
                 categoryDialog.show(getChildFragmentManager(), "category_dialog");
-                
+
                 categoryDialog.setOnDismissListener(new OnDismissListener() {
                     @Override
                     public void onDissmiss() {

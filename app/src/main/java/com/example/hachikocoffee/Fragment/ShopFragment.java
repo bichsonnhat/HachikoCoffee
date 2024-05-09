@@ -1,6 +1,5 @@
 package com.example.hachikocoffee.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,18 +13,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.hachikocoffee.Adapter.ShopAdapter;
-import com.example.hachikocoffee.Domain.CategoryDomain;
 import com.example.hachikocoffee.Domain.ShopDomain;
 import com.example.hachikocoffee.R;
-import com.example.hachikocoffee.ShopClickListener;
-import com.example.hachikocoffee.ShopDetail;
+import com.example.hachikocoffee.Listener.ShopClickListener;
+import com.example.hachikocoffee.BottomSheetDialog.ShopDetail;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
