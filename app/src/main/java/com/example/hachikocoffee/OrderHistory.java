@@ -10,10 +10,16 @@ import android.widget.TabWidget;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import com.example.hachikocoffee.Adapter.ViewPagerAdapter;
+import com.google.android.material.tabs.TabLayout;
 
 public class OrderHistory extends AppCompatActivity {
     Button btnback;
-    TabHost tab;
+    private TabLayout tl;
+    private ViewPager vp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,41 +34,12 @@ public class OrderHistory extends AppCompatActivity {
             }
         });
 
-        tab = findViewById(R.id.tab);
-        tab.setup();
-        TabHost.TabSpec spec1, spec2, spec3;
+        tl = findViewById(R.id.tab_layout);
+        vp = findViewById(R.id.view_pager);
 
-        spec1 = tab.newTabSpec("Đang thực hiện");
-        spec1.setContent(R.id.tab1);
-        spec1.setIndicator("Đang thực hiện");
-        tab.addTab(spec1);
+        ViewPagerAdapter vpa = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        vp.setAdapter(vpa);
 
-        spec2 = tab.newTabSpec("Đã hoàn tất");
-        spec2.setContent(R.id.tab2);
-        spec2.setIndicator("Đã hoàn tất");
-        tab.addTab(spec2);
-
-        spec3 = tab.newTabSpec("Đã hủy");
-        spec3.setContent(R.id.tab3);
-        spec3.setIndicator("Đã hủy");
-        tab.addTab(spec3);
-
-        tab.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
-            @Override
-            public void onTabChanged(String tabId) {
-                TabWidget tabWidget = tab.getTabWidget();
-                for (int i = 0; i < tabWidget.getChildCount(); i++) {
-                    View tabView = tabWidget.getChildAt(i);
-                    TextView tv = tabView.findViewById(android.R.id.title);
-                    if (tab.getCurrentTab() == i) {
-                        tabView.setBackgroundColor(getResources().getColor(R.color.white));
-                        tv.setTextColor(getResources().getColor(R.color.orange));
-                    } else {
-                        tabView.setBackgroundColor(getResources().getColor(R.color.white));
-                        tv.setTextColor(getResources().getColor(R.color.black));
-                    }
-                }
-            }
-        });
+        tl.setupWithViewPager(vp);
     }
 }
