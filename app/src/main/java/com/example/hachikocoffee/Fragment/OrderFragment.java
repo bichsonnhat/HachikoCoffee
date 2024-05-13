@@ -199,9 +199,6 @@ public class OrderFragment extends Fragment {
         return data;
     }
 
-
-
-
     private void initSeekbar() {
         seekbarHorizontalScroll.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
