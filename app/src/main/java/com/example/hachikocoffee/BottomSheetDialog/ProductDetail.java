@@ -1,10 +1,9 @@
-package com.example.hachikocoffee;
+package com.example.hachikocoffee.BottomSheetDialog;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,19 +20,33 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.hachikocoffee.Adapter.FavouriteAdapter;
 import com.example.hachikocoffee.Adapter.SizeAdapter;
 import com.example.hachikocoffee.Adapter.ToppingAdapter;
+import com.example.hachikocoffee.Domain.FavouriteItemDomain;
 import com.example.hachikocoffee.Domain.ItemsDomain;
+import com.example.hachikocoffee.Listener.ItemClickListener;
+import com.example.hachikocoffee.Listener.ToppingListener;
+import com.example.hachikocoffee.Listener.UpdateUIListener;
+import com.example.hachikocoffee.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.android.material.shape.ShapeAppearanceModel;
-
-import org.w3c.dom.Text;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class ProductDetail extends BottomSheetDialogFragment implements ToppingListener {
+    FavouriteAdapter adapter1;
+    ArrayList<ItemsDomain> items;
     ItemsDomain object;
     RecyclerView recyclerView;
     RecyclerView recyclerViewTopping;
@@ -44,8 +57,14 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
     String SizeProduct = "Nhỏ";
     ArrayList<String> toppingList = new ArrayList<>();
     int sizeToping = 0;
+    private UpdateUIListener updateUIListener;
 
     public ProductDetail(ItemsDomain object){ this.object = object;};
+    public ProductDetail(ItemsDomain object, ArrayList<ItemsDomain> items, FavouriteAdapter adapter){
+        this.object = object;
+        this.items = items;
+        this.adapter1 = adapter;
+    }
     AppCompatButton totalProductCost;
     int totalOrder = 0;
     @SuppressLint("SetTextI18n")
@@ -66,13 +85,95 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
         TextView productLargeSize = view.findViewById(R.id.productLargeSize);
         totalProductCost.setText("Chọn • " + (int) (object.getPrice() + 10 * sizeToping) + "đ");
         CheckBox favouriteProduct = view.findViewById(R.id.favouriteProduct);
+
+        String ProductID = object.getProductID();
+        int UserID = 1;
+        Random random = new Random();
+        int FavouriteProductID = random.nextInt(100) + 1;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference favoriteProductsRef = database.getReference("FAVORITEPRODUCT");
+
         favouriteProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (favouriteProduct.isChecked()) {
+                    FavouriteItemDomain favouriteItem = new FavouriteItemDomain(ProductID, FavouriteProductID, UserID);
+                    DatabaseReference newFavoriteProductRef = favoriteProductsRef.push();
+                    newFavoriteProductRef.setValue(favouriteItem)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getContext(), "Thêm thành công vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
+                                    Log.d("ProductDetailActivity", "Successfully added/removed favorite product");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.e("ProductDetailActivity", "Error adding/removing favorite product: " + e.getMessage());
+                                }
+                            });
+                }
+                else{
+                    Query query = favoriteProductsRef.orderByChild("userID").equalTo(UserID);
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @SuppressLint("NotifyDataSetChanged")
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot product : snapshot.getChildren()) {
+                                FavouriteItemDomain favouriteItem = product.getValue(FavouriteItemDomain.class);
+                                if (favouriteItem != null && favouriteItem.getProductID().equals(ProductID)) {
+                                    product.getRef().removeValue();
+                                    if (items != null){
+                                        items.remove(object);
+                                        if (items.isEmpty()){
+                                            updateUIListener.updateUI(0);
+                                        }
+                                    }
+                                    //
+                                    Toast.makeText(getContext(), "Xóa thành công khỏi danh sách yêu thích", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            if (adapter1 != null){
+                                adapter1.notifyDataSetChanged();
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            // Xử lý lỗi
+                        }
+                    });
                 }
             }
         });
+
+        Query query = favoriteProductsRef.orderByChild("userID").equalTo(UserID);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                boolean isProductFavorite = false;
+                for (DataSnapshot product : snapshot.getChildren()) {
+                    FavouriteItemDomain favouriteItem = product.getValue(FavouriteItemDomain.class);
+                    if (favouriteItem != null && favouriteItem.getProductID().equals(ProductID)) {
+                        isProductFavorite = true;
+                        break;
+                    }
+                }
+
+                favouriteProduct.setChecked(isProductFavorite);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Xử lý lỗi
+            }
+        });
+
+
         totalOrder = (int) object.getPrice();
         minusProduct.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -216,5 +317,9 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
         totalOrder = (((int) object.getPrice() + 10 * sizeToping) * countProduct);
         totalProductCost.setText("Chọn • " + totalOrder + "đ");
         Toast.makeText(getContext(), arrayList.toString(), Toast.LENGTH_SHORT).show();
+    }
+
+    public void setUpdateUIListener(UpdateUIListener listener) {
+        this.updateUIListener = listener;
     }
 }

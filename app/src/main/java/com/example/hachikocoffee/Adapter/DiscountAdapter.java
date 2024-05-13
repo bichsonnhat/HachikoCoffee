@@ -8,20 +8,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.hachikocoffee.DiscountClickListener;
 import com.example.hachikocoffee.Domain.DiscountDomain;
 import com.example.hachikocoffee.R;
 
 import java.util.List;
 
 public class DiscountAdapter extends RecyclerView.Adapter<DiscountAdapter.DiscountViewHolder>{
-    private Context mContext;
-    private List<DiscountDomain> mListDiscount;
+    private final List<DiscountDomain> mListDiscount;
+    private final DiscountClickListener discountClickListener;
 
-    public DiscountAdapter(List<DiscountDomain> mListDiscount) {
+    public DiscountAdapter(List<DiscountDomain> mListDiscount, DiscountClickListener discountClickListener) {
         this.mListDiscount = mListDiscount;
+        this.discountClickListener = discountClickListener;
     }
 
     @NonNull
@@ -38,10 +41,16 @@ public class DiscountAdapter extends RecyclerView.Adapter<DiscountAdapter.Discou
             return;
         }
 
-        // Get image from firebase storage URL to discountImage
         Glide.with(holder.discountImage.getContext()).load(discount.getImageURL()).into(holder.discountImage);
         holder.discountTitle.setText(discount.getTitle());
-        holder.discountExpired.setText(discount.getExpiryDate());
+        holder.discountExpired.setText("Hết hạn " + discount.getExpiryDate());
+
+        holder.discountItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                discountClickListener.onClickDiscountItem(discount);
+            }
+        });
     }
 
     @Override
@@ -52,14 +61,16 @@ public class DiscountAdapter extends RecyclerView.Adapter<DiscountAdapter.Discou
         return 0;
     }
 
-    public class DiscountViewHolder extends RecyclerView.ViewHolder {
+    public static class DiscountViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView discountImage;
-        private TextView discountTitle;
-        private TextView  discountExpired;
+        private final ConstraintLayout discountItem;
+        private final ImageView discountImage;
+        private final TextView discountTitle;
+        private final TextView  discountExpired;
         public DiscountViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            discountItem = itemView.findViewById(R.id.item_discount);
             discountImage = itemView.findViewById(R.id.coupon_img);
             discountTitle = itemView.findViewById(R.id.coupon_detail);
             discountExpired = itemView.findViewById(R.id.coupon_expired);

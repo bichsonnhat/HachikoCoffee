@@ -1,8 +1,7 @@
-package com.example.hachikocoffee;
+package com.example.hachikocoffee.BottomSheetDialog;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hachikocoffee.Adapter.CategoryDialogAdapter;
 import com.example.hachikocoffee.Domain.CategoryDomain;
+import com.example.hachikocoffee.Listener.OnDismissListener;
+import com.example.hachikocoffee.R;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -31,7 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class CategoryDialog extends BottomSheetDialogFragment {
-    public  OnDismissListener dismissListener;
+    public OnDismissListener dismissListener;
     RecyclerView recyclerViewCategoryDialog;
     RecyclerView recyclerView;
     NestedScrollView nestedScrollView;

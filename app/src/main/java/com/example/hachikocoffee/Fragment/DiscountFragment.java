@@ -13,9 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.hachikocoffee.Adapter.DiscountAdapter;
+import com.example.hachikocoffee.DiscountClickListener;
+import com.example.hachikocoffee.DiscountDetail;
 import com.example.hachikocoffee.Domain.DiscountDomain;
 import com.example.hachikocoffee.R;
-import com.example.hachikocoffee.VerticalSpaceItemDecoration;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -86,6 +87,7 @@ public class DiscountFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_discount, container, false);
 
         initDiscount(view);
+
         return view;
     }
 
@@ -118,8 +120,18 @@ public class DiscountFragment extends Fragment {
 
     private void displayDiscountData(ArrayList<DiscountDomain> discountList) {
         if (!discountList.isEmpty()) {
-            DiscountAdapter discountAdapter = new DiscountAdapter(discountList);
+            discountAdapter = new DiscountAdapter(discountList, new DiscountClickListener() {
+                @Override
+                public void onClickDiscountItem(DiscountDomain discount) {
+                    onClickToDiscountDetailFunc(discount);
+                }
+            });
             recyclerView_listDiscount.setAdapter(discountAdapter);
         }
+    }
+
+    private void onClickToDiscountDetailFunc(DiscountDomain discount) {
+        DiscountDetail discountDetail = DiscountDetail.newInstance(discount);
+        discountDetail.show(getParentFragmentManager(), discountDetail.getTag());
     }
 }
