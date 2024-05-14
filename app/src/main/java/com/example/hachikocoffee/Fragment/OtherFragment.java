@@ -1,5 +1,6 @@
 package com.example.hachikocoffee.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,7 +8,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.example.hachikocoffee.Activity.UpdateInfoActivity;
 import com.example.hachikocoffee.R;
 
 /**
@@ -51,6 +54,7 @@ public class OtherFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -61,6 +65,19 @@ public class OtherFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_other, container, false);
+//        return inflater.inflate(R.layout.fragment_other, container, false);
+
+        View rootView = inflater.inflate(R.layout.fragment_other, container, false);
+
+        Button updateInfoBtn = rootView.findViewById(R.id.update_info_btn);
+        updateInfoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), UpdateInfoActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        return rootView;
     }
 }

@@ -232,6 +232,7 @@
                 android:layout_height="50dp">
 
                 <Button
+                    android:id="@+id/update_info_btn"
                     app:backgroundTint="@null"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
