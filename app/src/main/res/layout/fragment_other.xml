@@ -176,6 +176,7 @@
             android:paddingRight="16dp">
 
             <Button
+                android:id="@+id/contact_btn"
                 app:backgroundTint="@null"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

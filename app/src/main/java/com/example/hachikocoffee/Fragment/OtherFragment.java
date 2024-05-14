@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.hachikocoffee.Activity.ContactFeedbackActivity;
 import com.example.hachikocoffee.Activity.UpdateInfoActivity;
 import com.example.hachikocoffee.R;
 
@@ -74,6 +75,15 @@ public class OtherFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), UpdateInfoActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button contactBtn = rootView.findViewById(R.id.contact_btn);
+        contactBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ContactFeedbackActivity.class);
                 startActivity(intent);
             }
         });
