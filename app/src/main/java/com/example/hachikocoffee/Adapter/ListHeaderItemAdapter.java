@@ -5,14 +5,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hachikocoffee.Domain.ItemsDomain;
-import com.example.hachikocoffee.ProductDetail;
+import com.example.hachikocoffee.BottomSheetDialog.ProductDetail;
 import com.example.hachikocoffee.R;
 import com.squareup.picasso.Picasso;
 

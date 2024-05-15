@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/white_background"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ProductDetail">
+    tools:context=".BottomSheetDialog.ProductDetail">
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:fillViewport="true"
@@ -283,6 +283,7 @@
                 android:paddingStart="16dp"
                 android:id="@+id/notes"
                 android:textSize="14sp"
+                android:inputType="text"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="20dp"

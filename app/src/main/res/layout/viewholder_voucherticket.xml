@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
-    android:background="@drawable/bg_store">
+    android:background="@drawable/bg_store"
+    android:id="@+id/item_discount">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/voucher_img"
@@ -28,6 +29,15 @@
             android:scaleType="centerCrop"
             android:src="@drawable/voucher_img" />
     </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="112dp"
+        android:src="@drawable/dotted_dashed_line_rot90"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/coupon_detail"
+        app:layout_constraintStart_toEndOf="@+id/voucher_img"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/coupon_detail"

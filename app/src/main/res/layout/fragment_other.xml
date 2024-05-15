@@ -2,11 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".Activity.MainActivity" >
+    tools:context=".Activity.MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#ECECEC">
 
         <View
             android:id="@+id/first"
@@ -17,8 +18,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#CCCCCC"
-            android:layout_marginTop="68dp" />
+            android:layout_marginTop="68dp"
+            android:background="#CCCCCC" />
 
         <TextView
             android:id="@+id/nameTab"
@@ -34,139 +35,141 @@
         <RelativeLayout
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginTop="10dp"
             android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="10dp">
 
             <Button
-                app:backgroundTint="@null"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/bg_ic_notification"/>
+                android:background="@drawable/bg_ic_notification"
+                app:backgroundTint="@null" />
 
             <ImageView
                 android:id="@+id/notiBtn_icon"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:layout_centerInParent="true"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_notification"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.285"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_centerInParent="true" />
+                app:layout_constraintTop_toTopOf="parent" />
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginTop="10dp"
             android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="10dp">
 
             <ImageView
                 android:layout_width="15dp"
                 android:layout_height="15dp"
-                android:layout_marginTop="3dp"
                 android:layout_marginLeft="33dp"
-                android:background="@drawable/bg_notification"/>
+                android:layout_marginTop="3dp"
+                android:background="@drawable/bg_notification" />
 
             <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginLeft="35dp"
-            android:id="@+id/notBtn_cntFinal"
-            android:text="11"
-            android:textColor="@color/white"
-            android:textSize="9sp"/>
+                android:id="@+id/notBtn_cntFinal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="4dp"
+                android:text="11"
+                android:textColor="@color/white"
+                android:textSize="9sp" />
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="70dp"
             android:layout_height="45dp"
-            android:layout_marginTop="13dp"
             android:layout_alignParentRight="true"
+            android:layout_marginTop="13dp"
             android:layout_marginRight="60dp">
 
             <Button
-                app:backgroundTint="@null"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/bg_ic_voucher"/>
+                android:background="@drawable/bg_ic_voucher"
+                app:backgroundTint="@null" />
+
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="14dp"
+                android:layout_marginTop="10dp"
                 android:src="@drawable/ic_coupon" />
 
             <TextView
                 android:id="@+id/voucherBtn_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="11dp"
                 android:layout_marginLeft="43dp"
+                android:layout_marginTop="11dp"
                 android:text="11"
-                android:textSize="15sp"
                 android:textColor="@color/black"
-                android:textStyle="bold"/>
+                android:textSize="15sp"
+                android:textStyle="bold" />
         </RelativeLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="95dp"
             android:layout_marginLeft="16dp"
-            android:text="Tiện ích"
+            android:layout_marginTop="95dp"
             android:fontFamily="sans-serif-medium"
-            android:textSize="21sp"
+            android:text="Tiện ích"
             android:textColor="@color/black"
+            android:textSize="21sp"
             android:textStyle="bold" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:layout_marginTop="135dp"
             android:layout_marginLeft="16dp"
+            android:layout_marginTop="135dp"
             android:layout_marginRight="215dp">
 
             <Button
-                app:backgroundTint="@null"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/rounded4_rectangle"/>
+                android:background="@drawable/rounded4_rectangle"
+                app:backgroundTint="@null" />
+
             <ImageView
                 android:layout_width="17dp"
                 android:layout_height="19dp"
-                android:layout_marginTop="15dp"
                 android:layout_marginLeft="17dp"
-                android:background="@drawable/ic_orderhistory"/>
+                android:layout_marginTop="15dp"
+                android:background="@drawable/ic_orderhistory" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="41dp"
                 android:layout_marginLeft="17dp"
-                android:text="Lịch sử đơn hàng"
+                android:layout_marginTop="41dp"
                 android:fontFamily="sans-serif-medium"
-                android:textSize="14sp"
+                android:text="Lịch sử đơn hàng"
                 android:textColor="@color/black"
-                android:textStyle="bold"/>
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 
         <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="225dp"
-        android:layout_marginLeft="16dp"
-        android:text="Hỗ trợ"
-        android:fontFamily="sans-serif-medium"
-        android:textSize="21sp"
-        android:textColor="@color/black"
-        android:textStyle="bold" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="225dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Hỗ trợ"
+            android:textColor="@color/black"
+            android:textSize="21sp"
+            android:textStyle="bold" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -180,46 +183,47 @@
                 app:backgroundTint="@null"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/rounded4_rectangle"/>
+                android:background="@drawable/rounded4_rectangle"
+                app:backgroundTint="@null" />
 
             <ImageView
                 android:layout_width="19dp"
                 android:layout_height="17dp"
-                android:layout_marginTop="18dp"
                 android:layout_marginLeft="18dp"
-                android:background="@drawable/ic_comment"/>
+                android:layout_marginTop="18dp"
+                android:background="@drawable/ic_comment" />
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_marginLeft="55dp"
-                android:text="Liên hệ và góp ý"
+                android:layout_marginTop="16dp"
                 android:fontFamily="sans-serif-medium"
-                android:textSize="15sp"
-                android:textColor="@color/black" />
+                android:text="Liên hệ và góp ý"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
 
             <ImageView
                 android:layout_width="15dp"
                 android:layout_height="20dp"
-                android:layout_marginTop="16dp"
                 android:layout_alignParentRight="true"
+                android:layout_marginTop="16dp"
                 android:layout_marginRight="15dp"
-                android:background="@drawable/arrow_right"/>
+                android:background="@drawable/arrow_right" />
 
         </RelativeLayout>
 
         <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="345dp"
-        android:layout_marginLeft="16dp"
-        android:text="Tài khoản"
-        android:fontFamily="sans-serif-medium"
-        android:textSize="21sp"
-        android:textColor="@color/black"
-        android:textStyle="bold" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="345dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Tài khoản"
+            android:textColor="@color/black"
+            android:textSize="21sp"
+            android:textStyle="bold" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -237,33 +241,34 @@
                     app:backgroundTint="@null"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/roundedtop_rectangle"/>
+                    android:background="@drawable/roundedtop_rectangle"
+                    app:backgroundTint="@null" />
 
                 <ImageView
                     android:layout_width="16dp"
                     android:layout_height="17dp"
-                    android:layout_marginTop="18dp"
                     android:layout_marginLeft="18dp"
-                    android:background="@drawable/ic_info"/>
+                    android:layout_marginTop="18dp"
+                    android:background="@drawable/ic_info" />
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:layout_marginLeft="55dp"
-                    android:text="Thông tin cá nhân"
+                    android:layout_marginTop="16dp"
                     android:fontFamily="sans-serif-medium"
-                    android:textSize="15sp"
-                    android:textColor="@color/black" />
+                    android:text="Thông tin cá nhân"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
 
                 <ImageView
                     android:layout_width="15dp"
                     android:layout_height="20dp"
-                    android:layout_marginTop="16dp"
                     android:layout_alignParentRight="true"
+                    android:layout_marginTop="16dp"
                     android:layout_marginRight="15dp"
-                    android:background="@drawable/arrow_right"/>
+                    android:background="@drawable/arrow_right" />
 
                 <View
                     android:layout_width="match_parent"
@@ -277,8 +282,8 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#CCCCCC"
-                android:layout_marginTop="49dp" />
+                android:layout_marginTop="49dp"
+                android:background="#CCCCCC" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -290,41 +295,42 @@
                     app:backgroundTint="@null"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/white"/>
+                    android:background="@color/white"
+                    app:backgroundTint="@null" />
 
                 <ImageView
                     android:layout_width="17dp"
                     android:layout_height="17dp"
-                    android:layout_marginTop="18dp"
                     android:layout_marginLeft="18dp"
-                    android:background="@drawable/ic_save"/>
+                    android:layout_marginTop="18dp"
+                    android:background="@drawable/ic_save" />
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:layout_marginLeft="55dp"
-                    android:text="Địa chỉ đã lưu"
+                    android:layout_marginTop="16dp"
                     android:fontFamily="sans-serif-medium"
-                    android:textSize="15sp"
-                    android:textColor="@color/black" />
+                    android:text="Địa chỉ đã lưu"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
 
                 <ImageView
                     android:layout_width="15dp"
                     android:layout_height="20dp"
-                    android:layout_marginTop="16dp"
                     android:layout_alignParentRight="true"
+                    android:layout_marginTop="16dp"
                     android:layout_marginRight="15dp"
-                    android:background="@drawable/arrow_right"/>
+                    android:background="@drawable/arrow_right" />
 
             </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#CCCCCC"
-                android:layout_marginTop="98dp" />
+                android:layout_marginTop="98dp"
+                android:background="#CCCCCC" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -332,36 +338,36 @@
                 android:layout_marginTop="100dp">
 
                 <Button
-                    app:backgroundTint="@null"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/roundedbottom_rectangle"/>
+                    android:background="@drawable/roundedbottom_rectangle"
+                    app:backgroundTint="@null" />
 
                 <ImageView
                     android:layout_width="19dp"
                     android:layout_height="19dp"
-                    android:layout_marginTop="17dp"
                     android:layout_marginLeft="16dp"
-                    android:background="@drawable/ic_logout"/>
+                    android:layout_marginTop="17dp"
+                    android:background="@drawable/ic_logout" />
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:layout_marginLeft="55dp"
-                    android:text="Đăng xuất"
+                    android:layout_marginTop="16dp"
                     android:fontFamily="sans-serif-medium"
-                    android:textSize="15sp"
-                    android:textColor="@color/black" />
+                    android:text="Đăng xuất"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
 
                 <ImageView
                     android:layout_width="15dp"
                     android:layout_height="20dp"
-                    android:layout_marginTop="16dp"
                     android:layout_alignParentRight="true"
+                    android:layout_marginTop="16dp"
                     android:layout_marginRight="15dp"
-                    android:background="@drawable/arrow_right"/>
+                    android:background="@drawable/arrow_right" />
 
             </RelativeLayout>
 

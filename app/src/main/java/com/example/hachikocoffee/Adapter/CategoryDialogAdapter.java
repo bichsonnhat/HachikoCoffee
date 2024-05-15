@@ -11,7 +11,7 @@ import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.hachikocoffee.CategoryDialog;
+import com.example.hachikocoffee.BottomSheetDialog.CategoryDialog;
 import com.example.hachikocoffee.Domain.CategoryDomain;
 import com.example.hachikocoffee.databinding.ViewholderCategoryDialogBinding;
 

@@ -19,6 +19,12 @@
         android:theme="@style/Theme.HachikoCoffee"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.FavouriteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.SearchItemActivity"
+            android:exported="true" />
+        <activity
             android:name=".Activity.UpdateInfoActivity"
             android:exported="false" />
         <activity
@@ -27,6 +33,15 @@
         <activity
             android:name=".Activity.ContactFeedbackActivity"
             android:exported="false" />
+        <activity
+            android:name=".Activity.SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".InfoAccountLoginActivity"
             android:exported="true">
@@ -56,13 +71,13 @@
             android:name=".Activity.MainActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".ProductDetail"
+            android:name=".BottomSheetDialog.ProductDetail"
             android:exported="true">
             <intent-filter>
 
@@ -71,12 +86,35 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ShopDetail"
+            android:name=".BottomSheetDialog.ShopDetail"
             android:exported="true">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".NotificationDetail"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".OrderHistory"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".YourVoucher"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
-
 </manifest>
