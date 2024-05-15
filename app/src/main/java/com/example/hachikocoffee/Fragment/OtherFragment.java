@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.hachikocoffee.Activity.ContactFeedbackActivity;
+import com.example.hachikocoffee.Activity.SavedAddressActivity;
 import com.example.hachikocoffee.Activity.UpdateInfoActivity;
 import com.example.hachikocoffee.R;
 
@@ -84,6 +85,15 @@ public class OtherFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), ContactFeedbackActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button savedAddressBtn = rootView.findViewById(R.id.saved_address_btn);
+        savedAddressBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), SavedAddressActivity.class);
                 startActivity(intent);
             }
         });
