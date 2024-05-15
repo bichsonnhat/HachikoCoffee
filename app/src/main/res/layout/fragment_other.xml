@@ -183,8 +183,7 @@
                 app:backgroundTint="@null"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/rounded4_rectangle"
-                app:backgroundTint="@null" />
+                android:background="@drawable/rounded4_rectangle" />
 
             <ImageView
                 android:layout_width="19dp"
@@ -241,8 +240,7 @@
                     app:backgroundTint="@null"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/roundedtop_rectangle"
-                    app:backgroundTint="@null" />
+                    android:background="@drawable/roundedtop_rectangle" />
 
                 <ImageView
                     android:layout_width="16dp"
@@ -295,8 +293,7 @@
                     app:backgroundTint="@null"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/white"
-                    app:backgroundTint="@null" />
+                    android:background="@color/white" />
 
                 <ImageView
                     android:layout_width="17dp"
