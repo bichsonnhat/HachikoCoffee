@@ -5,7 +5,7 @@
     android:id="@+id/shortcutLayout"
     android:layout_width="87.5dp"
     android:layout_height="95dp"
-    android:background="@drawable/background_shortcut"
+    android:background="@drawable/background_item"
     android:elevation="3dp"
 
     >

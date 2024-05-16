@@ -5,15 +5,17 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FF911A"
+    android:background="@color/white"
     android:theme="@style/Base.Theme.HachikoCoffee"
     tools:context=".Activity.SplashActivity">
+
+<!--    android:background="#FF911A"-->
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="50dp"
-        android:src="@drawable/image_splash_screen"
+        android:src="@drawable/image_splash_screen_v2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
