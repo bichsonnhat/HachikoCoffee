@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".Activity.HomeAddressActivity">
+    tools:context=".Activity.CompanyAddressActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -10,7 +10,7 @@
         android:background="@color/white">
 
         <Button
-            android:id="@+id/btnHomeAddressBack"
+            android:id="@+id/btnCompanyAddressBack"
             app:backgroundTint="@null"
             android:layout_width="25dp"
             android:layout_height="22dp"
@@ -74,7 +74,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="33sp"
                     android:layout_marginTop="46dp"
-                    android:text="Nhà"
+                    android:text="Công ty"
                     android:textSize="16sp"
                     android:singleLine="true"
                     android:ellipsize="end" />
@@ -104,14 +104,14 @@
                     android:hint="Nhập địa chỉ"/>
 
                 <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tòa nhà, số tầng"
-                android:textSize="16sp"
-                android:layout_marginTop="170dp"
-                android:layout_marginLeft="20dp"
-                android:textColor="@color/darkgray"
-                android:textStyle="bold"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tòa nhà, số tầng"
+                    android:textSize="16sp"
+                    android:layout_marginTop="170dp"
+                    android:layout_marginLeft="20dp"
+                    android:textColor="@color/darkgray"
+                    android:textStyle="bold"/>
 
                 <EditText
                     android:layout_width="match_parent"
