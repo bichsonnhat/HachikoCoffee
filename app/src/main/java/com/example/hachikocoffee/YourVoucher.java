@@ -9,11 +9,19 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.hachikocoffee.Adapter.YourVoucherViewPagerAdapter;
+import com.example.hachikocoffee.Fragment.OrderFragment;
+import com.example.hachikocoffee.Fragment.YourDeliveryVoucherFragment;
+import com.example.hachikocoffee.Fragment.YourPickupVoucherFragment;
+import com.example.hachikocoffee.databinding.YourVoucherCustomtabBinding;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -39,31 +47,67 @@ public class YourVoucher extends AppCompatActivity {
         tl = findViewById(R.id.tab_layout);
         vp2 = findViewById(R.id.view_pager);
 
-        vp2.setAdapter(new YourVoucherViewPagerAdapter(this));
+        YourVoucherViewPagerAdapter adapter = new YourVoucherViewPagerAdapter(this);
+        vp2.setAdapter(adapter);
 
         TabLayoutMediator tlm = new TabLayoutMediator(tl, vp2, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
                 switch (position){
                     case 0:{
-                        tab.setText("Giao hàng      ");
-                        BadgeDrawable bd = tab.getOrCreateBadge();
-                        bd.setBackgroundColor(getResources().getColor(R.color.orange));
-                        bd.setVisible(true);
-                        bd.setNumber(9);
+                        YourDeliveryVoucherFragment fragment1 = (YourDeliveryVoucherFragment) adapter.getRegisteredFragment(position);
+                        if (fragment1 != null) {
+                            int recyclerViewSize1 = fragment1.getRecyclerViewSize_delivery2();
+                            tab.setText("Giao hàng");
+                            BadgeDrawable bd = tab.getOrCreateBadge();
+                            bd.setBackgroundColor(getResources().getColor(R.color.orange));
+                            bd.setVisible(false);
+                            bd.setNumber(recyclerViewSize1);
+                        }
                         break;
                     }
                     case 1:{
-                        tab.setText("Mang đi      ");
-                        BadgeDrawable bd = tab.getOrCreateBadge();
-                        bd.setBackgroundColor(getResources().getColor(R.color.orange));
-                        bd.setVisible(true);
-                        bd.setNumber(2);
+                        YourPickupVoucherFragment fragment2 = (YourPickupVoucherFragment) adapter.getRegisteredFragment(position);
+                        if (fragment2 != null) {
+                            int recyclerViewSize2 = fragment2.getRecyclerViewSize_pickup2();
+                            tab.setText("Mang đi");
+                            BadgeDrawable bd = tab.getOrCreateBadge();
+                            bd.setBackgroundColor(getResources().getColor(R.color.orange));
+                            bd.setVisible(false);
+                            bd.setNumber(recyclerViewSize2);
+                        }
                         break;
                     }
                 }
             }
         });tlm.attach();
+    }
+
+    public void updateTab(int position, String text, int number) {
+        TabLayout.Tab tab = tl.getTabAt(position);
+        if (tab != null) {
+            //YourVoucherCustomtabBinding binding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.your_voucher_customtab, tl, false);
+            //binding.setBadgeNumber(number);
+            //TextView tabText = binding.getRoot().findViewById(R.id.tabTitle);
+            //tabText.setText(text);
+            //tab.setCustomView(binding.getRoot());
+
+            tab.setText(text);
+            BadgeDrawable bd = tab.getOrCreateBadge();
+            bd.setBackgroundColor(getResources().getColor(R.color.orange));
+            bd.setVisible(true);
+            bd.setNumber(number);
+            //tab.setCustomView(R.layout.your_voucher_customtab);
+        }
+    }
+
+    public void navigateToOrderFragment() {
+        OrderFragment orderFragment = new OrderFragment();
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, orderFragment);
+        fragmentTransaction.commit();
     }
 }
 

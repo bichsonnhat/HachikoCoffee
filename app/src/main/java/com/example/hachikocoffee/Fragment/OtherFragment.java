@@ -1,5 +1,6 @@
 package com.example.hachikocoffee.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,8 +8,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.example.hachikocoffee.NotificationDetail;
 import com.example.hachikocoffee.R;
+import com.example.hachikocoffee.YourVoucher;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,6 +65,30 @@ public class OtherFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_other, container, false);
+        View view = inflater.inflate(R.layout.fragment_other, container, false);
+        Button btnToVouchers2 = view.findViewById(R.id.btn_to_voucher2);
+        Button btnToNotification2 = view.findViewById(R.id.btn_to_notification2);
+
+        // Set on click listener for the button to move from ShopFragment to YourVoucher Activity
+        btnToVouchers2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Move to YourVoucher Activity
+                Intent intent = new Intent(getActivity(), YourVoucher.class);
+                startActivity(intent);
+            }
+        });
+
+        // Set on click listener for the button to move from ShopFragment to NotificationDetail Activity
+        btnToNotification2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Move to NotificationDetail Activity
+                Intent intent = new Intent(getActivity(), NotificationDetail.class);
+                startActivity(intent);
+            }
+        });
+
+        return view;
     }
 }

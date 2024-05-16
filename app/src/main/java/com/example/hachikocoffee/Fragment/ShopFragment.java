@@ -1,5 +1,6 @@
 package com.example.hachikocoffee.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,12 +12,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.hachikocoffee.Adapter.ShopAdapter;
 import com.example.hachikocoffee.Domain.ShopDomain;
+import com.example.hachikocoffee.NotificationDetail;
 import com.example.hachikocoffee.R;
 import com.example.hachikocoffee.Listener.ShopClickListener;
 import com.example.hachikocoffee.BottomSheetDialog.ShopDetail;
+import com.example.hachikocoffee.YourVoucher;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -85,6 +90,28 @@ public class ShopFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_shop, container, false);
+        Button btnToVouchers = view.findViewById(R.id.btn_to_voucher);
+        Button btnToNotification = view.findViewById(R.id.btn_to_notification);
+
+        // Set on click listener for the button to move from ShopFragment to YourVoucher Activity
+        btnToVouchers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Move to YourVoucher Activity
+                Intent intent = new Intent(getActivity(), YourVoucher.class);
+                startActivity(intent);
+            }
+        });
+
+        // Set on click listener for the button to move from ShopFragment to NotificationDetail Activity
+        btnToNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Move to NotificationDetail Activity
+                Intent intent = new Intent(getActivity(), NotificationDetail.class);
+                startActivity(intent);
+            }
+        });
 
         initShop(view);
 
@@ -116,6 +143,17 @@ public class ShopFragment extends Fragment {
                 // Notify user about the error
             }
         });
+
+        YourPickupVoucherFragment pickupFragment = (YourPickupVoucherFragment) getFragmentManager().findFragmentByTag("YourPickupVoucherFragment");
+        YourDeliveryVoucherFragment deliveryFragment = (YourDeliveryVoucherFragment) getFragmentManager().findFragmentByTag("YourDeliveryVoucherFragment");
+
+        int pickupSize = pickupFragment != null ? pickupFragment.getRecyclerViewSize_pickup2() : 0;
+        int deliverySize = deliveryFragment != null ? deliveryFragment.getRecyclerViewSize_delivery2() : 0;
+
+        int totalSize = pickupSize + deliverySize;
+
+        TextView voucherCount = view.findViewById(R.id.voucherBtn_count);
+        voucherCount.setText(String.valueOf(totalSize));
     }
 
     private void displayShopData(ArrayList<ShopDomain> shopList) {
