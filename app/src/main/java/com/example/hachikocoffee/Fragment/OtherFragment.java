@@ -1,5 +1,7 @@
 package com.example.hachikocoffee.Fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -13,6 +15,7 @@ import android.widget.Button;
 import com.example.hachikocoffee.Activity.ContactFeedbackActivity;
 import com.example.hachikocoffee.Activity.SavedAddressActivity;
 import com.example.hachikocoffee.Activity.UpdateInfoActivity;
+import com.example.hachikocoffee.Login;
 import com.example.hachikocoffee.R;
 
 /**
@@ -98,6 +101,25 @@ public class OtherFragment extends Fragment {
             }
         });
 
+        Button logoutBtn = rootView.findViewById(R.id.logout_btn);
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(getContext())
+                        .setTitle("Đăng xuất")
+                        .setMessage("Bạn có muốn đăng xuất không?")
+                        .setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Intent intent = new Intent(getActivity(), Login.class);
+                                startActivity(intent);
+                                getActivity().finish();
+                            }
+                        })
+                        .setNegativeButton("Không", null)
+                        .show();
+            }
+        });
         return rootView;
     }
 }

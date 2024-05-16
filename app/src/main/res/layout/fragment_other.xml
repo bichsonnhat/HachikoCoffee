@@ -335,6 +335,7 @@
                 android:layout_marginTop="100dp">
 
                 <Button
+                    android:id="@+id/logout_btn"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/roundedbottom_rectangle"
