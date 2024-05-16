@@ -29,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
+    int curId = R.id.home;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +45,9 @@ public class MainActivity extends AppCompatActivity {
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
-            int curId = item.getItemId();
+            if (curId == item.getItemId())
+                return false;
+            curId = item.getItemId();
             if (curId == R.id.home) {
                 replaceFragment(new HomeFragment());
             } else if (curId == R.id.order) {
