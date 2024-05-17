@@ -60,7 +60,6 @@ public class SearchItemActivity extends AppCompatActivity {
             }
         });
         recyclerView = findViewById(R.id.recyclerItemSearch);
-        recyclerView = findViewById(R.id.recyclerItemSearch);
     }
 
     private void filterList(String newText) {
@@ -104,4 +103,3 @@ public class SearchItemActivity extends AppCompatActivity {
         });
     }
 }
-

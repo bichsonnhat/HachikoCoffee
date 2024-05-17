@@ -3,6 +3,8 @@ package com.example.hachikocoffee.Fragment;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,7 +18,10 @@ import com.example.hachikocoffee.Activity.ContactFeedbackActivity;
 import com.example.hachikocoffee.Activity.SavedAddressActivity;
 import com.example.hachikocoffee.Activity.UpdateInfoActivity;
 import com.example.hachikocoffee.Login;
+import com.example.hachikocoffee.NotificationDetail;
+import com.example.hachikocoffee.OrderHistory;
 import com.example.hachikocoffee.R;
+import com.example.hachikocoffee.YourVoucher;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,7 +64,6 @@ public class OtherFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -70,29 +74,50 @@ public class OtherFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_other, container, false);
+        View view = inflater.inflate(R.layout.fragment_other, container, false);
+        Button btnToVouchers2 = view.findViewById(R.id.btn_to_voucher2);
+        Button btnToNotification2 = view.findViewById(R.id.btn_to_notification2);
 
-        View rootView = inflater.inflate(R.layout.fragment_other, container, false);
-
-        Button updateInfoBtn = rootView.findViewById(R.id.update_info_btn);
-        updateInfoBtn.setOnClickListener(new View.OnClickListener() {
+        // Set on click listener for the button to move from ShopFragment to YourVoucher Activity
+        btnToVouchers2.setOnClickListener(new View.OnClickListener() {
             @Override
+            public void onClick(View v) {
+                // Move to YourVoucher Activity
+                Intent intent = new Intent(getActivity(), YourVoucher.class);
+                startActivity(intent);
+            }
+        });
+
+        // Set on click listener for the button to move from ShopFragment to NotificationDetail Activity
+        btnToNotification2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Move to NotificationDetail Activity
+                Intent intent = new Intent(getActivity(), NotificationDetail.class);
+                startActivity(intent);
+            }
+        });
+
+
+	Button updateInfoBtn = view.findViewById(R.id.update_info_btn);
+        updateInfoBtn.setOnClickListener(new View.OnClickListener() {		
+	    @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), UpdateInfoActivity.class);
                 startActivity(intent);
-            }
-        });
+	    }
+	});
 
-        Button contactBtn = rootView.findViewById(R.id.contact_btn);
-        contactBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
+	Button contactBtn = view.findViewById(R.id.contact_btn);
+        contactBtn.setOnClickListener(new View.OnClickListener() {	
+	    @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), ContactFeedbackActivity.class);
                 startActivity(intent);
-            }
-        });
+	    }
+	});
 
-        Button savedAddressBtn = rootView.findViewById(R.id.saved_address_btn);
+        Button savedAddressBtn = view.findViewById(R.id.saved_address_btn);
         savedAddressBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,11 +126,11 @@ public class OtherFragment extends Fragment {
             }
         });
 
-        Button logoutBtn = rootView.findViewById(R.id.logout_btn);
+        Button logoutBtn = view.findViewById(R.id.logout_btn);
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AlertDialog.Builder(getContext())
+                AlertDialog alertDialog = new AlertDialog.Builder(getContext(), R.style.AlertDialog_AppCompat_Custom)
                         .setTitle("Đăng xuất")
                         .setMessage("Bạn có muốn đăng xuất không?")
                         .setPositiveButton("Có", new DialogInterface.OnClickListener() {
@@ -118,8 +143,23 @@ public class OtherFragment extends Fragment {
                         })
                         .setNegativeButton("Không", null)
                         .show();
+
+                Button positiveButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                Button negativeButton = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+                positiveButton.setTextColor(getResources().getColor(R.color.black));
+                negativeButton.setTextColor(Color.parseColor("#E47905"));
             }
         });
-        return rootView;
+
+        Button btnHistoryOrder = view.findViewById(R.id.btnHistoryOrder);
+        btnHistoryOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), OrderHistory.class);
+                startActivity(intent);
+            }
+        });
+
+        return view;
     }
 }

@@ -41,6 +41,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <Button
+                android:id="@+id/btn_to_notification"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/bg_ic_notification"
@@ -87,6 +88,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <Button
+                android:id="@+id/btn_to_voucher"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/bg_ic_voucher"
@@ -125,6 +127,7 @@
             android:hint="Tìm kiếm"
             android:inputType="text"
             android:paddingStart="18dp"
+            android:focusable="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/nameTab"/>
@@ -135,9 +138,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:clickable="true"
-            android:drawableStart="@drawable/ic_map"
+            android:drawableStart="@drawable/cursor"
             android:drawablePadding="8dp"
-            android:text="Bản đồ"
+            android:text="Định vị"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/search"
