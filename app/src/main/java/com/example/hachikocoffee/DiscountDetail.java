@@ -89,7 +89,11 @@ public class DiscountDetail extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 dismiss();
-                ((MainActivity) requireActivity()).navigateToOrderFragment();
+                if (requireActivity() instanceof MainActivity) {
+                    ((MainActivity) requireActivity()).navigateToOrderFragment();
+                } else if (requireActivity() instanceof YourVoucher) {
+                    ((YourVoucher) requireActivity()).navigateToOrderFragment();
+                }
             }
         });
     }
