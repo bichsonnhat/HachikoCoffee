@@ -1,13 +1,29 @@
 package com.example.hachikocoffee.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hachikocoffee.Adapter.DiscountAdapter;
+import com.example.hachikocoffee.DiscountClickListener;
+import com.example.hachikocoffee.DiscountDetail;
+import com.example.hachikocoffee.Domain.DiscountDomain;
 import com.example.hachikocoffee.R;
+import com.example.hachikocoffee.YourVoucher;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,6 +31,9 @@ import com.example.hachikocoffee.R;
  * create an instance of this fragment.
  */
 public class YourDeliveryVoucherFragment extends Fragment {
+    private RecyclerView rcv_deliveryList1;
+    private RecyclerView rcv_deliveryList2;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,6 +79,84 @@ public class YourDeliveryVoucherFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_your_delivery_voucher, container, false);
+        View view = inflater.inflate(R.layout.fragment_your_delivery_voucher, container, false);
+
+        initYourDeliveryVoucher(view);
+
+        return view;
+    }
+
+    public void initYourDeliveryVoucher(View view) {
+        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+
+        rcv_deliveryList1 = view.findViewById(R.id.rcv_delivery_list1);
+        rcv_deliveryList1.setLayoutManager(linearLayoutManager1);
+
+        rcv_deliveryList2 = view.findViewById(R.id.rcv_delivery_list2);
+        rcv_deliveryList2.setLayoutManager(linearLayoutManager2);
+
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("VOUCHER");
+
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    ArrayList<DiscountDomain> deliveryVoucherList1 = new ArrayList<>();
+                    ArrayList<DiscountDomain> deliveryVoucherList2 = new ArrayList<>();
+
+                    for (DataSnapshot issue : snapshot.getChildren()) {
+                        DiscountDomain discount = issue.getValue(DiscountDomain.class);
+
+                        if (discount != null && discount.getType().equals("Delivery")) { // Must add check date function
+                            deliveryVoucherList1.add(discount);
+                            deliveryVoucherList2.add(discount);
+                        }
+                    }
+                    displayDiscountData(deliveryVoucherList1, deliveryVoucherList2);
+                    onDataLoaded();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("FirebaseError", "Failed to read value.", error.toException());
+            }
+        });
+    }
+
+    private void displayDiscountData(ArrayList<DiscountDomain> discountList1, ArrayList<DiscountDomain> discountList2) {
+        if (!discountList1.isEmpty()) {
+            DiscountAdapter discountAdapter1 = new DiscountAdapter(discountList1, this::onClickToDiscountDetailFunc);
+            rcv_deliveryList1.setAdapter(discountAdapter1);
+        }
+
+        if (!discountList2.isEmpty()) {
+            DiscountAdapter discountAdapter2 = new DiscountAdapter(discountList2, this::onClickToDiscountDetailFunc);
+            rcv_deliveryList2.setAdapter(discountAdapter2);
+        }
+    }
+
+    private void onClickToDiscountDetailFunc(DiscountDomain discount) {
+        DiscountDetail discountDetail = DiscountDetail.newInstance(discount);
+        discountDetail.show(getParentFragmentManager(), discountDetail.getTag());
+    }
+
+    public int getRecyclerViewSize_delivery1() {
+        if (rcv_deliveryList1.getAdapter() != null) {
+            return rcv_deliveryList1.getAdapter().getItemCount();
+        }
+        return 0;
+    }
+    public int getRecyclerViewSize_delivery2() {
+        if (rcv_deliveryList2.getAdapter() != null) {
+            return rcv_deliveryList2.getAdapter().getItemCount();
+        }
+        return 0;
+    }
+
+    public void onDataLoaded() {
+        int recyclerViewSize = getRecyclerViewSize_delivery2();
+        ((YourVoucher) getActivity()).updateTab(0, "Giao hàng", recyclerViewSize);
     }
 }

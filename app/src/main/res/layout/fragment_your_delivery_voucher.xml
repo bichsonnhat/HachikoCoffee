@@ -28,7 +28,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcv_list1"
+                android:id="@+id/rcv_delivery_list1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -36,7 +36,8 @@
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_list1"></androidx.recyclerview.widget.RecyclerView>
+                app:layout_constraintTop_toBottomOf="@+id/txt_list1">
+            </androidx.recyclerview.widget.RecyclerView>
 
             <TextView
                 android:id="@+id/txt_list2"
@@ -48,10 +49,10 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rcv_list1" />
+                app:layout_constraintTop_toBottomOf="@+id/rcv_delivery_list1" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcv_list_shop2"
+                android:id="@+id/rcv_delivery_list2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"

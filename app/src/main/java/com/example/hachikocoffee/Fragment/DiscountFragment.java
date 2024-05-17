@@ -1,8 +1,10 @@
 package com.example.hachikocoffee.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,12 +13,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.hachikocoffee.Adapter.DiscountAdapter;
 import com.example.hachikocoffee.DiscountClickListener;
 import com.example.hachikocoffee.DiscountDetail;
 import com.example.hachikocoffee.Domain.DiscountDomain;
 import com.example.hachikocoffee.R;
+import com.example.hachikocoffee.YourVoucher;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,7 +35,7 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class DiscountFragment extends Fragment {
-
+    private CardView btnToVouchers3;
     private RecyclerView recyclerView_listDiscount;
 
     private ArrayList<DiscountDomain> discountList;
@@ -85,6 +89,18 @@ public class DiscountFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_discount, container, false);
+
+        btnToVouchers3 = (CardView) view.findViewById(R.id.btn_to_voucher3);
+
+        // Set on click listener for the button to move from ShopFragment to YourVoucher Activity
+        btnToVouchers3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Move to YourVoucher Activity
+                Intent intent = new Intent(getActivity(), YourVoucher.class);
+                startActivity(intent);
+            }
+        });
 
         initDiscount(view);
 

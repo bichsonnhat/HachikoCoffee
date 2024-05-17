@@ -41,6 +41,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <Button
+                android:id="@+id/btn_to_notification"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/bg_ic_notification"
@@ -87,6 +88,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <Button
+                android:id="@+id/btn_to_voucher"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/bg_ic_voucher"
