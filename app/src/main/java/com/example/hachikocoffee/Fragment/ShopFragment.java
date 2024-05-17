@@ -27,9 +27,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.hachikocoffee.Activity.SearchItemActivity;
 import com.example.hachikocoffee.Activity.SearchShopActivity;
 import com.example.hachikocoffee.Adapter.ShopAdapter;
 import com.example.hachikocoffee.Domain.LocationDomain;
@@ -39,8 +37,6 @@ import com.example.hachikocoffee.R;
 import com.example.hachikocoffee.Listener.ShopClickListener;
 import com.example.hachikocoffee.BottomSheetDialog.ShopDetail;
 import com.example.hachikocoffee.YourVoucher;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -60,11 +56,7 @@ import java.util.Map;
  */
 public class ShopFragment extends Fragment implements LocationListener {
 
-    private RecyclerView recyclerView_listShop1;
-    private RecyclerView recyclerView_listShop2; // not used yet
-    private RecyclerView recyclerView_listShop3; // not used yet
-
-    private ArrayList<ShopDomain> shopList;
+    private RecyclerView rcv_listShop;
 
     private ShopAdapter shopAdapter;
     LocationManager locationManager;
@@ -179,9 +171,9 @@ public class ShopFragment extends Fragment implements LocationListener {
     }
 
     public void initShop(View view) {
-        recyclerView_listShop1 = view.findViewById(R.id.rcv_list_shop1);
+        rcv_listShop = view.findViewById(R.id.rcv_list_shop);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        recyclerView_listShop1.setLayoutManager(linearLayoutManager);
+        rcv_listShop.setLayoutManager(linearLayoutManager);
 
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("STORE");
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -213,7 +205,7 @@ public class ShopFragment extends Fragment implements LocationListener {
                     onClickToShopDetailFunc(shop);
                 }
             });
-            recyclerView_listShop1.setAdapter(shopAdapter);
+            rcv_listShop.setAdapter(shopAdapter);
         }
     }
 
@@ -246,9 +238,9 @@ public class ShopFragment extends Fragment implements LocationListener {
             }
         });
 //        Toast.makeText(getContext(), ""+location.getLatitude()+","+location.getLongitude(), Toast.LENGTH_SHORT).show();
-        recyclerView_listShop1 = viewFragment.findViewById(R.id.rcv_list_shop1);
+        rcv_listShop = viewFragment.findViewById(R.id.rcv_list_shop);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        recyclerView_listShop1.setLayoutManager(linearLayoutManager);
+        rcv_listShop.setLayoutManager(linearLayoutManager);
 
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("STORE");
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {

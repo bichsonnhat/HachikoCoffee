@@ -112,7 +112,7 @@ public class YourPickupVoucherFragment extends Fragment {
                         }
                     }
                     displayDiscountData(pickupVoucherList1, pickupVoucherList2);
-                    onDataLoaded();
+                    //onDataLoaded();
                 }
             }
 
