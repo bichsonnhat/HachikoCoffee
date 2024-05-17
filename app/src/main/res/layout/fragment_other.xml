@@ -137,6 +137,7 @@
             android:layout_marginRight="215dp">
 
             <Button
+                android:id="@+id/btnHistoryOrder"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/rounded4_rectangle"

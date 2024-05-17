@@ -19,6 +19,7 @@ import com.example.hachikocoffee.Activity.SavedAddressActivity;
 import com.example.hachikocoffee.Activity.UpdateInfoActivity;
 import com.example.hachikocoffee.Login;
 import com.example.hachikocoffee.NotificationDetail;
+import com.example.hachikocoffee.OrderHistory;
 import com.example.hachikocoffee.R;
 import com.example.hachikocoffee.YourVoucher;
 
@@ -147,6 +148,15 @@ public class OtherFragment extends Fragment {
                 Button negativeButton = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
                 positiveButton.setTextColor(getResources().getColor(R.color.black));
                 negativeButton.setTextColor(Color.parseColor("#E47905"));
+            }
+        });
+
+        Button btnHistoryOrder = view.findViewById(R.id.btnHistoryOrder);
+        btnHistoryOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), OrderHistory.class);
+                startActivity(intent);
             }
         });
 
