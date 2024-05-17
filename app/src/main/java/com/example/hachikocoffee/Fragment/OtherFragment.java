@@ -89,6 +89,54 @@ public class OtherFragment extends Fragment {
             }
         });
 
+
+	Button updateInfoBtn = view.findViewById(R.id.update_info_btn);
+        updateInfoBtn.setOnClickListener(new View.OnClickListener() {		
+	    @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), UpdateInfoActivity.class);
+                startActivity(intent);
+	    }
+	});
+
+	Button contactBtn = view.findViewById(R.id.contact_btn);
+        contactBtn.setOnClickListener(new View.OnClickListener() {	
+	    @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ContactFeedbackActivity.class);
+                startActivity(intent);
+	    }
+	});
+
+        Button savedAddressBtn = view.findViewById(R.id.saved_address_btn);
+        savedAddressBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), SavedAddressActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button logoutBtn = view.findViewById(R.id.logout_btn);
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(getContext())
+                        .setTitle("Đăng xuất")
+                        .setMessage("Bạn có muốn đăng xuất không?")
+                        .setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Intent intent = new Intent(getActivity(), Login.class);
+                                startActivity(intent);
+                                getActivity().finish();
+                            }
+                        })
+                        .setNegativeButton("Không", null)
+                        .show();
+            }
+        });
+
         return view;
     }
 }
