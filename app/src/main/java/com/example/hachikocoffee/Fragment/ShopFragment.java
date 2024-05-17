@@ -1,5 +1,16 @@
 package com.example.hachikocoffee.Fragment;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,14 +24,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hachikocoffee.Activity.SearchItemActivity;
+import com.example.hachikocoffee.Activity.SearchShopActivity;
 import com.example.hachikocoffee.Adapter.ShopAdapter;
+import com.example.hachikocoffee.Domain.LocationDomain;
 import com.example.hachikocoffee.Domain.ShopDomain;
 import com.example.hachikocoffee.R;
 import com.example.hachikocoffee.Listener.ShopClickListener;
 import com.example.hachikocoffee.BottomSheetDialog.ShopDetail;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,8 +45,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,6 +74,9 @@ public class ShopFragment extends Fragment implements LocationListener {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private double X, Y;
+    private View viewFragment;
+    private int UserID = 1;
 
     public ShopFragment() {
         // Required empty public constructor
@@ -93,6 +115,7 @@ public class ShopFragment extends Fragment implements LocationListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_shop, container, false);
         TextView location = view.findViewById(R.id.map);
+        viewFragment = view;
         location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,12 +123,22 @@ public class ShopFragment extends Fragment implements LocationListener {
                     ActivityCompat.requestPermissions((Activity) getContext(), new String[]{
                         Manifest.permission.ACCESS_FINE_LOCATION
                     }, 100);
+                    getLocation();
                 }
-                getLocation();
             }
         });
-        initShop(view);
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            getLocation();
+        }
 
+        EditText editText = view.findViewById(R.id.search);
+        editText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), SearchShopActivity.class);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 
@@ -165,12 +198,68 @@ public class ShopFragment extends Fragment implements LocationListener {
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
-        Toast.makeText(getContext(), ""+location.getLatitude()+","+location.getLongitude(), Toast.LENGTH_SHORT).show();
+        DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference().child("LOCATION");
+
+        locationRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                    LocationDomain locationDomain = childSnapshot.getValue(LocationDomain.class);
+                    if (locationDomain.getUserID() == UserID) {
+                        Map<String, Object> updates = new HashMap<>();
+                        updates.put("LocationX", location.getLatitude());
+                        updates.put("LocationY", location.getLongitude());
+                        childSnapshot.getRef().updateChildren(updates);
+                        break;
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w("TAG", "Error fetching locations: " + error.getMessage());
+            }
+        });
+//        Toast.makeText(getContext(), ""+location.getLatitude()+","+location.getLongitude(), Toast.LENGTH_SHORT).show();
+        recyclerView_listShop1 = viewFragment.findViewById(R.id.rcv_list_shop1);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        recyclerView_listShop1.setLayoutManager(linearLayoutManager);
+
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("STORE");
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    ArrayList<ShopDomain> shopList = new ArrayList<>();
+                    for (DataSnapshot issue : snapshot.getChildren()) {
+                        ShopDomain shop = issue.getValue(ShopDomain.class);
+                        String coorString = shop.getCoordinate();
+                        String valuesString = coorString.substring(6, coorString.length() - 1);
+                        String[] values = valuesString.split("\\s+");
+                        Double coorX = Double.parseDouble(values[0]);
+                        Double coorY = Double.parseDouble(values[1]);
+                        Double locationX = location.getLatitude();
+                        Double locationY = location.getLongitude();
+                        Double distance = Math.sqrt((locationX - coorX) * (locationY - coorX) + (locationY - coorY) * (locationY - coorY));
+//                        Toast.makeText(getContext(), "Distance: " + distance, Toast.LENGTH_SHORT).show();
+                        String result = String.format("%.1f", distance);
+                        shop.setCoordinate("Cách đây " + result + " km");
+                        shopList.add(shop);
+                    }
+                    displayShopData(shopList);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("FirebaseError", "Failed to read value.", error.toException());
+                // Notify user about the error
+            }
+        });
         try {
             Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
             List<Address> address = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
             String myAddress = address.get(0).getAddressLine(0);
-            Toast.makeText(getContext(), "My address is: " + myAddress, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(), "My address is: " + myAddress, Toast.LENGTH_SHORT).show();
         } catch (Exception e){
             e.printStackTrace();
         }
