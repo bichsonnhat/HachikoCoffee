@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hachikocoffee.BottomSheetDialog.DetailCart;
 import com.example.hachikocoffee.Domain.ItemsDomain;
 import com.example.hachikocoffee.BottomSheetDialog.ProductDetail;
 import com.example.hachikocoffee.R;
@@ -47,6 +48,13 @@ public class ListHeaderItemAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             itemHolder.itemName.setText(data.getTitle());
             Picasso.get().load(data.getImageURL().toString()).into(itemHolder.itemImage);
             itemHolder.itemCost.setText(""+data.getPrice());
+            itemHolder.addItemButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DetailCart detailBottomSheetDialog = new DetailCart(data);
+                    detailBottomSheetDialog.show(((AppCompatActivity) v.getContext()).getSupportFragmentManager(), "DetailBottomSheetDialog");
+                }
+            });
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

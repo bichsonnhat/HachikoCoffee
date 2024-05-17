@@ -49,15 +49,11 @@ public class FavouriteActivity extends AppCompatActivity implements UpdateUIList
         recyclerViewFavourites.setLayoutManager(new GridLayoutManager(this, 1));
         updateUI(previousItemCount);
 
-//        GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
-//        recyclerViewFavourites.setLayoutManager(layoutManager);
-//        recyclerViewFavourites.setAdapter(adapter);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference favoriteProductsRef = database.getReference("FAVORITEPRODUCT");
         DatabaseReference productsRef = database.getReference("PRODUCTS");
 
-// Get favorite products
         favoriteProductsRef.orderByChild("userID").equalTo(1)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
