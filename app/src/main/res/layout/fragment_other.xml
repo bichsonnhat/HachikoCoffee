@@ -179,10 +179,11 @@
             android:paddingRight="16dp">
 
             <Button
+                android:id="@+id/contact_btn"
+                app:backgroundTint="@null"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/rounded4_rectangle"
-                app:backgroundTint="@null" />
+                android:background="@drawable/rounded4_rectangle" />
 
             <ImageView
                 android:layout_width="19dp"
@@ -235,10 +236,11 @@
                 android:layout_height="50dp">
 
                 <Button
+                    android:id="@+id/update_info_btn"
+                    app:backgroundTint="@null"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/roundedtop_rectangle"
-                    app:backgroundTint="@null" />
+                    android:background="@drawable/roundedtop_rectangle" />
 
                 <ImageView
                     android:layout_width="16dp"
@@ -287,10 +289,11 @@
                 android:layout_marginTop="50dp">
 
                 <Button
+                    android:id="@+id/saved_address_btn"
+                    app:backgroundTint="@null"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/white"
-                    app:backgroundTint="@null" />
+                    android:background="@color/white" />
 
                 <ImageView
                     android:layout_width="17dp"
@@ -332,6 +335,7 @@
                 android:layout_marginTop="100dp">
 
                 <Button
+                    android:id="@+id/logout_btn"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/roundedbottom_rectangle"
