@@ -24,6 +24,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,9 +34,11 @@ import com.example.hachikocoffee.Activity.SearchShopActivity;
 import com.example.hachikocoffee.Adapter.ShopAdapter;
 import com.example.hachikocoffee.Domain.LocationDomain;
 import com.example.hachikocoffee.Domain.ShopDomain;
+import com.example.hachikocoffee.NotificationDetail;
 import com.example.hachikocoffee.R;
 import com.example.hachikocoffee.Listener.ShopClickListener;
 import com.example.hachikocoffee.BottomSheetDialog.ShopDetail;
+import com.example.hachikocoffee.YourVoucher;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -136,6 +139,29 @@ public class ShopFragment extends Fragment implements LocationListener {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), SearchShopActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button btnToVouchers = view.findViewById(R.id.btn_to_voucher);
+        Button btnToNotification = view.findViewById(R.id.btn_to_notification);
+
+        // Set on click listener for the button to move from ShopFragment to YourVoucher Activity
+        btnToVouchers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Move to YourVoucher Activity
+                Intent intent = new Intent(getActivity(), YourVoucher.class);
+                startActivity(intent);
+            }
+        });
+
+        // Set on click listener for the button to move from ShopFragment to NotificationDetail Activity
+        btnToNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Move to NotificationDetail Activity
+                Intent intent = new Intent(getActivity(), NotificationDetail.class);
                 startActivity(intent);
             }
         });
