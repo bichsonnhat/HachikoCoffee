@@ -28,4 +28,9 @@
         <item name="cornerSizeTopLeft">20dp</item>
         <item name="cornerFamilyTopLeft">rounded</item>
     </style>
+
+    <style name="AlertDialog.AppCompat.Custom" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name="android:background">@color/white</item>
+        <item name="android:textColorPrimary">@color/black</item>
+    </style>
 </resources>

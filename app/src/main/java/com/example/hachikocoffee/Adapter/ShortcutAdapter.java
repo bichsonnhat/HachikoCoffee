@@ -34,33 +34,11 @@ public class ShortcutAdapter extends RecyclerView.Adapter<ShortcutAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.shortcutName.setText(itemList.get(position).getTitle());
-        String picUrl ="";
-        switch (position){
-            case 0: {
-                picUrl = "shipping";
-                break;
-            }
-            case 1: {
-                picUrl = "takeaway";
-                break;
-            }
-            case 2: {
-                picUrl = "shipping";
-                break;
-            }
-            case 3: {
-                picUrl = "shipping";
-                break;
-            }
-            case 4: {
-                picUrl = "shipping";
-                break;
-            }
-        }
+        String picUrl = itemList.get(position).getPic();
 
         int drawableResourceId = holder.itemView.getContext().getResources()
-                .getIdentifier(picUrl, "drawable",
-                        holder.itemView.getContext().getPackageName());
+                .getIdentifier(picUrl, "drawable", holder.itemView.getContext().getPackageName());
+
         Glide.with(holder.itemView.getContext())
                 .load(drawableResourceId)
                 .into(holder.shortcutPic);
