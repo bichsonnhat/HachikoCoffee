@@ -34,6 +34,9 @@
             android:name=".Activity.SearchItemActivity"
             android:exported="true" />
         <activity
+            android:name=".Activity.SearchShopActivity"
+            android:exported="true" />
+        <activity
             android:name=".Activity.UpdateInfoActivity"
             android:exported="false" />
         <activity

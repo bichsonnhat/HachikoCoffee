@@ -7,18 +7,18 @@
     android:background="@color/white">
 
     <SearchView
-        android:id="@+id/SearchViewItem"
+        android:id="@+id/SearchViewShop"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:background="@drawable/bg_search_view"
-        android:queryHint="Tìm kiếm"
+        android:queryHint="Tìm theo quận huyện"
         app:layout_constraintStart_toStartOf="parent"
         android:iconifiedByDefault="false"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/cancelSearch"
+        android:id="@+id/cancelSearchShop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -29,11 +29,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerItemSearch"
+        android:id="@+id/recyclerShopSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/SearchViewItem" />
+        app:layout_constraintTop_toBottomOf="@+id/SearchViewShop" />
 </androidx.constraintlayout.widget.ConstraintLayout>
