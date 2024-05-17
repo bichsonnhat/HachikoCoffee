@@ -3,6 +3,8 @@ package com.example.hachikocoffee.Fragment;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -105,7 +107,7 @@ public class OtherFragment extends Fragment {
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AlertDialog.Builder(getContext())
+                AlertDialog alertDialog = new AlertDialog.Builder(getContext(), R.style.AlertDialog_AppCompat_Custom)
                         .setTitle("Đăng xuất")
                         .setMessage("Bạn có muốn đăng xuất không?")
                         .setPositiveButton("Có", new DialogInterface.OnClickListener() {
@@ -118,6 +120,11 @@ public class OtherFragment extends Fragment {
                         })
                         .setNegativeButton("Không", null)
                         .show();
+
+                Button positiveButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                Button negativeButton = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+                positiveButton.setTextColor(getResources().getColor(R.color.black));
+                negativeButton.setTextColor(Color.parseColor("#E47905"));
             }
         });
         return rootView;

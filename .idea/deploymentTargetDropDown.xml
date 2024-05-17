@@ -2,30 +2,8 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="NotificationDetail">
-        <State />
-      </entry>
-      <entry key="OrderHistory">
-        <State />
-      </entry>
-      <entry key="YourVoucher">
-        <State />
-      </entry>
       <entry key="app">
-        <State>
-          <targetSelectedWithDropDown>
-            <Target>
-              <type value="QUICK_BOOT_TARGET" />
-              <deviceKey>
-                <Key>
-                  <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\Dang Phat\.android\avd\Pixel_7_Pro_API_34.avd" />
-                </Key>
-              </deviceKey>
-            </Target>
-          </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-05-06T08:11:43.861717100Z" />
-        </State>
+        <State />
       </entry>
     </value>
   </component>
