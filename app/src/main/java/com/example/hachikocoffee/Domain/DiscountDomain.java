@@ -16,11 +16,14 @@ public class DiscountDomain implements Serializable {
     private String Title;
     private int ValueInteger;
     private double ValueDouble;
+    private String FreeShipping;
+    private int MinOrderCapacity;
+    private int MinOrderPrice;
     private String Type;
 
     public DiscountDomain() {}
 
-    public DiscountDomain(int voucherID, String description, String expiryDate, String imageURL, String title, int valueInteger, double valueDouble, String type) {
+    public DiscountDomain(int voucherID, String description, String expiryDate, String imageURL, String title, int valueInteger, double valueDouble, String freeShipping, int minOrderCapacity, int minOrderPrice, String type) {
         VoucherID = voucherID;
         Description = description;
         ExpiryDate = expiryDate;
@@ -28,6 +31,9 @@ public class DiscountDomain implements Serializable {
         Title = title;
         ValueInteger = valueInteger;
         ValueDouble = valueDouble;
+        FreeShipping = freeShipping;
+        MinOrderCapacity = minOrderCapacity;
+        MinOrderPrice = minOrderPrice;
         Type = type;
     }
 
@@ -138,5 +144,29 @@ public class DiscountDomain implements Serializable {
 
     public void setType(String type) {
         Type = type;
+    }
+
+    public String getFreeShipping() {
+        return FreeShipping;
+    }
+
+    public void setFreeShipping(String freeShipping) {
+        FreeShipping = freeShipping;
+    }
+
+    public int getMinOrderCapacity() {
+        return MinOrderCapacity;
+    }
+
+    public void setMinOrderCapacity(int minOrderCapacity) {
+        MinOrderCapacity = minOrderCapacity;
+    }
+
+    public int getMinOrderPrice() {
+        return MinOrderPrice;
+    }
+
+    public void setMinOrderPrice(int minOrderPrice) {
+        MinOrderPrice = minOrderPrice;
     }
 }
