@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 
 import com.example.hachikocoffee.Adapter.DiscountAdapter;
 import com.example.hachikocoffee.DiscountClickListener;
@@ -35,7 +36,6 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class DiscountFragment extends Fragment {
-    private CardView btnToVouchers3;
     private RecyclerView rcv_listVoucher1;
     private RecyclerView rcv_listVoucher2;
 
@@ -88,12 +88,29 @@ public class DiscountFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_discount, container, false);
+        CardView btnToVouchers3 = (CardView) view.findViewById(R.id.btn_to_voucher3);
+        Button btnToVouchers4 = view.findViewById(R.id.btn_seeall_voucher1);
+        Button btnToVouchers5 = view.findViewById(R.id.btn_seeall_voucher2);
 
-        btnToVouchers3 = (CardView) view.findViewById(R.id.btn_to_voucher3);
         btnToVouchers3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Move to YourVoucher Activity
+                Intent intent = new Intent(getActivity(), YourVoucher.class);
+                startActivity(intent);
+            }
+        });
+
+        btnToVouchers4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), YourVoucher.class);
+                startActivity(intent);
+            }
+        });
+
+        btnToVouchers5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), YourVoucher.class);
                 startActivity(intent);
             }
@@ -142,28 +159,17 @@ public class DiscountFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.e("FirebaseError", "Failed to read value.", error.toException());
-                // Notify user about the error
             }
         });
     }
 
     private void displayDiscountData(ArrayList<DiscountDomain> discountList1, ArrayList<DiscountDomain> discountList2) {
         if (!discountList1.isEmpty()) {
-            DiscountAdapter discountAdapter1 = new DiscountAdapter(discountList1, new DiscountClickListener() {
-                @Override
-                public void onClickDiscountItem(DiscountDomain discount) {
-                    onClickToDiscountDetailFunc(discount);
-                }
-            });
+            DiscountAdapter discountAdapter1 = new DiscountAdapter(discountList1, this::onClickToDiscountDetailFunc);
             rcv_listVoucher1.setAdapter(discountAdapter1);
         }
         if (!discountList2.isEmpty()) {
-            DiscountAdapter discountAdapter2 = new DiscountAdapter(discountList2, new DiscountClickListener() {
-                @Override
-                public void onClickDiscountItem(DiscountDomain discount) {
-                    onClickToDiscountDetailFunc(discount);
-                }
-            });
+            DiscountAdapter discountAdapter2 = new DiscountAdapter(discountList2, this::onClickToDiscountDetailFunc);
             rcv_listVoucher2.setAdapter(discountAdapter2);
         }
     }
