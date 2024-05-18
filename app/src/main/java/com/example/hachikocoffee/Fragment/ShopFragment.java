@@ -177,8 +177,6 @@ public class ShopFragment extends Fragment implements LocationListener {
         rcv_listShop = view.findViewById(R.id.rcv_list_shop);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rcv_listShop.setLayoutManager(linearLayoutManager);
-        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("STORE");
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
         ArrayList<ShopDomain> filteredList = new ArrayList<>();
         DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference("LOCATION");
         locationRef.addListenerForSingleValueEvent(new ValueEventListener() {
