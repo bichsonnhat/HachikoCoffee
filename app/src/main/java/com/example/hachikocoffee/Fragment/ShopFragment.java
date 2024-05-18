@@ -58,7 +58,6 @@ public class ShopFragment extends Fragment implements LocationListener {
 
     private RecyclerView rcv_listShop;
 
-    private ShopAdapter shopAdapter;
     LocationManager locationManager;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -70,8 +69,7 @@ public class ShopFragment extends Fragment implements LocationListener {
     private String mParam1;
     private String mParam2;
     private double locationX = 0, locationY = 0;
-    private View viewFragment;
-    private int UserID = 1;
+    private final int UserID = 1;
 
     public ShopFragment() {
         // Required empty public constructor
@@ -107,16 +105,15 @@ public class ShopFragment extends Fragment implements LocationListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_shop, container, false);
+
         TextView location = view.findViewById(R.id.map);
-        viewFragment = view;
         location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
                     ActivityCompat.requestPermissions((Activity) getContext(), new String[]{
-                        Manifest.permission.ACCESS_FINE_LOCATION
+                            Manifest.permission.ACCESS_FINE_LOCATION
                     }, 100);
                     getLocation();
                 }
@@ -139,27 +136,32 @@ public class ShopFragment extends Fragment implements LocationListener {
         Button btnToVouchers = view.findViewById(R.id.btn_to_voucher);
         Button btnToNotification = view.findViewById(R.id.btn_to_notification);
 
-        // Set on click listener for the button to move from ShopFragment to YourVoucher Activity
         btnToVouchers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Move to YourVoucher Activity
                 Intent intent = new Intent(getActivity(), YourVoucher.class);
                 startActivity(intent);
             }
         });
-
-        // Set on click listener for the button to move from ShopFragment to NotificationDetail Activity
         btnToNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Move to NotificationDetail Activity
                 Intent intent = new Intent(getActivity(), NotificationDetail.class);
                 startActivity(intent);
             }
         });
 
         initShop(view);
+
+        //YourPickupVoucherFragment pickupFragment = (YourPickupVoucherFragment) getFragmentManager().findFragmentByTag("YourPickupVoucherFragment");
+        //YourDeliveryVoucherFragment deliveryFragment = (YourDeliveryVoucherFragment) getFragmentManager().findFragmentByTag("YourDeliveryVoucherFragment");
+
+        //if (pickupFragment != null && deliveryFragment != null) {
+        //    int totalSize = pickupFragment.getRecyclerViewSize() + deliveryFragment.getRecyclerViewSize();
+        //    TextView voucherCount = getView().findViewById(R.id.voucherBtn_count1);
+        //    voucherCount.setText(String.valueOf(totalSize));
+        //}
+
         return view;
     }
 
@@ -174,10 +176,13 @@ public class ShopFragment extends Fragment implements LocationListener {
     }
 
     public void initShop(View view) {
-        rcv_listShop = view.findViewById(R.id.rcv_list_shop);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+
+        rcv_listShop = view.findViewById(R.id.rcv_list_shop);
         rcv_listShop.setLayoutManager(linearLayoutManager);
+
         ArrayList<ShopDomain> filteredList = new ArrayList<>();
+
         DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference("LOCATION");
         locationRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -229,7 +234,7 @@ public class ShopFragment extends Fragment implements LocationListener {
 
     private void displayShopData(ArrayList<ShopDomain> shopList) {
         if (!shopList.isEmpty()) {
-            shopAdapter = new ShopAdapter(shopList, new ShopClickListener() {
+            ShopAdapter shopAdapter = new ShopAdapter(shopList, new ShopClickListener() {
                 @Override
                 public void onClickShopItem(ShopDomain shop) {
                     onClickToShopDetailFunc(shop);

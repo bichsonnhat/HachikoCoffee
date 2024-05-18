@@ -107,7 +107,7 @@
                 android:src="@drawable/ic_coupon" />
 
             <TextView
-                android:id="@+id/voucherBtn_count"
+                android:id="@+id/voucherBtn_count2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="43dp"
