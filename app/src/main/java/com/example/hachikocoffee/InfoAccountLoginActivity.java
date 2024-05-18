@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.AdapterView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -19,6 +20,11 @@ public class InfoAccountLoginActivity extends AppCompatActivity {
 
     private TextView textView;
     private Button btnCalendar, btnCalendar2;
+    private Spinner spinnerGender;
+    private ArrayAdapter<CharSequence> genderAdapter;
+
+    private static final String[] gender_options = {"Nam", "Nữ"};
+    private boolean genderSelected = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +47,17 @@ public class InfoAccountLoginActivity extends AppCompatActivity {
                 showDatePicker();
             }
         });
+
+        spinnerGender = findViewById(R.id.spinnerGender);
+        createGenderSpinner();
     }
+
+    private void createGenderSpinner() {
+        genderAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, gender_options);
+        genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerGender.setAdapter(genderAdapter);
+    }
+
 
     private void showDatePicker() {
         final Calendar calendar = Calendar.getInstance();

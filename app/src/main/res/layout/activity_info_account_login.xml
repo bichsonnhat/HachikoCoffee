@@ -122,7 +122,27 @@
             android:layout_marginTop="380dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:spinnerMode="dropdown"/>
+            android:spinnerMode="dropdown"
+            android:prompt="@string/hint_gender"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="455dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            app:backgroundTint="@null"
+            android:background="@drawable/rounded_rectangle_darkgrey"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="470dp"
+            android:text="Tạo tài khoản"
+            android:fontFamily="sans-serif"
+            android:textSize="16sp"
+            android:textColor="@color/white" />
 
     </RelativeLayout>
 </layout>
