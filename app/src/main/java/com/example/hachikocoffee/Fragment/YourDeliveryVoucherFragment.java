@@ -114,7 +114,7 @@ public class YourDeliveryVoucherFragment extends Fragment {
                         }
                     }
                     displayDiscountData(deliveryVoucherList1, deliveryVoucherList2);
-                    onDataLoaded();
+                    //onDataLoaded();
                 }
             }
 
