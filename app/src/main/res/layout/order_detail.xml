@@ -23,7 +23,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="23dp"
             android:text="Chi tiết đơn hàng"
-            android:textColor="#EC6940"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"/>
 
@@ -163,7 +163,7 @@
                 android:layout_marginTop="12dp"
                 android:text="Tổng cộng"
                 android:textAlignment="textStart"
-                android:textColor="#EC6940"
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
