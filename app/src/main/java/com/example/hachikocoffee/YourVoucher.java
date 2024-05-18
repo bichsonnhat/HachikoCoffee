@@ -55,27 +55,27 @@ public class YourVoucher extends AppCompatActivity {
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
                 switch (position){
                     case 0:{
-                        YourDeliveryVoucherFragment fragment1 = (YourDeliveryVoucherFragment) adapter.getRegisteredFragment(position);
-                        if (fragment1 != null) {
-                            int recyclerViewSize1 = fragment1.getRecyclerViewSize_delivery2();
-                            tab.setText("Giao hàng");
-                            BadgeDrawable bd = tab.getOrCreateBadge();
-                            bd.setBackgroundColor(getResources().getColor(R.color.orange));
-                            bd.setVisible(false);
-                            bd.setNumber(recyclerViewSize1);
-                        }
+                        //YourDeliveryVoucherFragment fragment1 = (YourDeliveryVoucherFragment) adapter.getRegisteredFragment(position);
+                        //if (fragment1 != null) {
+                        //    int recyclerViewSize1 = fragment1.getRecyclerViewSize_delivery2();
+                        tab.setText("Giao hàng");
+                        BadgeDrawable bd = tab.getOrCreateBadge();
+                        bd.setBackgroundColor(getResources().getColor(R.color.orange));
+                        bd.setVisible(false);
+                        //    bd.setNumber(recyclerViewSize1);
+                        //}
                         break;
                     }
                     case 1:{
-                        YourPickupVoucherFragment fragment2 = (YourPickupVoucherFragment) adapter.getRegisteredFragment(position);
-                        if (fragment2 != null) {
-                            int recyclerViewSize2 = fragment2.getRecyclerViewSize_pickup2();
-                            tab.setText("Mang đi");
-                            BadgeDrawable bd = tab.getOrCreateBadge();
-                            bd.setBackgroundColor(getResources().getColor(R.color.orange));
-                            bd.setVisible(false);
-                            bd.setNumber(recyclerViewSize2);
-                        }
+                        //YourPickupVoucherFragment fragment2 = (YourPickupVoucherFragment) adapter.getRegisteredFragment(position);
+                        //if (fragment2 != null) {
+                        //    int recyclerViewSize2 = fragment2.getRecyclerViewSize_pickup2();
+                        tab.setText("Mang đi");
+                        BadgeDrawable bd = tab.getOrCreateBadge();
+                        bd.setBackgroundColor(getResources().getColor(R.color.orange));
+                        bd.setVisible(false);
+                        //    bd.setNumber(recyclerViewSize2);
+                        //}
                         break;
                     }
                 }

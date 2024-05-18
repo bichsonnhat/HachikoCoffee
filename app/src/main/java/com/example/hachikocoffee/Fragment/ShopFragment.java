@@ -27,9 +27,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.hachikocoffee.Activity.SearchItemActivity;
 import com.example.hachikocoffee.Activity.SearchShopActivity;
 import com.example.hachikocoffee.Adapter.ShopAdapter;
 import com.example.hachikocoffee.Domain.LocationDomain;
@@ -39,8 +37,6 @@ import com.example.hachikocoffee.R;
 import com.example.hachikocoffee.Listener.ShopClickListener;
 import com.example.hachikocoffee.BottomSheetDialog.ShopDetail;
 import com.example.hachikocoffee.YourVoucher;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -60,13 +56,8 @@ import java.util.Map;
  */
 public class ShopFragment extends Fragment implements LocationListener {
 
-    private RecyclerView recyclerView_listShop1;
-    private RecyclerView recyclerView_listShop2; // not used yet
-    private RecyclerView recyclerView_listShop3; // not used yet
+    private RecyclerView rcv_listShop;
 
-    private ArrayList<ShopDomain> shopList;
-
-    private ShopAdapter shopAdapter;
     LocationManager locationManager;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -77,9 +68,8 @@ public class ShopFragment extends Fragment implements LocationListener {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private double X, Y;
-    private View viewFragment;
-    private int UserID = 1;
+    private double locationX = 0, locationY = 0;
+    private final int UserID = 1;
 
     public ShopFragment() {
         // Required empty public constructor
@@ -115,21 +105,21 @@ public class ShopFragment extends Fragment implements LocationListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_shop, container, false);
+
         TextView location = view.findViewById(R.id.map);
-        viewFragment = view;
         location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
                     ActivityCompat.requestPermissions((Activity) getContext(), new String[]{
-                        Manifest.permission.ACCESS_FINE_LOCATION
+                            Manifest.permission.ACCESS_FINE_LOCATION
                     }, 100);
                     getLocation();
                 }
             }
         });
+
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
             getLocation();
         }
@@ -146,25 +136,32 @@ public class ShopFragment extends Fragment implements LocationListener {
         Button btnToVouchers = view.findViewById(R.id.btn_to_voucher);
         Button btnToNotification = view.findViewById(R.id.btn_to_notification);
 
-        // Set on click listener for the button to move from ShopFragment to YourVoucher Activity
         btnToVouchers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Move to YourVoucher Activity
                 Intent intent = new Intent(getActivity(), YourVoucher.class);
                 startActivity(intent);
             }
         });
-
-        // Set on click listener for the button to move from ShopFragment to NotificationDetail Activity
         btnToNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Move to NotificationDetail Activity
                 Intent intent = new Intent(getActivity(), NotificationDetail.class);
                 startActivity(intent);
             }
         });
+
+        initShop(view);
+
+        //YourPickupVoucherFragment pickupFragment = (YourPickupVoucherFragment) getFragmentManager().findFragmentByTag("YourPickupVoucherFragment");
+        //YourDeliveryVoucherFragment deliveryFragment = (YourDeliveryVoucherFragment) getFragmentManager().findFragmentByTag("YourDeliveryVoucherFragment");
+
+        //if (pickupFragment != null && deliveryFragment != null) {
+        //    int totalSize = pickupFragment.getRecyclerViewSize() + deliveryFragment.getRecyclerViewSize();
+        //    TextView voucherCount = getView().findViewById(R.id.voucherBtn_count1);
+        //    voucherCount.setText(String.valueOf(totalSize));
+        //}
+
         return view;
     }
 
@@ -179,41 +176,71 @@ public class ShopFragment extends Fragment implements LocationListener {
     }
 
     public void initShop(View view) {
-        recyclerView_listShop1 = view.findViewById(R.id.rcv_list_shop1);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        recyclerView_listShop1.setLayoutManager(linearLayoutManager);
 
-        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("STORE");
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        rcv_listShop = view.findViewById(R.id.rcv_list_shop);
+        rcv_listShop.setLayoutManager(linearLayoutManager);
+
+        ArrayList<ShopDomain> filteredList = new ArrayList<>();
+
+        DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference("LOCATION");
+        locationRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    ArrayList<ShopDomain> shopList = new ArrayList<>();
+                if (snapshot.exists()){
                     for (DataSnapshot issue : snapshot.getChildren()) {
-                        ShopDomain shop = issue.getValue(ShopDomain.class);
-                        shopList.add(shop);
+                        LocationDomain location = issue.getValue(LocationDomain.class);
+                        if (location.getUserID() == UserID) {
+                            locationX = location.getLocationX();
+                            locationY = location.getLocationY();
+                            break;
+                        }
                     }
-                    displayShopData(shopList);
+                    DatabaseReference shopRef = FirebaseDatabase.getInstance().getReference("STORE");
+                    shopRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()){
+                                for (DataSnapshot issue : snapshot.getChildren()) {
+                                    ShopDomain shop = issue.getValue(ShopDomain.class);
+                                    String coorString = shop.getCoordinate();
+                                    String valuesString = coorString.substring(6, coorString.length() - 1);
+                                    String[] values = valuesString.split("\\s+");
+                                    Double coorX = Double.parseDouble(values[0]);
+                                    Double coorY = Double.parseDouble(values[1]);
+                                    Double distance = Math.sqrt((locationX - coorX) * (locationY - coorX) + (locationY - coorY) * (locationY - coorY));
+                                    String result = String.format("%.1f", distance);
+                                    shop.setCoordinate("Cách đây " + result + " km");
+                                    filteredList.add(shop);
+                                }
+                                displayShopData(filteredList);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("FirebaseError", "Failed to read value.", error.toException());
-                // Notify user about the error
+
             }
         });
     }
 
     private void displayShopData(ArrayList<ShopDomain> shopList) {
         if (!shopList.isEmpty()) {
-            shopAdapter = new ShopAdapter(shopList, new ShopClickListener() {
+            ShopAdapter shopAdapter = new ShopAdapter(shopList, new ShopClickListener() {
                 @Override
                 public void onClickShopItem(ShopDomain shop) {
                     onClickToShopDetailFunc(shop);
                 }
             });
-            recyclerView_listShop1.setAdapter(shopAdapter);
+            rcv_listShop.setAdapter(shopAdapter);
         }
     }
 
@@ -225,7 +252,6 @@ public class ShopFragment extends Fragment implements LocationListener {
     @Override
     public void onLocationChanged(@NonNull Location location) {
         DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference().child("LOCATION");
-
         locationRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -245,47 +271,10 @@ public class ShopFragment extends Fragment implements LocationListener {
                 Log.w("TAG", "Error fetching locations: " + error.getMessage());
             }
         });
-//        Toast.makeText(getContext(), ""+location.getLatitude()+","+location.getLongitude(), Toast.LENGTH_SHORT).show();
-        recyclerView_listShop1 = viewFragment.findViewById(R.id.rcv_list_shop1);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        recyclerView_listShop1.setLayoutManager(linearLayoutManager);
-
-        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("STORE");
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    ArrayList<ShopDomain> shopList = new ArrayList<>();
-                    for (DataSnapshot issue : snapshot.getChildren()) {
-                        ShopDomain shop = issue.getValue(ShopDomain.class);
-                        String coorString = shop.getCoordinate();
-                        String valuesString = coorString.substring(6, coorString.length() - 1);
-                        String[] values = valuesString.split("\\s+");
-                        Double coorX = Double.parseDouble(values[0]);
-                        Double coorY = Double.parseDouble(values[1]);
-                        Double locationX = location.getLatitude();
-                        Double locationY = location.getLongitude();
-                        Double distance = Math.sqrt((locationX - coorX) * (locationY - coorX) + (locationY - coorY) * (locationY - coorY));
-//                        Toast.makeText(getContext(), "Distance: " + distance, Toast.LENGTH_SHORT).show();
-                        String result = String.format("%.1f", distance);
-                        shop.setCoordinate("Cách đây " + result + " km");
-                        shopList.add(shop);
-                    }
-                    displayShopData(shopList);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("FirebaseError", "Failed to read value.", error.toException());
-                // Notify user about the error
-            }
-        });
         try {
             Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
             List<Address> address = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
             String myAddress = address.get(0).getAddressLine(0);
-//            Toast.makeText(getContext(), "My address is: " + myAddress, Toast.LENGTH_SHORT).show();
         } catch (Exception e){
             e.printStackTrace();
         }

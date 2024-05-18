@@ -235,6 +235,7 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
             @Override
             public void onClick(String s) {
                 recyclerView.post(new Runnable() {
+                    @SuppressLint("NotifyDataSetChanged")
                     @Override
                     public void run() {
                         adapter.notifyDataSetChanged();

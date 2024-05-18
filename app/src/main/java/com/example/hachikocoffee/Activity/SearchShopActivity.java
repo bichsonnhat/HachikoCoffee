@@ -115,7 +115,6 @@ public class SearchShopActivity extends AppCompatActivity {
                                     Double distance = Math.sqrt((locationX - coorX) * (locationY - coorX) + (locationY - coorY) * (locationY - coorY));
                                     String result = String.format("%.1f", distance);
                                     shop.setCoordinate("Cách đây " + result + " km");
-                                    Toast.makeText(SearchShopActivity.this, ""+locationY + " " + locationY, Toast.LENGTH_SHORT).show();
                                     if (shop.getAddress().toLowerCase().contains(newText.toLowerCase())){
                                         filteredList.add(shop);
                                     }
