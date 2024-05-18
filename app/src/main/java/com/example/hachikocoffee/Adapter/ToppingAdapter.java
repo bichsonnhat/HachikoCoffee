@@ -1,5 +1,6 @@
 package com.example.hachikocoffee.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +35,7 @@ public class ToppingAdapter extends RecyclerView.Adapter<ToppingAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ToppingAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ToppingAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         if (arrayList != null && arrayList.size() > 0) {
             holder.checkBox.setText(arrayList.get(position));
             holder.checkBox.setOnClickListener(new View.OnClickListener() {

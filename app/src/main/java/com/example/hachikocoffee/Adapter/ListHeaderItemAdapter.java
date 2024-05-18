@@ -1,5 +1,6 @@
 package com.example.hachikocoffee.Adapter;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,7 @@ public class ListHeaderItemAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Object dataItem = itemsDomains.get(position);
@@ -51,7 +53,7 @@ public class ListHeaderItemAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             itemHolder.addItemButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DetailCart detailBottomSheetDialog = new DetailCart(data);
+                    DetailCart detailBottomSheetDialog = new DetailCart(data.getProductID(), data.getTitle(), data.getPrice());
                     detailBottomSheetDialog.show(((AppCompatActivity) v.getContext()).getSupportFragmentManager(), "DetailBottomSheetDialog");
                 }
             });

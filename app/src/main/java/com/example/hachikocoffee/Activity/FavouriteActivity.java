@@ -47,7 +47,7 @@ public class FavouriteActivity extends AppCompatActivity implements UpdateUIList
 
         listFavourites = new ArrayList<>();
         recyclerViewFavourites.setLayoutManager(new GridLayoutManager(this, 1));
-        updateUI(previousItemCount);
+        //updateUI(previousItemCount);
 
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();

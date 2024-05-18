@@ -1,5 +1,6 @@
 package com.example.hachikocoffee.BottomSheetDialog;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -9,17 +10,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hachikocoffee.Adapter.CartAdapter;
+import com.example.hachikocoffee.Domain.CartItem;
+import com.example.hachikocoffee.Domain.ManagementCart;
 import com.example.hachikocoffee.R;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.shape.MaterialShapeDrawable;
 import com.google.android.material.shape.ShapeAppearanceModel;
+
+import java.util.ArrayList;
 
 public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment {
 
@@ -29,21 +38,23 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment {
         return inflater.inflate(R.layout.activity_cart, container, false);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         ImageView backButton = view.findViewById(R.id.backBtn);
+        TextView totalItemCost = view.findViewById(R.id.itemsCost);
+        AppCompatButton confirmBtn = view.findViewById(R.id.confirmBtn);
+        RecyclerView recyclerViewCart = view.findViewById(R.id.recyclerView_CartItems);
+        recyclerViewCart.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         ShapeAppearanceModel shapeAppearanceModel = new ShapeAppearanceModel()
                 .toBuilder()
                 .setAllCornerSizes(50)
                 .build();
-
-        AppCompatButton confirmBtn = view.findViewById(R.id.confirmBtn);
         MaterialShapeDrawable materialShapeDrawable = new MaterialShapeDrawable(shapeAppearanceModel);
         materialShapeDrawable.setFillColor(ColorStateList.valueOf(Color.WHITE));
-
         confirmBtn.setBackground(materialShapeDrawable);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +62,13 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment {
                 dismiss();
             }
         });
+
+        ArrayList<CartItem> cartItems = ManagementCart.getInstance().getCartItems();
+        if (cartItems.size() > 0){
+            CartAdapter cartAdapter = new CartAdapter(cartItems, getChildFragmentManager());
+            recyclerViewCart.setAdapter(cartAdapter);
+        }
+        totalItemCost.setText(ManagementCart.getInstance().getTotalCost() +"đ");
     }
 
     @NonNull
