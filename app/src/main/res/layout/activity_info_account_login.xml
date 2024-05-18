@@ -34,6 +34,7 @@
             android:layout_marginTop="60dp" />
 
         <EditText
+            android:id="@+id/firstNameRegister"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
@@ -47,6 +48,7 @@
             android:ellipsize="end" />
 
         <EditText
+            android:id="@+id/lastNameRegister"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
@@ -60,6 +62,7 @@
             android:ellipsize="end" />
 
         <EditText
+            android:id="@+id/emailRegister"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
@@ -126,6 +129,8 @@
             android:prompt="@string/hint_gender"/>
 
         <Button
+            android:backgroundTint="@null"
+            android:id="@+id/btnRegisterAccount"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="455dp"
