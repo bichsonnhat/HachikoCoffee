@@ -69,7 +69,7 @@ public class ShopFragment extends Fragment implements LocationListener {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private double X, Y;
+    private double locationX = 0, locationY = 0;
     private View viewFragment;
     private int UserID = 1;
 
@@ -122,6 +122,7 @@ public class ShopFragment extends Fragment implements LocationListener {
                 }
             }
         });
+
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
             getLocation();
         }
@@ -157,6 +158,8 @@ public class ShopFragment extends Fragment implements LocationListener {
                 startActivity(intent);
             }
         });
+
+        initShop(view);
         return view;
     }
 
@@ -174,25 +177,54 @@ public class ShopFragment extends Fragment implements LocationListener {
         rcv_listShop = view.findViewById(R.id.rcv_list_shop);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rcv_listShop.setLayoutManager(linearLayoutManager);
-
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("STORE");
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        ArrayList<ShopDomain> filteredList = new ArrayList<>();
+        DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference("LOCATION");
+        locationRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    ArrayList<ShopDomain> shopList = new ArrayList<>();
+                if (snapshot.exists()){
                     for (DataSnapshot issue : snapshot.getChildren()) {
-                        ShopDomain shop = issue.getValue(ShopDomain.class);
-                        shopList.add(shop);
+                        LocationDomain location = issue.getValue(LocationDomain.class);
+                        if (location.getUserID() == UserID) {
+                            locationX = location.getLocationX();
+                            locationY = location.getLocationY();
+                            break;
+                        }
                     }
-                    displayShopData(shopList);
+                    DatabaseReference shopRef = FirebaseDatabase.getInstance().getReference("STORE");
+                    shopRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()){
+                                for (DataSnapshot issue : snapshot.getChildren()) {
+                                    ShopDomain shop = issue.getValue(ShopDomain.class);
+                                    String coorString = shop.getCoordinate();
+                                    String valuesString = coorString.substring(6, coorString.length() - 1);
+                                    String[] values = valuesString.split("\\s+");
+                                    Double coorX = Double.parseDouble(values[0]);
+                                    Double coorY = Double.parseDouble(values[1]);
+                                    Double distance = Math.sqrt((locationX - coorX) * (locationY - coorX) + (locationY - coorY) * (locationY - coorY));
+                                    String result = String.format("%.1f", distance);
+                                    shop.setCoordinate("Cách đây " + result + " km");
+                                    filteredList.add(shop);
+                                }
+                                displayShopData(filteredList);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("FirebaseError", "Failed to read value.", error.toException());
-                // Notify user about the error
+
             }
         });
     }
@@ -217,7 +249,6 @@ public class ShopFragment extends Fragment implements LocationListener {
     @Override
     public void onLocationChanged(@NonNull Location location) {
         DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference().child("LOCATION");
-
         locationRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -237,47 +268,10 @@ public class ShopFragment extends Fragment implements LocationListener {
                 Log.w("TAG", "Error fetching locations: " + error.getMessage());
             }
         });
-//        Toast.makeText(getContext(), ""+location.getLatitude()+","+location.getLongitude(), Toast.LENGTH_SHORT).show();
-        rcv_listShop = viewFragment.findViewById(R.id.rcv_list_shop);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        rcv_listShop.setLayoutManager(linearLayoutManager);
-
-        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("STORE");
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    ArrayList<ShopDomain> shopList = new ArrayList<>();
-                    for (DataSnapshot issue : snapshot.getChildren()) {
-                        ShopDomain shop = issue.getValue(ShopDomain.class);
-                        String coorString = shop.getCoordinate();
-                        String valuesString = coorString.substring(6, coorString.length() - 1);
-                        String[] values = valuesString.split("\\s+");
-                        Double coorX = Double.parseDouble(values[0]);
-                        Double coorY = Double.parseDouble(values[1]);
-                        Double locationX = location.getLatitude();
-                        Double locationY = location.getLongitude();
-                        Double distance = Math.sqrt((locationX - coorX) * (locationY - coorX) + (locationY - coorY) * (locationY - coorY));
-//                        Toast.makeText(getContext(), "Distance: " + distance, Toast.LENGTH_SHORT).show();
-                        String result = String.format("%.1f", distance);
-                        shop.setCoordinate("Cách đây " + result + " km");
-                        shopList.add(shop);
-                    }
-                    displayShopData(shopList);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("FirebaseError", "Failed to read value.", error.toException());
-                // Notify user about the error
-            }
-        });
         try {
             Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
             List<Address> address = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
             String myAddress = address.get(0).getAddressLine(0);
-//            Toast.makeText(getContext(), "My address is: " + myAddress, Toast.LENGTH_SHORT).show();
         } catch (Exception e){
             e.printStackTrace();
         }
