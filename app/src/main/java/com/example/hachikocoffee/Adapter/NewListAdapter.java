@@ -48,7 +48,7 @@ public class NewListAdapter extends RecyclerView.Adapter<NewListAdapter.Viewhold
             @Override
             public void onClick(View v) {
                 ItemsDomain item = items.get(position);
-                DetailCart detailBottomSheetDialog = new DetailCart(item);
+                DetailCart detailBottomSheetDialog = new DetailCart(item.getProductID(), item.getTitle(), item.getPrice());
 
                 detailBottomSheetDialog.show(((AppCompatActivity) context).getSupportFragmentManager(), "DetailBottomSheetDialog");
             }

@@ -10,11 +10,13 @@
 
     <TextView
         android:id="@+id/itemTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="2x Smoothie Phúc Bồn Tử Granola"
-        android:textStyle="bold"
         android:layout_marginStart="16dp"
+        android:text="2x Smoothie Phúc Bồn Tử Granola "
+        android:layout_marginEnd="16dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/totalDetailCost"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,15 +38,6 @@
         android:layout_marginStart="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/itemSize" />
-    <TextView
-        android:id="@+id/topping2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hạt sen"
-        android:visibility="gone"
-        android:layout_marginStart="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topping1" />
 
     <TextView
         android:id="@+id/totalDetailCost"

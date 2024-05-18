@@ -30,128 +30,98 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import java.util.ArrayList;
 
 public class DetailCart extends BottomSheetDialogFragment implements ToppingListener {
-    int totalOrder = 0;
-    int countProduct = 1;
-    String SizeProduct = "Nhỏ";
-    ItemsDomain object;
-    RecyclerView recyclerViewTopping;
-    ArrayList<String> toppingList = new ArrayList<>();
-    int sizeToping = 0;
-    RecyclerView recyclerViewSize;
-    AppCompatButton totalProductCost;
-    ItemClickListener itemClickListener;
-    SizeAdapter adapter;
-    ToppingAdapter toppingAdapter;
-    @NonNull
+    private final String proID;
+    private final String proName;
+    private final double proCost;
+    private SizeAdapter adapter;
+    private RecyclerView recyclerViewTopping;
+    private AppCompatButton totalProductCost;
+    private ItemClickListener itemClickListener;
+    private int countProduct = 1;
+    private TextView numberOfProduct;
+    private String sizeProduct = "Nhỏ";
+    private int totalCost = 0;
+    private final ArrayList<String> toppingList = new ArrayList<>();
+    public DetailCart(String proID, String proName, double proCost){
+        this.proID = proID;
+        this.proName = proName;
+        this.proCost = proCost;
+    }
     @Override
-    public CreationExtras getDefaultViewModelCreationExtras() {
-        return super.getDefaultViewModelCreationExtras();
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.detail_cart, container, false);
+        setupViews(view);
+        setupRecyclerViews(view);
+        setupClickListeners(view);
+        return view;
     }
 
-    public DetailCart(ItemsDomain object){ this.object = object;};
-
-    @SuppressLint("SetTextI18n")
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
-        View view = inflater.inflate(R.layout.detail_cart, container,false);
+    private void setupViews(View view) {
         recyclerViewTopping = view.findViewById(R.id.productRecyclerTopping);
-        recyclerViewSize = view.findViewById(R.id.productRecyclerSize);
-        TextView minusProduct = view.findViewById(R.id.minusProduct);
-        TextView plusProduct = view.findViewById(R.id.plusProduct);
-        TextView numberOfProduct = view.findViewById(R.id.numberOfProduct);
         TextView productMinimumSize = view.findViewById(R.id.productMinimumSize);
         TextView productMediumSize = view.findViewById(R.id.productMediumSize);
         TextView productLargeSize = view.findViewById(R.id.productLargeSize);
         totalProductCost = view.findViewById(R.id.totalProductCost);
         TextView productName = view.findViewById(R.id.productName);
-        totalProductCost.setText("Chọn • " + (int) (object.getPrice() + 10 * sizeToping) + "đ");
+        numberOfProduct = view.findViewById(R.id.numberOfProduct);
+        totalProductCost.setText("Chọn • " + (int) (proCost + 10 * toppingList.size()) + "đ");
 
-        totalOrder = (int) object.getPrice();
-        minusProduct.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onClick(View v) {
-                countProduct--;
-                if (countProduct == 0){
-                    countProduct = 1;
-                } else {
-                    numberOfProduct.setText(""+countProduct);
-                    totalProductCost.setText("Chọn • " + (totalOrder * countProduct + 10 * sizeToping) + "đ");
-                }
-            }
-        });
+        totalCost = (int) proCost;
+        int itemCost = totalCost;
 
-        plusProduct.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onClick(View v) {
-                countProduct++;
-                numberOfProduct.setText(""+countProduct);
-                totalProductCost.setText("Chọn • " + (totalOrder * countProduct + 10 * sizeToping) + "đ");
-            }
-        });
-
-        totalProductCost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (SizeProduct == null){
-                    Toast.makeText(getContext(), "Vui lòng chọn size đồ uống", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (countProduct == 0){
-                    Toast.makeText(getContext(), "Vui lòng chọn số lượng", Toast.LENGTH_SHORT).show();
-                }
-                Toast.makeText(getContext(), toppingList.toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        setRecycleViewTopping();
-        int itemCost = (int) object.getPrice();
-        productName.setText(object.getTitle());
+        productName.setText(proName);
         productMinimumSize.setText(itemCost + "đ");
         productMediumSize.setText(10000 + itemCost + "đ");
         productLargeSize.setText(20000 + itemCost + "đ");
 
-        recyclerViewSize = view.findViewById(R.id.productRecyclerSize);
-        ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add("Lớn");
-        arrayList.add("Vừa");
-        arrayList.add("Nhỏ");
-        itemClickListener = new ItemClickListener() {
+        updateTotalCost();
+    }
+
+    private void setupRecyclerViews(View view) {
+        RecyclerView recyclerView = view.findViewById(R.id.productRecyclerSize);
+        ArrayList<String> sizeList = new ArrayList<>();
+        sizeList.add("Lớn");
+        sizeList.add("Vừa");
+        sizeList.add("Nhỏ");
+
+        ItemClickListener itemClickListener = new ItemClickListener() {
             @Override
             public void onClick(String s) {
-                recyclerViewSize.post(new Runnable() {
+                recyclerView.post(new Runnable() {
                     @SuppressLint("NotifyDataSetChanged")
                     @Override
                     public void run() {
                         adapter.notifyDataSetChanged();
                     }
                 });
-                SizeProduct = s;
+                sizeProduct = s;
                 Toast.makeText(getContext(), "Selected " + s, Toast.LENGTH_SHORT).show();
-                if (SizeProduct.equals("Lớn")){
-                    totalOrder = 20000 + itemCost;
+                switch (sizeProduct) {
+                    case "Lớn":
+                        totalCost = (int) (proCost + 20000);
+                        break;
+                    case "Vừa":
+                        totalCost = (int) (proCost + 10000);
+                        break;
+                    default:
+                        totalCost = (int) proCost;
+                        break;
                 }
-                if (SizeProduct.equals("Vừa")){
-                    totalOrder = 10000 + itemCost;
-                }
-                if (SizeProduct.equals("Nhỏ")){
-                    totalOrder = itemCost;
-                }
-                totalProductCost.setText("Chọn • " + (totalOrder * countProduct + 10 * sizeToping) + "đ");
+                updateTotalCost();
             }
         };
 
-        recyclerViewSize.setLayoutManager(new LinearLayoutManager(requireContext()));
-        adapter = new SizeAdapter(arrayList, itemClickListener);
-        recyclerViewSize.setAdapter(adapter);
-        return view;
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        adapter = new SizeAdapter(sizeList, itemClickListener);
+        recyclerView.setAdapter(adapter);
+
+        setRecyclerViewTopping();
     }
 
-    private void setRecycleViewTopping() {
+    private void setRecyclerViewTopping() {
         recyclerViewTopping.setHasFixedSize(true);
         recyclerViewTopping.setLayoutManager(new LinearLayoutManager(getContext()));
-        toppingAdapter = new ToppingAdapter(getContext(), getToppingList(), this);
+        ToppingAdapter toppingAdapter = new ToppingAdapter(getContext(), getToppingList(), this);
         recyclerViewTopping.setAdapter(toppingAdapter);
     }
 
@@ -166,19 +136,54 @@ public class DetailCart extends BottomSheetDialogFragment implements ToppingList
         arrayList.add("Đào Miếng");
         return arrayList;
     }
+
     @SuppressLint("SetTextI18n")
+    private void setupClickListeners(View view) {
+        totalProductCost = view.findViewById(R.id.totalProductCost);
+        totalProductCost.setOnClickListener(v -> {
+            if (sizeProduct == null) {
+                Toast.makeText(requireContext(), "Vui lòng chọn size đồ uống", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (countProduct == 0) {
+                Toast.makeText(requireContext(), "Vui lòng chọn số lượng", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Toast.makeText(requireContext(), toppingList.toString(), Toast.LENGTH_SHORT).show();
+        });
+
+        TextView minusProduct = view.findViewById(R.id.minusProduct);
+        minusProduct.setOnClickListener(v -> {
+            countProduct--;
+            if (countProduct < 1) countProduct = 1;
+            numberOfProduct.setText(String.valueOf(countProduct));
+            updateTotalCost();
+        });
+
+        TextView plusProduct = view.findViewById(R.id.plusProduct);
+        plusProduct.setOnClickListener(v -> {
+            countProduct++;
+            numberOfProduct.setText(String.valueOf(countProduct));
+            updateTotalCost();
+        });
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void updateTotalCost() {
+        totalProductCost.setText("Chọn • " + (totalCost * countProduct + toppingList.size() * 10) + "đ");
+    }
+
     @Override
-    public void onToppingChange(ArrayList<String> arrayList) {
-        toppingList = arrayList;
-        sizeToping = arrayList.size();
-        totalOrder = (((int) object.getPrice() + 10 * sizeToping) * countProduct);
-        totalProductCost.setText("Chọn • " + totalOrder + "đ");
-        Toast.makeText(getContext(), arrayList.toString(), Toast.LENGTH_SHORT).show();
+    public void onToppingChange(ArrayList<String> toppings) {
+        toppingList.clear();
+        toppingList.addAll(toppings);
+        updateTotalCost();
+        Toast.makeText(requireContext(), toppings.toString(), Toast.LENGTH_SHORT).show();
     }
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         BottomSheetDialog dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
         dialog.setOnShowListener(dialogInterface -> {
             BottomSheetDialog bottomSheetDialog = (BottomSheetDialog) dialogInterface;
@@ -187,14 +192,10 @@ public class DetailCart extends BottomSheetDialogFragment implements ToppingList
                 BottomSheetBehavior<View> behavior = BottomSheetBehavior.from(parentLayout);
                 setupFullHeight(parentLayout);
                 behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-
             }
         });
 
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-
-
-
         return dialog;
     }
 
