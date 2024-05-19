@@ -15,7 +15,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.hachikocoffee.Adapter.NotificationAdapter;
+import com.example.hachikocoffee.BottomSheetDialog.NotificationBottomSheet;
+import com.example.hachikocoffee.BottomSheetDialog.ShopDetail;
 import com.example.hachikocoffee.Domain.NotificationDomain;
+import com.example.hachikocoffee.Listener.NotificationClickListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -54,13 +57,21 @@ public class NotificationDetail extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
-                    Toast.makeText(NotificationDetail.this, "Notification ??", Toast.LENGTH_SHORT).show();
                     for (DataSnapshot issue : snapshot.getChildren()){
                         NotificationDomain notification = issue.getValue(NotificationDomain.class);
                         list.add(notification);
-//                        list.add(new NotificationDomain("Chào bạn mới", "Lần đầu đến với Hachiko, Hachiko mong bạn có thật nhiều niềm vui nhé!", R.drawable.coffee_store, "19/05"));
                     }
-                    NotificationAdapter adapter = new NotificationAdapter(list);
+                    NotificationAdapter adapter = new NotificationAdapter(list, new NotificationClickListener() {
+                        @Override
+                        public void onClick(NotificationDomain notificationDomain) {
+                            onClickToNotificationDetail(notificationDomain);
+                        }
+
+                        private void onClickToNotificationDetail(NotificationDomain notificationDomain) {
+                            NotificationBottomSheet notificationBottomSheet = NotificationBottomSheet.newInstance(notificationDomain);
+                            notificationBottomSheet.show(getSupportFragmentManager(), notificationBottomSheet.getTag());
+                        }
+                    });
                     rcvNoti.setAdapter(adapter);
                 }
             }
