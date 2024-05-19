@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/rounded_rectangle"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".BottomSheetDialog.DetailCart">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_rectangle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/productName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Oolong Tứ Quý Vải"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:padding="6dp"
+            android:src="@drawable/ic_close"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        android:background="#ECECEC" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/separator">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:fillViewport="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_alignParentTop="true"
+                    android:id="@+id/productSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="3dp"
+                    android:text="Size"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView28"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/productSize"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="-2dp"
+                    android:layout_weight="1"
+                    android:text="Chọn 1 loại size"
+                    android:textColor="#807d7d" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/productRecyclerSize"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView28"
+                    android:layout_marginStart="16dp"
+                    tools:itemCount="3"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="16dp"
+                    tools:listitem="@layout/item_size" />
+
+                <TextView
+                    android:id="@+id/productLargeSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/productRecyclerSize"
+                    android:layout_marginStart="325dp"
+                    android:layout_marginTop="14dp"
+                    android:gravity="right"
+                    android:text="65.000đ"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/productMediumSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/productLargeSize"
+                    android:layout_marginStart="325dp"
+                    android:layout_marginTop="28dp"
+                    android:gravity="right"
+                    android:text="55.000đ"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/productMinimumSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/productMediumSize"
+                    android:layout_marginStart="325dp"
+                    android:layout_marginTop="28dp"
+                    android:gravity="right"
+                    android:text="45.000đ"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/textView29"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/productRecyclerSize"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:text="Topping"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView30"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView29"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_weight="1"
+                    android:text="Chọn topping"
+                    android:textColor="#807d7d" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/productRecyclerTopping"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView30"
+                    android:layout_marginEnd="16dp"
+                    tools:itemCount="7"
+                    android:layout_marginStart="16dp"
+                    tools:listitem="@layout/item_size" />
+
+                <TextView
+                    android:id="@+id/toppingCost1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10.000đ"
+                    android:layout_marginTop="14dp"
+                    android:gravity="right"
+                    android:textSize="15sp"
+                    android:layout_alignTop="@+id/productRecyclerTopping"
+                    android:layout_marginStart="325dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10.000đ"
+                    android:id="@+id/toppingCost2"
+                    android:layout_below="@+id/toppingCost1"
+                    android:layout_marginTop="28dp"
+                    android:gravity="right"
+                    android:layout_marginStart="325dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10.000đ"
+                    android:id="@+id/toppingCost3"
+                    android:layout_below="@+id/toppingCost2"
+                    android:layout_marginTop="28dp"
+                    android:gravity="right"
+                    android:layout_marginStart="325dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10.000đ"
+                    android:id="@+id/toppingCost4"
+                    android:layout_below="@+id/toppingCost3"
+                    android:layout_marginTop="28dp"
+                    android:gravity="right"
+                    android:layout_marginStart="325dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10.000đ"
+                    android:id="@+id/toppingCost5"
+                    android:layout_below="@+id/toppingCost4"
+                    android:layout_marginTop="28dp"
+                    android:gravity="right"
+                    android:layout_marginStart="325dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10.000đ"
+                    android:id="@+id/toppingCost6"
+                    android:layout_below="@+id/toppingCost5"
+                    android:layout_marginTop="28dp"
+                    android:gravity="right"
+                    android:layout_marginStart="325dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10.000đ"
+                    android:id="@+id/toppingCost7"
+                    android:layout_below="@+id/toppingCost6"
+                    android:layout_marginTop="28dp"
+                    android:gravity="right"
+                    android:layout_marginStart="325dp"/>
+
+                <TextView
+                    android:id="@+id/anotherRequire"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:text="Yêu cầu khác"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_below="@+id/productRecyclerTopping"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="165dp"
+                    android:layout_below="@id/anotherRequire"
+                    android:background="@android:color/transparent"/>
+                <TextView
+                    android:id="@+id/Option"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/anotherRequire"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_weight="1"
+                    android:text="Những tuỳ chọn khác"
+                    android:textColor="#807d7d" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:hint="Thêm ghi chú"
+                    android:paddingStart="16dp"
+                    android:id="@+id/notes"
+                    android:textSize="14sp"
+                    android:inputType="text"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@+id/Option"
+                    android:background="@drawable/bg_note"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="60dp"
+                    android:layout_below="@+id/notes"
+                    />
+
+            </RelativeLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/nestedScrollView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/minusProduct"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:textColor="#E47905"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:text="-"
+                    android:layout_marginTop="22dp"
+                    android:background="@drawable/edit_button"
+                    />
+                <TextView
+                    android:id="@+id/numberOfProduct"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:layout_marginStart="58dp"
+                    android:text="1"
+                    android:layout_marginTop="22dp"
+                    />
+                <TextView
+                    android:id="@+id/plusProduct"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:textColor="#E47905"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:layout_marginStart="100dp"
+                    android:text="+"
+                    android:layout_marginTop="22dp"
+                    android:background="@drawable/edit_button"
+                    />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/totalProductCost"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    style="@android:style/Widget.Button"
+                    android:background="@drawable/order_button"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="150dp"
+                    android:text="Chọn • 100.000đ"
+                    android:textColor="@color/white"
+                    />
+            </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -15,7 +16,6 @@ import com.example.hachikocoffee.Adapter.DiscountAdapter;
 import com.example.hachikocoffee.DiscountDetail;
 import com.example.hachikocoffee.Domain.DiscountDomain;
 import com.example.hachikocoffee.R;
-import com.example.hachikocoffee.YourVoucher;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,6 +30,8 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class YourPickupVoucherFragment extends Fragment {
+    ArrayList<DiscountDomain> pickupVoucherList1 = new ArrayList<>();
+    ArrayList<DiscountDomain> pickupVoucherList2 = new ArrayList<>();
     private RecyclerView rcv_pickupList1;
     private RecyclerView rcv_pickupList2;
 
@@ -76,7 +78,6 @@ public class YourPickupVoucherFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_your_pickup_voucher, container, false);
 
         initYourPickupVoucher(view);
@@ -89,9 +90,9 @@ public class YourPickupVoucherFragment extends Fragment {
         LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
 
         rcv_pickupList1 = view.findViewById(R.id.rcv_pickup_list1);
-        rcv_pickupList1.setLayoutManager(linearLayoutManager1);
-
         rcv_pickupList2 = view.findViewById(R.id.rcv_pickup_list2);
+
+        rcv_pickupList1.setLayoutManager(linearLayoutManager1);
         rcv_pickupList2.setLayoutManager(linearLayoutManager2);
 
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("VOUCHER");
@@ -100,19 +101,20 @@ public class YourPickupVoucherFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    ArrayList<DiscountDomain> pickupVoucherList1 = new ArrayList<>();
-                    ArrayList<DiscountDomain> pickupVoucherList2 = new ArrayList<>();
+                //    ArrayList<DiscountDomain> pickupVoucherList1 = new ArrayList<>();
+                //    ArrayList<DiscountDomain> pickupVoucherList2 = new ArrayList<>();
 
                     for (DataSnapshot issue : snapshot.getChildren()) {
                         DiscountDomain discount = issue.getValue(DiscountDomain.class);
 
                         if (discount != null && discount.getType().equals("Pick up")) { // Must add check date function
-                            pickupVoucherList1.add(discount);
+                            if (discount.isAboutToExpire()) {
+                                pickupVoucherList1.add(discount);
+                            }
                             pickupVoucherList2.add(discount);
                         }
                     }
                     displayDiscountData(pickupVoucherList1, pickupVoucherList2);
-                    onDataLoaded();
                 }
             }
 
@@ -133,6 +135,12 @@ public class YourPickupVoucherFragment extends Fragment {
             DiscountAdapter discountAdapter2 = new DiscountAdapter(discountList2, this::onClickToDiscountDetailFunc);
             rcv_pickupList2.setAdapter(discountAdapter2);
         }
+
+        TextView pickup1Size = getView().findViewById(R.id.counter_pickup1);
+        TextView pickup2Size = getView().findViewById(R.id.counter_pickup2);
+
+        pickup1Size.setText(String.valueOf(discountList1.size()));
+        pickup2Size.setText(String.valueOf(discountList2.size()));
     }
 
     private void onClickToDiscountDetailFunc(DiscountDomain discount) {
@@ -140,21 +148,7 @@ public class YourPickupVoucherFragment extends Fragment {
         discountDetail.show(getParentFragmentManager(), discountDetail.getTag());
     }
 
-    public int getRecyclerViewSize_pickup1() {
-        if (rcv_pickupList1.getAdapter() != null) {
-            return rcv_pickupList1.getAdapter().getItemCount();
-        }
-        return 0;
-    }
-    public int getRecyclerViewSize_pickup2() {
-        if (rcv_pickupList2.getAdapter() != null) {
-            return rcv_pickupList2.getAdapter().getItemCount();
-        }
-        return 0;
-    }
-
-    public void onDataLoaded() {
-        int recyclerViewSize = getRecyclerViewSize_pickup2();
-        ((YourVoucher) getActivity()).updateTab(1, "Mang đi", recyclerViewSize);
+    public int getRecyclerViewSize() {
+        return pickupVoucherList2.size(); // or deliveryVoucherList2.size() for YourDeliveryVoucherFragment
     }
 }

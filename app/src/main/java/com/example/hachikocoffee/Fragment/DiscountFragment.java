@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.hachikocoffee.Adapter.DiscountAdapter;
-import com.example.hachikocoffee.DiscountClickListener;
 import com.example.hachikocoffee.DiscountDetail;
 import com.example.hachikocoffee.Domain.DiscountDomain;
 import com.example.hachikocoffee.R;
@@ -35,12 +34,10 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class DiscountFragment extends Fragment {
-    private CardView btnToVouchers3;
-    private RecyclerView recyclerView_listDiscount;
+    private RecyclerView rcv_listVoucher1;
+    private RecyclerView rcv_listVoucher2;
 
     private ArrayList<DiscountDomain> discountList;
-
-    private DiscountAdapter discountAdapter;
 
     //private static final int VERTICAL_ITEM_SPACE = 1;
 
@@ -87,16 +84,31 @@ public class DiscountFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_discount, container, false);
+        CardView btnToVouchers3 = (CardView) view.findViewById(R.id.btn_to_voucher3);
+        Button btnToVouchers4 = view.findViewById(R.id.btn_seeall_voucher1);
+        Button btnToVouchers5 = view.findViewById(R.id.btn_seeall_voucher2);
 
-        btnToVouchers3 = (CardView) view.findViewById(R.id.btn_to_voucher3);
-
-        // Set on click listener for the button to move from ShopFragment to YourVoucher Activity
         btnToVouchers3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Move to YourVoucher Activity
+                Intent intent = new Intent(getActivity(), YourVoucher.class);
+                startActivity(intent);
+            }
+        });
+
+        btnToVouchers4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), YourVoucher.class);
+                startActivity(intent);
+            }
+        });
+
+        btnToVouchers5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), YourVoucher.class);
                 startActivity(intent);
             }
@@ -108,41 +120,55 @@ public class DiscountFragment extends Fragment {
     }
 
     public void initDiscount(View view) {
-        recyclerView_listDiscount = view.findViewById(R.id.rcv_list_coupon);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        recyclerView_listDiscount.setLayoutManager(linearLayoutManager);
+        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+
+        rcv_listVoucher1 = view.findViewById(R.id.rcv_list_voucher1);
+        rcv_listVoucher2 = view.findViewById(R.id.rcv_list_voucher2);
+
+        rcv_listVoucher1.setLayoutManager(linearLayoutManager1);
+        rcv_listVoucher2.setLayoutManager(linearLayoutManager2);
 
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("VOUCHER");
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    ArrayList<DiscountDomain> discountList = new ArrayList<>();
+                    ArrayList<DiscountDomain> discountList1 = new ArrayList<>();
+                    ArrayList<DiscountDomain> discountList2 = new ArrayList<>();
+
                     for (DataSnapshot issue : snapshot.getChildren()) {
                         DiscountDomain discount = issue.getValue(DiscountDomain.class);
-                        discountList.add(discount);
+
+                        if (discount.isAboutToExpire() && discountList1.size() < 3){
+                            discountList1.add(discount);
+                            Log.d("Discount", "Add a discount that is about to expire");
+                        }
+
+                        if (discountList2.size() < 3) {
+                            discountList2.add(discount);
+                            Log.d("Discount", "Add a discount that is not about to expire");
+                        }
                     }
-                    displayDiscountData(discountList);
+                    displayDiscountData(discountList1, discountList2);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.e("FirebaseError", "Failed to read value.", error.toException());
-                // Notify user about the error
             }
         });
     }
 
-    private void displayDiscountData(ArrayList<DiscountDomain> discountList) {
-        if (!discountList.isEmpty()) {
-            discountAdapter = new DiscountAdapter(discountList, new DiscountClickListener() {
-                @Override
-                public void onClickDiscountItem(DiscountDomain discount) {
-                    onClickToDiscountDetailFunc(discount);
-                }
-            });
-            recyclerView_listDiscount.setAdapter(discountAdapter);
+    private void displayDiscountData(ArrayList<DiscountDomain> discountList1, ArrayList<DiscountDomain> discountList2) {
+        if (!discountList1.isEmpty()) {
+            DiscountAdapter discountAdapter1 = new DiscountAdapter(discountList1, this::onClickToDiscountDetailFunc);
+            rcv_listVoucher1.setAdapter(discountAdapter1);
+        }
+        if (!discountList2.isEmpty()) {
+            DiscountAdapter discountAdapter2 = new DiscountAdapter(discountList2, this::onClickToDiscountDetailFunc);
+            rcv_listVoucher2.setAdapter(discountAdapter2);
         }
     }
 

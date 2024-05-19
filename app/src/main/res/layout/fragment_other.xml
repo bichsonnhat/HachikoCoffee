@@ -61,8 +61,8 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
             android:layout_alignParentRight="true"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp">
@@ -70,16 +70,13 @@
             <ImageView
                 android:layout_width="15dp"
                 android:layout_height="15dp"
-                android:layout_marginLeft="33dp"
-                android:layout_marginTop="3dp"
                 android:background="@drawable/bg_notification" />
 
             <TextView
-                android:id="@+id/notBtn_cntFinal"
+                android:id="@+id/notificationCountOther"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="35dp"
-                android:layout_marginTop="4dp"
+                android:layout_centerInParent="true"
                 android:text="11"
                 android:textColor="@color/white"
                 android:textSize="9sp" />
@@ -107,7 +104,7 @@
                 android:src="@drawable/ic_coupon" />
 
             <TextView
-                android:id="@+id/voucherBtn_count"
+                android:id="@+id/voucherBtn_count2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="43dp"

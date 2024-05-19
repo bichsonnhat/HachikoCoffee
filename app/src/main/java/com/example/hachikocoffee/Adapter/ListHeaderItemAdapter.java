@@ -1,5 +1,6 @@
 package com.example.hachikocoffee.Adapter;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hachikocoffee.BottomSheetDialog.DetailCart;
 import com.example.hachikocoffee.Domain.ItemsDomain;
 import com.example.hachikocoffee.BottomSheetDialog.ProductDetail;
 import com.example.hachikocoffee.R;
@@ -35,6 +37,7 @@ public class ListHeaderItemAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Object dataItem = itemsDomains.get(position);
@@ -47,6 +50,13 @@ public class ListHeaderItemAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             itemHolder.itemName.setText(data.getTitle());
             Picasso.get().load(data.getImageURL().toString()).into(itemHolder.itemImage);
             itemHolder.itemCost.setText(""+data.getPrice());
+            itemHolder.addItemButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DetailCart detailBottomSheetDialog = new DetailCart(data.getProductID(), data.getTitle(), data.getPrice());
+                    detailBottomSheetDialog.show(((AppCompatActivity) v.getContext()).getSupportFragmentManager(), "DetailBottomSheetDialog");
+                }
+            });
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
