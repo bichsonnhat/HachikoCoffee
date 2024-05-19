@@ -1,9 +1,13 @@
 package com.example.hachikocoffee;
 
+import static java.security.AccessController.getContext;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -113,12 +117,28 @@ public class InfoAccountLoginActivity extends AppCompatActivity {
         btnRegisterAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Sava this information to Firebase
+                // Save this information to Firebase
 //                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 //                intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                startActivity(intent);
+                showSuccessDialog();
             }
         });
+    }
+
+    private void showSuccessDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(InfoAccountLoginActivity.this);
+        builder.setTitle("Thông báo");
+        builder.setMessage("Bạn đã tạo tài khoản thành công!");
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent intent = new Intent(InfoAccountLoginActivity.this, MainActivity.class);
+                startActivity(intent);
+                InfoAccountLoginActivity.this.finish();
+            }
+        });
+        AlertDialog alertDialog = builder.show();
     }
 
     private void checkAllFieldsFilled() {
