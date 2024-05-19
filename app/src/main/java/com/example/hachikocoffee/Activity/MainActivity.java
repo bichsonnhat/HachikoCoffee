@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     private boolean shouldShowAppBar = true;
     int curId = R.id.home;
 
-    int UserID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,8 +48,6 @@ public class MainActivity extends AppCompatActivity {
         final int orderId = R.id.order;
         final int menuId = R.id.menu;
         final int voucherId = R.id.voucher;
-        SharedPreferences perf = getSharedPreferences("User", MODE_PRIVATE);
-        UserID = perf.getInt("UserID", 0);
 
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
