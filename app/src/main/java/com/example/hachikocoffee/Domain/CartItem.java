@@ -1,6 +1,7 @@
 package com.example.hachikocoffee.Domain;
 
 import java.util.List;
+import java.util.Objects;
 
 public class CartItem {
     private String productId;
@@ -76,5 +77,20 @@ public class CartItem {
 
     public void setCost(double cost) {
         this.cost = cost;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        CartItem other = (CartItem) obj;
+        return this.productId.equals(other.productId)
+                && this.size.equals(other.size)
+                && this.quantity == other.quantity
+                && this.totalCost == other.totalCost
+                && Objects.equals(this.toppings, other.toppings);
     }
 }
