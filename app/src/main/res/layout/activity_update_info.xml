@@ -35,6 +35,7 @@
             android:layout_marginTop="60dp" />
 
         <EditText
+            android:id="@+id/etFirstName"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
@@ -48,6 +49,7 @@
             android:ellipsize="end" />
 
         <EditText
+            android:id="@+id/etLastName"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
@@ -61,6 +63,7 @@
             android:ellipsize="end" />
 
         <EditText
+            android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
@@ -73,21 +76,32 @@
             android:singleLine="true"
             android:ellipsize="end" />
 
-        <EditText
+        <Button
+            android:id="@+id/btnCalendar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="460dp"
+            android:layout_marginRight="20dp"
             android:background="@drawable/rounded_corner"
-            android:padding="10dp"
-            android:hint="Chọn ngày sinh"
-            android:singleLine="true"
             android:ellipsize="end"
-            android:paddingEnd="70dp"/>
+            android:padding="10dp"
+            android:paddingEnd="70dp"
+            android:singleLine="true"
+            app:backgroundTint="@null" />
+
+        <TextView
+            android:id="@+id/tvCanlendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="473dp"
+            android:hint="Chọn ngày sinh"
+            android:textSize="18sp"/>
 
         <Button
+            android:id="@+id/btnCalendar2"
             app:backgroundTint="@null"
             android:layout_width="34dp"
             android:layout_height="34dp"
@@ -106,15 +120,16 @@
             android:background="@drawable/rounded_corner"/>
 
         <Spinner
-            android:id="@+id/spinnerGender"
+            android:id="@+id/spGender"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="530dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="530dp"
             android:layout_marginRight="20dp"
-            android:spinnerMode="dropdown"/>
+            android:spinnerMode="dropdown" />
 
         <Button
+            android:id="@+id/btnUpdateAccount"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="600dp"
