@@ -7,10 +7,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.hachikocoffee.Domain.NotificationDomain;
+import com.example.hachikocoffee.Listener.NotificationClickListener;
 import com.example.hachikocoffee.R;
 
 import java.util.List;
@@ -19,9 +21,11 @@ import java.util.List;
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.NotifiactionViewHolder> {
 
     private final List<NotificationDomain> mListNoti;
+    private final NotificationClickListener notificationClickListener;
 
-    public NotificationAdapter(List<NotificationDomain> mListNoti) {
+    public NotificationAdapter(List<NotificationDomain> mListNoti, NotificationClickListener notificationClickListener) {
         this.mListNoti = mListNoti;
+        this.notificationClickListener = notificationClickListener;
     }
 
     public NotifiactionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -39,6 +43,12 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         holder.tvNotiName.setText(noti.getTitle());
         holder.tvNotiText.setText(noti.getDescription());
         holder.tvNotiDate.setText(noti.getDate());
+        holder.notificationItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                notificationClickListener.onClick(noti);
+            }
+        });
     }
 
     @Override
@@ -55,6 +65,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         private final TextView tvNotiName;
         private final TextView tvNotiText;
         private final TextView tvNotiDate;
+        private ConstraintLayout notificationItem;
 
 
         public NotifiactionViewHolder(@NonNull View itemView) {
@@ -64,6 +75,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             tvNotiName = itemView.findViewById(R.id.noti_name);
             tvNotiText = itemView.findViewById(R.id.noti_txt);
             tvNotiDate = itemView.findViewById(R.id.noti_date);
+            notificationItem = itemView.findViewById(R.id.notificationItem);
 
         }
     }

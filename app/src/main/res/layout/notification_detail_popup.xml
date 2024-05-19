@@ -5,7 +5,10 @@
     android:layout_height="wrap_content"
     android:layout_margin="0dp"
     app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
+    app:cardElevation="4dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".BottomSheetDialog.NotificationBottomSheet"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -19,6 +22,7 @@
 
             <!-- Image -->
             <ImageView
+                android:id="@+id/notificationImage"
                 android:layout_width="match_parent"
                 android:layout_height="218dp"
                 android:scaleType="centerCrop"
@@ -26,6 +30,7 @@
 
             <!-- Title -->
             <TextView
+                android:id="@+id/notificationTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Chào bạn mới"
@@ -36,6 +41,7 @@
 
             <!-- Message -->
             <TextView
+                android:id="@+id/notificationDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Lần đầu đến với Nhà, Nhà mong bạn có thật nhiều niềm vui nhé!"
