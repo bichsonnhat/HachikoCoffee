@@ -1,6 +1,7 @@
 package com.example.hachikocoffee.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -35,6 +36,8 @@ public class LoginOTPActivity extends AppCompatActivity {
     private EditText inputCode1, inputCode2, inputCode3, inputCode4, inputCode5, inputCode6;
 
     private int selectedETPosition = 0;
+    SharedPreferences.Editor editor;
+    SharedPreferences perf;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +53,8 @@ public class LoginOTPActivity extends AppCompatActivity {
         inputCode4 = findViewById(R.id.otpET4);
         inputCode5 = findViewById(R.id.otpET5);
         inputCode6 = findViewById(R.id.otpET6);
-
+        perf = getSharedPreferences("User", MODE_PRIVATE);
+        editor = perf.edit();
         setupOTPInputs();
 
         final Button buttonVerify = findViewById(R.id.verifyButton);
@@ -84,6 +88,9 @@ public class LoginOTPActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
+                                        editor.putInt("UserID", Integer.valueOf(getIntent().getStringExtra("mobile")));
+                                        editor.putBoolean("LoggedIn", true);
+                                        editor.apply();
                                         // Check account is existed
                                         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("USER");
                                         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -103,8 +110,13 @@ public class LoginOTPActivity extends AppCompatActivity {
                                                         intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                                         startActivity(intent);
                                                     } else {
-                                                        // Need to remember login here ...
+                                                        // Create new record for USER here ...
+                                                        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("USER");
+                                                        String phoneNumber = getIntent().getStringExtra("mobile");
+                                                        UserDomain userDomain = new UserDomain(Integer.valueOf(phoneNumber), phoneNumber, "", "", "");
+                                                        userRef.push().setValue(userDomain);
                                                         Intent intent = new Intent(getApplicationContext(), InfoAccountLoginActivity.class);
+                                                        intent.putExtra("phoneNumber", phoneNumber);
                                                         intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                                         startActivity(intent);
                                                     }

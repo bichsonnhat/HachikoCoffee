@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     private boolean shouldShowAppBar = true;
     int curId = R.id.home;
+
+    int UserID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
         final int orderId = R.id.order;
         final int menuId = R.id.menu;
         final int voucherId = R.id.voucher;
+        SharedPreferences perf = getSharedPreferences("User", MODE_PRIVATE);
+        UserID = perf.getInt("UserID", 0);
+
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
