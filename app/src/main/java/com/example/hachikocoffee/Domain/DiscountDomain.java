@@ -58,37 +58,12 @@ public class DiscountDomain implements Serializable {
         return Description;
     }
 
-    /*
-    public String getDescription() {
-        if (Description != null) {
-            long count = Description.chars().filter(ch -> ch == '-').count();
-            if (count > 1) {
-                boolean isFirst = true;
-                StringBuilder sb = new StringBuilder();
-                for (char ch : Description.toCharArray()) {
-                    if (ch == '-') {
-                        if (isFirst) {
-                            isFirst = false;
-                            sb.append(ch);
-                        } else {
-                            sb.append("\n-");
-                        }
-                    } else {
-                        sb.append(ch);
-                    }
-                }
-                return sb.toString();
-            }
-        }
-        return Description;
-    }
-    */
-
     public void setDescription(String description) {
         Description = description;
     }
 
     public String getExpiryDate() {
+        /*
         SimpleDateFormat originalFormat = new SimpleDateFormat("MM/dd/yyyy");
         SimpleDateFormat targetFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date;
@@ -98,7 +73,7 @@ public class DiscountDomain implements Serializable {
             return formattedDate;
         } catch (ParseException e) {
             e.printStackTrace();
-        }
+        }*/
         return ExpiryDate;
     }
 
