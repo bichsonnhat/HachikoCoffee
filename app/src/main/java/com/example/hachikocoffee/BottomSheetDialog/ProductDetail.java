@@ -25,13 +25,11 @@ import com.example.hachikocoffee.Adapter.ToppingAdapter;
 import com.example.hachikocoffee.Domain.CartItem;
 import com.example.hachikocoffee.Domain.FavouriteItemDomain;
 import com.example.hachikocoffee.Domain.ItemsDomain;
-import com.example.hachikocoffee.Domain.ManagementCart;
+import com.example.hachikocoffee.Management.ManagementCart;
 import com.example.hachikocoffee.Listener.ItemClickListener;
 import com.example.hachikocoffee.Listener.ToppingListener;
 import com.example.hachikocoffee.Listener.UpdateUIListener;
 import com.example.hachikocoffee.R;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -43,9 +41,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
 
 public class ProductDetail extends BottomSheetDialogFragment implements ToppingListener {
     private final ItemsDomain product;
@@ -96,7 +91,7 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
         TextView productMediumSize = view.findViewById(R.id.productMediumSize);
         TextView productLargeSize = view.findViewById(R.id.productLargeSize);
         totalCost = (int) product.getPrice();
-        totalProductCost.setText("Chọn • " + (totalCost * countProduct + toppingList.size() * 10) + "đ");
+        totalProductCost.setText("Chọn • " + (totalCost) + "đ");
 
         int itemCost = totalCost;
 
@@ -187,8 +182,15 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
                 return;
             }
 
-            CartItem cartItem = new CartItem(product.getProductID(), product.getTitle(), countProduct, sizeProduct, toppingList, totalCost * countProduct + toppingList.size() * 10, totalCost);
+            CartItem cartItem;
+            if (toppingList.size() != 0){
+                cartItem = new CartItem(product.getProductID(), product.getTitle(), countProduct, sizeProduct, toppingList, totalCost * countProduct + toppingList.size() * 10000, totalCost);
+            }
+            else {
+                cartItem = new CartItem(product.getProductID(), product.getTitle(), countProduct, sizeProduct, null, totalCost * countProduct + toppingList.size() * 10000, totalCost);
+            }
             ManagementCart.getInstance().addToCart(cartItem);
+            //ManagementCart.getInstance().saveCartToFirebase(String.valueOf(1));
 
             dismiss();
         });

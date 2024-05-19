@@ -58,7 +58,7 @@ public class FavouriteActivity extends AppCompatActivity implements UpdateUIList
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot favoriteSnapshot) {
-                        listFavourites.clear(); // Clear current list
+                        listFavourites.clear();
 
                         // Get productIDs from FAVORITEPRODUCT
                         List<String> productIDs = new ArrayList<>();
