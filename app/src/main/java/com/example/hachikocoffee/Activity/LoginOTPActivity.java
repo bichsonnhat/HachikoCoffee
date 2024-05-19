@@ -13,6 +13,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.hachikocoffee.Domain.ShopDomain;
+import com.example.hachikocoffee.Domain.UserDomain;
+import com.example.hachikocoffee.InfoAccountLoginActivity;
 import com.example.hachikocoffee.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,6 +23,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginOTPActivity extends AppCompatActivity {
     private TextView textMobile;
@@ -76,9 +84,38 @@ public class LoginOTPActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                        intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                        startActivity(intent);
+                                        // Check account is existed
+                                        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("USER");
+                                        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                if (snapshot.exists()){
+                                                    boolean isExist = false;
+                                                    for (DataSnapshot issue : snapshot.getChildren()) {
+                                                        UserDomain user = issue.getValue(UserDomain.class);
+                                                        if (user.getPhoneNumber().equals(getIntent().getStringExtra("mobile"))) {
+                                                            isExist = true;
+                                                            break;
+                                                        }
+                                                    }
+                                                    if (isExist) {
+                                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                                        intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                        startActivity(intent);
+                                                    } else {
+                                                        // Need to remember login here ...
+                                                        Intent intent = new Intent(getApplicationContext(), InfoAccountLoginActivity.class);
+                                                        intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                        startActivity(intent);
+                                                    }
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
                                     } else {
                                         Toast.makeText(LoginOTPActivity.this, "The verification code entered was invalid", Toast.LENGTH_SHORT).show();
                                     }

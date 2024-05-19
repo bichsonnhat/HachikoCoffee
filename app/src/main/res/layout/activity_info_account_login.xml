@@ -34,6 +34,7 @@
             android:layout_marginTop="60dp" />
 
         <EditText
+            android:id="@+id/firstNameRegister"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
@@ -47,6 +48,7 @@
             android:ellipsize="end" />
 
         <EditText
+            android:id="@+id/lastNameRegister"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
@@ -60,6 +62,7 @@
             android:ellipsize="end" />
 
         <EditText
+            android:id="@+id/emailRegister"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
@@ -72,7 +75,9 @@
             android:singleLine="true"
             android:ellipsize="end" />
 
-        <EditText
+        <Button
+            android:id="@+id/btn_calendar2"
+            app:backgroundTint="@null"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
@@ -81,12 +86,21 @@
             android:layout_marginTop="310dp"
             android:background="@drawable/rounded_corner"
             android:padding="10dp"
-            android:hint="Chọn ngày sinh"
             android:singleLine="true"
             android:ellipsize="end"
             android:paddingEnd="70dp"/>
 
+        <TextView
+            android:id="@+id/txtview_canlendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="322dp"
+            android:hint="Chọn ngày sinh"
+            android:textSize="18sp"/>
+
         <Button
+            android:id="@+id/btn_calendar"
             app:backgroundTint="@null"
             android:layout_width="34dp"
             android:layout_height="34dp"
@@ -111,22 +125,29 @@
             android:layout_marginTop="380dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:spinnerMode="dropdown"/>
+            android:spinnerMode="dropdown"
+            android:prompt="@string/hint_gender"/>
 
-        <CheckBox
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="460dp"
-            android:layout_marginLeft="22dp" />
+        <Button
+            android:backgroundTint="@null"
+            android:id="@+id/btnRegisterAccount"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="455dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            app:backgroundTint="@null"
+            android:background="@drawable/rounded_rectangle_darkgrey"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="457dp"
-            android:layout_marginLeft="60dp"
-            android:text="Tôi đồng ý với các Điều khoản điều kiện của \nThe Coffee House"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="470dp"
+            android:text="Tạo tài khoản"
             android:fontFamily="sans-serif"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            android:textColor="@color/white" />
 
     </RelativeLayout>
 </layout>

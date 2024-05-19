@@ -18,19 +18,5 @@ public class PlaceOrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityCartBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        setVariable();
-        caculateCart();
-    }
-
-    private void caculateCart(){
-        double percentTax = 0.00;
-        double delivery = 45000.0;
-
-//        tax = Math.round(manage)
-    }
-    private void setVariable() {
-        binding.backButton.setOnClickListener(v -> finish());
-
     }
 }

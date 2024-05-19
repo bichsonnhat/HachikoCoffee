@@ -7,4 +7,5 @@
         <item>Vừa</item>
         <item>Nhỏ</item>
     </string-array>
+    <string name="hint_gender">Chưa chọn giới tính</string>
 </resources>

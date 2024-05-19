@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.hachikocoffee.BottomSheetDialog.DetailCart;
 import com.example.hachikocoffee.Domain.ItemsDomain;
 import com.example.hachikocoffee.BottomSheetDialog.ProductDetail;
 import com.example.hachikocoffee.databinding.ViewholderNewListBinding;
@@ -42,6 +43,16 @@ public class NewListAdapter extends RecyclerView.Adapter<NewListAdapter.Viewhold
         Glide.with(context)
                 .load(items.get(position).getImageURL())
                 .into(holder.binding.pic);
+
+        holder.binding.addItemBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ItemsDomain item = items.get(position);
+                DetailCart detailBottomSheetDialog = new DetailCart(item.getProductID(), item.getTitle(), item.getPrice());
+
+                detailBottomSheetDialog.show(((AppCompatActivity) context).getSupportFragmentManager(), "DetailBottomSheetDialog");
+            }
+        });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

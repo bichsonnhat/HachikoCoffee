@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:id="@+id/order_history_item">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -29,7 +30,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/vh_order_history_Price"
+                android:id="@+id/orderHis_cost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -49,7 +50,7 @@
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <TextView
-                android:id="@+id/vh_order_history_Date"
+                android:id="@+id/orderHis_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -70,7 +71,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/vh_order_history_textDateHeader" />
 
             <TextView
-                android:id="@+id/vh_order_history_Time"
+                android:id="@+id/orderHis_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
