@@ -75,7 +75,7 @@
                 android:background="@drawable/bg_notification" />
 
             <TextView
-                android:id="@+id/notBtn_cntFinal"
+                android:id="@+id/notificationCountOther"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="35dp"
