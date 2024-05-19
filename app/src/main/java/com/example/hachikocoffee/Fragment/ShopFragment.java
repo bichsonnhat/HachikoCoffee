@@ -70,6 +70,8 @@ public class ShopFragment extends Fragment implements LocationListener {
     private String mParam2;
     private double locationX = 0, locationY = 0;
     private final int UserID = 1;
+    private TextView voucherCount;
+    private TextView notificationCount;
 
     public ShopFragment() {
         // Required empty public constructor
@@ -106,7 +108,10 @@ public class ShopFragment extends Fragment implements LocationListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_shop, container, false);
-
+        voucherCount = view.findViewById(R.id.voucherBtn_count1);
+        notificationCount = view.findViewById(R.id.notBtn_cntFinal);
+        initVoucherCount();
+        initNotificationCount();
         TextView location = view.findViewById(R.id.map);
         location.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,11 +163,52 @@ public class ShopFragment extends Fragment implements LocationListener {
 
         //if (pickupFragment != null && deliveryFragment != null) {
         //    int totalSize = pickupFragment.getRecyclerViewSize() + deliveryFragment.getRecyclerViewSize();
-        //    TextView voucherCount = getView().findViewById(R.id.voucherBtn_count1);
         //    voucherCount.setText(String.valueOf(totalSize));
         //}
 
         return view;
+    }
+
+    private void initNotificationCount() {
+        DatabaseReference notificationRef = FirebaseDatabase.getInstance().getReference("NOTIFICATION");
+        notificationRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    int cnt_notification = 0;
+                    for (DataSnapshot issue : snapshot.getChildren()){
+                        cnt_notification += 1;
+                    }
+                    notificationCount.setText(""+cnt_notification);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void initVoucherCount() {
+        DatabaseReference voucherRef = FirebaseDatabase.getInstance().getReference("VOUCHER");
+        voucherRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    int cnt_voucher = 0;
+                    for (DataSnapshot issue : snapshot.getChildren()){
+                        cnt_voucher += 1;
+                    }
+                    voucherCount.setText(""+cnt_voucher);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @SuppressLint("MissingPermission")
