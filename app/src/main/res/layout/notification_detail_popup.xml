@@ -57,18 +57,6 @@
                 android:textColor="@android:color/white" />
         </LinearLayout>
 
-        <!-- Exit Button -->
-        <ImageView
-            android:id="@+id/exitButton"
-            android:layout_width="27dp"
-            android:layout_height="29dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="19dp"
-            android:layout_marginEnd="21dp"
-            android:background="@drawable/circle_background"
-            android:padding="8dp"
-            android:src="@drawable/ic_close" />
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
