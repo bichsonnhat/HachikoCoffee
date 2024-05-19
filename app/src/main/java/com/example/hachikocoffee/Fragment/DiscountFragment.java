@@ -13,11 +13,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 
 import com.example.hachikocoffee.Adapter.DiscountAdapter;
-import com.example.hachikocoffee.DiscountClickListener;
 import com.example.hachikocoffee.DiscountDetail;
 import com.example.hachikocoffee.Domain.DiscountDomain;
 import com.example.hachikocoffee.R;

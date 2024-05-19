@@ -1,13 +1,28 @@
 package com.example.hachikocoffee.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hachikocoffee.Adapter.OrderAdapter;
+import com.example.hachikocoffee.Domain.OrderDomain;
+import com.example.hachikocoffee.OrderDetail;
 import com.example.hachikocoffee.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,6 +30,8 @@ import com.example.hachikocoffee.R;
  * create an instance of this fragment.
  */
 public class OrderHistoryCancelledFragment extends Fragment {
+    ArrayList<OrderDomain> cancelledOrderList = new ArrayList<>();
+    private RecyclerView rcv_cancelledOrderList;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,7 +52,7 @@ public class OrderHistoryCancelledFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment OrderHistoryProcessingFragment.
+     * @return A new instance of fragment OrderHistoryCancelledFragment.
      */
     // TODO: Rename and change types and number of parameters
     public static OrderHistoryCancelledFragment newInstance(String param1, String param2) {
@@ -59,7 +76,52 @@ public class OrderHistoryCancelledFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_order_history_cancelled, container, false);
+        View view = inflater.inflate(R.layout.fragment_order_history_cancelled, container, false);
+
+        initCancelledOrderList(view);
+
+        return view;
+    }
+
+    public void initCancelledOrderList(View view) {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+
+        rcv_cancelledOrderList = view.findViewById(R.id.rcv_orderList_cancelled);
+        rcv_cancelledOrderList.setLayoutManager(linearLayoutManager);
+
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("ORDER");
+
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot issue : snapshot.getChildren()) {
+                        OrderDomain order = issue.getValue(OrderDomain.class);
+
+                        if (order != null && "Cancel".equals(order.getOrderStatus())) {
+                            cancelledOrderList.add(order);
+                        }
+                    }
+                    displayCancelledOrderList(cancelledOrderList);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("FirebaseError", "Failed to read value.", error.toException());
+            }
+        });
+    }
+
+    private void displayCancelledOrderList(ArrayList<OrderDomain> cancelledOrderList) {
+        if (!cancelledOrderList.isEmpty()) {
+            OrderAdapter orderAdapter = new OrderAdapter(cancelledOrderList, this::onClickToOrderDetailFunc);
+            rcv_cancelledOrderList.setAdapter(orderAdapter);
+        }
+    }
+
+    private void onClickToOrderDetailFunc(OrderDomain order) {
+        Intent intent = new Intent(getActivity(), OrderDetail.class);
+        startActivity(intent);
     }
 }

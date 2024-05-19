@@ -1,4 +1,4 @@
-package com.example.hachikocoffee;
+package com.example.hachikocoffee.Listener;
 
 import com.example.hachikocoffee.Domain.DiscountDomain;
 
