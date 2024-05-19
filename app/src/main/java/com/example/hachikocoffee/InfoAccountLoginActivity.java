@@ -42,7 +42,6 @@ public class InfoAccountLoginActivity extends AppCompatActivity {
 
     private EditText firstName, lastName, email;
     private static final String[] gender_options = {"Nam", "Nữ"};
-    private boolean genderSelected = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -171,7 +170,5 @@ public class InfoAccountLoginActivity extends AppCompatActivity {
                     }
                 }, year, month, dayOfMonth);
         datePickerDialog.show();
-
     }
-
 }
