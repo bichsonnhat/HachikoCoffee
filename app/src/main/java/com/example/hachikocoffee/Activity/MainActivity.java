@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.SharedPreferences;
 import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     private boolean shouldShowAppBar = true;
     int curId = R.id.home;
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 updateOrderButtonVisibility();
             }
         });
+
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
