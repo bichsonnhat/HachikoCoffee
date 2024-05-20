@@ -121,34 +121,32 @@
                 android:id="@+id/productLargeSize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/productRecyclerSize"
-                android:layout_marginStart="325dp"
+                android:layout_below="@+id/textView28"
                 android:layout_marginTop="14dp"
-                android:gravity="right"
                 android:text="65.000đ"
-                android:textSize="15sp" />
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="16dp" />
 
             <TextView
                 android:id="@+id/productMediumSize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/productLargeSize"
-                android:layout_marginStart="325dp"
                 android:layout_marginTop="28dp"
-                android:gravity="right"
-                android:text="55.000đ"
-                android:textSize="15sp" />
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="16dp"
+                android:text="55.000đ" />
 
             <TextView
                 android:id="@+id/productMinimumSize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/productMediumSize"
-                android:layout_marginStart="325dp"
                 android:layout_marginTop="28dp"
                 android:gravity="right"
                 android:text="45.000đ"
-                android:textSize="15sp" />
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="16dp" />
 
             <TextView
                 android:id="@+id/textView29"
@@ -185,12 +183,12 @@
                 android:id="@+id/toppingCost1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/textView30"
                 android:text="10.000đ"
                 android:layout_marginTop="14dp"
-                android:gravity="right"
-                android:textSize="15sp"
-                android:layout_alignTop="@+id/productRecyclerTopping"
-                android:layout_marginStart="325dp"/>
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="16dp"
+                android:layout_alignTop="@+id/productRecyclerTopping" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -199,8 +197,8 @@
                 android:id="@+id/toppingCost2"
                 android:layout_below="@+id/toppingCost1"
                 android:layout_marginTop="28dp"
-                android:gravity="right"
-                android:layout_marginStart="325dp"/>
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="16dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -209,8 +207,8 @@
                 android:id="@+id/toppingCost3"
                 android:layout_below="@+id/toppingCost2"
                 android:layout_marginTop="28dp"
-                android:gravity="right"
-                android:layout_marginStart="325dp"/>
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="16dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -219,8 +217,8 @@
                 android:id="@+id/toppingCost4"
                 android:layout_below="@+id/toppingCost3"
                 android:layout_marginTop="28dp"
-                android:gravity="right"
-                android:layout_marginStart="325dp"/>
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="16dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -229,8 +227,8 @@
                 android:id="@+id/toppingCost5"
                 android:layout_below="@+id/toppingCost4"
                 android:layout_marginTop="28dp"
-                android:gravity="right"
-                android:layout_marginStart="325dp"/>
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="16dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -239,8 +237,8 @@
                 android:id="@+id/toppingCost6"
                 android:layout_below="@+id/toppingCost5"
                 android:layout_marginTop="28dp"
-                android:gravity="right"
-                android:layout_marginStart="325dp"/>
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="16dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -249,8 +247,8 @@
                 android:id="@+id/toppingCost7"
                 android:layout_below="@+id/toppingCost6"
                 android:layout_marginTop="28dp"
-                android:gravity="right"
-                android:layout_marginStart="325dp"/>
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="16dp"/>
 
             <TextView
                 android:id="@+id/anotherRequire"

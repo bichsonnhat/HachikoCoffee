@@ -35,6 +35,7 @@ public class SizeAdapter extends RecyclerView.Adapter<SizeAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.radioButton.setText(arrayList.get(position));
+        holder.radioButton.setTextSize(15);
         holder.radioButton.setChecked(position == selectPosition);
         holder.radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
