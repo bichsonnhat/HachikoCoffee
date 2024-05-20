@@ -7,12 +7,14 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.hachikocoffee.Activity.ContactFeedbackActivity;
 import com.example.hachikocoffee.Activity.SavedAddressActivity;
@@ -22,6 +24,11 @@ import com.example.hachikocoffee.NotificationDetail;
 import com.example.hachikocoffee.OrderHistory;
 import com.example.hachikocoffee.R;
 import com.example.hachikocoffee.YourVoucher;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,6 +45,9 @@ public class OtherFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private TextView voucherCount;
+    private TextView notificationCount;
 
     public OtherFragment() {
         // Required empty public constructor
@@ -77,6 +87,10 @@ public class OtherFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_other, container, false);
         Button btnToVouchers2 = view.findViewById(R.id.btn_to_voucher2);
         Button btnToNotification2 = view.findViewById(R.id.btn_to_notification2);
+        voucherCount = view.findViewById(R.id.voucherBtn_count2);
+        notificationCount = view.findViewById(R.id.notificationCountOther);
+        initVoucherCount();
+        initNotificationCount();
 
         // Set on click listener for the button to move from ShopFragment to YourVoucher Activity
         btnToVouchers2.setOnClickListener(new View.OnClickListener() {
@@ -161,5 +175,47 @@ public class OtherFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void initNotificationCount() {
+        DatabaseReference notificationRef = FirebaseDatabase.getInstance().getReference("NOTIFICATION");
+        notificationRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    int cnt_notification = 0;
+                    for (DataSnapshot issue : snapshot.getChildren()){
+                        cnt_notification += 1;
+                    }
+                    notificationCount.setText(""+cnt_notification);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void initVoucherCount() {
+        DatabaseReference voucherRef = FirebaseDatabase.getInstance().getReference("VOUCHER");
+        voucherRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    int cnt_voucher = 0;
+                    for (DataSnapshot issue : snapshot.getChildren()){
+                        cnt_voucher += 1;
+                    }
+                    voucherCount.setText(""+cnt_voucher);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

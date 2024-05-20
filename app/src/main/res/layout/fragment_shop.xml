@@ -59,23 +59,24 @@
                 app:layout_constraintHorizontal_bias="0.285"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
+            <RelativeLayout
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_marginLeft="33dp"
-                android:layout_marginTop="3dp"
-                android:background="@drawable/bg_notification" />
-
-            <TextView
-                android:id="@+id/notBtn_cntFinal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="35dp"
-                android:layout_marginTop="4dp"
-                android:text="11"
-                android:textColor="@color/white"
-                android:textSize="9sp" />
+                android:layout_marginTop="3dp">
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@drawable/bg_notification" />
+                <TextView
+                    android:id="@+id/notBtn_cntFinal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/white"
+                    android:textSize="9sp" />
+            </RelativeLayout>
         </RelativeLayout>
 
         <RelativeLayout
@@ -107,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="43dp"
                 android:layout_marginTop="11dp"
-                android:text="11"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:textStyle="bold"/>

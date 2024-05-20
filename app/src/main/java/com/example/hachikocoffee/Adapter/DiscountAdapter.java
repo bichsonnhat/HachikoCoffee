@@ -1,6 +1,5 @@
 package com.example.hachikocoffee.Adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.hachikocoffee.DiscountClickListener;
+import com.example.hachikocoffee.Listener.DiscountClickListener;
 import com.example.hachikocoffee.Domain.DiscountDomain;
 import com.example.hachikocoffee.R;
 

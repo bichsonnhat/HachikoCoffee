@@ -4,16 +4,18 @@ import java.io.Serializable;
 
 public class NotificationDomain implements Serializable {
     private String Title;
-    private int NotificationID;
-    private String ImageURL;
     private String Description;
-    public  NotificationDomain() {}
+    private String ImageURL;
+    private int NotificationID;
+    private String Date;
 
-    public NotificationDomain(String title, int notificationID, String imageURL, String description) {
+    public NotificationDomain() {}
+
+    public NotificationDomain(String title, String desciption, String imageURL, String date) {
         Title = title;
-        NotificationID = notificationID;
+        Description = desciption;
         ImageURL = imageURL;
-        Description = description;
+        Date = date;
     }
 
     public String getTitle() {
@@ -24,12 +26,12 @@ public class NotificationDomain implements Serializable {
         Title = title;
     }
 
-    public int getNotificationID() {
-        return NotificationID;
+    public String getDescription() {
+        return Description;
     }
 
-    public void setNotificationID(int notificationID) {
-        NotificationID = notificationID;
+    public void setDescription(String description) {
+        Description = description;
     }
 
     public String getImageURL() {
@@ -40,11 +42,19 @@ public class NotificationDomain implements Serializable {
         ImageURL = imageURL;
     }
 
-    public String getDescription() {
-        return Description;
+    public int getNotificationID() {
+        return NotificationID;
     }
 
-    public void setDescription(String description) {
-        Description = description;
+    public void setNotificationID(int notificationID) {
+        NotificationID = notificationID;
+    }
+
+    public String getDate() {
+        return Date;
+    }
+
+    public void setDate(String date) {
+        Date = date;
     }
 }

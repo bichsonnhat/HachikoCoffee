@@ -77,18 +77,18 @@
 
         <Button
             android:id="@+id/btn_calendar2"
-            app:backgroundTint="@null"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="310dp"
+            android:layout_marginRight="20dp"
             android:background="@drawable/rounded_corner"
-            android:padding="10dp"
-            android:singleLine="true"
             android:ellipsize="end"
-            android:paddingEnd="70dp"/>
+            android:padding="10dp"
+            android:paddingEnd="70dp"
+            android:singleLine="true"
+            app:backgroundTint="@null" />
 
         <TextView
             android:id="@+id/txtview_canlendar"
