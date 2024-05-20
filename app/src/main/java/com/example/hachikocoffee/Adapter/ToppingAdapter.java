@@ -38,6 +38,7 @@ public class ToppingAdapter extends RecyclerView.Adapter<ToppingAdapter.ViewHold
     public void onBindViewHolder(@NonNull ToppingAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         if (arrayList != null && arrayList.size() > 0) {
             holder.checkBox.setText(arrayList.get(position));
+            holder.checkBox.setTextSize(15);
             holder.checkBox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
