@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -78,6 +79,11 @@ public class OrderHistoryFinishedFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_order_history_finished, container, false);
 
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+
+        rcv_finishedOrderList = view.findViewById(R.id.rcv_orderList_finished);
+        rcv_finishedOrderList.setLayoutManager(linearLayoutManager);
+
         initFinishedOrderList(view);
 
         return view;
@@ -123,5 +129,10 @@ public class OrderHistoryFinishedFragment extends Fragment {
     private void onClickToOrderDetailFunc(OrderDomain order) {
         Intent intent = new Intent(getActivity(), OrderDetail.class);
         startActivity(intent);
+    }
+
+    public void addOrder(OrderDomain order) {
+        finishedOrderList.add(order);
+        displayFinishedOrderList(finishedOrderList);
     }
 }

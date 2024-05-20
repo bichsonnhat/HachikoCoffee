@@ -56,6 +56,7 @@ public class DetailCart extends BottomSheetDialogFragment implements ToppingList
         return view;
     }
 
+    @SuppressLint("SetTextI18n")
     private void setupViews(View view) {
         recyclerViewTopping = view.findViewById(R.id.productRecyclerTopping);
         TextView productMinimumSize = view.findViewById(R.id.productMinimumSize);
@@ -64,7 +65,7 @@ public class DetailCart extends BottomSheetDialogFragment implements ToppingList
         totalProductCost = view.findViewById(R.id.totalProductCost);
         TextView productName = view.findViewById(R.id.productName);
         numberOfProduct = view.findViewById(R.id.numberOfProduct);
-        totalProductCost.setText("Chọn • " + (int) (proCost + 10 * toppingList.size()) + "đ");
+        totalProductCost.setText("Chọn • " + (int) (proCost + 10000 * toppingList.size()) + "đ");
 
         totalCost = (int) proCost;
         int itemCost = totalCost;
@@ -170,7 +171,7 @@ public class DetailCart extends BottomSheetDialogFragment implements ToppingList
 
     @SuppressLint("SetTextI18n")
     private void updateTotalCost() {
-        totalProductCost.setText("Chọn • " + (totalCost * countProduct + toppingList.size() * 10) + "đ");
+        totalProductCost.setText("Chọn • " + (totalCost * countProduct + toppingList.size() * 10000) + "đ");
     }
 
     @Override
