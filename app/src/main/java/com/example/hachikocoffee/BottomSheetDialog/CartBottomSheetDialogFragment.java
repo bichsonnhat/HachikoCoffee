@@ -15,12 +15,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hachikocoffee.Adapter.CartAdapter;
 import com.example.hachikocoffee.Domain.CartItem;
-import com.example.hachikocoffee.Domain.ManagementCart;
+import com.example.hachikocoffee.Management.ManagementCart;
+import com.example.hachikocoffee.Listener.OnCartChangedListener;
+import com.example.hachikocoffee.Management.ManagementUser;
 import com.example.hachikocoffee.R;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -28,10 +31,17 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.shape.MaterialShapeDrawable;
 import com.google.android.material.shape.ShapeAppearanceModel;
 
+import org.w3c.dom.Text;
+
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 
-public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment {
+public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment implements OnCartChangedListener {
 
+    TextView itemCount;
+    TextView totalItemCost;
+    TextView totalAfterFee;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -44,9 +54,16 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment {
         super.onViewCreated(view, savedInstanceState);
 
         ImageView backButton = view.findViewById(R.id.backBtn);
-        TextView totalItemCost = view.findViewById(R.id.itemsCost);
+        ConstraintLayout addBtn = view.findViewById(R.id.addBtn);
+        TextView deleteCartBtn = view.findViewById(R.id.deleteCart);
+        totalItemCost = view.findViewById(R.id.itemsCost);
         AppCompatButton confirmBtn = view.findViewById(R.id.confirmBtn);
         RecyclerView recyclerViewCart = view.findViewById(R.id.recyclerView_CartItems);
+        itemCount = view.findViewById(R.id.itemCount);
+        totalAfterFee = view.findViewById(R.id.totalAfterFee);
+        TextView recipentName = view.findViewById(R.id.name);
+        TextView recipentPhone = view.findViewById(R.id.phone);
+
         recyclerViewCart.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         ShapeAppearanceModel shapeAppearanceModel = new ShapeAppearanceModel()
@@ -56,19 +73,47 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment {
         MaterialShapeDrawable materialShapeDrawable = new MaterialShapeDrawable(shapeAppearanceModel);
         materialShapeDrawable.setFillColor(ColorStateList.valueOf(Color.WHITE));
         confirmBtn.setBackground(materialShapeDrawable);
+
+        MaterialShapeDrawable materialShapeDrawable1 = new MaterialShapeDrawable(shapeAppearanceModel);
+        materialShapeDrawable1.setFillColor(ColorStateList.valueOf(Color.parseColor("#fef7e5")));
+        addBtn.setBackground(materialShapeDrawable1);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dismiss();
             }
         });
+        deleteCartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ManagementCart.getInstance().clearCart();
+                dismiss();
+            }
+        });
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+
 
         ArrayList<CartItem> cartItems = ManagementCart.getInstance().getCartItems();
-        if (cartItems.size() > 0){
-            CartAdapter cartAdapter = new CartAdapter(cartItems, getChildFragmentManager());
+        if (cartItems.size() > 0)
+        {
+            CartAdapter cartAdapter = new CartAdapter(cartItems, getChildFragmentManager(), this);
             recyclerViewCart.setAdapter(cartAdapter);
         }
-        totalItemCost.setText(ManagementCart.getInstance().getTotalCost() +"đ");
+
+        recipentName.setText(ManagementCart.getInstance().getRecipentName());
+        recipentPhone.setText(ManagementCart.getInstance().getRecipentPhone());
+        itemCount.setText("Giao hàng • " + ManagementCart.getInstance().getItemsCount() + " sản phẩm");
+
+        //format money
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setGroupingSeparator('.');
+        String a = new DecimalFormat("#,###", symbols).format(ManagementCart.getInstance().getTotalCost());
+        totalItemCost.setText(a +"đ");
     }
 
     @NonNull
@@ -97,5 +142,17 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment {
         ViewGroup.LayoutParams layoutParams = bottomSheet.getLayoutParams();
         layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT;
         bottomSheet.setLayoutParams(layoutParams);
+    }
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    public void onCartChanged() {
+        if (ManagementCart.getInstance().getCartItems().isEmpty())
+        {
+            dismiss();
+        }
+
+        totalItemCost.setText(ManagementCart.getInstance().getTotalCost() +"đ");
+        itemCount.setText("Giao hàng • " + ManagementCart.getInstance().getItemsCount() + " sản phẩm");
     }
 }

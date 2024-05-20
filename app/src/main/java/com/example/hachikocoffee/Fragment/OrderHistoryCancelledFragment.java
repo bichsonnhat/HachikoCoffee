@@ -98,7 +98,7 @@ public class OrderHistoryCancelledFragment extends Fragment {
                     for (DataSnapshot issue : snapshot.getChildren()) {
                         OrderDomain order = issue.getValue(OrderDomain.class);
 
-                        if (order != null && "Cancel".equals(order.getOrderStatus())) {
+                        if (order != null && "Canceled".equals(order.getOrderStatus())) {
                             cancelledOrderList.add(order);
                         }
                     }
@@ -123,5 +123,10 @@ public class OrderHistoryCancelledFragment extends Fragment {
     private void onClickToOrderDetailFunc(OrderDomain order) {
         Intent intent = new Intent(getActivity(), OrderDetail.class);
         startActivity(intent);
+    }
+
+    public void addOrder(OrderDomain order) {
+        cancelledOrderList.add(order);
+        displayCancelledOrderList(cancelledOrderList); // Refresh the RecyclerView
     }
 }
