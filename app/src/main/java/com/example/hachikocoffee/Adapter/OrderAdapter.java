@@ -6,10 +6,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hachikocoffee.Domain.OrderDomain;
+import com.example.hachikocoffee.Fragment.OrderHistoryCancelledFragment;
+import com.example.hachikocoffee.Fragment.OrderHistoryFinishedFragment;
+import com.example.hachikocoffee.Fragment.OrderHistoryProcessingFragment;
 import com.example.hachikocoffee.Listener.OrderClickListener;
 import com.example.hachikocoffee.R;
 
@@ -38,9 +42,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             return;
         }
 
-        holder.orderHistory_cost.setText(String.valueOf(order.getCost()));
-        holder.orderHistory_date.setText(order.getOrderTime());
-        holder.orderHistory_time.setText(order.getOrderTime());
+        holder.orderHistory_cost.setText(order.getCost() + "đ");
+        holder.orderHistory_date.setText(order.getOrderTime().substring(0, 10));
+        holder.orderHistory_time.setText(order.getOrderTime().substring(11));
 
         holder.orderItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +52,41 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                 orderClickListener.onClickOrderItem(order);
             }
         });
+
+        holder.orderHistory_accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                order.setOrderStatus("Finished");
+                holder.orderHistory_state.setText("Đã hoàn tất");
+                holder.orderHistory_state.setTextColor(v.getResources().getColor(R.color.green));
+                holder.orderHistory_accept.setVisibility(View.INVISIBLE);
+                holder.orderHistory_cancel.setVisibility(View.INVISIBLE);
+
+                //OrderHistoryProcessingFragment orderHistoryProcessingFragment = new OrderHistoryProcessingFragment();
+                //orderHistoryProcessingFragment.removeOrder(order);
+
+                //OrderHistoryFinishedFragment orderHistoryFinishedFragment = new OrderHistoryFinishedFragment();
+                //orderHistoryFinishedFragment.addOrder(order);
+            }
+        });
+
+        holder.orderHistory_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                order.setOrderStatus("Canceled");
+                holder.orderHistory_state.setText("Đã hủy");
+                holder.orderHistory_state.setTextColor(v.getResources().getColor(R.color.red));
+                holder.orderHistory_accept.setVisibility(View.INVISIBLE);
+                holder.orderHistory_cancel.setVisibility(View.INVISIBLE);
+
+                //OrderHistoryProcessingFragment orderHistoryProcessingFragment = new OrderHistoryProcessingFragment();
+                //orderHistoryProcessingFragment.removeOrder(order);
+
+                //OrderHistoryCancelledFragment orderHistoryCancelledFragment = new OrderHistoryCancelledFragment();
+                //orderHistoryCancelledFragment.addOrder(order);
+            }
+        });
+
     }
 
     @Override
@@ -63,6 +102,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         private final TextView orderHistory_date;
         private final TextView orderHistory_time;
         private final ConstraintLayout orderItem;
+        private final CardView orderHistory_accept;
+        private final CardView orderHistory_cancel;
+        private final TextView orderHistory_state;
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -71,6 +113,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             orderHistory_date = itemView.findViewById(R.id.orderHis_date);
             orderHistory_time = itemView.findViewById(R.id.orderHis_time);
             orderItem = itemView.findViewById(R.id.order_history_item);
+            orderHistory_accept = itemView.findViewById(R.id.orderHis_accept);
+            orderHistory_cancel = itemView.findViewById(R.id.orderHis_cancel);
+            orderHistory_state = itemView.findViewById(R.id.orderHis_state);
         }
     }
 }
