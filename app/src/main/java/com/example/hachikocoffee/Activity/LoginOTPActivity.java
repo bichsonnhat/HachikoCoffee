@@ -55,6 +55,9 @@ public class LoginOTPActivity extends AppCompatActivity {
         inputCode6 = findViewById(R.id.otpET6);
         perf = getSharedPreferences("User", MODE_PRIVATE);
         editor = perf.edit();
+        editor.putInt("UserID", Integer.valueOf(getIntent().getStringExtra("mobile")));
+        editor.putBoolean("LoggedIn", true);
+        editor.apply();
         setupOTPInputs();
 
         final Button buttonVerify = findViewById(R.id.verifyButton);
@@ -88,9 +91,6 @@ public class LoginOTPActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-                                        editor.putInt("UserID", Integer.valueOf(getIntent().getStringExtra("mobile")));
-                                        editor.putBoolean("LoggedIn", true);
-                                        editor.apply();
                                         // Check account is existed
                                         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("USER");
                                         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -117,7 +117,7 @@ public class LoginOTPActivity extends AppCompatActivity {
                                                         userRef.push().setValue(userDomain);
                                                         Intent intent = new Intent(getApplicationContext(), InfoAccountLoginActivity.class);
                                                         intent.putExtra("phoneNumber", phoneNumber);
-                                                        intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                                                        intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                                         startActivity(intent);
                                                     }
                                                 }
