@@ -46,14 +46,13 @@ public class DetailCart extends BottomSheetDialogFragment implements ToppingList
     private AppCompatButton totalProductCost;
     private int countProduct = 1;
     private int position;
+    private CartAdapter cartAdapter;
     private boolean check = false;
-    private OnCartChangedListener cartChangedListener;
     private TextView numberOfProduct;
     private String sizeProduct = "Nhỏ";
     private int totalCost = 0;
     private final ArrayList<String> toppingList = new ArrayList<>();
     DecimalFormatSymbols symbols;
-
     public DetailCart(ItemsDomain product){
         this.product = product;
         this.cartItem = null;
@@ -61,14 +60,14 @@ public class DetailCart extends BottomSheetDialogFragment implements ToppingList
         this.productName = this.product.getTitle();
     }
 
-    public DetailCart(CartItem cartItem, int position, OnCartChangedListener cartChangedListener){
+    public DetailCart(CartItem cartItem, int position, CartAdapter cartAdapter){
         this.product = null;
         this.cartItem = cartItem;
         this.productCost = this.cartItem.getCost();
         this.productName = this.cartItem.getProductName();
         this.sizeProduct = cartItem.getSize();
         this.position = position;
-        this.cartChangedListener = cartChangedListener;
+        this.cartAdapter = cartAdapter;
         this.countProduct = cartItem.getQuantity();
         if (cartItem.getToppings() != null){
             this.toppingList.addAll(cartItem.getToppings());
@@ -220,7 +219,7 @@ public class DetailCart extends BottomSheetDialogFragment implements ToppingList
                 }
                 ManagementCart.getInstance().updateCart(this.position, cartItem);
                 check = true;
-                Log.d("Change", ManagementCart.getInstance().getCartItems().get(this.position).getQuantity() +"");
+                cartAdapter.notifyItemChanged(this.position);
             }
 
             dismiss();
@@ -281,11 +280,11 @@ public class DetailCart extends BottomSheetDialogFragment implements ToppingList
         bottomSheet.setLayoutParams(layoutParams);
     }
 
-    @Override
-    public void onDismiss(@NonNull DialogInterface dialog) {
-        super.onDismiss(dialog);
-        if (check){
-            cartChangedListener.onCartChanged();
-        }
-    }
+//    @Override
+//    public void onDismiss(@NonNull DialogInterface dialog) {
+//        super.onDismiss(dialog);
+//        if (check){
+//            cartChangedListener.onCartChanged();
+//        }
+//    }
 }

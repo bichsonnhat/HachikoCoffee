@@ -39,7 +39,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 
-public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment implements OnCartChangedListener {
+public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment{
 
     TextView itemCount;
     TextView totalItemCost;
@@ -105,7 +105,7 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment imp
         ArrayList<CartItem> cartItems = ManagementCart.getInstance().getCartItems();
         if (cartItems.size() > 0)
         {
-            cartAdapter = new CartAdapter(cartItems, getChildFragmentManager(), this);
+            cartAdapter = new CartAdapter(cartItems, getChildFragmentManager());
             recyclerViewCart.setAdapter(cartAdapter);
         }
 
@@ -137,6 +137,12 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment imp
 
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
 
+        ManagementCart.getInstance().addOnCartChangedListener(new OnCartChangedListener() {
+            @Override
+            public void onCartChanged() {
+                updateRecyclerview();
+            }
+        });
 
 
         return dialog;
@@ -148,14 +154,14 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment imp
         bottomSheet.setLayoutParams(layoutParams);
     }
 
-    @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
-    @Override
-    public void onCartChanged() {
+    @SuppressLint("NotifyDataSetChanged")
+    private void updateRecyclerview(){
         if (ManagementCart.getInstance().getCartItems().isEmpty())
         {
             dismiss();
             return;
         }
+        Log.d("Size", "" + ManagementCart.getInstance().getItemsCount());
         cartAdapter.setCartItems(ManagementCart.getInstance().getCartItems());
         cartAdapter.notifyDataSetChanged();
 
