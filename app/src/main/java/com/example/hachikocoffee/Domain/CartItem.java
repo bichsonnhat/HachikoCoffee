@@ -1,5 +1,7 @@
 package com.example.hachikocoffee.Domain;
 
+import com.example.hachikocoffee.Management.ManagementCart;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -23,11 +25,12 @@ public class CartItem {
         this.toppings = toppings;
         this.totalCost = totalCost;
         this.cost = cost;
-        this.cartItemId = String.valueOf(count++);
+        this.cartItemId = String.valueOf(ManagementCart.getInstance().getNoId());
     }
     public String getCartItemId() {
         return cartItemId;
     }
+    public void setCartItemId(String cartItemId) { this.cartItemId = cartItemId;}
 
     public String getProductId() {
         return productId;

@@ -20,6 +20,7 @@ public class ManagementCart {
     private ArrayList<CartItem> cartItems;
     private FirebaseDatabase database;
     private long itemsCount;
+    private int noId;
     private String recipentName;
     private String recipentPhone;
     private DatabaseReference cartRef;
@@ -30,6 +31,9 @@ public class ManagementCart {
 
     public long getItemsCount() {
         return itemsCount;
+    }
+    public int getNoId(){
+        return noId;
     }
 
     public String getRecipentName() {
@@ -51,6 +55,7 @@ public class ManagementCart {
     private ManagementCart() {
         cartItems = new ArrayList<>();
         itemsCount = 0;
+        noId = 0;
         recipentName = "";
         recipentPhone = "";
         database = FirebaseDatabase.getInstance();
@@ -84,6 +89,7 @@ public class ManagementCart {
             cartItems.add(newItem);
         }
 
+        noId += 1;
         itemsCount += newItem.getQuantity();
         updateItemCountToFirebase("1");
         saveCartToFirebase("1");
@@ -157,14 +163,11 @@ public class ManagementCart {
             }
         }
 
-
-        existingItem.setSize(updatedItem.getSize());
-        existingItem.setToppings(updatedItem.getToppings());
-        existingItem.setQuantity(updatedItem.getQuantity());
-        existingItem.setTotalCost(updatedItem.getTotalCost());
+        cartItems.set(position, updatedItem);
+        cartItems.get(position).setCartItemId(existingItem.getCartItemId());
 
         updateItemCountToFirebase("1");
-        userCartRef.child(existingItem.getCartItemId()).setValue(existingItem);
+        userCartRef.child(cartItems.get(position).getCartItemId()).setValue(cartItems.get(position));
 
         notifyCartChanged();
     }
@@ -176,6 +179,7 @@ public class ManagementCart {
     public void clearCart() {
         cartItems.clear();
         itemsCount = 0;
+        noId = 0;
         DatabaseReference userCartRef = cartRef.child("1");
         userCartRef.removeValue();
         notifyCartChanged();
@@ -199,6 +203,7 @@ public class ManagementCart {
     public void updateItemCountToFirebase(String userId){
         DatabaseReference userCartRef = cartRef.child(userId);
         userCartRef.child("itemCount").setValue(itemsCount);
+        userCartRef.child("noId").setValue(noId);
     }
     public void updateNameAndPhoneToFireBase(String userId){
         DatabaseReference userCartRef = cartRef.child(userId);
@@ -220,9 +225,11 @@ public class ManagementCart {
                 if (snapshot.hasChild("itemCount")) {
                     itemsCount = snapshot.child("itemCount").getValue(Long.class);
                 }
-
+                if (snapshot.hasChild("noId")){
+                    noId = snapshot.child("noId").getValue(Integer.class);
+                }
                 for (DataSnapshot cartItemSnapshot : snapshot.getChildren()) {
-                    if (!"itemCount".equals(cartItemSnapshot.getKey())) {
+                    if (!"itemCount".equals(cartItemSnapshot.getKey()) && !"noId".equals(cartItemSnapshot.getKey())) {
                         CartItem item = cartItemSnapshot.getValue(CartItem.class);
                         if (item != null) {
                             cartItems.add(item);

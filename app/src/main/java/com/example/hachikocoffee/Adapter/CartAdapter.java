@@ -24,13 +24,11 @@ import java.util.ArrayList;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
     private ArrayList<CartItem> cartItems;
     private final FragmentManager fragmentManager;
-    private final OnCartChangedListener cartChangedListener;
     Context context;
 
-    public CartAdapter(ArrayList<CartItem> cartItems, FragmentManager fragmentManager, OnCartChangedListener cartChangedListener) {
+    public CartAdapter(ArrayList<CartItem> cartItems, FragmentManager fragmentManager) {
         this.cartItems = cartItems;
         this.fragmentManager = fragmentManager;
-        this.cartChangedListener = cartChangedListener;
     }
 
     @NonNull
@@ -55,6 +53,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
             String a = new DecimalFormat("#,###", symbols).format(cartItem.getTotalCost());
             holder.binding.totalDetailCost.setText(a + "đ");
 
+
+
             if (cartItem.getToppings() != null && cartItem.getToppings().size() != 0) {
                 String tpList = String.join(", ", cartItem.getToppings());
                 holder.binding.topping1.setText(tpList);
@@ -70,9 +70,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
                     CartItem item = cartItems.get(position);
                     Log.d("CartAdapter", "position: " + position);
                     Log.d("CartAdapter", "size: " + ManagementCart.getInstance().getCartItems().size());
-                    DetailCart detailBottomSheetDialog = new DetailCart(item, position, cartChangedListener);
+                    DetailCart detailBottomSheetDialog = new DetailCart(item, position, CartAdapter.this);
                     detailBottomSheetDialog.show(fragmentManager, "DetailCart");
+
+
                 }
+
+
             });
 
             holder.binding.deleteBtn.setOnClickListener(new View.OnClickListener() {
@@ -86,9 +90,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
 
                         notifyItemRangeChanged(position, cartItems.size());
 
-                        if (cartChangedListener != null){
-                            cartChangedListener.onCartChanged();
-                        }
                     }
                 }
             });
