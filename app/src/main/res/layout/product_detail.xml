@@ -355,8 +355,8 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginStart="150dp"
                 android:text="Chọn • 100.000đ"
-                android:textColor="@color/white"
-                />
+                android:textStyle="bold"
+                android:textColor="@color/white"/>
         </RelativeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

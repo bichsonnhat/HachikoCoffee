@@ -17,6 +17,8 @@ import com.example.hachikocoffee.Domain.ItemsDomain;
 import com.example.hachikocoffee.BottomSheetDialog.ProductDetail;
 import com.example.hachikocoffee.databinding.ViewholderNewListBinding;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 
 public class NewListAdapter extends RecyclerView.Adapter<NewListAdapter.Viewholder> {
@@ -38,7 +40,12 @@ public class NewListAdapter extends RecyclerView.Adapter<NewListAdapter.Viewhold
     @Override
     public void onBindViewHolder(@NonNull NewListAdapter.Viewholder holder, @SuppressLint("RecyclerView") int position) {
         holder.binding.itemTitle.setText(items.get(position).getTitle());
-        holder.binding.priceTxt.setText(Math.round(items.get(position).getPrice()) +"đ");
+
+        //format money
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setGroupingSeparator('.');
+        String a = new DecimalFormat("#,###", symbols).format(items.get(position).getPrice());
+        holder.binding.priceTxt.setText(a +"đ");
 
         Glide.with(context)
                 .load(items.get(position).getImageURL())
@@ -48,7 +55,7 @@ public class NewListAdapter extends RecyclerView.Adapter<NewListAdapter.Viewhold
             @Override
             public void onClick(View v) {
                 ItemsDomain item = items.get(position);
-                DetailCart detailBottomSheetDialog = new DetailCart(item.getProductID(), item.getTitle(), item.getPrice());
+                DetailCart detailBottomSheetDialog = new DetailCart(item);
 
                 detailBottomSheetDialog.show(((AppCompatActivity) context).getSupportFragmentManager(), "DetailBottomSheetDialog");
             }

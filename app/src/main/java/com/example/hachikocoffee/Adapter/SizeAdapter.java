@@ -18,11 +18,24 @@ public class SizeAdapter extends RecyclerView.Adapter<SizeAdapter.ViewHolder> {
 
     ArrayList<String> arrayList;
     ItemClickListener itemClickListener;
-    int selectPosition = 2;
+    int selectPosition;
+    String selectedSize;
 
-    public SizeAdapter(ArrayList<String> arrayList, ItemClickListener itemClickListener) {
+    public SizeAdapter(ArrayList<String> arrayList, ItemClickListener itemClickListener, String selectedSize) {
         this.arrayList = arrayList;
         this.itemClickListener = itemClickListener;
+        this.selectedSize = selectedSize;
+        switch (selectedSize) {
+            case "Lớn":
+                selectPosition = 0;
+                break;
+            case "Vừa":
+                selectPosition = 1;
+                break;
+            case "Nhỏ":
+                selectPosition = 2;
+                break;
+        }
     }
     @NonNull
     @Override

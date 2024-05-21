@@ -69,12 +69,6 @@ public class ManagementCart {
 
         for (CartItem item : cartItems) {
             if (item.getProductId().equals(newItem.getProductId()) && item.getSize().equals(newItem.getSize())) {
-                if ((item.getToppings() != null)){
-                    Log.d("CartAdapter", "Toppings list1: " + "true");
-                }
-                if ((newItem.getToppings() != null)){
-                    Log.d("CartAdapter", "Toppings list2: " + "true");
-                }
                 if ((item.getToppings() == null && newItem.getToppings() == null) ||
                         (item.getToppings() != null && newItem.getToppings() != null && item.getToppings().equals(newItem.getToppings()))) {
 
@@ -109,7 +103,7 @@ public class ManagementCart {
                     CartItem item = dataSnapshot.getValue(CartItem.class);
                     if (item != null && item.equals(removedItem)) {
                         dataSnapshot.getRef().removeValue();
-                        Log.e("ManagementCart", "Failed to remove item from Firebase: " + "true");
+                        //saveCartToFirebase("1");
                         break;
                     }
                     if (item == null){
@@ -131,11 +125,47 @@ public class ManagementCart {
 
         itemsCount -= removedItem.getQuantity();
         updateItemCountToFirebase("1");
+        Log.d("ManagementCart", "size: " + cartItems.size());
+        Log.d("ManagementCart", "position: " + position);
         notifyCartChanged();
     }
 
-    public void updateCart(int position, CartItem item) {
-        cartItems.set(position, item);
+    public void updateCart(int position, CartItem updatedItem) {
+        DatabaseReference userCartRef = cartRef.child("1");
+        CartItem existingItem = cartItems.get(position);
+        itemsCount = itemsCount - existingItem.getQuantity() + updatedItem.getQuantity();
+
+        boolean isNewItem = !updatedItem.getProductId().equals(existingItem.getProductId()) ||
+                !updatedItem.getSize().equals(existingItem.getSize()) ||
+                (updatedItem.getToppings() != null && existingItem.getToppings() != null && !updatedItem.getToppings().equals(existingItem.getToppings()));
+
+        if (isNewItem) {
+            for (CartItem item : cartItems) {
+                if (item != existingItem && item.getProductId().equals(updatedItem.getProductId()) && item.getSize().equals(updatedItem.getSize())) {
+                    if ((item.getToppings() == null && updatedItem.getToppings() == null) ||
+                            (item.getToppings() != null && updatedItem.getToppings() != null && item.getToppings().equals(updatedItem.getToppings()))) {
+                        item.setQuantity(item.getQuantity() + updatedItem.getQuantity());
+                        item.setTotalCost(item.getTotalCost() + updatedItem.getTotalCost());
+                        Log.d("ManagementCart", "update1: " + "true");
+                        userCartRef.child(item.getCartItemId()).setValue(item);
+                        itemsCount += existingItem.getQuantity();
+                        Log.d("ManagementCart", "position: " + position);
+                        removeFromCart(position);
+                        return;
+                    }
+                }
+            }
+        }
+
+
+        existingItem.setSize(updatedItem.getSize());
+        existingItem.setToppings(updatedItem.getToppings());
+        existingItem.setQuantity(updatedItem.getQuantity());
+        existingItem.setTotalCost(updatedItem.getTotalCost());
+
+        updateItemCountToFirebase("1");
+        userCartRef.child(existingItem.getCartItemId()).setValue(existingItem);
+
         notifyCartChanged();
     }
 
@@ -162,7 +192,7 @@ public class ManagementCart {
         DatabaseReference userCartRef = cartRef.child(userId);
         for (int i = 0; i < cartItems.size(); i++) {
             CartItem item = cartItems.get(i);
-            userCartRef.child(String.valueOf(i)).setValue(item);
+            userCartRef.child(item.getCartItemId()).setValue(item);
         }
     }
 
@@ -191,7 +221,6 @@ public class ManagementCart {
                     itemsCount = snapshot.child("itemCount").getValue(Long.class);
                 }
 
-                // Lấy danh sách CartItem, bỏ qua itemCount
                 for (DataSnapshot cartItemSnapshot : snapshot.getChildren()) {
                     if (!"itemCount".equals(cartItemSnapshot.getKey())) {
                         CartItem item = cartItemSnapshot.getValue(CartItem.class);

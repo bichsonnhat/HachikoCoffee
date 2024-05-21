@@ -17,6 +17,8 @@ import com.example.hachikocoffee.BottomSheetDialog.ProductDetail;
 import com.example.hachikocoffee.R;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 
 public class ListHeaderItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -49,11 +51,15 @@ public class ListHeaderItemAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             ItemsDomain data = (ItemsDomain) dataItem;;
             itemHolder.itemName.setText(data.getTitle());
             Picasso.get().load(data.getImageURL().toString()).into(itemHolder.itemImage);
-            itemHolder.itemCost.setText(""+data.getPrice());
+
+            DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+            symbols.setGroupingSeparator('.');
+            String a = new DecimalFormat("#,###", symbols).format(data.getPrice());
+            itemHolder.itemCost.setText(a + "đ");
             itemHolder.addItemButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DetailCart detailBottomSheetDialog = new DetailCart(data.getProductID(), data.getTitle(), data.getPrice());
+                    DetailCart detailBottomSheetDialog = new DetailCart(data);
                     detailBottomSheetDialog.show(((AppCompatActivity) v.getContext()).getSupportFragmentManager(), "DetailBottomSheetDialog");
                 }
             });

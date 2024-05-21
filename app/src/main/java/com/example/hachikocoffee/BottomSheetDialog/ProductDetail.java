@@ -40,6 +40,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 
 public class ProductDetail extends BottomSheetDialogFragment implements ToppingListener {
@@ -56,6 +58,7 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
     private int totalCost = 0;
     private final ArrayList<String> toppingList = new ArrayList<>();
     private UpdateUIListener updateUIListener;
+    DecimalFormatSymbols symbols;
 
     public ProductDetail(ItemsDomain product) {
         this.product = product;
@@ -72,6 +75,10 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.product_detail, container, false);
+        //format money
+        symbols = new DecimalFormatSymbols();
+        symbols.setGroupingSeparator('.');
+
         setupViews(view);
         setupRecyclerViews(view);
         setupClickListeners(view);
@@ -79,6 +86,7 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
         return view;
     }
 
+    @SuppressLint("SetTextI18n")
     private void setupViews(View view) {
         TextView productName = view.findViewById(R.id.productName);
         TextView productCost = view.findViewById(R.id.productCost);
@@ -91,16 +99,21 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
         TextView productMediumSize = view.findViewById(R.id.productMediumSize);
         TextView productLargeSize = view.findViewById(R.id.productLargeSize);
         totalCost = (int) product.getPrice();
-        totalProductCost.setText("Chọn • " + (totalCost) + "đ");
+        //totalProductCost.setText("Chọn • " + (totalCost) + "đ");
 
         int itemCost = totalCost;
 
         productName.setText(product.getTitle());
         productDescription.setText(product.getDescription());
-        productMinimumSize.setText(itemCost + "đ");
-        productMediumSize.setText(10000 + itemCost + "đ");
-        productLargeSize.setText(20000 + itemCost + "đ");
-        productCost.setText(itemCost + "đ");
+
+        String a = new DecimalFormat("#,###", symbols).format(itemCost);
+        String b = new DecimalFormat("#,###", symbols).format(itemCost + 10000);
+        String c = new DecimalFormat("#,###", symbols).format(itemCost + 20000);
+
+        productMinimumSize.setText(a + "đ");
+        productMediumSize.setText(b + "đ");
+        productLargeSize.setText(c + "đ");
+        productCost.setText(a + "đ");
 
         Glide.with(requireContext())
                 .load(product.getImageURL())
@@ -144,7 +157,7 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
         };
 
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        adapter = new SizeAdapter(sizeList, itemClickListener);
+        adapter = new SizeAdapter(sizeList, itemClickListener, sizeProduct);
         recyclerView.setAdapter(adapter);
 
         setRecyclerViewTopping();
@@ -153,7 +166,7 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
     private void setRecyclerViewTopping() {
         recyclerViewTopping.setHasFixedSize(true);
         recyclerViewTopping.setLayoutManager(new LinearLayoutManager(getContext()));
-        ToppingAdapter toppingAdapter = new ToppingAdapter(getContext(), getToppingList(), this);
+        ToppingAdapter toppingAdapter = new ToppingAdapter(getContext(), getToppingList(), toppingList, this);
         recyclerViewTopping.setAdapter(toppingAdapter);
     }
 
@@ -184,13 +197,12 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
 
             CartItem cartItem;
             if (toppingList.size() != 0){
-                cartItem = new CartItem(product.getProductID(), product.getTitle(), countProduct, sizeProduct, toppingList, totalCost * countProduct + toppingList.size() * 10000, totalCost);
+                cartItem = new CartItem(product.getProductID(), product.getTitle(), countProduct, sizeProduct, toppingList, totalCost * countProduct + toppingList.size() * 10000 * countProduct, product.getPrice());
             }
             else {
-                cartItem = new CartItem(product.getProductID(), product.getTitle(), countProduct, sizeProduct, null, totalCost * countProduct + toppingList.size() * 10000, totalCost);
+                cartItem = new CartItem(product.getProductID(), product.getTitle(), countProduct, sizeProduct, null, totalCost * countProduct + toppingList.size() * 10000 * countProduct, product.getPrice());
             }
-            ManagementCart.getInstance().addToCart(cartItem);
-            //ManagementCart.getInstance().saveCartToFirebase(String.valueOf(1));
+            ManagementCart.getInstance().addToCart(cartItem);;
 
             dismiss();
         });
@@ -295,7 +307,9 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
 
     @SuppressLint("SetTextI18n")
     private void updateTotalCost() {
-        totalProductCost.setText("Chọn • " + (totalCost * countProduct + toppingList.size() * 10000) + "đ");
+        String a = new DecimalFormat("#,###", symbols).format((long) totalCost * countProduct + toppingList.size() * 10000L * countProduct);
+
+        totalProductCost.setText("Chọn • " + a + "đ");
     }
 
     @Override

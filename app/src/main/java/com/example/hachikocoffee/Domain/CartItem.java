@@ -6,6 +6,8 @@ import java.util.Objects;
 public class CartItem {
     private String productId;
     private String productName;
+    private String cartItemId;
+    private static int count = 0;
     private int quantity;
     private String size;
     private List<String> toppings;
@@ -21,6 +23,10 @@ public class CartItem {
         this.toppings = toppings;
         this.totalCost = totalCost;
         this.cost = cost;
+        this.cartItemId = String.valueOf(count++);
+    }
+    public String getCartItemId() {
+        return cartItemId;
     }
 
     public String getProductId() {
