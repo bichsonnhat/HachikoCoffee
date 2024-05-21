@@ -77,7 +77,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="11"
                 android:textColor="@color/white"
                 android:textSize="9sp" />
         </RelativeLayout>
@@ -109,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="43dp"
                 android:layout_marginTop="11dp"
-                android:text="11"
+                android:text=" "
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:textStyle="bold" />

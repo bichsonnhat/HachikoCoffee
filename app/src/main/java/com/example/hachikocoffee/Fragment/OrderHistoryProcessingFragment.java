@@ -125,4 +125,9 @@ public class OrderHistoryProcessingFragment extends Fragment {
         Intent intent = new Intent(getActivity(), OrderDetail.class);
         startActivity(intent);
     }
+
+    public void removeOrder(OrderDomain order) {
+        processingOrderList.add(order);
+        displayProcessingOrderList(processingOrderList); // Refresh the RecyclerView
+    }
 }

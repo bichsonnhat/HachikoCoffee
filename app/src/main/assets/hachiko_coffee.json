@@ -1,0 +1,1060 @@
+{
+  "CATEGORY": [
+    {
+      "CategoryID": 1,
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Category%2F1_CafeHighlight.png?alt=media&token=7bbe9ee5-98b4-4dc8-9f47-1765623e4967",
+      "Title": "Món mới phải thử"
+    },
+    {
+      "CategoryID": 2,
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Category%2F2_Cafe.png?alt=media&token=294e7a67-5a1f-471f-a9f8-f1a3cbe3309a",
+      "Title": "Cafe"
+    },
+    {
+      "CategoryID": 3,
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Category%2F3_TraTraiCay.png?alt=media&token=dbf7b302-f868-42f1-9223-e74b6103f476",
+      "Title": "Trà Trái Cây"
+    },
+    {
+      "CategoryID": 4,
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Category%2F4_TraSuaMacchiato.png?alt=media&token=039eed0d-c26f-4990-8d26-1e9986d87884",
+      "Title": "Trà Sữa Macchiato"
+    },
+    {
+      "CategoryID": 5,
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Category%2F5_CloudFee.png?alt=media&token=5da8321d-4302-4cf8-9263-2e79bd5e1ab6",
+      "Title": "CloudFee"
+    },
+    {
+      "CategoryID": 6,
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Category%2F6_TraXanhTayBac.png?alt=media&token=2243acdf-f736-49f8-ad57-a5d28d53ec03",
+      "Title": "Trà Xanh Tây Bắc"
+    },
+    {
+      "CategoryID": 7,
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Category%2F7_DaXayFrosty.png?alt=media&token=3a79e066-817a-49f2-9a87-4aa02034c30b",
+      "Title": "Đá Xay Frosty"
+    },
+    {
+      "CategoryID": 8,
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Category%2F8_BanhMan.png?alt=media&token=59883df8-9519-4730-a7f9-0a5571ff2f09",
+      "Title": "Bánh Mặn"
+    },
+    {
+      "CategoryID": 9,
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Category%2F9_BanhNgot.png?alt=media&token=3beb83cf-44b6-449c-b467-9297daab52b0",
+      "Title": "Bánh Ngot"
+    },
+    {
+      "CategoryID": 10,
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Category%2F10_Topping.png?alt=media&token=3b03a22f-fdb9-4c87-b714-df4e3af2f6cd",
+      "Title": "Topping"
+    },
+    {
+      "CategoryID": 11,
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Category%2F11_CafeTaiNha.png?alt=media&token=fda9e4d6-63b0-4ff7-8ddb-fef616878a4c",
+      "Title": "Cafe Tại Nhà"
+    },
+    {
+      "CategoryID": 12,
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Category%2F12_ChaiFreshKhongDa.png?alt=media&token=ac4ea710-9f2c-47c7-934c-aa5218d65419",
+      "Title": "Chai Fresh Không Đá"
+    },
+    {
+      "CategoryID": 13,
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Category%2F13_CacLoaiDoAnKhac.png?alt=media&token=20d45b18-b464-4034-894a-4a25f44119d6",
+      "Title": "Các Loại Đồ Ăn Khác"
+    }
+  ],
+  "PRODUCTS": [
+    {
+      "CategoryID": 1,
+      "Description": "Tỉnh tức thì cùng cà phê Robusta pha phin đậm đà và bánh flan núng nính. Uống là tỉnh, ăn là dính, xứng đáng là highlight trong ngày của bạn.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F1_1_PhinSuaTuoiBanhFlan.jpg?alt=media&token=e7d399fa-3793-4d8d-9e44-6009733f163f",
+      "Price": 49000,
+      "ProductID": "1_1",
+      "Title": "Phin Sữa Tươi Bánh Flan"
+    },
+    {
+      "CategoryID": 1,
+      "Description": "Cho ngày thêm tươi, tỉnh, êm, mượt với Trà Xanh Espresso Marble. Đây là sự mai mối bất ngờ giữa trà xanh Tây Bắc vị mộc và cà phê Arabica Đà Lạt. Muốn ngày thêm chút highlight, nhớ tìm đến sự bất ngờ này bạn nhé!",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F1_2_TraXanhExpressoMarble.jpg?alt=media&token=bf551296-0ccc-4439-b5a6-99eba0620de0",
+      "Price": 49000,
+      "ProductID": "1_2",
+      "Title": "Trà Xanh Espresso Marble"
+    },
+    {
+      "CategoryID": 2,
+      "Description": "Nếu chuộng vị cà phê đậm đà, bùng nổ và thích vị đường đen ngọt thơm, Đường Đen Sữa Đá đích thị là thức uống dành cho bạn. Không chỉ giúp bạn tỉnh táo buổi sáng, Đường Đen Sữa Đá còn hấp dẫn đến ngụm cuối cùng bởi thạch cà phê giòn dai, nhai cực cuốn. - Khuấy đều trước khi sử dụng",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F2_1_CafeDenSuaDa.jpg?alt=media&token=210b3949-1187-4653-9c75-b5706ed83d6d",
+      "Price": 45000,
+      "ProductID": "2_1",
+      "Title": "Cafe Đen Sữa Đá"
+    },
+    {
+      "CategoryID": 2,
+      "Description": "Thức uống giúp tỉnh táo tức thì để bắt đầu ngày mới thật hứng khởi. Không đắng khét như cà phê truyền thống, Hachiko Sữa Đá mang hương vị hài hoà đầy lôi cuốn. Là sự đậm đà của 100% cà phê Arabica Cầu Đất rang vừa tới, biến tấu tinh tế với sữa đặc và kem sữa ngọt ngào cực quyến rũ. Càng hấp dẫn hơn với topping thạch 100% cà phê nguyên chất giúp giữ trọn vị ngon đến ngụm cuối cùng.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F2_2_HachikoSuaDa.jpg?alt=media&token=7f6792c1-02e0-40fc-917e-57759f99ea75",
+      "Price": 35000,
+      "ProductID": "2_2",
+      "Title": "Hachiko Sữa Đá"
+    },
+    {
+      "CategoryID": 2,
+      "Description": "Cà phê Đắk Lắk nguyên chất được pha phin truyền thống kết hợp với sữa đặc tạo nên hương vị đậm đà, hài hòa giữa vị ngọt đầu lưỡi và vị đắng thanh thoát nơi hậu vị.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F2_3_CafeSuaDa.png?alt=media&token=fdb646a9-bf81-4d76-b285-b49d03942b55",
+      "Price": 29000,
+      "ProductID": "2_3",
+      "Title": "Cafe Sữa Đá"
+    },
+    {
+      "CategoryID": 2,
+      "Description": "Cà phê được pha phin truyền thống kết hợp với sữa đặc tạo nên hương vị đậm đà, hài hòa giữa vị ngọt đầu lưỡi và vị đắng thanh thoát nơi hậu vị.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F2_4_CafeSuaNong.jpg?alt=media&token=e4905772-f354-41c2-a54f-1c3cb1dc7cfb",
+      "Price": 39000,
+      "ProductID": "2_4",
+      "Title": "Cafe sữa nóng"
+    },
+    {
+      "CategoryID": 2,
+      "Description": "Bạc sỉu chính là \"Ly sữa trắng kèm một chút cà phê\". Thức uống này rất phù hợp những ai vừa muốn trải nghiệm chút vị đắng của cà phê vừa muốn thưởng thức vị ngọt béo ngậy từ sữa.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F2_5_BacSiu.jpg?alt=media&token=62b8e635-7fc3-4e2a-bdef-3c28da8dbfd7",
+      "Price": 29000,
+      "ProductID": "2_5",
+      "Title": "Bạc Sỉu"
+    },
+    {
+      "CategoryID": 2,
+      "Description": "Bạc sỉu chính là \"Ly sữa trắng kèm một chút cà phê\". Thức uống này rất phù hợp những ai vừa muốn trải nghiệm chút vị đắng của cà phê vừa muốn thưởng thức vị ngọt béo ngậy từ sữa.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F2_6_BacSiuNong.jpg?alt=media&token=9145ecd7-3648-4f31-86ba-69a105c824ed",
+      "Price": 29000,
+      "ProductID": "2_6",
+      "Title": "Bạc Sỉu Nóng"
+    },
+    {
+      "CategoryID": 2,
+      "Description": "Không ngọt ngào như Bạc sỉu hay Cà phê sữa, Cà phê đen mang trong mình phong vị trầm lắng, thi vị hơn. Người ta thường phải ngồi rất lâu mới cảm nhận được hết hương thơm ngào ngạt, phảng phất mùi cacao và cái đắng mượt mà trôi tuột xuống vòm họng.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F2_7_CafeDenDa.jpg?alt=media&token=e8ad9f72-5f62-4cb1-a87f-989e1deddf50",
+      "Price": 29000,
+      "ProductID": "2_7",
+      "Title": "Cafe Đen Đá"
+    },
+    {
+      "CategoryID": 2,
+      "Description": "Không ngọt ngào như Bạc sỉu hay Cà phê sữa, Cà phê đen mang trong mình phong vị trầm lắng, thi vị hơn. Người ta thường phải ngồi rất lâu mới cảm nhận được hết hương thơm ngào ngạt, phảng phất mùi cacao và cái đắng mượt mà trôi tuột xuống vòm họng.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F2_8_CafeDenNong.jpg?alt=media&token=54bdde97-b348-4d6c-953a-150eb92a0b84",
+      "Price": 29000,
+      "ProductID": "2_8",
+      "Title": "Cafe Đen Nóng"
+    },
+    {
+      "CategoryID": 2,
+      "Description": "Vẫn là hương vị cà phê sữa đậm đà quen thuộc của The Coffee House nhưng khoác lên mình một chiếc áo mới tiện lợi hơn, tiết kiệm hơn phù hợp với bình thường mới, giúp bạn tận hưởng một ngày dài trọn vẹn. *Sản phẩm dùng ngon nhất trong ngày. *Sản phẩm mặc định mức đường và không đá.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F2_9_CafeSuaDaChaiFresh.jpg?alt=media&token=14328db3-d3d1-4f0d-9a5f-08e89201c157",
+      "Price": 75000,
+      "ProductID": "2_9",
+      "Title": "Cà Phê Sữa Đá Chai Fresh 250ML"
+    },
+    {
+      "CategoryID": 2,
+      "Description": "Khuấy đều trước khi sử dụng Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F2_10_CaramelMachiatoDa.jpg?alt=media&token=83cb00e4-3b4f-4f5e-b612-d746df4a5e81",
+      "Price": 55000,
+      "ProductID": "2_10",
+      "Title": "Caramel Macchiato Đá"
+    },
+    {
+      "CategoryID": 2,
+      "Description": "Khuấy đều trước khi sử dụng Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F2_11_CaramelMachiatoNong.jpg?alt=media&token=38cdc675-2db7-48ab-9582-53bf07b3c340",
+      "Price": 55000,
+      "ProductID": "2_11",
+      "Title": "PCaramel Macchiato Nóng"
+    },
+    {
+      "CategoryID": 2,
+      "Description": "Đường Đen Marble Latte êm dịu cực hấp dẫn bởi vị cà phê đắng nhẹ hoà quyện cùng vị đường đen ngọt thơm và sữa tươi béo mịn. Sự kết hợp đầy mới mẻ của cà phê và đường đen cũng tạo nên diện mạo phân tầng đẹp mắt. Đây là lựa chọn đáng thử để bạn khởi đầu ngày mới đầy hứng khởi. - Khuấy đều trước khi sử dụng",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F2_12_DuongDenMarbleLatte.jpg?alt=media&token=8e36af0c-a1f0-4066-a418-e2f4d805d0d8",
+      "Price": 55000,
+      "ProductID": "2_12",
+      "Title": "Đường Đen Marble Latte"
+    },
+    {
+      "CategoryID": 2,
+      "Description": "Một sự kết hợp tinh tế giữa vị đắng cà phê Espresso nguyên chất hòa quyện cùng vị sữa nóng ngọt ngào, bên trên là một lớp kem mỏng nhẹ tạo nên một tách cà phê hoàn hảo về hương vị lẫn nhãn quan.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F2_13_LattleDa.jpg?alt=media&token=1fb1b3d4-93b9-4788-9d13-7ca26c6c65c8",
+      "Price": 55000,
+      "ProductID": "2_13",
+      "Title": "Latte Đá"
+    },
+    {
+      "CategoryID": 2,
+      "Description": "Một sự kết hợp tinh tế giữa vị đắng cà phê Espresso nguyên chất hòa quyện cùng vị sữa nóng ngọt ngào, bên trên là một lớp kem mỏng nhẹ tạo nên một tách cà phê hoàn hảo về hương vị lẫn nhãn quan.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F2_14_LatteNong.jpg?alt=media&token=36736fe3-12f6-43b8-9ff1-96530475f3ae",
+      "Price": 55000,
+      "ProductID": "2_14",
+      "Title": "Latte Nóng"
+    },
+    {
+      "CategoryID": 2,
+      "Description": "Americano được pha chế bằng cách pha thêm nước với tỷ lệ nhất định vào tách cà phê Espresso, từ đó mang lại hương vị nhẹ nhàng và giữ trọn được mùi hương cà phê đặc trưng.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F2_15_AmericanoDa.jpg?alt=media&token=d8b39e3d-a8a4-4cfc-997e-c8912b312365",
+      "Price": 45000,
+      "ProductID": "2_15",
+      "Title": "Americano Đá"
+    },
+    {
+      "CategoryID": 2,
+      "Description": "Americano được pha chế bằng cách pha thêm nước với tỷ lệ nhất định vào tách cà phê Espresso, từ đó mang lại hương vị nhẹ nhàng và giữ trọn được mùi hương cà phê đặc trưng.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F2_16_AmericanoNong.jpg?alt=media&token=a6b79f97-725f-4d26-8cf0-fbcdb5ba532e",
+      "Price": 45000,
+      "ProductID": "2_16",
+      "Title": "Americano Nóng"
+    },
+    {
+      "CategoryID": 2,
+      "Description": "Cappuccino là thức uống hòa quyện giữa hương thơm của sữa, vị béo của bọt kem cùng vị đậm đà từ cà phê Espresso. Tất cả tạo nên một hương vị đặc biệt, một chút nhẹ nhàng, trầm lắng và tinh tế.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F2_17_CapucchinoDa.jpg?alt=media&token=4c01799d-82d8-4e3f-8959-cddbc67f9570",
+      "Price": 55000,
+      "ProductID": "2_17",
+      "Title": "Cappuccino Đá"
+    },
+    {
+      "CategoryID": 2,
+      "Description": "Cappuccino là thức uống hòa quyện giữa hương thơm của sữa, vị béo của bọt kem cùng vị đậm đà từ cà phê Espresso. Tất cả tạo nên một hương vị đặc biệt, một chút nhẹ nhàng, trầm lắng và tinh tế.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F2_18_CapucchinoNong.jpg?alt=media&token=f45d6ca2-a45f-4579-b3a2-3036c1813569",
+      "Price": 55000,
+      "ProductID": "2_18",
+      "Title": "Cappuccino Nóng"
+    },
+    {
+      "CategoryID": 2,
+      "Description": "Một tách Espresso nguyên bản được bắt đầu bởi những hạt Arabica chất lượng, phối trộn với tỉ lệ cân đối hạt Robusta, cho ra vị ngọt caramel, vị chua dịu và sánh đặc.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F2_19_ExpressoDa.jpg?alt=media&token=6c5cae44-31a4-4843-927d-1a744940c444",
+      "Price": 49000,
+      "ProductID": "2_19",
+      "Title": "Espresso Đá"
+    },
+    {
+      "CategoryID": 2,
+      "Description": "Một tách Espresso nguyên bản được bắt đầu bởi những hạt Arabica chất lượng, phối trộn với tỉ lệ cân đối hạt Robusta, cho ra vị ngọt caramel, vị chua dịu và sánh đặc.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F2_20_ExpressoNong.jpg?alt=media&token=b43b648c-1723-43b2-8413-eb96099f87e3",
+      "Price": 49000,
+      "ProductID": "2_20",
+      "Title": "Espresso Nóng"
+    },
+    {
+      "CategoryID": 3,
+      "Description": "Đậm hương trà, sảng khoái du xuân cùng Oolong Tứ Quý Kim Quất Trân Châu. Vị nước cốt kim quất tươi chua ngọt, thêm trân châu giòn dai.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F3_1_KimQuatTranChau.jpg?alt=media&token=0be02675-d6d4-41d2-8604-1f4820abfa1f",
+      "Price": 49000,
+      "ProductID": "3_1",
+      "Title": "Oolong Tứ Quý Kim Quất Trân Châu"
+    },
+    {
+      "CategoryID": 3,
+      "Description": "Đậm hương trà, thanh mát sắc xuân với Oolong Tứ Quý Vải. Cảm nhận hương hoa đầu mùa, hòa quyện cùng vị vải chín mọng căng tràn sức sống.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F3_2_TuQuyVai.jpg?alt=media&token=53484c69-7c8a-450d-9e09-2aeb9895685c",
+      "Price": 49000,
+      "ProductID": "3_2",
+      "Title": "Oolong Tứ Quý Vải"
+    },
+    {
+      "CategoryID": 3,
+      "Description": "Thức uống mang hương vị của nhãn, của sen, của trà Oolong đầy thanh mát cho tất cả các thành viên trong dịp Tết này. An lành, thư thái và đậm đà chính là những gì The Coffee House mong muốn gửi trao đến bạn và gia đình.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F3_3_LongNhanHatSen.jpg?alt=media&token=58f28f5b-a2d3-4f01-a366-b0b4f502f68a",
+      "Price": 49000,
+      "ProductID": "3_3",
+      "Title": "Trà Long Nhãn Hạt Sen"
+    },
+    {
+      "CategoryID": 3,
+      "Description": "Vị thanh ngọt của đào, vị chua dịu của Cam Vàng nguyên vỏ, vị chát của trà đen tươi được ủ mới mỗi 4 tiếng, cùng hương thơm nồng đặc trưng của sả chính là điểm sáng làm nên sức hấp dẫn của thức uống này.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F3_4_TraDaoCamSaDa.png?alt=media&token=1bf68aa9-5339-408c-8245-0f84cb362052",
+      "Price": 49000,
+      "ProductID": "3_4",
+      "Title": "Trà Đào Cam Sả Đá"
+    },
+    {
+      "CategoryID": 3,
+      "Description": "Vị thanh ngọt của đào, vị chua dịu của Cam Vàng nguyên vỏ, vị chát của trà đen tươi được ủ mới mỗi 4 tiếng, cùng hương thơm nồng đặc trưng của sả chính là điểm sáng làm nên sức hấp dẫn của thức uống này.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F3_5_TraDaoCamSaNong.jpg?alt=media&token=04bda0d0-fb6e-4e52-bd62-60f4d3d97c9c",
+      "Price": 49000,
+      "ProductID": "3_5",
+      "Title": "Trà Đào Cam Sả Nóng"
+    },
+    {
+      "CategoryID": 3,
+      "Description": "Nền trà oolong hảo hạng kết hợp cùng hạt sen tươi, bùi bùi và lớp foam cheese béo ngậy. Trà hạt sen là thức uống thanh mát, nhẹ nhàng phù hợp cho cả buổi sáng và chiều tối.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F3_6_TraHatSenDa.jpg?alt=media&token=b3a01eca-4d3b-4a38-8e51-b7838e70f4f7",
+      "Price": 49000,
+      "ProductID": "3_6",
+      "Title": "Trà Hạt Sen Đá"
+    },
+    {
+      "CategoryID": 3,
+      "Description": "Nền trà oolong hảo hạng kết hợp cùng hạt sen tươi, bùi bùi thơm ngon. Trà hạt sen là thức uống thanh mát, nhẹ nhàng phù hợp cho cả buổi sáng và chiều tối.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F3_7_TraHatSenNong.jpg?alt=media&token=d44dcc08-ce0b-4248-bbd8-8189ebb5e5ea",
+      "Price": 49000,
+      "ProductID": "3_7",
+      "Title": "Trà Hạt Sen Nóng"
+    },
+    {
+      "CategoryID": 3,
+      "Description": "Với phiên bản chai fresh 500ml, thức uống \"best seller\" đỉnh cao mang một diện mạo tươi mới, tiện lợi, phù hợp với bình thường mới và vẫn giữ nguyên vị thanh ngọt của đào, vị chua dịu của cam vàng nguyên vỏ và vị trà đen thơm lừng ly Trà đào cam sả nguyên bản. *Sản phẩm dùng ngon nhất trong ngày. *Sản phẩm mặc định mức đường và không đá.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F3_8_TraDaoCamSaChaiFresh.jpg?alt=media&token=ee602bf9-10d5-426d-a001-742d3a2cde14",
+      "Price": 105000,
+      "ProductID": "3_8",
+      "Title": "Trà Đào Cam Sả Chai Fresh 500ML"
+    },
+    {
+      "CategoryID": 3,
+      "Description": "Chút ngọt ngào của Vải, mix cùng vị chua thanh tao từ trà hoa Hibiscus, mang đến cho bạn thức uống đúng chuẩn vừa ngon, vừa healthy.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F3_9_HiTeaVai.png?alt=media&token=0bada5c6-01c1-49aa-9ead-2e4b65e44401",
+      "Price": 49000,
+      "ProductID": "3_9",
+      "Title": "Hi-Tea Vải"
+    },
+    {
+      "CategoryID": 3,
+      "Description": "Sự kết hợp ăn ý giữa Đào cùng trà hoa Hibiscus, tạo nên tổng thể hài hoà dễ gây “thương nhớ” cho team thích món thanh mát, có vị chua nhẹ.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F3_10_HiTeaDao.jpg?alt=media&token=e5735a78-4481-433e-be5f-097b11e32505",
+      "Price": 49000,
+      "ProductID": "3_10",
+      "Title": "Hi-tea Đào"
+    },
+    {
+      "CategoryID": 3,
+      "Description": "Trà hoa Hibiscus 0% caffeine thanh mát, hòa quyện cùng trà lên men Kombucha 100% tự nhiên và mứt Yuzu Marmalade (quýt Nhật) mang đến hương vị chua chua lạ miệng. Đặc biệt, Hi-Tea Yuzu Kombucha cực hợp cho team thích detox, muốn sáng da nhờ Kombucha Detox nhiều chất chống oxy hoá cùng Yuzu giàu vitamin C. Lưu ý: Khuấy đều trước khi dùng",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F3_11_HiTeaYuzuKombucha.jpg?alt=media&token=a0427329-60c8-4f4c-b02b-dc1135db02bd",
+      "Price": 59000,
+      "ProductID": "3_11",
+      "Title": "Hi Tea Yuzu Kombucha"
+    },
+    {
+      "CategoryID": 3,
+      "Description": "Mặn ngọt có nhau nhờ sự kết hợp của trà hoa Hibiscus chua thanh, mận muối mằn mặn, dâu tây tươi Đà Lạt cô đặc ngọt dịu và trân châu trắng giòn dai. Nhấp một ngụm mát rượi như lạc giữa vườn xuân.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F3_12_HiTeaDauTayManMuoiTranChau.jpg?alt=media&token=117772a2-d430-4896-ab61-de0778965fff",
+      "Price": 49000,
+      "ProductID": "3_12",
+      "Title": "Hi Tea Dâu Tây Mận Muối Trân Châu"
+    },
+    {
+      "CategoryID": 3,
+      "Description": "Trà hoa Hibiscus 0% caffeine chua nhẹ, kết hợp cùng trà lên men Kombucha hoàn toàn tự nhiên và Đào thanh mát tạo nên Hi-Tea Đào Kombucha chua ngọt cực cuốn. Đặc biệt Kombucha Detox giàu axit hữu cơ, Đào nhiều chất xơ giúp thanh lọc cơ thể và hỗ trợ giảm cân hiệu quả. Lưu ý: Khuấy đều trước khi dùng",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F3_13_HiTeaKombuchaDao.jpg?alt=media&token=4b7191f1-cbbb-46ae-8d1f-bb86cef2c803",
+      "Price": 59000,
+      "ProductID": "3_13",
+      "Title": "Hi Tea Đào Kombucha"
+    },
+    {
+      "CategoryID": 4,
+      "Description": "Hương vị chân ái đúng gu đậm đà với trà oolong được “sao” (nướng) lâu hơn cho hương vị đậm đà, hòa quyện với sữa thơm béo mang đến cảm giác mát lạnh, lưu luyến vị trà sữa đậm đà nơi vòm họng.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F4_1_TraSuaOolongNuongTranChau.png?alt=media&token=21dc3b74-61b0-49a9-a3db-e34121df40e1",
+      "Price": 55000,
+      "ProductID": "4_1",
+      "Title": "Trà sữa Oolong Nướng Trân Châu"
+    },
+    {
+      "CategoryID": 4,
+      "Description": "Đậm đà chuẩn gu và ấm nóng - bởi lớp trà oolong nướng đậm vị hoà cùng lớp sữa thơm béo. Hương vị chân ái đúng gu đậm đà - trà oolong được \"sao\" (nướng) lâu hơn cho vị đậm đà, hoà quyện với sữa thơm ngậy. Cho từng ngụm ấm áp, lưu luyến vị trà sữa đậm đà mãi nơi cuống họng.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F4_2_TraSuaOolongNuongNong.jpg?alt=media&token=3b3d2dc0-c4e9-4cfd-b35d-7e6f9ab48d9e",
+      "Price": 55000,
+      "ProductID": "4_2",
+      "Title": "Trà sữa Oolong Nướng (Nóng)"
+    },
+    {
+      "CategoryID": 4,
+      "Description": "Từng ngụm trà chuẩn gu ấm áp, đậm đà beo béo bởi lớp sữa tươi chân ái hoà quyện. Trà đen nguyên lá âm ấm dịu nhẹ, quyện cùng lớp sữa thơm béo khó lẫn - hương vị ấm áp chuẩn gu trà, cho từng ngụm nhẹ nhàng, ngọt dịu lưu luyến mãi nơi cuống họng.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F4_3_HongTraSuaNong.jpg?alt=media&token=a98b12a8-f03a-4daa-a4ba-088ca0693f64",
+      "Price": 55000,
+      "ProductID": "4_3",
+      "Title": "Hồng Trà Sữa Nóng"
+    },
+    {
+      "CategoryID": 4,
+      "Description": "Mỗi ngày với Hachiko Coffee sẽ là điều tươi mới hơn với sữa hạt mắc ca thơm ngon, bổ dưỡng quyện cùng nền trà oolong cho vị cân bằng, ngọt dịu đi kèm cùng Trân châu trắng giòn dai mang lại cảm giác “đã” trong từng ngụm trà sữa.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F4_4_TraSuaMacCaTranChau.jpg?alt=media&token=fc4ce099-9b85-4dc6-8d53-aee989eac061",
+      "Price": 55000,
+      "ProductID": "4_4",
+      "Title": "Trà Sữa Mắc Ca Trân Châu"
+    },
+    {
+      "CategoryID": 4,
+      "Description": "Với phiên bản chai fresh 500ml, thức uống \"best seller\" đỉnh cao mang một diện mạo tươi mới, tiện lợi, phù hợp với bình thường mới và vẫn giữ nguyên vị thanh ngọt của đào, vị chua dịu của cam vàng nguyên vỏ và vị trà đen thơm lừng ly Trà đào cam sả nguyên bản. *Sản phẩm dùng ngon nhất trong ngày. *Sản phẩm mặc định mức đường và không đá.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F4_5_TraSuaNuongTranChauChaiFresh.jpg?alt=media&token=70a5a131-9b8c-4f61-8fc8-3dddc705d812",
+      "Price": 105000,
+      "ProductID": "4_5",
+      "Title": "Trà Đào Cam Sả Chai Fresh 500ML"
+    },
+    {
+      "CategoryID": 4,
+      "Description": "Trà sữa sương sáo là một món trà sữa thanh mát, giúp giải nhiệt tuyệt vời trong những ngày hè nắng nóng.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F4_6_TraSuaSuongSao.jpg?alt=media&token=d8e0e258-b885-468b-a9c1-4724980b5a0d",
+      "Price": 55000,
+      "ProductID": "4_6",
+      "Title": "Trà Sương Sáo"
+    },
+    {
+      "CategoryID": 4,
+      "Description": "Không thể rời môi với Mochi Kem Matcha dẻo mịn, núng nính. Trà Xanh Tây Bắc vị mộc hoà quyện sữa tươi, foam phô mai beo béo và vụn bánh quy giòn tan, là lựa chọn đậm không khí lễ hội. Món không thể thiếu đá, để ngoại hình và chất lượng được đảm bảo.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F4_7_TraSuaTraXanhTayBac.jpg?alt=media&token=1e70cfa1-0936-4e4d-8474-89111e8607f4",
+      "Price": 69000,
+      "ProductID": "4_7",
+      "Title": "Trà sữa Trà Xanh Tây Bắc"
+    },
+    {
+      "CategoryID": 4,
+      "Description": "Cắn một cái, chua chua ngọt ngọt ngon đến từng tế bào với chiếc Mochi Kem Phúc Bồn Tử! Hút một ngụm, mê luôn Trà Oolong Sữa dịu êm quyện vị dâu, cùng lớp foam phô mai phủ vụn bánh quy phô mai mằn mặn. Món không thể thiếu đá, để ngoại hình và chất lượng được đảm bảo.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F4_8_TraSuaOolongBerry.jpg?alt=media&token=4b23fa89-c3fe-4ecf-8778-3694af5575c2",
+      "Price": 69000,
+      "ProductID": "4_8",
+      "Title": "Trà Sữa Oolong Berry"
+    },
+    {
+      "CategoryID": 4,
+      "Description": "Trà đen được ủ mới mỗi ngày, giữ nguyên được vị chát mạnh mẽ đặc trưng của lá trà, phủ bên trên là lớp Macchiato \"homemade\" bồng bềnh quyến rũ vị phô mai mặn mặn mà béo béo.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F4_9_TraDenMacchiato.jpg?alt=media&token=9b47c68e-e213-4309-8b86-37789a042ad8",
+      "Price": 55000,
+      "ProductID": "4_9",
+      "Title": "Trà Đen Macchiato"
+    },
+    {
+      "CategoryID": 4,
+      "Description": "Thêm chút ngọt ngào cho ngày mới với hồng trà nguyên lá, sữa thơm ngậy được cân chỉnh với tỉ lệ hoàn hảo, cùng trân châu trắng dai giòn có sẵn để bạn tận hưởng từng ngụm trà sữa ngọt ngào thơm ngậy thiệt đã.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F4_10_HongTraSuaTranChau.jpg?alt=media&token=3347018b-b96f-475f-bf57-0da6e97051a2",
+      "Price": 55000,
+      "ProductID": "4_10",
+      "Title": "Hồng Trà Sữa Trân Châu"
+    },
+    {
+      "CategoryID": 5,
+      "Description": "Vị đắng nhẹ từ cà phê phin truyền thống kết hợp Espresso Ý, lẫn chút ngọt ngào của kem sữa và lớp foam trứng cacao, nhấn thêm hạnh nhân nướng thơm bùi, kèm topping thạch cà phê dai giòn mê ly. Tất cả cùng quyện hoà trong một thức uống làm vị giác \"thức giấc\", thơm ngon hết nấc.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F5_1_CloufeeHanhNhanNuong.jpg?alt=media&token=819f4140-901d-4950-8d56-26011d8efd52",
+      "Price": 49000,
+      "ProductID": "5_1",
+      "Title": "CloudFee Hạnh Nhân Nướng"
+    },
+    {
+      "CategoryID": 5,
+      "Description": "Ngon khó cưỡng bởi xíu đắng nhẹ từ cà phê phin truyền thống pha trộn với Espresso lừng danh nước Ý, quyện vị kem sữa và caramel ngọt ngọt, thêm lớp foam trứng cacao bồng bềnh béo mịn, kèm topping thạch cà phê dai giòn nhai cực cuốn. Một thức uống \"điểm mười\" cho cả ngày tươi không cần tưới.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F5_2_CloudfeeCaramel.jpg?alt=media&token=f1d791d9-f110-4982-84f9-cdfcf8609016",
+      "Price": 49000,
+      "ProductID": "5_2",
+      "Title": "CloudFee Caramel"
+    },
+    {
+      "CategoryID": 5,
+      "Description": "Khiến bạn mê mẩn ngay ngụm đầu tiên bởi vị đắng nhẹ của cà phê phin truyền thống kết hợp Espresso Ý, quyện hòa cùng chút ngọt ngào của kem sữa, và thơm béo từ foam trứng cacao. Nhấp một ngụm rồi nhai cùng thạch cà phê dai dai giòn giòn, đúng chuẩn \"ngon quên lối về\". CloudFee Classic là món đậm vị cà phê nhất trong bộ sưu tập nhưng không quá đắng, ngậy nhưng không hề ngấy.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F5_3_CloudFeeHaNoi.jpg?alt=media&token=3a5fdaf7-6323-4adc-affa-11104f81aad3",
+      "Price": 49000,
+      "ProductID": "5_3",
+      "Title": "CloudFee Hà Nội"
+    },
+    {
+      "CategoryID": 6,
+      "Description": "Không cần đến Tây Bắc mới cảm nhận được sự trong trẻo của núi rừng, khi Trà Xanh Latte từ Nhà được chắt lọc từ những búp trà xanh mướt, ủ mình trong sương sớm. Trà xanh Tây Bắc vị thanh, chát nhẹ hoà cùng sữa tươi nguyên kem ngọt béo tạo nên hương vị dễ uống, dễ yêu. Đây là thức uống healthy, giúp bạn tỉnh táo một cách êm mượt, xoa dịu những căng thẳng.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F6_1_TraXanhLatte.jpg?alt=media&token=7f33b76f-8374-46f1-b731-357b08f09508",
+      "Price": 45000,
+      "ProductID": "6_1",
+      "Title": "Trà Xanh Latte"
+    },
+    {
+      "CategoryID": 6,
+      "Description": "Trà Xanh Latte (Nóng) là phiên bản rõ vị trà nhất. Nhấp một ngụm, bạn chạm ngay vị trà xanh Tây Bắc chát nhẹ hoà cùng sữa nguyên kem thơm béo, đọng lại hậu vị ngọt ngào, êm dịu. Không chỉ là thức uống tốt cho sức khoẻ, Trà Xanh Latte (Nóng) còn là cái ôm ấm áp của đồng bào Tây Bắc gửi cho người miền xuôi.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F6_2_TraXanhLatteNong.jpg?alt=media&token=2ebb0991-1eec-4593-a778-1cf9bc254024",
+      "Price": 45000,
+      "ProductID": "6_2",
+      "Title": "Trà Xanh Latte (Nóng)"
+    },
+    {
+      "CategoryID": 6,
+      "Description": "Trà Xanh Đường Đen với hiệu ứng phân tầng đẹp mắt, như phác hoạ núi đồi Tây Bắc bảng lảng trong sương mây, thấp thoáng những nương chè xanh ngát. Từng ngụm là sự hài hoà từ trà xanh đậm đà, đường đen ngọt ngào, sữa tươi thơm béo. Khuấy đều trước khi dùng, để thưởng thức đúng vị",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F6_3_TraXanhDuongDen.jpg?alt=media&token=5825e369-23da-4a4b-968e-5840c80827b8",
+      "Price": 55000,
+      "ProductID": "6_3",
+      "Title": "Trà Xanh Đường Đen"
+    },
+    {
+      "CategoryID": 6,
+      "Description": "Đá Xay Frosty Trà Xanh như lời mời mộc mạc, ghé thăm Tây Bắc vào những ngày tiết trời se lạnh, núi đèo mây phủ. Vị chát dịu, ngọt thanh của trà xanh Tây Bắc kết hợp đá xay sánh mịn, whipping cream bồng bềnh và bột trà xanh trên cùng thêm đậm vị. Đây không chỉ là thức uống mát lạnh bật mood, mà còn tốt cho sức khoẻ nhờ giàu vitamin và các chất chống oxy hoá.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F6_4_FrostyTraXanh.jpg?alt=media&token=2308f575-ed4c-4922-886a-9a4d8d66d852",
+      "Price": 59000,
+      "ProductID": "6_4",
+      "Title": "Frosty Trà Xanh"
+    },
+    {
+      "CategoryID": 7,
+      "Description": "Hương vị trái cây tươi mát gói trọn trong ly Smoothie Xoài Nhiệt Đới Granola. Xoài ngọt đậm quyện cùng sữa chua sánh mịn. Nhân đôi healthy với ngũ cốc Granola và topping hạt nổ sữa chua vui miệng.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F7_1_SmoothieXoaiNhietDoi.jpg?alt=media&token=4deded95-3c95-4686-a83f-b695e1a32ac6",
+      "Price": 65000,
+      "ProductID": "7_1",
+      "Title": "Smoothie Xoài Nhiệt Đới Granola"
+    },
+    {
+      "CategoryID": 7,
+      "Description": "Lấy đà vào hạ cùng Smoothie Phúc Bồn Tử Granola chua chua, ngọt ngọt. Hút một hơi mát lành với sữa chua sánh mịn, ngũ cốc Granola dinh dưỡng và hạt nổ sữa chua. Hạ gần bên ta!",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F7_2_SmoothiePhucBonTu.jpg?alt=media&token=ba67e4eb-771f-4028-9fe9-d32085592b3b",
+      "Price": 65000,
+      "ProductID": "7_2",
+      "Title": "Smoothie Phúc Bồn Tử Granola"
+    },
+    {
+      "CategoryID": 7,
+      "Description": "Đá Xay Frosty Phin-Gato là lựa chọn không thể bỏ lỡ cho tín đồ cà phê. Cà phê nguyên chất pha phin truyền thống, thơm đậm đà, đắng mượt mà, quyện cùng kem sữa béo ngậy và đá xay mát lạnh. Nhân đôi vị cà phê nhờ có thêm thạch cà phê đậm đà, giòn dai. Thức uống khơi ngay sự tỉnh táo tức thì. Lưu ý: Khuấy đều phần đá xay trước khi dùng",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F7_3_FrostyPhinGato.png?alt=media&token=81d118b3-3018-4d6c-b82b-fb51a854a691",
+      "Price": 55000,
+      "ProductID": "7_3",
+      "Title": "Frosty Phin Gato"
+    },
+    {
+      "CategoryID": 7,
+      "Description": "Đá Xay Frosty Cà Phê Đường Đen mát lạnh, sảng khoái ngay từ ngụm đầu tiên nhờ sự kết hợp vượt chuẩn vị quen giữa Espresso đậm đà và Đường Đen ngọt thơm. Đặc biệt, whipping cream beo béo cùng thạch cà phê giòn dai, đậm vị nhân đôi sự hấp dẫn, khơi bừng sự hứng khởi trong tích tắc.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F7_4_FrostyCafeDuongDen.png?alt=media&token=d271f0e9-bd26-4679-a4a0-03fbd6e4875e",
+      "Price": 59000,
+      "ProductID": "7_4",
+      "Title": "Frosty Cà Phê Đường Đen"
+    },
+    {
+      "CategoryID": 7,
+      "Description": "Caramel ngọt thơm quyện cùng cà phê Arabica Cầu Đất đượm hương gỗ thông, hạt dẻ và nốt sô cô la đặc trưng tạo nên Đá Xay Frosty Caramel Arabica độc đáo chỉ có tại Nhà. Cực cuốn với lớp whipping cream béo mịn, thêm thạch cà phê giòn ngon bắt miệng.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F7_5_FrostyCaramelArabica.png?alt=media&token=a8932034-b234-46cc-9c87-1f6949df6d5f",
+      "Price": 59000,
+      "ProductID": "7_5",
+      "Title": "Frosty Caramel Arabica"
+    },
+    {
+      "CategoryID": 7,
+      "Description": "Bồng bềnh như một đám mây, Đá Xay Frosty Bánh Kem Dâu vừa ngon mắt vừa chiều vị giác bằng sự ngọt ngào. Bắt đầu bằng cái chạm môi với lớp kem whipping cream, cảm nhận ngay vị beo béo lẫn sốt dâu thơm lừng. Sau đó, hút một ngụm là cuốn khó cưỡng bởi đá xay mát lạnh quyện cùng sốt dâu ngọt dịu. Lưu ý: Khuấy đều phần đá xay trước khi dùng",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F7_6_FrostyBanhKemDau.png?alt=media&token=0aff3ebb-e052-4dc9-9691-1001ac2690a9",
+      "Price": 59000,
+      "ProductID": "7_6",
+      "Title": "Frosty Bánh Kem Dâu"
+    },
+    {
+      "CategoryID": 7,
+      "Description": "Đá Xay Frosty Choco Chip, thử là đã! Lớp whipping cream bồng bềnh, beo béo lại có thêm bột sô cô la và sô cô la chip trên cùng. Gấp đôi vị ngon với sô cô la thật xay với đá sánh mịn, đậm đà đến tận ngụm cuối cùng.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F7_7_FrostyChocoChip.png?alt=media&token=2228115d-ee6f-49e9-9dc7-374f6896e98c",
+      "Price": 59000,
+      "ProductID": "7_7",
+      "Title": "Frosty Choco Chip"
+    },
+    {
+      "CategoryID": 8,
+      "Description": "Vỏ bánh mì giòn tan, kết hợp với lớp nhân pate béo béo đậm đà sẽ là lựa chọn lý tưởng nhẹ nhàng để lấp đầy chiếc bụng đói , cho 1 bữa sáng - trưa - chiều - tối của bạn thêm phần thú vị.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F8_1_BanhMiQuePate.png?alt=media&token=972880fb-23e9-4f8a-b145-2aa9fe59bb97",
+      "Price": 15000,
+      "ProductID": "8_1",
+      "Title": "Bánh Mì Que Pate"
+    },
+    {
+      "CategoryID": 8,
+      "Description": "Vỏ bánh mì giòn tan, kết hợp với lớp nhân pate béo béo đậm đà sẽ là lựa chọn lý tưởng nhẹ nhàng để lấp đầy chiếc bụng đói , cho 1 bữa sáng - trưa - chiều - tối của bạn thêm phần thú vị.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F8_2_BanhMiQuePateCay.jpg?alt=media&token=3d4be6ac-a638-4395-a794-7174730f70c3",
+      "Price": 15000,
+      "ProductID": "8_2",
+      "Title": "Bánh Mì Que Pate Cay"
+    },
+    {
+      "CategoryID": 8,
+      "Description": "Gói gọn trong ổ bánh mì Việt Nam là từng lớp chả, từng lớp jambon hòa quyện cùng bơ và pate thơm lừng, thêm dưa rau cho bữa sáng đầy năng lượng. *Phần bánh sẽ ngon và đậm đà nhất khi kèm pate. Để đảm bảo hương vị được trọn vẹn, Nhà mong bạn thông cảm vì không thể thay đổi định lượng pate.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F8_3_BanhMiPateThitNguoi.jpg?alt=media&token=87433eea-2d03-489e-889a-fbbc421e2885",
+      "Price": 39000,
+      "ProductID": "8_3",
+      "Title": "Bánh Mì VN Thịt Nguội"
+    },
+    {
+      "CategoryID": 8,
+      "Description": "Bánh Butter Croissant bạn luôn yêu với vỏ bánh giòn bên ngoài và mềm mịn bên trong.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F8_4_ButterCroissant.jpg?alt=media&token=f4495b32-1ec7-41d4-a815-de690ec644fc",
+      "Price": 30000,
+      "ProductID": "8_4",
+      "Title": "Butter Croissant"
+    },
+    {
+      "CategoryID": 8,
+      "Description": "Bánh Butter Croissant bạn đã yêu, nay yêu không lối thoát khi được chấm cùng sữa đặc. Thơm bơ mịn sữa, ngọt ngào lòng nhau!",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F8_5_ButterCroissantSuaDac.jpg?alt=media&token=c142bf24-a648-4ac7-afd3-59b4cbbc292d",
+      "Price": 35000,
+      "ProductID": "8_5",
+      "Title": "Butter Croissant Sữa Đặc"
+    },
+    {
+      "CategoryID": 8,
+      "Description": "Chiếc bánh với lớp phô mai vàng sánh mịn bên trong, được bọc ngoài lớp vỏ xốp mềm thơm lừng. Thêm lớp chà bông mằn mặn hấp dẫn bên trên.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F8_6_ChaBongPhoMai.png?alt=media&token=0999d7c4-070f-482b-baf0-0ae690458cbd",
+      "Price": 39000,
+      "ProductID": "8_6",
+      "Title": "Chà Bông Phô Mai"
+    },
+    {
+      "CategoryID": 8,
+      "Description": "Croissant trứng muối thơm lừng, bên ngoài vỏ bánh giòn hấp dẫn bên trong trứng muối vị ngon khó cưỡng.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F8_7_CroissantTrungMuoi.jpg?alt=media&token=00e5fa50-8c58-40df-931c-b3dad95bfa85",
+      "Price": 39000,
+      "ProductID": "8_7",
+      "Title": "Croissant trứng muối"
+    },
+    {
+      "CategoryID": 9,
+      "Description": "Bao bọc bởi lớp vỏ Mochi dẻo thơm, bên trong là lớp kem lạnh cùng nhân phúc bồn tử ngọt ngào. Gọi 1 chiếc Mochi cho ngày thật tươi mát. Sản phẩm phải bảo quán mát và dùng ngon nhất trong 2h sau khi nhận hàng.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F9_1_MochiKemPhucBonTu.jpg?alt=media&token=cdda0f33-bb3b-4746-9f35-d11cf73e4aa8",
+      "Price": 19000,
+      "ProductID": "9_1",
+      "Title": "Mochi Kem Phúc Bồn Tử"
+    },
+    {
+      "CategoryID": 9,
+      "Description": "Bao bọc bởi lớp vỏ Mochi dẻo thơm, bên trong là lớp kem lạnh cùng nhân việt quất đặc trưng thơm thơm, ngọt dịu. Gọi 1 chiếc Mochi cho ngày thật tươi mát. Sản phẩm phải bảo quán mát và dùng ngon nhất trong 2h sau khi nhận hàng.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F9_2_MochiKemVietQuat.jpg?alt=media&token=70912068-d10d-48f6-8e00-49bbae3ec0bd",
+      "Price": 19000,
+      "ProductID": "9_2",
+      "Title": "Mochi Kem Việt Quất"
+    },
+    {
+      "CategoryID": 9,
+      "Description": "Bao bọc bởi lớp vỏ Mochi dẻo thơm, bên trong là lớp kem lạnh cùng nhân dừa dứa thơm lừng lạ miệng. Gọi 1 chiếc Mochi cho ngày thật tươi mát. Sản phẩm phải bảo quán mát và dùng ngon nhất trong 2h sau khi nhận hàng.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F9_3_MochiKemDuaDua.jpg?alt=media&token=1f0d62d2-ec32-4677-b811-0bd2eed4b365",
+      "Price": 19000,
+      "ProductID": "9_3",
+      "Title": "Mochi Kem Dừa Dứa"
+    },
+    {
+      "CategoryID": 9,
+      "Description": "Bao bọc bởi lớp vỏ Mochi dẻo thơm, bên trong là lớp kem lạnh cùng nhân chocolate độc đáo. Gọi 1 chiếc Mochi cho ngày thật tươi mát. Sản phẩm phải bảo quán mát và dùng ngon nhất trong 2h sau khi nhận hàng.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F9_4_MochiKemChocolate.jpg?alt=media&token=3c20b14f-9efe-4be0-b1e4-a5d30b5fa987",
+      "Price": 19000,
+      "ProductID": "9_4",
+      "Title": "Mochi Kem Chocolate"
+    },
+    {
+      "CategoryID": 9,
+      "Description": "Bao bọc bởi lớp vỏ Mochi dẻo thơm, bên trong là lớp kem lạnh cùng nhân trà xanh đậm vị. Gọi 1 chiếc Mochi cho ngày thật tươi mát. Sản phẩm phải bảo quán mát và dùng ngon nhất trong 2h sau khi nhận hàng.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F9_5_MochiKemMatcha.jpg?alt=media&token=a2a4dba7-c537-478a-9b9d-e9ab8ecf47d0",
+      "Price": 19000,
+      "ProductID": "9_5",
+      "Title": "Mochi Kem Matcha"
+    },
+    {
+      "CategoryID": 9,
+      "Description": "Bao bọc bởi lớp vỏ Mochi dẻo thơm, bên trong là lớp kem lạnh cùng nhân xoài chua chua ngọt ngọt. Gọi 1 chiếc Mochi cho ngày thật tươi mát. Sản phẩm phải bảo quán mát và dùng ngon nhất trong 2h sau khi nhận hàng.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F9_6_MochiKemXoai.jpg?alt=media&token=5f077083-6431-418d-b8e4-7a1343f47208",
+      "Price": 19000,
+      "ProductID": "9_6",
+      "Title": "Mochi Kem Xoài"
+    },
+    {
+      "CategoryID": 9,
+      "Description": "Với vẻ ngoài đáng yêu và hương vị ngọt ngào, thơm béo nhất định bạn phải thử ít nhất 1 lần.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F9_7_MousseGauChocolate.jpg?alt=media&token=5efb9b6d-0264-4693-8d78-c678ab329acc",
+      "Price": 39000,
+      "ProductID": "9_7",
+      "Title": "Mousse Gấu Chocolate"
+    },
+    {
+      "CategoryID": 9,
+      "Description": "Hương vị dễ ghiền được tạo nên bởi chút đắng nhẹ của cà phê, lớp kem trứng béo ngọt dịu hấp dẫn",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F9_8_MousseTiramisu.jpg?alt=media&token=0e12bf2b-6d48-4a93-b806-95da90cabfac",
+      "Price": 35000,
+      "ProductID": "9_8",
+      "Title": "Mousse Tiramisu"
+    },
+    {
+      "CategoryID": 9,
+      "Description": "Hương vị dễ ghiền được tạo nên bởi chút chua ngọt của chanh dây, lớp kem trứng béo ngọt dịu hấp dẫn",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F9_9_MousseChanhDay.jpg?alt=media&token=04215e26-6c63-43de-b8d9-84b237621cb8",
+      "Price": 35000,
+      "ProductID": "9_9",
+      "Title": "Mousse Chanh Dây"
+    },
+    {
+      "CategoryID": 9,
+      "Description": "Lạ mắt, bắt vị với chiếc bánh Croffle được làm từ cốt bánh Croissant nướng trong khuôn Waffle tổ ong. Trong mềm mịn, ngoài giòn thơm, thêm topping sô cô la tan chảy, ăn là yêu!",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F9_10_ChocoCroffle.jpg?alt=media&token=cfadbf28-93ff-44f7-b767-cdaa7e072be5",
+      "Price": 39000,
+      "ProductID": "9_10",
+      "Title": "Choco Croffle"
+    },
+    {
+      "CategoryID": 9,
+      "Description": "Hương vị dễ ghiền được tạo nên bởi chút đắng nhẹ của cà phê, lớp kem trứng béo ngọt dịu hấp dẫn",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F9_11_mousseCaPheCloudFee.jpg?alt=media&token=c3b61b3a-4d6a-4841-9148-225f81c6636b",
+      "Price": 35000,
+      "ProductID": "9_11",
+      "Title": "Mousse Cafe CloudFee"
+    },
+    {
+      "CategoryID": 9,
+      "Description": "Hương vị dễ ghiền được tạo nên bởi chút đắng nhẹ của cà phê Bỉ nổi tiếng, lớp kem trứng béo ngọt dịu hấp dẫn",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F9_12_mousseSocolaBi.jpg?alt=media&token=95c73807-c6ac-48be-b71e-5d575e4ee47d",
+      "Price": 45000,
+      "ProductID": "9_12",
+      "Title": "Mousse Chocolate Bỉ"
+    },
+    {
+      "CategoryID": 9,
+      "Description": "Hương vị dễ ghiền được tạo nên bởi chút đắng nhẹ của cà phê, cùng lớp caramel dừa ngọt dịu hấp dẫn",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F9_13_mousseCaramelDua.jpg?alt=media&token=3733677c-b5b9-48b1-8e48-888895eb39cf",
+      "Price": 49000,
+      "ProductID": "9_13",
+      "Title": "Mousse Caramel Dừa"
+    },
+    {
+      "CategoryID": 10,
+      "Description": "Thêm kem Macchiato béo ngậy vào đồ uống của bạn",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F10_1_KemPhoMaiMacchiato.jpg?alt=media&token=9e7ae629-4dda-4c01-bc35-911cdf70e61d",
+      "Price": 10000,
+      "ProductID": "10_1",
+      "Title": "Kem Phô Mai Macchiato"
+    },
+    {
+      "CategoryID": 10,
+      "Description": "Thêm thạch cà phê thơm ngon vào đồ uống của bạn",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F10_2_ThachCaPhe.jpg?alt=media&token=a13ffc1e-99c8-432f-ae1e-a1bcc2da45a1",
+      "Price": 10000,
+      "ProductID": "10_2",
+      "Title": "Thạch Cà Phê"
+    },
+    {
+      "CategoryID": 10,
+      "Description": "Thêm những trái nhãn tươi ngon vào đồ uống của bạn",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F10_3_TraiNhan.jpg?alt=media&token=ac15144c-1d23-4fb8-985b-2bfbfc7bc942",
+      "Price": 10000,
+      "ProductID": "10_3",
+      "Title": "Trái Nhãn"
+    },
+    {
+      "CategoryID": 10,
+      "Description": "Thêm trân trâu trắng vào đồ uống của bạn",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F10_4_TranChauTrang.jpg?alt=media&token=31e3ee07-48c8-430e-ad9b-3f2811a55528",
+      "Price": 10000,
+      "ProductID": "10_4",
+      "Title": "Trân Trâu Trắng"
+    },
+    {
+      "CategoryID": 10,
+      "Description": "Thêm hạt sen vào đồ uống của bạn",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F10_5_HatSen.jpg?alt=media&token=af5c40df-3227-49a0-bbcc-b74114338c04",
+      "Price": 10000,
+      "ProductID": "10_5",
+      "Title": "Hạt Sen"
+    },
+    {
+      "CategoryID": 10,
+      "Description": "Thêm những trái vải tươi ngon vào đồ uống của bạn",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F10_6_TraiVai.jpg?alt=media&token=9d1d91e7-a31c-4500-baca-4465e8bb976e",
+      "Price": 10000,
+      "ProductID": "10_6",
+      "Title": "Trái vải"
+    },
+    {
+      "CategoryID": 10,
+      "Description": "Thêm những lát đào tươi ngon vào đồ uống của bạn",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F10_7_DaoMieng.jpg?alt=media&token=2cfaef09-b884-47ba-87c4-deedf780115a",
+      "Price": 10000,
+      "ProductID": "10_7",
+      "Title": "Đào miếng"
+    },
+    {
+      "CategoryID": 11,
+      "Description": "Cà Phê Đen Đá hoà tan với 100% hạt cà phê Robusta mang đến hương vị mạnh cực bốc, đậm đắng đầy lôi cuốn, đúng gu người Việt.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F11_1_CafeDenDaTui.jpg?alt=media&token=03c06210-1b1b-43aa-9ea4-cba77a8d4136",
+      "Price": 116000,
+      "ProductID": "11_1",
+      "Title": "Cà Phê Đen Đá Túi (30 gói x 16g)"
+    },
+    {
+      "CategoryID": 11,
+      "Description": "Cà Phê Đen Đá hoà tan với 100% hạt cà phê Robusta mang đến hương vị mạnh cực bốc, đậm đắng đầy lôi cuốn, đúng gu người Việt.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F11_2_CafeDenDaHop.jpg?alt=media&token=735f9151-cdbb-4651-b5c2-ea4ef2a5bcd5",
+      "Price": 60000,
+      "ProductID": "11_2",
+      "Title": "Cà Phê Đen Đá Hộp (14 gói x 16g)"
+    },
+    {
+      "CategoryID": 11,
+      "Description": "Thật dễ dàng để bắt đầu ngày mới với tách cà phê sữa đá sóng sánh, thơm ngon như cà phê pha phin. Vị đắng thanh của cà phê hoà quyện với vị ngọt béo của sữa, giúp bạn luôn tỉnh táo và hứng khởi cho ngày làm việc thật hiệu quả.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F11_3_CafeSuaDaHoaTan.jpg?alt=media&token=a657dc9d-a3e1-4d16-87de-04978b9b917e",
+      "Price": 49000,
+      "ProductID": "11_3",
+      "Title": "Cà Phê Sữa Đá Hòa Tan (10 gói x 22g)"
+    },
+    {
+      "CategoryID": 11,
+      "Description": "Thật dễ dàng để bắt đầu ngày mới với tách cà phê sữa đá sóng sánh, thơm ngon như cà phê pha phin. Vị đắng thanh của cà phê hoà quyện với vị ngọt béo của sữa, giúp bạn luôn tỉnh táo và hứng khởi cho ngày làm việc thật hiệu quả.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F11_4_CafeSuaDaHoaTanTui.jpg?alt=media&token=2f155db7-183a-47cc-af75-eaa92f32cd38",
+      "Price": 114000,
+      "ProductID": "11_4",
+      "Title": "Cà Phê Sữa Đá Hòa Tan Túi 25x22G"
+    },
+    {
+      "CategoryID": 11,
+      "Description": "Bắt đầu ngày mới với tách cà phê sữa “Đậm vị Việt” mạnh mẽ sẽ giúp bạn luôn tỉnh táo và hứng khởi cho ngày làm việc thật hiệu quả.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F11_5_CafeHoaTanDamViViet.jpg?alt=media&token=4150b0af-8707-42a5-b303-cc3c86b7e667",
+      "Price": 55000,
+      "ProductID": "11_5",
+      "Title": "Cà Phê Hoà Tan Đậm Vị Việt (18 gói x 16 gam)"
+    },
+    {
+      "CategoryID": 11,
+      "Description": "Với thiết kế lon cao trẻ trung, hiện đại và tiện lợi, Cà phê sữa đá lon thơm ngon đậm vị của The Coffee House sẽ đồng hành cùng nhịp sống sôi nổi của tuổi trẻ và giúp bạn có được một ngày làm việc đầy hứng khởi.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F11_6_CafeSuaDaPack6Lon.jpg?alt=media&token=fc4a203f-a0aa-4d70-a530-939240bd8a7d",
+      "Price": 84000,
+      "ProductID": "11_6",
+      "Title": "Cà Phê Sữa Đá Pack 6 Lon"
+    },
+    {
+      "CategoryID": 11,
+      "Description": "Với thiết kế lon cao trẻ trung, hiện đại và tiện lợi, Cà phê sữa đá lon thơm ngon đậm vị của The Coffee House sẽ đồng hành cùng nhịp sống sôi nổi của tuổi trẻ và giúp bạn có được một ngày làm việc đầy hứng khởi.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F11_7_Thung24LonSuaDa.jpg?alt=media&token=36acd2f7-63e3-4941-a1ff-2fa4c8c86a60",
+      "Price": 336000,
+      "ProductID": "11_7",
+      "Title": "Thùng 24 Lon Cà Phê Sữa Đá"
+    },
+    {
+      "CategoryID": 12,
+      "Description": "Với phiên bản chai fresh 500ml, giờ đây không chỉ nổi bật với sắc đỏ đặc trưng từ trà hoa Hibiscus, Hi-Tea Yuzu còn gây ấn tượng với topping Yuzu (quýt Nhật) lạ miệng, kết hợp cùng trân châu trắng dai giòn sần sật, nhai vui vui.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F12_1_HiTeaYuzuTranChauChaifresh.jpg?alt=media&token=5e75399b-06a3-4a92-b0cb-c3410ceeb0aa",
+      "Price": 105000,
+      "ProductID": "12_1",
+      "Title": "Hi-tea Yuzu Kombucha Chai Fresh 500ML"
+    },
+    {
+      "CategoryID": 12,
+      "Description": "Với phiên bản chai fresh 500ml, chút ngọt ngào của Vải, mix cùng vị chua thanh tao từ trà hoa Hibiscus, mang đến cho bạn thức uống đúng chuẩn vừa ngon, vừa healthy.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F12_2_HiTeaVaiChaiFresh.jpg?alt=media&token=5076eedc-55c4-412b-8502-1084f66aab0e",
+      "Price": 105000,
+      "ProductID": "12_2",
+      "Title": "Hi-tea Vải Chai Fresh 500ML"
+    },
+    {
+      "CategoryID": 12,
+      "Description": "Với phiên bản chai fresh 500ml, sự kết hợp ăn ý giữa Đào cùng trà hoa Hibiscus, tạo nên tổng thể hài hoà dễ gây “thương nhớ” cho team thích món thanh mát, có vị chua nhẹ.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F12_3_HiTeaDaoChaiFresh.jpg?alt=media&token=7854ea7e-ea92-411e-9d74-d7d5e49e9b6e",
+      "Price": 105000,
+      "ProductID": "12_3",
+      "Title": "Hi-tea Đào Chai Fresh 500ML"
+    },
+    {
+      "CategoryID": 12,
+      "Description": "Với phiên bản chai fresh 500ml, Trà Xanh Đường Đen với hiệu ứng phân tầng đẹp mắt, như phác hoạ núi đồi Tây Bắc bảng lảng trong sương mây, thấp thoáng những nương chè xanh ngát. Từng ngụm là sự hài hoà từ trà xanh đậm đà, đường đen ngọt ngào, sữa tươi thơm béo. Khuấy đều trước khi dùng, để thưởng thức đúng vị",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F12_4_TraXanhDuongDenChaiFresh.jpg?alt=media&token=b1513bbe-91cc-46bd-bac3-e5cb0ed36021",
+      "Price": 105000,
+      "ProductID": "12_4",
+      "Title": "Trà Xanh Đường Đen Chai Fresh 500ML"
+    },
+    {
+      "CategoryID": 12,
+      "Description": "Với phiên bản chai fresh 500ml, bạn không cần đến Tây Bắc mới cảm nhận được sự trong trẻo của núi rừng, khi Trà Xanh Latte từ Nhà được chắt lọc từ những búp trà xanh mướt, ủ mình trong sương sớm. Trà xanh Tây Bắc vị thanh, chát nhẹ hoà cùng sữa tươi nguyên kem ngọt béo tạo nên hương vị dễ uống, dễ yêu. Đây là thức uống healthy, giúp bạn tỉnh táo một cách êm mượt, xoa dịu những căng thẳng.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F12_5_TraXanhLatteChaiFresh.jpg?alt=media&token=44220e6c-1a78-4bcc-9b2e-6c7145f095e6",
+      "Price": 105000,
+      "ProductID": "12_5",
+      "Title": "Trà Xanh Lattle Chai Fresh 500ML"
+    },
+    {
+      "CategoryID": 12,
+      "Description": "Phiên bản chai fresh 500ml mới, The Coffee House tin rằng với diện mạo mới: tiện lợi và phù hợp với bình thường mới này, các tín đồ trà sữa sẽ được thưởng thức hương vị đậm đà, hòa quyện với sữa thơm béo mang đến cảm giác mát lạnh ở bất cứ nơi đâu. *Sản phẩm dùng ngon nhất trong ngày. *Sản phẩm mặc định mức đường và không đá.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F12_6_OolongNuongTranChauChaiFresh.jpg?alt=media&token=b9a5cb20-28d3-46d5-8dfb-22856f057c75",
+      "Price": 105000,
+      "ProductID": "12_6",
+      "Title": "Trà Sữa Oolong Nướng Trân Châu Chai Fresh 500ML"
+    },
+    {
+      "CategoryID": 12,
+      "Description": "Với phiên bản chai fresh 500ml, thức uống \"best seller\" đỉnh cao mang một diện mạo tươi mới, tiện lợi, phù hợp với bình thường mới và vẫn giữ nguyên vị thanh ngọt của đào, vị chua dịu của cam vàng nguyên vỏ và vị trà đen thơm lừng ly Trà đào cam sả nguyên bản. *Sản phẩm dùng ngon nhất trong ngày. *Sản phẩm mặc định mức đường và không đá.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F12_7_TraDaoCamSa.jpg?alt=media&token=60dec196-795f-4c24-a983-1d2b098c472d",
+      "Price": 105000,
+      "ProductID": "12_7",
+      "Title": "Trà Đào Cam Sả Chai Fresh 500ML"
+    },
+    {
+      "CategoryID": 13,
+      "Description": "Mì Ý sốt bò băm hay còn gọi là Spaghetti, là món ăn ngon và phổ biến, dùng kèm với hỗn hợp sốt cà chua và thịt bò bằm có nguồn gốc từ Italia",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F13_1_SpaghettiBo.jpg?alt=media&token=46758ef8-fee3-4a85-a35a-ac8fc07dfce6",
+      "Price": 69000,
+      "ProductID": "13_1",
+      "Title": "Mì Ý Sốt Bò Bằm"
+    },
+    {
+      "CategoryID": 13,
+      "Description": "Cơm chiên kimchi là một sự biến tấu thú vị giữa món cơm trộn kimchi của Hàn Quốc với món cơm chiên đã quá quen thuộc của Việt Nam.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F13_2_ComChienKimChi.jpg?alt=media&token=546bda9b-2194-4728-a3c9-1bccedb16c7c",
+      "Price": 69000,
+      "ProductID": "13_2",
+      "Title": "Cơm Chiên Kim Chi"
+    },
+    {
+      "CategoryID": 13,
+      "Description": "Cơm chiên hải sản thơm ngon là sự kết hợp hoàn hảo của tôm, mực, các loại củ, hạt và cơm trắng tạo nên món ăn hấp dẫn khó cưỡng.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F13_3_ComChienHaiSan.jpg?alt=media&token=cd385696-3484-4339-a49f-e150262f9bc8",
+      "Price": 69000,
+      "ProductID": "13_3",
+      "Title": "Cơm Chiên Hải Sản"
+    },
+    {
+      "CategoryID": 13,
+      "Description": "Thịt gà được xé tơi, mang hương vị mặn, ngọt, cay cay quyện nhau vừa chuẩn, thêm chút thơm thơm thơm từ lá chanh sấy khô giòn giòn xua tan ngay cơn buồn miệng.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F13_4_KhoGaLaChanh.jpg?alt=media&token=98b688d5-6d68-4cc1-aaaa-6865a3261ebd",
+      "Price": 29000,
+      "ProductID": "13_4",
+      "Title": "Gà Xé Lá Chanh"
+    },
+    {
+      "CategoryID": 13,
+      "Description": "Mít sấy khô vàng ươm, giòn rụm, giữ nguyên được vị ngọt lịm của mít tươi.",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Product%2F13_5_MitSay.jpg?alt=media&token=9656470e-adc8-416d-a97e-10dbc35b684f",
+      "Price": 29000,
+      "ProductID": "13_5",
+      "Title": "Mít Sấy"
+    }
+  ],
+  "STORE": [
+    {
+      "Address": "4 - 6 Ấp Bắc, Q. Tân Bình, TP.HCM",
+      "Coordinate": "POINT(106.641594 10.800494 )",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Store%2F4%20-%206%20%E1%BA%A4p%20B%E1%BA%AFc%2C%20Q.%20T%C3%A2n%20B%C3%ACnh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh.png?alt=media&token=9ae3c801-ee03-43b8-910f-0c075e2b1a95",
+      "Name": "Hachiko Ấp Bắc",
+      "StoreID": 1
+    },
+    {
+      "Address": "57 Xuân Thủy, Thảo Điền, Q.2, TP.HCM",
+      "Coordinate": "POINT(106.73280678919315 10.803648581833931)",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Store%2F57%20Xu%C3%A2n%20Th%E1%BB%A7y%2C%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2C%20Qu%E1%BA%ADn%202%2C%20Th%C3%A0nh%20ph%E1%BB%91%20H%E1%BB%93%20Ch%C3%AD%20Minh.png?alt=media&token=8bcbecf5-22d5-4ddb-9567-e01ffecbd85b",
+      "Name": "Hachiko Xuân Thuỷ",
+      "StoreID": 2
+    },
+    {
+      "Address": "670 Nguyễn Duy Trinh, Bình Trưng Đông, Q.2, TP.HCM",
+      "Coordinate": "POINT(106.7793321950525 10.789362837800695 )",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Store%2F670%20Nguy%E1%BB%85n%20Duy%20Trinh%2C%20B%C3%ACnh%20Tr%C6%B0ng%20%C4%90%C3%B4ng%2C%20Qu%E1%BA%ADn%202%2C%20Th%C3%A0nh%20ph%E1%BB%91%20H%E1%BB%93%20Ch%C3%AD%20Minh.png?alt=media&token=84026453-8103-4c84-afa7-985a3e2ba354",
+      "Name": "Hachiko Nguyễn Duy Trinh",
+      "StoreID": 3
+    },
+    {
+      "Address": "75 Nguyễn Văn Thương, Phường 25, Q. Bình Thạnh, TP.HCM",
+      "Coordinate": "POINT(106.71902401039263 10.802137686434099)",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Store%2F75%20Nguy%E1%BB%85n%20V%C4%83n%20Th%C6%B0%C6%A1ng%2C%20Ph%C6%B0%E1%BB%9Dng%2025%2C%20B%C3%ACnh%20Th%E1%BA%A1nh%2C%20Th%C3%A0nh%20ph%E1%BB%91%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam.png?alt=media&token=2bdd2463-c315-4209-bf66-76060dc918b9",
+      "Name": "Hachiko Nguyễn Văn Thương",
+      "StoreID": 4
+    },
+    {
+      "Address": "SH2, Tầng 1 Dự án Chung cư cao cấp Homyland Riverside, Nguyễn Duy Trinh, Q.2, TP.HCM",
+      "Coordinate": "POINT(106.76858665272243 10.789118434174851)",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Store%2FT%E1%BA%A7ng%201%20D%E1%BB%B1%20%C3%A1n%20Chung%20c%C6%B0%20cao%20c%E1%BA%A5p%20Homyland%20Riverside%2C%20%C4%90.%20Nguy%E1%BB%85n%20Duy%20Trinh%2C%20P.%20B%C3%ACnh%20Tr%C6%B0ng%20T%C3%A2y%2C%20Qu%E1%BA%ADn%202%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh.png?alt=media&token=94f584d3-53b7-44ac-bc1e-b4c6e9f5ad9d",
+      "Name": "Hachiko Homyland Q2",
+      "StoreID": 5
+    }
+  ],
+  "THAMSO": [
+    {
+      "AGE": 18,
+      "ThamsoID": 1
+    }
+  ],
+  "VOUCHER": [
+    {
+      "Description": "- Giảm 30% Bánh khi mua kèm 01 nước size lớn nhất - Áp dụng dịch vụ mua mang đi (Pick up) qua App The Hachiko Coffee trên toàn quốc. - Không áp dụng cho các chương trình khuyến mãi song song. - Không áp dụng cho Chai Fresh, topping và Combo Hoa Nước. - Không áp dụng lũy tiến",
+      "ExpiryDate": "30-06-2024",
+      "FreeShipping": "0",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Voucher%2FGi%E1%BA%A3m%2030%25%20B%C3%A1nh%20Khi%20Mua%20N%C6%B0%E1%BB%9Bc%20Size%20L%E1%BB%9Bn%20Nh%E1%BA%A5t.jpg?alt=media&token=de5c6b1b-1131-4288-907a-bd7ae3bce839",
+      "MinOrderCapacity": 1,
+      "MinOrderPrice": 0,
+      "Title": "Giảm 30% Bánh Khi Mua Nước Size Lớn Nhất",
+      "Type": "Pick up",
+      "ValueDouble": 0.3,
+      "ValueInteger": 0,
+      "VoucherID": 1
+    },
+    {
+      "Description": "- Áp dụng cho toàn bộ sản phẩm nước khi đặt hàng từ 10 ly trở lên. - Áp dụng dịch vụ Giao hàng (Delivery) khi đặt hàng qua App The Hachiko Coffeee trên toàn quốc. - Áp dụng luỹ tiến. - Không áp dụng cho topping và các sản phẩm đóng chai Fresh. - Không áp dụng song song các chương trình khác. - Trường hợp sản phẩm nằm trong danh sách nhiều chương trình khác nhau (Khuyến mãi gạch giá & Khuyến mãi từ voucher), hệ thống sẽ ưu tiên áp dụng Voucher. - Chương trình có thể kế thúc sớm hơn dự kiến nếu hết lượng ưu đãi.",
+      "ExpiryDate": "31-12-2024",
+      "FreeShipping": "1",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Voucher%2FGi%E1%BA%A3m%2040%25%20%2B%20Freeship%20%C4%90%C6%A1n%20T%E1%BB%AB%2010%20Ly%20T%E1%BB%91i%20%C4%90a%20500K.jpg?alt=media&token=a19037e5-dd39-4eb1-b2c9-e4749507339d",
+      "MinOrderCapacity": 10,
+      "MinOrderPrice": 0,
+      "Title": "Giảm 40% + Freeship Đơn Từ 10 Ly",
+      "Type": "Delivery",
+      "ValueDouble": 0.4,
+      "ValueInteger": 0,
+      "VoucherID": 2
+    },
+    {
+      "Description": "- Áp dụng cho toàn bộ sản phẩm nước khi đặt hàng từ 3 ly trở lên. - Áp dụng dịch vụ Giao hàng (Delivery) khi đặt hàng qua App The Hachiko Coffeee trên toàn quốc. - Áp dụng luỹ tiến. - Không áp dụng cho topping và các sản phẩm đóng chai Fresh, topping. - Không áp dụng song song các chương trình khác. - Trường hợp sản phẩm nằm trong danh sách nhiều chương trình khác nhau (Khuyến mãi gạch giá & Khuyến mãi từ voucher), hệ thống sẽ ưu tiên áp dụng Voucher. - Chương trình có thể kế thúc sớm hơn dự kiến nếu hết lượng ưu đãi.",
+      "ExpiryDate": "31-12-2024",
+      "FreeShipping": "1",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Voucher%2FGi%E1%BA%A3m%2030%25%20%2B%20Freeship%20%C4%90%C6%A1n%20T%E1%BB%AB%203%20Ly.jpg?alt=media&token=72f401b9-4334-48eb-aea8-cdf05a815c77",
+      "MinOrderCapacity": 3,
+      "MinOrderPrice": 0,
+      "Title": "Giảm 30% + Freeship Đơn Từ 3 Ly",
+      "Type": "Delivery",
+      "ValueDouble": 0.3,
+      "ValueInteger": 0,
+      "VoucherID": 3
+    },
+    {
+      "Description": "- Giảm 30K cho đơn từ 99K - Áp dụng dịch vụ Giao hàng (Delivery) khi đặt hàng qua App The Hachiko Coffee - Áp dụng cho sản phẩm nước, bánh. Không áp dụng cho topping. - Không áp dụng song song các chương trình khác. - Trường hợp sản phẩm nằm trong danh sách nhiều chương trình khác nhau (Khuyến mãi gạch giá & Khuyến mãi từ voucher), hệ thống sẽ ưu tiên áp dụng voucher. - Chương trình có thể kết thúc sớm hơn dự kiến nếu hết số lượng ưu đãi.",
+      "ExpiryDate": "30-09-2024",
+      "FreeShipping": "1",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Voucher%2FGi%E1%BA%A3m%2030K%20%C4%90%C6%A1n%2099K.jpg?alt=media&token=51280582-911f-49a6-b034-9d11a5ff112b",
+      "MinOrderCapacity": 1,
+      "MinOrderPrice": 99000,
+      "Title": "Giảm 30K Đơn 99K",
+      "Type": "Delivery",
+      "ValueDouble": 0,
+      "ValueInteger": 30000,
+      "VoucherID": 4
+    },
+    {
+      "Description": "- Giảm 20K cho đơn từ 50K - Áp dụng dịch vụ Giao hàng (Delivery) khi đặt hàng qua App The Hachiko Coffee. - Áp dụng cho sản phẩm nước, bánh. Không áp dụng cho topping. - Không áp dụng song song các chương trình khác. - Trường hợp sản phẩm nằm trong danh sách nhiều chương trình khác nhau (Khuyến mãi gạch giá & Khuyến mãi từ voucher), hệ thống sẽ ưu tiên áp dụng voucher. - Chương trình có thể kết thúc sớm hơn dự kiến nếu hết số lượng ưu đãi.",
+      "ExpiryDate": "30-06-2024",
+      "FreeShipping": "1",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Voucher%2FGi%E1%BA%A3m%2020K%20%C4%90%C6%A1n%2050K.jpg?alt=media&token=a0c6036f-8f90-4301-bda4-b7b8dc274ed6",
+      "MinOrderCapacity": 1,
+      "MinOrderPrice": 50000,
+      "Title": "Giảm 20K Đơn 50K",
+      "Type": "Delivery",
+      "ValueDouble": 0,
+      "ValueInteger": 20000,
+      "VoucherID": 5
+    },
+    {
+      "Description": "- Miễn phí vận chuyển - Áp dụng dịch vụ Giao hàng (Delivery) khi đặt hàng qua App The Hachiko Coffee trên toàn quốc. - Áp dụng cho đơn hàng từ 18.000đ, có 1 sản phẩm nước bất kỳ. - Không áp dụng song song các chương trình khác. - Trường hợp sản phẩm nằm trong danh sách nhiều chương trình khác nhau (Khuyến mãi gạch giá & Khuyến mãi từ voucher), hệ thống sẽ ưu tiên áp dụng voucher. - Chương trình có thể kết thúc sớm hơn dự kiến nếu hết số lượng ưu đãi.",
+      "ExpiryDate": "30-06-2024",
+      "FreeShipping": "1",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Voucher%2FMi%E1%BB%85n%20Ph%C3%AD%20Giao%20H%C3%A0ng.jpg?alt=media&token=1b474cb3-bae3-4dc8-a64c-43d98dbcf3e3",
+      "MinOrderCapacity": 1,
+      "MinOrderPrice": 18000,
+      "Title": "Miễn Phí Giao Hàng",
+      "Type": "Delivery",
+      "ValueDouble": 0,
+      "ValueInteger": 0,
+      "VoucherID": 6
+    },
+    {
+      "Description": "- Giảm 10% cho đơn hàng từ 2 món - Áp dụng dịch vụ Mua mang đi (Pick up) khi đặt hàng qua App The Hachiko Coffee. - Ưu đãi chỉ áp dụng cho sản phẩm nước, bánh. - Không áp dụng cho topping và Combo Hoa Nước. - Không áp dụng song song các chương trình khác - Trường hợp sản phẩm nằm trong danh sách nhiều chương trình khác nhau (Khuyến mãi gạch giá & Khuyến mãi từ voucher), hệ thống sẽ ưu tiên áp dụng voucher.",
+      "ExpiryDate": "30-09-2024",
+      "FreeShipping": "0",
+      "ImageURL": "https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/Voucher%2FGi%E1%BA%A3m%2010%25%20%C4%90%C6%A1n%20t%E1%BB%AB%202%20M%C3%B3n.jpg?alt=media&token=6f8991f8-a31b-488d-a92d-cdbf0ba931bf",
+      "MinOrderCapacity": 2,
+      "MinOrderPrice": 0,
+      "Title": "Giảm 10% Đơn từ 2 Món",
+      "Type": "Pick up",
+      "ValueDouble": 0.1,
+      "ValueInteger": 0,
+      "VoucherID": 7
+    },
+    {
+      "Description": "- Voucher Description",
+      "ExpiryDate": "18-05-2024",
+      "FreeShipping": "0",
+      "ImageURL": "http://example.com/image.jpg",
+      "MinOrderCapacity": 1,
+      "MinOrderPrice": 1000,
+      "Title": "Voucher Title",
+      "Type": "Delivery",
+      "ValueDouble": 50,
+      "ValueInteger": 100,
+      "VoucherID": 8
+    }
+  ]
+}

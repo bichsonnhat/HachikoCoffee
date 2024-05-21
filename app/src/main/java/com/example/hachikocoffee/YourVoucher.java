@@ -109,5 +109,14 @@ public class YourVoucher extends AppCompatActivity {
         fragmentTransaction.replace(R.id.frame_layout, orderFragment);
         fragmentTransaction.commit();
     }
+
+    /* Crash reason
+    *  The error message indicates that the OrderFragment is trying to replace a view with the id frame_layout, but this view cannot be found in the current layout.
+    *  This is causing the app to crash.
+    *  The navigateToOrderFragment() method in YourVoucher.java is trying to replace the frame_layout view with an instance of OrderFragment.
+    *  However, the frame_layout view is not present in the layout file your_voucher.xml which is associated with YourVoucher activity.
+    *  To fix this issue, you need to ensure that the frame_layout view is present in the layout file associated with the activity
+       where you are trying to replace it with the OrderFragment.
+    */
 }
 
