@@ -2,7 +2,9 @@ package com.example.hachikocoffee.BottomSheetDialog;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,46 +15,78 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.lifecycle.viewmodel.CreationExtras;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hachikocoffee.Adapter.CartAdapter;
 import com.example.hachikocoffee.Adapter.SizeAdapter;
 import com.example.hachikocoffee.Adapter.ToppingAdapter;
+import com.example.hachikocoffee.Domain.CartItem;
 import com.example.hachikocoffee.Domain.ItemsDomain;
 import com.example.hachikocoffee.Listener.ItemClickListener;
+import com.example.hachikocoffee.Listener.OnCartChangedListener;
 import com.example.hachikocoffee.Listener.ToppingListener;
+import com.example.hachikocoffee.Management.ManagementCart;
 import com.example.hachikocoffee.R;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 
 public class DetailCart extends BottomSheetDialogFragment implements ToppingListener {
-    private final String proID;
-    private final String proName;
-    private final double proCost;
+    private final ItemsDomain product;;
+    private final CartItem cartItem;
+    private final double productCost;
+    private final String productName;
     private SizeAdapter adapter;
     private RecyclerView recyclerViewTopping;
     private AppCompatButton totalProductCost;
-    private ItemClickListener itemClickListener;
     private int countProduct = 1;
+    private int position;
+    private boolean check = false;
+    private OnCartChangedListener cartChangedListener;
     private TextView numberOfProduct;
     private String sizeProduct = "Nhỏ";
     private int totalCost = 0;
     private final ArrayList<String> toppingList = new ArrayList<>();
-    public DetailCart(String proID, String proName, double proCost){
-        this.proID = proID;
-        this.proName = proName;
-        this.proCost = proCost;
+    DecimalFormatSymbols symbols;
+
+    public DetailCart(ItemsDomain product){
+        this.product = product;
+        this.cartItem = null;
+        this.productCost = this.product.getPrice();
+        this.productName = this.product.getTitle();
+    }
+
+    public DetailCart(CartItem cartItem, int position, OnCartChangedListener cartChangedListener){
+        this.product = null;
+        this.cartItem = cartItem;
+        this.productCost = this.cartItem.getCost();
+        this.productName = this.cartItem.getProductName();
+        this.sizeProduct = cartItem.getSize();
+        this.position = position;
+        this.cartChangedListener = cartChangedListener;
+        this.countProduct = cartItem.getQuantity();
+        if (cartItem.getToppings() != null){
+            this.toppingList.addAll(cartItem.getToppings());
+        }
     }
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.detail_cart, container, false);
+
+        //format money
+        symbols = new DecimalFormatSymbols();
+        symbols.setGroupingSeparator('.');
+
         setupViews(view);
         setupRecyclerViews(view);
         setupClickListeners(view);
+
+
         return view;
     }
 
@@ -65,15 +99,29 @@ public class DetailCart extends BottomSheetDialogFragment implements ToppingList
         totalProductCost = view.findViewById(R.id.totalProductCost);
         TextView productName = view.findViewById(R.id.productName);
         numberOfProduct = view.findViewById(R.id.numberOfProduct);
-        totalProductCost.setText("Chọn • " + (int) (proCost + 10000 * toppingList.size()) + "đ");
+        numberOfProduct.setText(String.valueOf(countProduct));
 
-        totalCost = (int) proCost;
-        int itemCost = totalCost;
+        switch (sizeProduct) {
+            case "Lớn":
+                totalCost = (int) (productCost + 20000);
+                break;
+            case "Vừa":
+                totalCost = (int) (productCost + 10000);
+                break;
+            default:
+                totalCost = (int) productCost;
+                break;
+        }
 
-        productName.setText(proName);
-        productMinimumSize.setText(itemCost + "đ");
-        productMediumSize.setText(10000 + itemCost + "đ");
-        productLargeSize.setText(20000 + itemCost + "đ");
+        productName.setText(this.productName);
+
+        String a = new DecimalFormat("#,###", symbols).format(productCost);
+        String b = new DecimalFormat("#,###", symbols).format(productCost + 10000);
+        String c = new DecimalFormat("#,###", symbols).format(productCost + 20000);
+
+        productMinimumSize.setText(a + "đ");
+        productMediumSize.setText(b + "đ");
+        productLargeSize.setText(c + "đ");
 
         updateTotalCost();
     }
@@ -99,13 +147,13 @@ public class DetailCart extends BottomSheetDialogFragment implements ToppingList
                 Toast.makeText(getContext(), "Selected " + s, Toast.LENGTH_SHORT).show();
                 switch (sizeProduct) {
                     case "Lớn":
-                        totalCost = (int) (proCost + 20000);
+                        totalCost = (int) (productCost + 20000);
                         break;
                     case "Vừa":
-                        totalCost = (int) (proCost + 10000);
+                        totalCost = (int) (productCost + 10000);
                         break;
                     default:
-                        totalCost = (int) proCost;
+                        totalCost = (int) productCost;
                         break;
                 }
                 updateTotalCost();
@@ -113,7 +161,7 @@ public class DetailCart extends BottomSheetDialogFragment implements ToppingList
         };
 
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        adapter = new SizeAdapter(sizeList, itemClickListener);
+        adapter = new SizeAdapter(sizeList, itemClickListener, sizeProduct);
         recyclerView.setAdapter(adapter);
 
         setRecyclerViewTopping();
@@ -122,7 +170,7 @@ public class DetailCart extends BottomSheetDialogFragment implements ToppingList
     private void setRecyclerViewTopping() {
         recyclerViewTopping.setHasFixedSize(true);
         recyclerViewTopping.setLayoutManager(new LinearLayoutManager(getContext()));
-        ToppingAdapter toppingAdapter = new ToppingAdapter(getContext(), getToppingList(), this);
+        ToppingAdapter toppingAdapter = new ToppingAdapter(getContext(), getToppingList(), toppingList, this);
         recyclerViewTopping.setAdapter(toppingAdapter);
     }
 
@@ -150,7 +198,32 @@ public class DetailCart extends BottomSheetDialogFragment implements ToppingList
                 Toast.makeText(requireContext(), "Vui lòng chọn số lượng", Toast.LENGTH_SHORT).show();
                 return;
             }
-            Toast.makeText(requireContext(), toppingList.toString(), Toast.LENGTH_SHORT).show();
+
+            CartItem cartItem;
+            if (this.product != null)
+            {
+                if (toppingList.size() != 0){
+                    cartItem = new CartItem(product.getProductID(), product.getTitle(), countProduct, sizeProduct, toppingList, totalCost * countProduct + toppingList.size() * 10000 * countProduct, productCost);
+                }
+                else {
+                    cartItem = new CartItem(product.getProductID(), product.getTitle(), countProduct, sizeProduct, null, totalCost * countProduct + toppingList.size() * 10000 * countProduct, productCost);
+                }
+                ManagementCart.getInstance().addToCart(cartItem);
+            }
+            else
+            {
+                if (toppingList.size() != 0){
+                    cartItem = new CartItem(this.cartItem.getProductId(), this.cartItem.getProductName(), countProduct, sizeProduct, toppingList, totalCost * countProduct + toppingList.size() * 10000 * countProduct, productCost);
+                }
+                else {
+                    cartItem = new CartItem(this.cartItem.getProductId(), this.cartItem.getProductName(), countProduct, sizeProduct, null, totalCost * countProduct + toppingList.size() * 10000 * countProduct, productCost);
+                }
+                ManagementCart.getInstance().updateCart(this.position, cartItem);
+                check = true;
+                Log.d("Change", ManagementCart.getInstance().getCartItems().get(this.position).getQuantity() +"");
+            }
+
+            dismiss();
         });
 
         TextView minusProduct = view.findViewById(R.id.minusProduct);
@@ -171,7 +244,9 @@ public class DetailCart extends BottomSheetDialogFragment implements ToppingList
 
     @SuppressLint("SetTextI18n")
     private void updateTotalCost() {
-        totalProductCost.setText("Chọn • " + (totalCost * countProduct + toppingList.size() * 10000) + "đ");
+        String a = new DecimalFormat("#,###", symbols).format((long) totalCost * countProduct + toppingList.size() * 10000L * countProduct);
+
+        totalProductCost.setText("Chọn • " + a + "đ");
     }
 
     @Override
@@ -204,5 +279,13 @@ public class DetailCart extends BottomSheetDialogFragment implements ToppingList
         ViewGroup.LayoutParams layoutParams = bottomSheet.getLayoutParams();
         layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT;
         bottomSheet.setLayoutParams(layoutParams);
+    }
+
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        if (check){
+            cartChangedListener.onCartChanged();
+        }
     }
 }

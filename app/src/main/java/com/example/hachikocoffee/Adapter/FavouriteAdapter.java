@@ -13,6 +13,8 @@ import com.example.hachikocoffee.Domain.ItemsDomain;
 import com.example.hachikocoffee.Listener.OnItemClickListener;
 import com.example.hachikocoffee.databinding.ViewholderItemsBinding;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 
 public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Viewholder>  {
@@ -40,7 +42,12 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.View
     @Override
     public void onBindViewHolder(@NonNull FavouriteAdapter.Viewholder holder, @SuppressLint("RecyclerView") int position) {
         holder.binding.itemName.setText(items.get(position).getTitle());
-        holder.binding.itemCost.setText(items.get(position).getPrice() +"đ");
+
+        //format money
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setGroupingSeparator('.');
+        String a = new DecimalFormat("#,###", symbols).format(items.get(position).getPrice());
+        holder.binding.itemCost.setText(a +"đ");
 
         Glide.with(context)
                 .load(items.get(position).getImageURL())

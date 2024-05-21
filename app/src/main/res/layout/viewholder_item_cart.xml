@@ -23,7 +23,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"
-        android:text="2x Smoothie Phúc Bồn Tử Granola "
+        android:text="2x Smoothie Phúc Bồn Tử Granola"
         android:layout_marginEnd="16dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/totalDetailCost"
@@ -42,12 +42,12 @@
 
     <TextView
         android:id="@+id/topping1"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Trái vải"
-        android:visibility="gone"
+        android:text="Trái vải, Trân châu trắng"
         android:textColor="#807E7E"
-        android:layout_marginStart="0dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/totalDetailCost"
         app:layout_constraintStart_toEndOf="@id/deleteBtn"
         app:layout_constraintTop_toBottomOf="@+id/itemSize" />
 

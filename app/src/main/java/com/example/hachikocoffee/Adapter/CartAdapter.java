@@ -22,7 +22,7 @@ import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
-    private final ArrayList<CartItem> cartItems;
+    private ArrayList<CartItem> cartItems;
     private final FragmentManager fragmentManager;
     private final OnCartChangedListener cartChangedListener;
     Context context;
@@ -68,7 +68,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
                 @Override
                 public void onClick(View v) {
                     CartItem item = cartItems.get(position);
-                    DetailCart detailBottomSheetDialog = new DetailCart(item.getProductId(), item.getProductName(), item.getCost());
+                    Log.d("CartAdapter", "position: " + position);
+                    Log.d("CartAdapter", "size: " + ManagementCart.getInstance().getCartItems().size());
+                    DetailCart detailBottomSheetDialog = new DetailCart(item, position, cartChangedListener);
                     detailBottomSheetDialog.show(fragmentManager, "DetailCart");
                 }
             });
@@ -96,6 +98,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
     @Override
     public int getItemCount() {
         return cartItems.size();
+    }
+
+    public void setCartItems(ArrayList<CartItem> cartItems) {
+        this.cartItems = cartItems;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
