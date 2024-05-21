@@ -1,6 +1,7 @@
 package com.example.hachikocoffee;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.hachikocoffee.Activity.LoginOTPActivity;
+import com.example.hachikocoffee.Activity.MainActivity;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
@@ -28,6 +30,12 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences perf = getSharedPreferences("User", MODE_PRIVATE);
+        if (perf.getBoolean("LoggedIn", false)){
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            return;
+        }
         setContentView(R.layout.login);
         phone = findViewById(R.id.phone);
         btnGenOTP = findViewById(R.id.btngenerateOTP);

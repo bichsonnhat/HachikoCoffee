@@ -81,56 +81,64 @@
                     android:layout_weight="1"
                     android:text="Chọn 1 loại size"
                     android:textColor="#807d7d" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/productRecyclerSize"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/textView28"
-                    android:layout_marginStart="16dp"
-                    tools:itemCount="3"
-                    android:layout_marginTop="0dp"
                     android:layout_marginEnd="16dp"
-                    tools:listitem="@layout/item_size" />
+                    android:layout_marginStart="16dp"
+                    android:layout_below="@+id/textView28">
 
-                <TextView
-                    android:id="@+id/productLargeSize"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/productRecyclerSize"
-                    android:layout_marginStart="325dp"
-                    android:layout_marginTop="14dp"
-                    android:gravity="right"
-                    android:text="65.000đ"
-                    android:textSize="15sp" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/productRecyclerSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:itemCount="3"
+                        tools:listitem="@layout/item_size"
+                        />
 
-                <TextView
-                    android:id="@+id/productMediumSize"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/productLargeSize"
-                    android:layout_marginStart="325dp"
-                    android:layout_marginTop="28dp"
-                    android:gravity="right"
-                    android:text="55.000đ"
-                    android:textSize="15sp" />
+                    <TextView
+                        android:layout_marginTop="13.5dp"
+                        android:id="@+id/productLargeSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:text="65.000đ"
+                        android:textSize="15sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/productMinimumSize"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/productMediumSize"
-                    android:layout_marginStart="325dp"
-                    android:layout_marginTop="28dp"
-                    android:gravity="right"
-                    android:text="45.000đ"
-                    android:textSize="15sp" />
+                    <TextView
+                        android:id="@+id/productMediumSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="27dp"
+                        android:gravity="right"
+                        android:textSize="15sp"
+                        android:text="55.000đ"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/productLargeSize" />
+
+                    <TextView
+                        android:id="@+id/productMinimumSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="28dp"
+                        android:text="45.000đ"
+                        android:textSize="15sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/productMediumSize" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
                     android:id="@+id/textView29"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/productRecyclerSize"
+                    android:layout_below="@+id/constraintLayout1"
                     android:layout_marginStart="16dp"
                     android:layout_weight="1"
                     android:text="Topping"
@@ -162,72 +170,79 @@
                     android:id="@+id/toppingCost1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/textView30"
                     android:text="10.000đ"
-                    android:layout_marginTop="14dp"
-                    android:gravity="right"
                     android:textSize="15sp"
+                    android:layout_marginTop="13.5dp"
                     android:layout_alignTop="@+id/productRecyclerTopping"
-                    android:layout_marginStart="325dp"/>
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="16dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="10.000đ"
+                    android:textSize="15sp"
                     android:id="@+id/toppingCost2"
                     android:layout_below="@+id/toppingCost1"
-                    android:layout_marginTop="28dp"
-                    android:gravity="right"
-                    android:layout_marginStart="325dp"/>
+                    android:layout_marginTop="27dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="16dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="10.000đ"
+                    android:textSize="15sp"
                     android:id="@+id/toppingCost3"
                     android:layout_below="@+id/toppingCost2"
                     android:layout_marginTop="28dp"
-                    android:gravity="right"
-                    android:layout_marginStart="325dp"/>
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="16dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="10.000đ"
+                    android:textSize="15sp"
                     android:id="@+id/toppingCost4"
                     android:layout_below="@+id/toppingCost3"
                     android:layout_marginTop="28dp"
-                    android:gravity="right"
-                    android:layout_marginStart="325dp"/>
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="16dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="10.000đ"
+                    android:textSize="15sp"
                     android:id="@+id/toppingCost5"
                     android:layout_below="@+id/toppingCost4"
                     android:layout_marginTop="28dp"
-                    android:gravity="right"
-                    android:layout_marginStart="325dp"/>
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="16dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="10.000đ"
+                    android:textSize="15sp"
                     android:id="@+id/toppingCost6"
                     android:layout_below="@+id/toppingCost5"
                     android:layout_marginTop="28dp"
-                    android:gravity="right"
-                    android:layout_marginStart="325dp"/>
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="16dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="10.000đ"
+                    android:textSize="15sp"
                     android:id="@+id/toppingCost7"
                     android:layout_below="@+id/toppingCost6"
                     android:layout_marginTop="28dp"
-                    android:gravity="right"
-                    android:layout_marginStart="325dp"/>
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="16dp"/>
 
                 <TextView
                     android:id="@+id/anotherRequire"

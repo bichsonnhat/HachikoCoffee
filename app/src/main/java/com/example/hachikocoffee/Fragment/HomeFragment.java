@@ -1,6 +1,8 @@
 package com.example.hachikocoffee.Fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Outline;
 import android.os.Bundle;
 
@@ -17,10 +19,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
+import android.widget.TextView;
 
 import com.example.hachikocoffee.Adapter.NewListAdapter;
 import com.example.hachikocoffee.Domain.CategoryDomain;
 import com.example.hachikocoffee.Domain.ItemsDomain;
+import com.example.hachikocoffee.Domain.UserDomain;
 import com.example.hachikocoffee.EdgeItemDecoration;
 import com.example.hachikocoffee.Photo;
 import com.example.hachikocoffee.Adapter.PhotoAdapter;
@@ -37,6 +41,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,6 +81,8 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private int UserID;
+    private TextView welcomeText;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -113,7 +121,30 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        welcomeText = view.findViewById(R.id.welcomName);
+        SharedPreferences perf = getActivity().getSharedPreferences("UserID", Context.MODE_PRIVATE);
+        UserID = perf.getInt("UserID", 0);
 
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("USER");
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    for (DataSnapshot issue : snapshot.getChildren()){
+                        UserDomain user = issue.getValue(UserDomain.class);
+                        if (user.getUserID() == UserID){
+                            welcomeText.setText("" + user.getName() + " ơi, Hi-Tea đi!");
+                            break;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         initShorcut(view);
         initViewPager(view);

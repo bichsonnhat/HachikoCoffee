@@ -2,6 +2,7 @@ package com.example.hachikocoffee;
 
 import static java.security.AccessController.getContext;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -25,11 +27,19 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.example.hachikocoffee.Activity.MainActivity;
+import com.example.hachikocoffee.Domain.LocationDomain;
+import com.example.hachikocoffee.Domain.UserDomain;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class InfoAccountLoginActivity extends AppCompatActivity {
 
@@ -41,10 +51,12 @@ public class InfoAccountLoginActivity extends AppCompatActivity {
     private TextView btnRegisterAccount;
 
     private EditText firstName, lastName, email;
+    private String phoneNumber;
     private static final String[] gender_options = {"Nam", "Nữ"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        phoneNumber = getIntent().getStringExtra("phoneNumber");
         setContentView(R.layout.activity_info_account_login);
 
         textView = findViewById(R.id.txtview_canlendar);
@@ -117,6 +129,27 @@ public class InfoAccountLoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Save this information to Firebase
+                DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference().child("USER");
+                locationRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                            UserDomain locationDomain = childSnapshot.getValue(UserDomain.class);
+                            if (locationDomain.getPhoneNumber().equals(phoneNumber)) {
+                                Map<String, Object> updates = new HashMap<>();
+                                updates.put("Name", firstName.getText().toString());
+                                updates.put("Email", email.getText().toString());
+                                updates.put("Birthday", textView.getText().toString());
+                                childSnapshot.getRef().updateChildren(updates);
+                                break;
+                            }
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.w("TAG", "Error fetching locations: " + error.getMessage());
+                    }
+                });
 //                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 //                intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                startActivity(intent);

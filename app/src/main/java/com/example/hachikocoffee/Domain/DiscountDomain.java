@@ -147,7 +147,7 @@ public class DiscountDomain implements Serializable {
 
 
     public boolean isAboutToExpire() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDate expiryDate = LocalDate.parse(ExpiryDate, formatter);
         LocalDate currentDate = LocalDate.now();
         long days = ChronoUnit.DAYS.between(currentDate, expiryDate);
