@@ -2,10 +2,11 @@ package com.example.hachikocoffee.Domain;
 
 import com.example.hachikocoffee.Management.ManagementCart;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-public class CartItem {
+public class CartItem implements Serializable {
     private String productId;
     private String productName;
     private String cartItemId;
