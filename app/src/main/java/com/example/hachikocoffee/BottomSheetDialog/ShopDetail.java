@@ -13,7 +13,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.bumptech.glide.Glide;
 import com.example.hachikocoffee.Activity.MainActivity;
+import com.example.hachikocoffee.Activity.SearchShopActivity;
 import com.example.hachikocoffee.Domain.ShopDomain;
+import com.example.hachikocoffee.Fragment.ShopFragment;
+import com.example.hachikocoffee.Listener.OnStoreClick;
 import com.example.hachikocoffee.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -21,6 +24,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 public class ShopDetail extends BottomSheetDialogFragment {
 
     private static final String KEY_SHOP2DETAIL = "shop2detail";
+    private static OnStoreClick onStoreClick;
     private ShopDomain shop;
 
     ImageView shopdetailImage;
@@ -89,8 +93,17 @@ public class ShopDetail extends BottomSheetDialogFragment {
             @Override
             public void onClick(View view) {
                 dismiss();
-                ((MainActivity) requireActivity()).navigateToOrderFragment();
+                if (requireActivity() instanceof MainActivity) {
+                    ((MainActivity) requireActivity()).navigateToOrderFragment();
+                } else {
+                    ((SearchShopActivity) requireActivity()).finish();
+                    onStoreClick.onStoreClick();
+                }
             }
         });
+    }
+
+    public static void setInterfaceInstance(ShopFragment context){
+        onStoreClick = (OnStoreClick) context;
     }
 }

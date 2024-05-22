@@ -9,13 +9,24 @@ public class UserDomain implements Serializable {
     private String Birthday;
     private String Email;
 
+    private String Gender;
+
+    public String getGender() {
+        return Gender;
+    }
+
+    public void setGender(String gender) {
+        Gender = gender;
+    }
+
     public UserDomain() {}
-    public UserDomain(int userID, String phoneNumber, String name, String birthday, String email) {
+    public UserDomain(int userID, String phoneNumber, String name, String birthday, String email, String gender) {
         UserID = userID;
         PhoneNumber = phoneNumber;
         Name = name;
         Birthday = birthday;
         Email = email;
+        Gender = gender;
     }
 
     public int getUserID() {

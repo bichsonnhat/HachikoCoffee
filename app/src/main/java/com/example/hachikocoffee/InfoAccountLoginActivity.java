@@ -40,6 +40,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class InfoAccountLoginActivity extends AppCompatActivity {
 
@@ -105,6 +107,26 @@ public class InfoAccountLoginActivity extends AppCompatActivity {
             }
         });
 
+        lastName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (lastName.length() == 0){
+                    lastName.setError("Vui lòng nhập họ!");
+                }
+                checkAllFieldsFilled();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         textView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -125,6 +147,29 @@ public class InfoAccountLoginActivity extends AppCompatActivity {
             }
         });
 
+        email.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (email.length() == 0){
+                    email.setError("Vui lòng nhập email!");
+                } else if (!isValidEmail(email.getText().toString())){
+                    email.setError("Email không hợp lệ!");
+                } else {
+                    checkAllFieldsFilled();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         btnRegisterAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,9 +182,10 @@ public class InfoAccountLoginActivity extends AppCompatActivity {
                             UserDomain locationDomain = childSnapshot.getValue(UserDomain.class);
                             if (locationDomain.getPhoneNumber().equals(phoneNumber)) {
                                 Map<String, Object> updates = new HashMap<>();
-                                updates.put("Name", firstName.getText().toString());
-                                updates.put("Email", email.getText().toString());
-                                updates.put("Birthday", textView.getText().toString());
+                                updates.put("name", firstName.getText().toString() + "," + lastName.getText().toString());
+                                updates.put("email", email.getText().toString());
+                                updates.put("birthday", textView.getText().toString());
+                                updates.put("gender", spinnerGender.getSelectedItem().toString());
                                 childSnapshot.getRef().updateChildren(updates);
                                 break;
                             }
@@ -158,6 +204,16 @@ public class InfoAccountLoginActivity extends AppCompatActivity {
         });
     }
 
+
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
+            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
+    public static boolean isValidEmail(String emailStr) {
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
+        return matcher.matches();
+    }
+
+
     private void showSuccessDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(InfoAccountLoginActivity.this);
         builder.setTitle("Thông báo");
@@ -174,11 +230,12 @@ public class InfoAccountLoginActivity extends AppCompatActivity {
     }
 
     private void checkAllFieldsFilled() {
-        if (!TextUtils.isEmpty(firstName.getText().toString()) && !TextUtils.isEmpty(textView.getText().toString())){
+        if (!TextUtils.isEmpty(firstName.getText().toString()) && !TextUtils.isEmpty(lastName.getText().toString()) && !TextUtils.isEmpty(email.getText().toString()) && !TextUtils.isEmpty(textView.getText().toString())){
             btnRegisterAccount.setBackground(ContextCompat.getDrawable(this, R.drawable.background_color));
             btnRegisterAccount.setEnabled(true);
         } else {
             btnRegisterAccount.setBackground(ContextCompat.getDrawable(this, R.drawable.rounded_rectangle_darkgrey));
+            btnRegisterAccount.setEnabled(false);
         }
     }
 

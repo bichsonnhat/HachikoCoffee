@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,10 +29,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.hachikocoffee.Activity.MainActivity;
 import com.example.hachikocoffee.Activity.SearchShopActivity;
 import com.example.hachikocoffee.Adapter.ShopAdapter;
 import com.example.hachikocoffee.Domain.LocationDomain;
 import com.example.hachikocoffee.Domain.ShopDomain;
+import com.example.hachikocoffee.Listener.OnStoreClick;
 import com.example.hachikocoffee.NotificationDetail;
 import com.example.hachikocoffee.R;
 import com.example.hachikocoffee.Listener.ShopClickListener;
@@ -48,13 +51,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import static com.example.hachikocoffee.BottomSheetDialog.ShopDetail.setInterfaceInstance;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ShopFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ShopFragment extends Fragment implements LocationListener {
+public class ShopFragment extends Fragment implements LocationListener, OnStoreClick {
 
     private RecyclerView rcv_listShop;
 
@@ -133,6 +137,7 @@ public class ShopFragment extends Fragment implements LocationListener {
         editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setInterfaceInstance(ShopFragment.this);
                 Intent intent = new Intent(getContext(), SearchShopActivity.class);
                 startActivity(intent);
             }
@@ -339,5 +344,12 @@ public class ShopFragment extends Fragment implements LocationListener {
     @Override
     public void onProviderDisabled(@NonNull String provider) {
         LocationListener.super.onProviderDisabled(provider);
+    }
+
+    @Override
+    public void onStoreClick() {
+        FragmentActivity fragmentActivity = getActivity();
+        fragmentActivity.onStateNotSaved();
+        ((MainActivity) requireActivity()).navigateToOrderFragment();
     }
 }

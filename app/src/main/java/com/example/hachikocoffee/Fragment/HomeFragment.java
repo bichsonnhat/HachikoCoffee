@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hachikocoffee.Adapter.NewListAdapter;
 import com.example.hachikocoffee.Domain.CategoryDomain;
@@ -33,6 +34,7 @@ import com.example.hachikocoffee.Domain.ShortcutDomain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import me.relex.circleindicator.CircleIndicator;
 import com.example.hachikocoffee.Adapter.ShortcutAdapter;
@@ -122,8 +124,8 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         welcomeText = view.findViewById(R.id.welcomName);
-        SharedPreferences perf = getActivity().getSharedPreferences("UserID", Context.MODE_PRIVATE);
-        UserID = perf.getInt("UserID", 0);
+        SharedPreferences perf = requireActivity().getSharedPreferences("User", Context.MODE_PRIVATE);
+        UserID = perf.getInt("UserID", 1);
 
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("USER");
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -168,7 +170,7 @@ public class HomeFragment extends Fragment {
                 if (snapshot.exists()) {
                     for (DataSnapshot categorySnapshot : snapshot.getChildren()) {
                         CategoryDomain category = categorySnapshot.getValue(CategoryDomain.class);
-                        if (category != null && category.getTitle().equals("Món Mới Phải Thử")) {
+                        if (category != null && category.getTitle().equals("Món mới phải thử")) {
                             setupItemsListener(category.getCategoryID());
                             break;
                         }

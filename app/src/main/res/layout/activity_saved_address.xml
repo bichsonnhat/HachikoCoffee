@@ -120,14 +120,18 @@
             android:layout_marginLeft="70dp"
             android:textStyle="bold"/>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#CCCCCC"
+            android:layout_marginTop="243dp"
+            android:layout_marginLeft="70dp"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_saved_addresses"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/btnNewAddress"
-            android:layout_marginTop="20dp"
-            android:paddingBottom="16dp"
-            android:layout_marginLeft="22dp"/>
+            android:layout_below="@+id/btnNewAddress" />
     </RelativeLayout>
 
 </layout>
