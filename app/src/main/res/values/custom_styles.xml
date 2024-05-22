@@ -11,4 +11,8 @@
     <style name="BottomNavigationView.Active" parent="@style/TextAppearance.AppCompat.Caption">
         <item name="android:textSize">11sp</item>
     </style>
+    <style name="MyNumberPickerStyle" parent="@android:style/Widget.Material.NumberPicker">
+        <item name="android:textSize">20sp</item>
+    </style>
+
 </resources>

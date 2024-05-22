@@ -16,9 +16,10 @@ public class CartItem implements Serializable {
     private List<String> toppings;
     private int totalCost;
     private double cost;
+    private String note;
     public CartItem(){}
     
-    public CartItem(String productId, String productName, int quantity, String size, List<String> toppings, int totalCost, double cost) {
+    public CartItem(String productId, String productName, int quantity, String size, List<String> toppings, int totalCost, double cost, String note) {
         this.productId = productId;
         this.productName = productName;
         this.quantity = quantity;
@@ -27,7 +28,17 @@ public class CartItem implements Serializable {
         this.totalCost = totalCost;
         this.cost = cost;
         this.cartItemId = String.valueOf(ManagementCart.getInstance().getNoId());
+        this.note = note;
     }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
     public String getCartItemId() {
         return cartItemId;
     }

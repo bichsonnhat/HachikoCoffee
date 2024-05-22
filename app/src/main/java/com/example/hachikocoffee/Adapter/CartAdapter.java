@@ -106,6 +106,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
                     for (DataSnapshot cartItemSnapshot : snapshot.getChildren()) {
                         if (!"itemCount".equals(cartItemSnapshot.getKey()) && !"noId".equals(cartItemSnapshot.getKey())) {
                             CartItem item = cartItemSnapshot.getValue(CartItem.class);
+                            assert item != null;
                             if (item.getCartItemId().equals(cartItem.getCartItemId())){
                                 updateItem(item);
                                 break;
@@ -134,6 +135,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
                         Log.d("CartAdapter", "Toppings list: " + tpList);
                     } else {
                         holder.binding.topping1.setVisibility(View.GONE);
+                    }
+
+                    if (!item.getNote().isEmpty()){
+                        holder.binding.notes.setText(item.getNote());
+                        holder.binding.notes.setVisibility(View.VISIBLE);
+                    }
+                    else{
+                        holder.binding.notes.setVisibility(View.GONE);
                     }
                 }
 
