@@ -94,6 +94,7 @@
                     android:textStyle="bold"/>
 
                 <EditText
+                    android:id="@+id/companyAddress"
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
                     android:layout_centerHorizontal="true"
@@ -118,6 +119,7 @@
                     android:textStyle="bold"/>
 
                 <EditText
+                    android:id="@+id/companyFloors"
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
                     android:layout_centerHorizontal="true"
@@ -142,6 +144,7 @@
                     android:textStyle="bold"/>
 
                 <EditText
+                    android:id="@+id/companyGate"
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
                     android:layout_centerHorizontal="true"
@@ -166,6 +169,7 @@
                     android:textStyle="bold"/>
 
                 <EditText
+                    android:id="@+id/companyNote"
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
                     android:layout_centerHorizontal="true"
@@ -198,6 +202,7 @@
                     android:textStyle="bold"/>
 
                 <EditText
+                    android:id="@+id/companyRecipentName"
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
                     android:layout_centerHorizontal="true"
@@ -222,6 +227,7 @@
                     android:textStyle="bold"/>
 
                 <EditText
+                    android:id="@+id/companyRecipentPhone"
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
                     android:layout_centerHorizontal="true"
@@ -240,6 +246,7 @@
             </RelativeLayout>
 
             <Button
+                android:id="@+id/companyFinishBtn"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="609dp"

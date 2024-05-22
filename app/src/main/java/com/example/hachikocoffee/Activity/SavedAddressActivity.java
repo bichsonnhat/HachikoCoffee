@@ -1,6 +1,9 @@
 package com.example.hachikocoffee.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -10,18 +13,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.example.hachikocoffee.Adapter.AddressAdapter;
+import com.example.hachikocoffee.Domain.AddressDomain;
 import com.example.hachikocoffee.Login;
 import com.example.hachikocoffee.NotificationDetail;
 import com.example.hachikocoffee.R;
 import com.example.hachikocoffee.YourVoucher;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class SavedAddressActivity extends AppCompatActivity {
-
+    private RecyclerView recyclerView;
+    private int UserID = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_address);
+        recyclerView = findViewById(R.id.recycler_view_saved_addresses);
 
         Button btnSavedAddressBack = findViewById(R.id.btnSavedAddressBack);
         btnSavedAddressBack.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +69,34 @@ public class SavedAddressActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(SavedAddressActivity.this, NewAddressActivity.class);
                 startActivity(intent);
+            }
+        });
+        initAddress();
+    }
+
+    private void initAddress() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        ArrayList<AddressDomain> addressList = new ArrayList<>();
+        DatabaseReference addressRef = FirebaseDatabase.getInstance().getReference().child("ADDRESS");
+        addressRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    for (DataSnapshot issue : snapshot.getChildren()){
+                        AddressDomain address = issue.getValue(AddressDomain.class);
+                        if (address.getUserID() == UserID){
+                            addressList.add(address);
+                        }
+                    }
+                    AddressAdapter addressAdapter = new AddressAdapter(addressList);
+                    recyclerView.setAdapter(addressAdapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

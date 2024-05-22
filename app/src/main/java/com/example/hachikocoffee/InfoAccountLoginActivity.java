@@ -137,9 +137,9 @@ public class InfoAccountLoginActivity extends AppCompatActivity {
                             UserDomain locationDomain = childSnapshot.getValue(UserDomain.class);
                             if (locationDomain.getPhoneNumber().equals(phoneNumber)) {
                                 Map<String, Object> updates = new HashMap<>();
-                                updates.put("Name", firstName.getText().toString());
-                                updates.put("Email", email.getText().toString());
-                                updates.put("Birthday", textView.getText().toString());
+                                updates.put("name", firstName.getText().toString());
+                                updates.put("email", email.getText().toString());
+                                updates.put("birthday", textView.getText().toString());
                                 childSnapshot.getRef().updateChildren(updates);
                                 break;
                             }
@@ -179,6 +179,7 @@ public class InfoAccountLoginActivity extends AppCompatActivity {
             btnRegisterAccount.setEnabled(true);
         } else {
             btnRegisterAccount.setBackground(ContextCompat.getDrawable(this, R.drawable.rounded_rectangle_darkgrey));
+            btnRegisterAccount.setEnabled(false);
         }
     }
 
