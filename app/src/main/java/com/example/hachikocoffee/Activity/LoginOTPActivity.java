@@ -113,7 +113,7 @@ public class LoginOTPActivity extends AppCompatActivity {
                                                         // Create new record for USER here ...
                                                         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("USER");
                                                         String phoneNumber = getIntent().getStringExtra("mobile");
-                                                        UserDomain userDomain = new UserDomain(Integer.valueOf(phoneNumber), phoneNumber, "", "", "");
+                                                        UserDomain userDomain = new UserDomain(Integer.valueOf(phoneNumber), phoneNumber, "", "", "", "");
                                                         userRef.push().setValue(userDomain);
                                                         Intent intent = new Intent(getApplicationContext(), InfoAccountLoginActivity.class);
                                                         intent.putExtra("phoneNumber", phoneNumber);
