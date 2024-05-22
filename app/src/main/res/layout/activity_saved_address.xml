@@ -121,7 +121,6 @@
             android:textStyle="bold"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_marginStart="16dp"
             android:id="@+id/recycler_view_saved_addresses"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
