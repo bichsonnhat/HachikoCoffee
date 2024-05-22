@@ -54,4 +54,7 @@ public class ManagementUser {
     public UserDomain getUser(){
         return user;
     }
+    public int getUserId(){
+        return user.getUserID();
+    }
 }

@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //ManagementCart.getInstance().loadCartFromFirebase("1");
+
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         LayoutInflater inflater = getLayoutInflater();
         setContentView(binding.getRoot());

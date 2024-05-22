@@ -3,6 +3,7 @@ package com.example.hachikocoffee;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -77,8 +78,10 @@ public class Login extends AppCompatActivity {
             String errorMessage = e.getMessage();
             if (errorMessage != null) {
                 Toast.makeText(Login.this, errorMessage, Toast.LENGTH_LONG).show();
+                Log.d("error", "" + errorMessage);
             } else {
                 Toast.makeText(Login.this, e.toString(), Toast.LENGTH_SHORT).show();
+                Log.d("error", "" + e.toString());
             }
         }
 

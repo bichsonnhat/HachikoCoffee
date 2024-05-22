@@ -31,6 +31,7 @@ import com.example.hachikocoffee.Management.ManagementCart;
 import com.example.hachikocoffee.Listener.ItemClickListener;
 import com.example.hachikocoffee.Listener.ToppingListener;
 import com.example.hachikocoffee.Listener.UpdateUIListener;
+import com.example.hachikocoffee.Management.ManagementUser;
 import com.example.hachikocoffee.R;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -267,7 +268,7 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
 
     private void setupFavoriteProduct(View view) {
         CheckBox favoriteProduct = view.findViewById(R.id.favouriteProduct);
-        int userId = 1;
+        int userId = ManagementUser.getInstance().getUserId();
         String productId = product.getProductID();
         DatabaseReference favoriteProductsRef = FirebaseDatabase.getInstance().getReference("FAVORITEPRODUCT");
 

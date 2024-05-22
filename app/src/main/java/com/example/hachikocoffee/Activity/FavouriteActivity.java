@@ -18,6 +18,7 @@ import com.example.hachikocoffee.Adapter.FavouriteAdapter;
 import com.example.hachikocoffee.Domain.FavouriteItemDomain;
 import com.example.hachikocoffee.Domain.ItemsDomain;
 import com.example.hachikocoffee.BottomSheetDialog.ProductDetail;
+import com.example.hachikocoffee.Management.ManagementUser;
 import com.example.hachikocoffee.R;
 import com.example.hachikocoffee.Listener.UpdateUIListener;
 import com.google.firebase.database.DataSnapshot;
@@ -37,20 +38,20 @@ public class FavouriteActivity extends AppCompatActivity implements UpdateUIList
     private ImageView starIcon;
     private RecyclerView recyclerViewFavourites;
     private int previousItemCount = 0;
-    private int UserID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite);
-        SharedPreferences perf = getSharedPreferences("User", Context.MODE_PRIVATE);
-        UserID = perf.getInt("UserID", 1);
+//        SharedPreferences perf = getSharedPreferences("User", Context.MODE_PRIVATE);
+//        UserID = perf.getInt("UserID", 1);
         ImageView backButton = findViewById(R.id.back_button);
         textViewNoFavourites = findViewById(R.id.tv_no_favourites);
         recyclerViewFavourites = findViewById(R.id.recyclerView_Favourite);
         starIcon = findViewById(R.id.starIcon);
 
         listFavourites = new ArrayList<>();
-        recyclerViewFavourites.setLayoutManager(new GridLayoutManager(this, UserID));
+        recyclerViewFavourites.setLayoutManager(new GridLayoutManager(this, ManagementUser.getInstance().getUserId()));
         //updateUI(previousItemCount);
 
 
@@ -58,7 +59,7 @@ public class FavouriteActivity extends AppCompatActivity implements UpdateUIList
         DatabaseReference favoriteProductsRef = database.getReference("FAVORITEPRODUCT");
         DatabaseReference productsRef = database.getReference("PRODUCTS");
 
-        favoriteProductsRef.orderByChild("userID").equalTo(1)
+        favoriteProductsRef.orderByChild("userID").equalTo(ManagementUser.getInstance().getUserId())
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot favoriteSnapshot) {

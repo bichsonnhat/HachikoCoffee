@@ -222,7 +222,7 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment{
                     ManagementCart.getInstance().setOrderTime(dayValues[dayPicker.getValue()] + "/" + currentYear + " " +  otherDayTimeValues[timePicker.getValue()]);
                 }
 
-                ManagementCart.getInstance().updateTimeToFireBase("1");
+                ManagementCart.getInstance().updateTimeToFireBase(String.valueOf(ManagementUser.getInstance().getUserId()));
                 dialog.dismiss();
             }
         });
@@ -354,7 +354,7 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment{
 
                 ManagementCart.getInstance().setRecipentName(inputName);
                 ManagementCart.getInstance().setRecipentPhone(inputPhone);
-                ManagementCart.getInstance().updateNameAndPhoneToFireBase("1");
+                ManagementCart.getInstance().updateNameAndPhoneToFireBase(String.valueOf(ManagementUser.getInstance().getUserId()));
                 dialog.dismiss();
             }
         });
