@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -52,7 +53,7 @@ public class SearchShopActivity extends AppCompatActivity {
     private TextView cancelSearch;
     private ShopAdapter shopAdapter;
     LocationManager locationManager;
-    private int UserID = 1;
+    private int UserID;
     String findText;
     private double locationX = 0;
     private double locationY = 0;
@@ -62,6 +63,8 @@ public class SearchShopActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search_shop);
         searchView = findViewById(R.id.SearchViewShop);
         cancelSearch = findViewById(R.id.cancelSearchShop);
+        SharedPreferences perf = getSharedPreferences("User", Context.MODE_PRIVATE);
+        UserID = perf.getInt("UserID", 1);
         cancelSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -9,6 +9,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +41,8 @@ public class SavedAddressActivity extends AppCompatActivity implements OnAddress
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_address);
         recyclerView = findViewById(R.id.recycler_view_saved_addresses);
-
+        SharedPreferences perf = getSharedPreferences("User", Context.MODE_PRIVATE);
+        UserID = perf.getInt("UserID", 1);
         Button btnSavedAddressBack = findViewById(R.id.btnSavedAddressBack);
         btnSavedAddressBack.setOnClickListener(new View.OnClickListener() {
             @Override

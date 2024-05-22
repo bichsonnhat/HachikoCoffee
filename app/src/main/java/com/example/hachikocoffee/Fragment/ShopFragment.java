@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -73,7 +74,7 @@ public class ShopFragment extends Fragment implements LocationListener, OnStoreC
     private String mParam1;
     private String mParam2;
     private double locationX = 0, locationY = 0;
-    private final int UserID = 1;
+    private int UserID = 1;
     private TextView voucherCount;
     private TextView notificationCount;
 
@@ -231,6 +232,8 @@ public class ShopFragment extends Fragment implements LocationListener, OnStoreC
 
         rcv_listShop = view.findViewById(R.id.rcv_list_shop);
         rcv_listShop.setLayoutManager(linearLayoutManager);
+        SharedPreferences perf = requireActivity().getSharedPreferences("User", Context.MODE_PRIVATE);
+        UserID = perf.getInt("UserID", 1);
 
         ArrayList<ShopDomain> filteredList = new ArrayList<>();
 

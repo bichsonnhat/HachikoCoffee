@@ -1,8 +1,10 @@
 package com.example.hachikocoffee.Fragment;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -48,6 +50,8 @@ public class OtherFragment extends Fragment {
 
     private TextView voucherCount;
     private TextView notificationCount;
+    SharedPreferences perf;
+    SharedPreferences.Editor editor;
 
     public OtherFragment() {
         // Required empty public constructor
@@ -150,6 +154,10 @@ public class OtherFragment extends Fragment {
                         .setPositiveButton("Có", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
+                                perf = getActivity().getSharedPreferences("User", Context.MODE_PRIVATE);
+                                editor = perf.edit();
+                                editor.putBoolean("LoggedIn", false);
+                                editor.apply();
                                 Intent intent = new Intent(getActivity(), Login.class);
                                 startActivity(intent);
                                 getActivity().finish();

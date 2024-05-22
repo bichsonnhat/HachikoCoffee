@@ -30,6 +30,8 @@ public class ManagementCart {
         this.onCartLoadedListener = listener;
     }
 
+
+
     public long getItemsCount() {
         return itemsCount;
     }

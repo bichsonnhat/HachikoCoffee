@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -35,18 +37,20 @@ public class FavouriteActivity extends AppCompatActivity implements UpdateUIList
     private ImageView starIcon;
     private RecyclerView recyclerViewFavourites;
     private int previousItemCount = 0;
+    private int UserID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite);
-
+        SharedPreferences perf = getSharedPreferences("User", Context.MODE_PRIVATE);
+        UserID = perf.getInt("UserID", 1);
         ImageView backButton = findViewById(R.id.back_button);
         textViewNoFavourites = findViewById(R.id.tv_no_favourites);
         recyclerViewFavourites = findViewById(R.id.recyclerView_Favourite);
         starIcon = findViewById(R.id.starIcon);
 
         listFavourites = new ArrayList<>();
-        recyclerViewFavourites.setLayoutManager(new GridLayoutManager(this, 1));
+        recyclerViewFavourites.setLayoutManager(new GridLayoutManager(this, UserID));
         //updateUI(previousItemCount);
 
 
