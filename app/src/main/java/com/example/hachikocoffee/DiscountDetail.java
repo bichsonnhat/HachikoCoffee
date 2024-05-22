@@ -14,11 +14,13 @@ import androidx.annotation.Nullable;
 import com.bumptech.glide.Glide;
 import com.example.hachikocoffee.Activity.MainActivity;
 import com.example.hachikocoffee.Domain.DiscountDomain;
-import com.example.hachikocoffee.Domain.ShopDomain;
+import com.example.hachikocoffee.Fragment.DiscountFragment;
+import com.example.hachikocoffee.Listener.OnVoucherClick;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class DiscountDetail extends BottomSheetDialogFragment {
+    private static OnVoucherClick onVoucherClick;
     private static final String KEY_DISCOUNT2DETAIL = "discount2detail";
     private DiscountDomain discount;
 
@@ -92,9 +94,14 @@ public class DiscountDetail extends BottomSheetDialogFragment {
                 if (requireActivity() instanceof MainActivity) {
                     ((MainActivity) requireActivity()).navigateToOrderFragment();
                 } else if (requireActivity() instanceof YourVoucher) {
-                    ((YourVoucher) requireActivity()).navigateToOrderFragment();
+                    ((YourVoucher) requireActivity()).finish();
+                    onVoucherClick.onVoucherClick();
                 }
             }
         });
+    }
+
+    public static void setInterfaceInstance(DiscountFragment context){
+        onVoucherClick = (OnVoucherClick) context;
     }
 }

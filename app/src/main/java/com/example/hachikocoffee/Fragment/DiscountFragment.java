@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,10 +16,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.example.hachikocoffee.Activity.MainActivity;
 import com.example.hachikocoffee.Adapter.DiscountAdapter;
 import com.example.hachikocoffee.DiscountDetail;
 import com.example.hachikocoffee.Domain.DiscountDomain;
+import com.example.hachikocoffee.Listener.OnVoucherClick;
 import com.example.hachikocoffee.R;
 import com.example.hachikocoffee.YourVoucher;
 import com.google.firebase.database.DataSnapshot;
@@ -27,13 +32,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+
+import static com.example.hachikocoffee.DiscountDetail.setInterfaceInstance;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link DiscountFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DiscountFragment extends Fragment {
+public class DiscountFragment extends Fragment implements OnVoucherClick {
     private RecyclerView rcv_listVoucher1;
     private RecyclerView rcv_listVoucher2;
 
@@ -84,15 +92,14 @@ public class DiscountFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_discount, container, false);
         CardView btnToVouchers3 = (CardView) view.findViewById(R.id.btn_to_voucher3);
         Button btnToVouchers4 = view.findViewById(R.id.btn_seeall_voucher1);
         Button btnToVouchers5 = view.findViewById(R.id.btn_seeall_voucher2);
-
         btnToVouchers3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setInterfaceInstance(DiscountFragment.this);
                 Intent intent = new Intent(getActivity(), YourVoucher.class);
                 startActivity(intent);
             }
@@ -101,6 +108,7 @@ public class DiscountFragment extends Fragment {
         btnToVouchers4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setInterfaceInstance(DiscountFragment.this);
                 Intent intent = new Intent(getActivity(), YourVoucher.class);
                 startActivity(intent);
             }
@@ -109,6 +117,7 @@ public class DiscountFragment extends Fragment {
         btnToVouchers5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setInterfaceInstance(DiscountFragment.this);
                 Intent intent = new Intent(getActivity(), YourVoucher.class);
                 startActivity(intent);
             }
@@ -175,5 +184,12 @@ public class DiscountFragment extends Fragment {
     private void onClickToDiscountDetailFunc(DiscountDomain discount) {
         DiscountDetail discountDetail = DiscountDetail.newInstance(discount);
         discountDetail.show(getParentFragmentManager(), discountDetail.getTag());
+    }
+
+    @Override
+    public void onVoucherClick() {
+        FragmentActivity fragmentActivity = getActivity();
+        fragmentActivity.onStateNotSaved();
+        ((MainActivity) requireActivity()).navigateToOrderFragment();
     }
 }
