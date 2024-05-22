@@ -27,6 +27,7 @@ import com.example.hachikocoffee.Domain.CategoryDomain;
 import com.example.hachikocoffee.Domain.ItemsDomain;
 import com.example.hachikocoffee.Domain.UserDomain;
 import com.example.hachikocoffee.EdgeItemDecoration;
+import com.example.hachikocoffee.Management.ManagementUser;
 import com.example.hachikocoffee.Photo;
 import com.example.hachikocoffee.Adapter.PhotoAdapter;
 import com.example.hachikocoffee.R;
@@ -124,8 +125,8 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         welcomeText = view.findViewById(R.id.welcomName);
-        SharedPreferences perf = requireActivity().getSharedPreferences("User", Context.MODE_PRIVATE);
-        UserID = perf.getInt("UserID", 1);
+
+        UserID = ManagementUser.getInstance().getUser().getUserID();
 
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("USER");
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.hachikocoffee.BottomSheetDialog.DetailCart;
 import com.example.hachikocoffee.Domain.CartItem;
 import com.example.hachikocoffee.Management.ManagementCart;
+import com.example.hachikocoffee.Management.ManagementUser;
 import com.example.hachikocoffee.databinding.ViewholderItemCartBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -99,12 +100,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
         if (cartItem != null){
             FirebaseDatabase databaseReference = FirebaseDatabase.getInstance();
             DatabaseReference ref = databaseReference.getReference("CARTS");
-            DatabaseReference userRef = ref.child("1");
+            DatabaseReference userRef = ref.child(String.valueOf(ManagementUser.getInstance().getUserId()));
             userRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for (DataSnapshot cartItemSnapshot : snapshot.getChildren()) {
-                        if (!"itemCount".equals(cartItemSnapshot.getKey()) && !"noId".equals(cartItemSnapshot.getKey())) {
+                        if (!"itemCount".equals(cartItemSnapshot.getKey()) && !"noId".equals(cartItemSnapshot.getKey())
+                                && !"recipentName".equals(cartItemSnapshot.getKey()) && !"recipentPhone".equals(cartItemSnapshot.getKey())
+                                && !"orderTime".equals(cartItemSnapshot.getKey())) {
                             CartItem item = cartItemSnapshot.getValue(CartItem.class);
                             assert item != null;
                             if (item.getCartItemId().equals(cartItem.getCartItemId())){

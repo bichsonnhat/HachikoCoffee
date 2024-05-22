@@ -17,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.hachikocoffee.Domain.ShopDomain;
 import com.example.hachikocoffee.Domain.UserDomain;
 import com.example.hachikocoffee.InfoAccountLoginActivity;
+import com.example.hachikocoffee.Management.ManagementCart;
+import com.example.hachikocoffee.Management.ManagementUser;
 import com.example.hachikocoffee.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -106,6 +108,8 @@ public class LoginOTPActivity extends AppCompatActivity {
                                                         }
                                                     }
                                                     if (isExist) {
+                                                        ManagementUser.getInstance().loadFromFirebase(Integer.valueOf(getIntent().getStringExtra("mobile")));
+                                                        ManagementCart.getInstance().loadCartFromFirebase(String.valueOf(ManagementUser.getInstance().getUser().getUserID()));
                                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                                         intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                                         startActivity(intent);

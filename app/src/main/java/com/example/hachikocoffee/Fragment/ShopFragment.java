@@ -41,6 +41,9 @@ import com.example.hachikocoffee.R;
 import com.example.hachikocoffee.Listener.ShopClickListener;
 import com.example.hachikocoffee.BottomSheetDialog.ShopDetail;
 import com.example.hachikocoffee.YourVoucher;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -52,6 +55,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
 import static com.example.hachikocoffee.BottomSheetDialog.ShopDetail.setInterfaceInstance;
 
 /**
@@ -59,11 +63,13 @@ import static com.example.hachikocoffee.BottomSheetDialog.ShopDetail.setInterfac
  * Use the {@link ShopFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ShopFragment extends Fragment implements LocationListener, OnStoreClick {
+public class ShopFragment extends Fragment implements OnStoreClick, LocationListener {
 
     private RecyclerView rcv_listShop;
 
     LocationManager locationManager;
+    private static final int REQUEST_LOCATION_PERMISSION = 1;
+    private FusedLocationProviderClient fusedLocationProviderClient;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -118,21 +124,82 @@ public class ShopFragment extends Fragment implements LocationListener, OnStoreC
         initVoucherCount();
         initNotificationCount();
         TextView location = view.findViewById(R.id.map);
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext());
         location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-                    ActivityCompat.requestPermissions((Activity) getContext(), new String[]{
-                            Manifest.permission.ACCESS_FINE_LOCATION
-                    }, 100);
-                    getLocation();
+                if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(requireActivity(),
+                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                            REQUEST_LOCATION_PERMISSION);
+                } else {
+                    getLastLocation();
                 }
+
+                ArrayList<ShopDomain> filteredList = new ArrayList<>();
+
+                DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference("LOCATION");
+                locationRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()){
+                            for (DataSnapshot issue : snapshot.getChildren()) {
+                                LocationDomain location = issue.getValue(LocationDomain.class);
+                                if (location.getUserID() == UserID) {
+                                    locationX = location.getLocationX();
+                                    locationY = location.getLocationY();
+                                    break;
+                                }
+                            }
+                            DatabaseReference shopRef = FirebaseDatabase.getInstance().getReference("STORE");
+                            shopRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if (snapshot.exists()){
+                                        for (DataSnapshot issue : snapshot.getChildren()) {
+                                            ShopDomain shop = issue.getValue(ShopDomain.class);
+                                            String coorString = shop.getCoordinate();
+                                            String valuesString = coorString.substring(6, coorString.length() - 1);
+                                            String[] values = valuesString.split("\\s+");
+                                            Double coorX = Double.parseDouble(values[0]);
+                                            Double coorY = Double.parseDouble(values[1]);
+
+                                            Double deltaLat = locationX - coorX;
+                                            Double deltaLon = locationY - coorY;
+
+                                            Double deltaLatKm = deltaLat * 111.0;
+
+                                            Double latAvg = (locationX + coorX) / 2.0;
+                                            Double cosLatAvg = Math.cos(Math.toRadians(latAvg));
+                                            Double deltaLonKm = deltaLon * 111.0 * cosLatAvg;
+
+                                            Double distance = Math.sqrt(Math.pow(deltaLatKm, 2) + Math.pow(deltaLonKm, 2));
+
+                                            String result = String.format("%.1f", distance);
+                                            shop.setCoordinate("Cách đây " + result + " km");
+                                            filteredList.add(shop);
+                                        }
+                                        displayShopData(filteredList);
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
-
-        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-            getLocation();
-        }
 
         EditText editText = view.findViewById(R.id.search);
         editText.setOnClickListener(new View.OnClickListener() {
@@ -175,6 +242,61 @@ public class ShopFragment extends Fragment implements LocationListener, OnStoreC
         return view;
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_LOCATION_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getLastLocation();
+            }
+        }
+    }
+
+    private void getLastLocation() {
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        fusedLocationProviderClient.getLastLocation()
+                .addOnSuccessListener(requireActivity(), new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if (location != null) {
+                            double latitude = location.getLatitude();
+                            double longitude = location.getLongitude();
+                            Log.d("LocationXY", "Latitude: " + latitude + ", Longitude: " + longitude);
+
+                            DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference().child("LOCATION");
+                            locationRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                                        LocationDomain locationDomain = childSnapshot.getValue(LocationDomain.class);
+                                        if (locationDomain.getUserID() == UserID) {
+                                            Map<String, Object> updates = new HashMap<>();
+                                            updates.put("LocationX", latitude);
+                                            updates.put("LocationY", longitude);
+                                            childSnapshot.getRef().updateChildren(updates);
+                                            break;
+                                        }
+                                    }
+                                }
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    Log.w("TAG", "Error fetching locations: " + error.getMessage());
+                                }
+                            });
+                        }
+                    }
+                });
+    }
     private void initNotificationCount() {
         DatabaseReference notificationRef = FirebaseDatabase.getInstance().getReference("NOTIFICATION");
         notificationRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -217,15 +339,33 @@ public class ShopFragment extends Fragment implements LocationListener, OnStoreC
         });
     }
 
-    @SuppressLint("MissingPermission")
-    private void getLocation() {
-        try {
-            locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, ShopFragment.this);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-    }
+//    @SuppressLint("MissingPermission")
+//    private void getLocation() {
+//        try {
+//            locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+//
+//            LocationListener locationListener = new LocationListener() {
+//                @Override
+//                public void onLocationChanged(@NonNull Location location) {
+//                    // Lấy tọa độ vị trí tại đây
+//                    double latitude = location.getLatitude();
+//                    double longitude = location.getLongitude();
+//
+//                    // Ghi log tọa độ vị trí
+//                    Log.d("LocationXY", "Latitude: " + latitude + ", Longitude: " + longitude);
+//                }
+//
+//                // Implement các phương thức khác của LocationListener nếu cần
+//            };
+//
+//            // Yêu cầu cập nhật vị trí với các thông số tương tự như trong đoạn mã gốc
+//            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, locationListener);
+//            Log.d("error", "true");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            Log.e("error", e.toString());
+//        }
+//    }
 
     public void initShop(View view) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
@@ -262,7 +402,18 @@ public class ShopFragment extends Fragment implements LocationListener, OnStoreC
                                     String[] values = valuesString.split("\\s+");
                                     Double coorX = Double.parseDouble(values[0]);
                                     Double coorY = Double.parseDouble(values[1]);
-                                    Double distance = Math.sqrt((locationX - coorX) * (locationY - coorX) + (locationY - coorY) * (locationY - coorY));
+
+                                    Double deltaLat = locationX - coorX;
+                                    Double deltaLon = locationY - coorY;
+
+                                    Double deltaLatKm = deltaLat * 111.0;
+
+                                    Double latAvg = (locationX + coorX) / 2.0;
+                                    Double cosLatAvg = Math.cos(Math.toRadians(latAvg));
+                                    Double deltaLonKm = deltaLon * 111.0 * cosLatAvg;
+
+                                    Double distance = Math.sqrt(Math.pow(deltaLatKm, 2) + Math.pow(deltaLonKm, 2));
+
                                     String result = String.format("%.1f", distance);
                                     shop.setCoordinate("Cách đây " + result + " km");
                                     filteredList.add(shop);

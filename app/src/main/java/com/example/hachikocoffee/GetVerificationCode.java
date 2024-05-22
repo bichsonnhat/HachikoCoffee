@@ -11,10 +11,13 @@ public class GetVerificationCode extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        SharedPreferences perf = getSharedPreferences("User", Context.MODE_PRIVATE);
-        int UserID = perf.getInt("UserID", 1);
-        ManagementCart.getInstance().loadCartFromFirebase(String.valueOf(UserID));
-        ManagementUser.getInstance().loadFromFirebase(UserID);
+//        SharedPreferences perf = getSharedPreferences("User", Context.MODE_PRIVATE);
+//        int UserID = perf.getInt("UserID", -1);
+        int UserID = 1;
+        if (UserID != -1) {
+            ManagementCart.getInstance().loadCartFromFirebase(String.valueOf(UserID));
+            ManagementUser.getInstance().loadFromFirebase(UserID);
+        }
     }
     public static String getVerificationCode() {
         return verificationCode;
