@@ -1,7 +1,7 @@
 package com.example.hachikocoffee.Management;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -14,6 +14,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class ManagementCart {
@@ -24,6 +27,7 @@ public class ManagementCart {
     private int noId;
     private String recipentName;
     private String recipentPhone;
+    private String orderTime;
     private DatabaseReference cartRef;
     private OnCartLoadedListener onCartLoadedListener;
     public void setOnCartLoadedListener(OnCartLoadedListener listener) {
@@ -31,6 +35,13 @@ public class ManagementCart {
     }
 
 
+    public String getOrderTime() {
+        return orderTime;
+    }
+
+    public void setOrderTime(String orderTime) {
+        this.orderTime = orderTime;
+    }
 
     public long getItemsCount() {
         return itemsCount;
@@ -217,6 +228,25 @@ public class ManagementCart {
     public void loadNameAndPhone(){
         recipentName = ManagementUser.getInstance().getUser().getName();
         recipentPhone = ManagementUser.getInstance().getUser().getPhoneNumber();
+        updateNameAndPhoneToFireBase("1");
+    }
+
+    public void updateTimeToFireBase(String userId){
+        DatabaseReference userCartRef = cartRef.child(userId);
+        userCartRef.child("orderTime").setValue(orderTime);
+    }
+    public void loadTime(){
+        LocalTime currentTime = LocalTime.now().withSecond(0).withNano(0);
+        int currentHour = currentTime.getHour();
+        int currentMinute = currentTime.getMinute();
+        @SuppressLint("DefaultLocale") String formattedTime = String.format("%02d:%02d", currentHour, currentMinute);
+
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String formattedDate = currentDate.format(formatter);
+        orderTime = formattedDate + " " + formattedTime;
+
+        updateTimeToFireBase("1");
     }
 
     public void loadCartFromFirebase(String userId) {
@@ -225,17 +255,29 @@ public class ManagementCart {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 cartItems.clear();
-                if (snapshot.hasChild("itemCount")) {
-                    itemsCount = snapshot.child("itemCount").getValue(Long.class);
-                }
-                if (snapshot.hasChild("noId")){
-                    noId = snapshot.child("noId").getValue(Integer.class);
-                }
-                for (DataSnapshot cartItemSnapshot : snapshot.getChildren()) {
-                    if (!"itemCount".equals(cartItemSnapshot.getKey()) && !"noId".equals(cartItemSnapshot.getKey())) {
-                        CartItem item = cartItemSnapshot.getValue(CartItem.class);
-                        if (item != null) {
-                            cartItems.add(item);
+                if (snapshot.exists()){
+                    if (snapshot.hasChild("itemCount")) {
+                        itemsCount = snapshot.child("itemCount").getValue(Long.class);
+                    }
+                    if (snapshot.hasChild("noId")){
+                        noId = snapshot.child("noId").getValue(Integer.class);
+                    }
+                    if (snapshot.hasChild("recipentName") && snapshot.hasChild("recipentPhone")){
+                        recipentName = snapshot.child("recipentName").getValue(String.class);
+                        recipentPhone = snapshot.child("recipentPhone").getValue(String.class);
+                    }
+                    else{
+                        loadNameAndPhone();
+                    }
+
+                    for (DataSnapshot cartItemSnapshot : snapshot.getChildren()) {
+                        if (!"itemCount".equals(cartItemSnapshot.getKey()) && !"noId".equals(cartItemSnapshot.getKey())
+                            && !"recipentName".equals(cartItemSnapshot.getKey()) && !"recipentPhone".equals(cartItemSnapshot.getKey())
+                            && !"orderTime".equals(cartItemSnapshot.getKey())) {
+                            CartItem item = cartItemSnapshot.getValue(CartItem.class);
+                            if (item != null) {
+                                cartItems.add(item);
+                            }
                         }
                     }
                 }
