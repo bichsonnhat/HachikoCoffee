@@ -1,11 +1,14 @@
 package com.example.hachikocoffee.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -14,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hachikocoffee.Adapter.OrderAdapter;
 import com.example.hachikocoffee.Domain.OrderDomain;
+import com.example.hachikocoffee.Listener.FinishedClickListener;
 import com.example.hachikocoffee.OrderDetail;
 import com.example.hachikocoffee.R;
 import com.google.firebase.database.DataSnapshot;
@@ -24,13 +28,14 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import static com.example.hachikocoffee.Adapter.OrderAdapter.setInterfaceInstanceFinished;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link OrderHistoryFinishedFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class OrderHistoryFinishedFragment extends Fragment {
+public class OrderHistoryFinishedFragment extends Fragment implements FinishedClickListener {
     ArrayList<OrderDomain> finishedOrderList = new ArrayList<>();
     private RecyclerView rcv_finishedOrderList;
 
@@ -42,6 +47,9 @@ public class OrderHistoryFinishedFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    View glocalView;
+
+    private int UserID;
 
     public OrderHistoryFinishedFragment() {
         // Required empty public constructor
@@ -77,6 +85,9 @@ public class OrderHistoryFinishedFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        setInterfaceInstanceFinished(this);
+        SharedPreferences perf = requireActivity().getSharedPreferences("User", Context.MODE_PRIVATE);
+        UserID = perf.getInt("UserID", 1);
         View view = inflater.inflate(R.layout.fragment_order_history_finished, container, false);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
@@ -86,6 +97,7 @@ public class OrderHistoryFinishedFragment extends Fragment {
 
         initFinishedOrderList(view);
 
+        glocalView = view;
         return view;
     }
 
@@ -104,7 +116,7 @@ public class OrderHistoryFinishedFragment extends Fragment {
                     for (DataSnapshot issue : snapshot.getChildren()) {
                         OrderDomain order = issue.getValue(OrderDomain.class);
 
-                        if (order != null && "Finished".equals(order.getOrderStatus())) {
+                        if (order != null && "Finished".equals(order.getOrderStatus()) && order.getUserID() == UserID) {
                             finishedOrderList.add(order);
                         }
                     }
@@ -134,5 +146,12 @@ public class OrderHistoryFinishedFragment extends Fragment {
     public void addOrder(OrderDomain order) {
         finishedOrderList.add(order);
         displayFinishedOrderList(finishedOrderList);
+    }
+
+    @Override
+    public void onFinishedClick() {
+        rcv_finishedOrderList.clearFocus();
+        initFinishedOrderList(glocalView);
+//        Toast.makeText(getContext(), "Finished", Toast.LENGTH_SHORT).show();
     }
 }
