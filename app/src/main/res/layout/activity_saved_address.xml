@@ -120,13 +120,6 @@
             android:layout_marginLeft="70dp"
             android:textStyle="bold"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#CCCCCC"
-            android:layout_marginTop="243dp"
-            android:layout_marginLeft="70dp"/>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_saved_addresses"
             android:layout_width="match_parent"
