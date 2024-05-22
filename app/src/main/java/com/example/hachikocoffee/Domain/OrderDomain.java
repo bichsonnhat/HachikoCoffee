@@ -3,7 +3,7 @@ package com.example.hachikocoffee.Domain;
 import java.io.Serializable;
 
 public class OrderDomain implements Serializable {
-    private int OrderID;
+    private String OrderID;
     private int UserID;
     private String Delivered;
     private String OrderAddress;
@@ -19,7 +19,7 @@ public class OrderDomain implements Serializable {
     public OrderDomain() {
     }
 
-    public OrderDomain(int orderID, int userID, String delivered, String orderAddress, String orderTime, String orderMethod, int cost, int voucherID, String recipentName, String recipentPhone, int storeID, String orderStatus) {
+    public OrderDomain(String orderID, int userID, String delivered, String orderAddress, String orderTime, String orderMethod, int cost, int voucherID, String recipentName, String recipentPhone, int storeID, String orderStatus) {
         OrderID = orderID;
         UserID = userID;
         Delivered = delivered;
@@ -34,11 +34,11 @@ public class OrderDomain implements Serializable {
         OrderStatus = orderStatus;
     }
 
-    public int getOrderID() {
+    public String getOrderID() {
         return OrderID;
     }
 
-    public void setOrderID(int orderID) {
+    public void setOrderID(String orderID) {
         OrderID = orderID;
     }
 
