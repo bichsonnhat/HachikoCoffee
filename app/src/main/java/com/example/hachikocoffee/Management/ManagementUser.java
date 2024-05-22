@@ -36,7 +36,6 @@ public class ManagementUser {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                         user = userSnapshot.getValue(UserDomain.class);
-                        ManagementCart.getInstance().loadNameAndPhone();
                         Log.d("ManagementUser", "user " + user.getName());
                         break;
                     }
@@ -46,7 +45,7 @@ public class ManagementUser {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Xử lý lỗi
             }
         });

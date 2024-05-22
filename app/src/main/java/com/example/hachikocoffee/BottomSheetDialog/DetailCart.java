@@ -2,18 +2,18 @@ package com.example.hachikocoffee.BottomSheetDialog;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,7 +24,6 @@ import com.example.hachikocoffee.Adapter.ToppingAdapter;
 import com.example.hachikocoffee.Domain.CartItem;
 import com.example.hachikocoffee.Domain.ItemsDomain;
 import com.example.hachikocoffee.Listener.ItemClickListener;
-import com.example.hachikocoffee.Listener.OnCartChangedListener;
 import com.example.hachikocoffee.Listener.ToppingListener;
 import com.example.hachikocoffee.Management.ManagementCart;
 import com.example.hachikocoffee.R;
@@ -50,9 +49,11 @@ public class DetailCart extends BottomSheetDialogFragment implements ToppingList
     private boolean check = false;
     private TextView numberOfProduct;
     private String sizeProduct = "Nhỏ";
+    private String textNote = "";
     private int totalCost = 0;
     private final ArrayList<String> toppingList = new ArrayList<>();
     DecimalFormatSymbols symbols;
+    private EditText notes;
     public DetailCart(ItemsDomain product){
         this.product = product;
         this.cartItem = null;
@@ -99,6 +100,11 @@ public class DetailCart extends BottomSheetDialogFragment implements ToppingList
         TextView productName = view.findViewById(R.id.productName);
         numberOfProduct = view.findViewById(R.id.numberOfProduct);
         numberOfProduct.setText(String.valueOf(countProduct));
+        notes = view.findViewById(R.id.notes);
+
+        if (!cartItem.getNote().trim().isEmpty()){
+            notes.setText(cartItem.getNote());
+        }
 
         switch (sizeProduct) {
             case "Lớn":
@@ -202,20 +208,20 @@ public class DetailCart extends BottomSheetDialogFragment implements ToppingList
             if (this.product != null)
             {
                 if (toppingList.size() != 0){
-                    cartItem = new CartItem(product.getProductID(), product.getTitle(), countProduct, sizeProduct, toppingList, totalCost * countProduct + toppingList.size() * 10000 * countProduct, productCost);
+                    cartItem = new CartItem(product.getProductID(), product.getTitle(), countProduct, sizeProduct, toppingList, totalCost * countProduct + toppingList.size() * 10000 * countProduct, productCost, textNote);
                 }
                 else {
-                    cartItem = new CartItem(product.getProductID(), product.getTitle(), countProduct, sizeProduct, null, totalCost * countProduct + toppingList.size() * 10000 * countProduct, productCost);
+                    cartItem = new CartItem(product.getProductID(), product.getTitle(), countProduct, sizeProduct, null, totalCost * countProduct + toppingList.size() * 10000 * countProduct, productCost, textNote);
                 }
                 ManagementCart.getInstance().addToCart(cartItem);
             }
             else
             {
                 if (toppingList.size() != 0){
-                    cartItem = new CartItem(this.cartItem.getProductId(), this.cartItem.getProductName(), countProduct, sizeProduct, toppingList, totalCost * countProduct + toppingList.size() * 10000 * countProduct, productCost);
+                    cartItem = new CartItem(this.cartItem.getProductId(), this.cartItem.getProductName(), countProduct, sizeProduct, toppingList, totalCost * countProduct + toppingList.size() * 10000 * countProduct, productCost, textNote);
                 }
                 else {
-                    cartItem = new CartItem(this.cartItem.getProductId(), this.cartItem.getProductName(), countProduct, sizeProduct, null, totalCost * countProduct + toppingList.size() * 10000 * countProduct, productCost);
+                    cartItem = new CartItem(this.cartItem.getProductId(), this.cartItem.getProductName(), countProduct, sizeProduct, null, totalCost * countProduct + toppingList.size() * 10000 * countProduct, productCost, textNote);
                 }
                 ManagementCart.getInstance().updateCart(this.position, cartItem);
                 check = true;
@@ -239,6 +245,43 @@ public class DetailCart extends BottomSheetDialogFragment implements ToppingList
             numberOfProduct.setText(String.valueOf(countProduct));
             updateTotalCost();
         });
+        notes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showEditDialog();
+            }
+        });
+    }
+
+    private void showEditDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_edit_note, null);
+        builder.setView(dialogView);
+
+        final EditText editTextDialog = dialogView.findViewById(R.id.editTextDialog);
+        editTextDialog.setText(notes.getText());
+        TextView btnConfirm = dialogView.findViewById(R.id.btnConfirm);
+
+        final AlertDialog dialog = builder.create();
+
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String inputText = editTextDialog.getText().toString();
+                if (inputText.trim().isEmpty()){
+                    dialog.dismiss();
+                }
+                else{
+                    notes.setText(inputText);
+                    textNote = inputText;
+                    dialog.dismiss();
+                }
+
+            }
+        });
+
+        dialog.show();
     }
 
     @SuppressLint("SetTextI18n")

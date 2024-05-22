@@ -280,6 +280,7 @@
                 android:hint="Thêm ghi chú"
                 android:paddingStart="16dp"
                 android:id="@+id/notes"
+                android:focusableInTouchMode="false"
                 android:textSize="14sp"
                 android:inputType="text"
                 android:layout_marginStart="16dp"

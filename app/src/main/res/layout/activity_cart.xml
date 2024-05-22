@@ -155,7 +155,7 @@
                             android:layout_marginTop="20dp"
                             android:textSize="13sp"
                             android:textColor="#6b6b6b"
-                            android:text="Sớm nhất có thể"/>
+                            android:text="Càng sớm càng tốt"/>
                         <ImageView
                             android:layout_width="15dp"
                             android:layout_height="20dp"

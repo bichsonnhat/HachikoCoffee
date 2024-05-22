@@ -10,8 +10,9 @@ public class GetVerificationCode extends Application {
     public void onCreate() {
         super.onCreate();
 
-//        ManagementCart.getInstance().loadCartFromFirebase("1");
-//        ManagementUser.getInstance().loadFromFirebase(1);
+        ManagementCart.getInstance().loadCartFromFirebase("1");
+        ManagementUser.getInstance().loadFromFirebase(1);
+        ManagementCart.getInstance().loadTime();
     }
     public static String getVerificationCode() {
         return verificationCode;
