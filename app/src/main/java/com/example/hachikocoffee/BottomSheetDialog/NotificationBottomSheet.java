@@ -74,7 +74,7 @@ public class NotificationBottomSheet extends BottomSheetDialogFragment {
         acceptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) requireActivity()).navigateToOrderFragment();
+                dismiss();
             }
         });
 

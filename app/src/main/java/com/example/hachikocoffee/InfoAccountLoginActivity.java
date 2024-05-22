@@ -179,6 +179,7 @@ public class InfoAccountLoginActivity extends AppCompatActivity {
             btnRegisterAccount.setEnabled(true);
         } else {
             btnRegisterAccount.setBackground(ContextCompat.getDrawable(this, R.drawable.rounded_rectangle_darkgrey));
+            btnRegisterAccount.setEnabled(false);
         }
     }
 
