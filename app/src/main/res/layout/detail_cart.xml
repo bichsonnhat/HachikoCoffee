@@ -273,12 +273,13 @@
                     android:textColor="#807d7d" />
 
                 <EditText
+                    android:id="@+id/notes"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:hint="Thêm ghi chú"
                     android:paddingStart="16dp"
-                    android:id="@+id/notes"
                     android:textSize="14sp"
+                    android:focusableInTouchMode="false"
                     android:inputType="text"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
