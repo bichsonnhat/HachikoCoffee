@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.hachikocoffee.Adapter.AddressAdapter;
 import com.example.hachikocoffee.Domain.AddressDomain;
+import com.example.hachikocoffee.Listener.OnAddressChangedListener;
 import com.example.hachikocoffee.Login;
 import com.example.hachikocoffee.NotificationDetail;
 import com.example.hachikocoffee.R;
@@ -28,8 +30,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import static com.example.hachikocoffee.Activity.NewAddressActivity.setInterfaceInstance;
 
-public class SavedAddressActivity extends AppCompatActivity {
+public class SavedAddressActivity extends AppCompatActivity implements OnAddressChangedListener {
     private RecyclerView recyclerView;
     private int UserID = 1;
     @Override
@@ -67,6 +70,7 @@ public class SavedAddressActivity extends AppCompatActivity {
         btnNewAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                setInterfaceInstance(SavedAddressActivity.this);
                 Intent intent = new Intent(SavedAddressActivity.this, NewAddressActivity.class);
                 startActivity(intent);
             }
@@ -100,4 +104,12 @@ public class SavedAddressActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    @Override
+    public void onAddressChanged() {
+        recyclerView.clearFocus();
+        initAddress();
+    }
+
 }
