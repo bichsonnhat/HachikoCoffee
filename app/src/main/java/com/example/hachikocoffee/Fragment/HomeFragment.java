@@ -125,8 +125,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         welcomeText = view.findViewById(R.id.welcomName);
         SharedPreferences perf = requireActivity().getSharedPreferences("User", Context.MODE_PRIVATE);
-        UserID = perf.getInt("UserID", 0);
-//        Toast.makeText(getContext(), "" + UserID, Toast.LENGTH_SHORT).show();
+        UserID = perf.getInt("UserID", 1);
 
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("USER");
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -137,7 +136,6 @@ public class HomeFragment extends Fragment {
                         UserDomain user = issue.getValue(UserDomain.class);
                         if (user.getUserID() == UserID){
                             welcomeText.setText("" + user.getName() + " ơi, Hi-Tea đi!");
-
                             break;
                         }
                     }
