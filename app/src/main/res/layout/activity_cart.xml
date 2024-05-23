@@ -394,10 +394,23 @@
                             android:visibility="gone"
                             android:textSize="12sp"
                             android:layout_marginStart="16dp"/>
+                        <TextView
+                            android:id="@+id/discountMoney"
+                            android:textSize="15sp"
+                            android:visibility="gone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="16dp"
+                            android:text="0đ"
+                            android:textColor="#2c2c2c"/>
                         <ImageView
+                            android:id="@+id/ar_khuyenmai"
                             android:layout_width="15dp"
                             android:layout_height="20dp"
                             android:layout_marginEnd="14dp"
+                            android:visibility="visible"
                             android:layout_alignParentEnd="true"
                             android:background="@drawable/arrow_right" />
                     </RelativeLayout>
@@ -424,7 +437,7 @@
                             android:textSize="15sp" />
 
                         <TextView
-                            android:id="@+id/totalCost"
+                            android:id="@+id/totalCostAfterFee"
                             android:textSize="15sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

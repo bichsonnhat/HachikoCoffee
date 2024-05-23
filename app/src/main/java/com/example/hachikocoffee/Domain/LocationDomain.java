@@ -8,12 +8,22 @@ public class LocationDomain implements Serializable {
     private int UserID;
     private double LocationX;
     private double LocationY;
+    private String Address;
 
     public LocationDomain() {}
-    public LocationDomain(int userID, double locationX, double locationY) {
+    public LocationDomain(int userID, double locationX, double locationY, String address) {
         UserID = userID;
         LocationX = locationX;
         LocationY = locationY;
+        Address = address;
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String address) {
+        Address = address;
     }
 
     public int getUserID() {

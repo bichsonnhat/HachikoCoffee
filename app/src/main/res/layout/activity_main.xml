@@ -55,10 +55,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
+                    android:ellipsize="end"
                     android:maxLines="1"
                     android:padding="5dp"
-                    android:ellipsize="end"
-                    android:text="K12 Tân lập, Đông Hòa, Dĩ An, Bình Dương"
+                    android:text="Nhấn vào để định vị"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 

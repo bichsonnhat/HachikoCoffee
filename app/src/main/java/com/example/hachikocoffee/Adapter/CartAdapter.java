@@ -80,6 +80,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
         }
     }
 
+    public interface OnFragmentDismissListener {
+        void onDismissFragment();
+    }
+
+    private OnFragmentDismissListener listener;
+
+    public void setOnFragmentDismissListener(OnFragmentDismissListener listener) {
+        this.listener = listener;
+    }
+
     public CartAdapter(ArrayList<CartItem> cartItems, FragmentManager fragmentManager) {
         this.cartItems = cartItems;
         this.fragmentManager = fragmentManager;
@@ -173,6 +183,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
                 @Override
                 public void onClick(View v) {
                     if (position != RecyclerView.NO_POSITION) {
+                        if (ManagementCart.getInstance().getCartItems().size() == 1){
+                            if (listener != null) {
+                                ManagementCart.getInstance().clearCart();
+                                listener.onDismissFragment();
+                                return;
+                            }
+                        }
 
                         ManagementCart.getInstance().removeFromCart(position);
 

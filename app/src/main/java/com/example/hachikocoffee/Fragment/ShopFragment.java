@@ -33,9 +33,12 @@ import android.widget.TextView;
 import com.example.hachikocoffee.Activity.MainActivity;
 import com.example.hachikocoffee.Activity.SearchShopActivity;
 import com.example.hachikocoffee.Adapter.ShopAdapter;
+import com.example.hachikocoffee.Domain.CartItem;
+import com.example.hachikocoffee.Domain.DiscountDomain;
 import com.example.hachikocoffee.Domain.LocationDomain;
 import com.example.hachikocoffee.Domain.ShopDomain;
 import com.example.hachikocoffee.Listener.OnStoreClick;
+import com.example.hachikocoffee.Management.ManagementMinDistance;
 import com.example.hachikocoffee.Management.ManagementUser;
 import com.example.hachikocoffee.NotificationDetail;
 import com.example.hachikocoffee.R;
@@ -68,7 +71,6 @@ public class ShopFragment extends Fragment implements OnStoreClick, LocationList
 
     private RecyclerView rcv_listShop;
 
-    LocationManager locationManager;
     private static final int REQUEST_LOCATION_PERMISSION = 1;
     private FusedLocationProviderClient fusedLocationProviderClient;
 
@@ -204,7 +206,7 @@ public class ShopFragment extends Fragment implements OnStoreClick, LocationList
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        Log.d("ShopFragment", ""+UserID);
+
         fusedLocationProviderClient.getLastLocation()
                 .addOnSuccessListener(requireActivity(), new OnSuccessListener<Location>() {
                     @Override
@@ -213,48 +215,66 @@ public class ShopFragment extends Fragment implements OnStoreClick, LocationList
                             double latitude = location.getLatitude();
                             double longitude = location.getLongitude();
                             Log.d("LocationXY", "Latitude: " + latitude + ", Longitude: " + longitude);
+                            String myAddress = null;
+                            try {
+                                Geocoder geocoder = new Geocoder(requireContext(), Locale.getDefault());
+                                List<Address> address = geocoder.getFromLocation(latitude, longitude, 1);
+                                myAddress = address.get(0).getAddressLine(0);
+                                Log.d("Address", myAddress);
+                            } catch (Exception e){
+                                e.printStackTrace();
+                                Log.e("Loi", e.toString());
+                            }
+
+                            String finalMyAddress = myAddress;
 
                             DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference().child("LOCATION");
-                                locationRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        boolean locationExists = false;
-
-                                        for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
-                                            LocationDomain locationDomain = childSnapshot.getValue(LocationDomain.class);
-                                            if (locationDomain != null && locationDomain.getUserID() == UserID) {
-                                                locationExists = true;
-                                                Map<String, Object> updates = new HashMap<>();
-                                                updates.put("LocationX", latitude);
-                                                updates.put("LocationY", longitude);
-                                                childSnapshot.getRef().updateChildren(updates);
-                                                break;
-                                            }
-                                        }
-
-                                        if (!locationExists) {
-                                            String newLocationKey = locationRef.push().getKey();
-                                            if (newLocationKey != null) {
-                                                LocationDomain newLocation = new LocationDomain(UserID, latitude, longitude);
-                                                Map<String, Object> locationValues = newLocation.toMap();
-
-                                                Map<String, Object> childUpdates = new HashMap<>();
-                                                childUpdates.put(newLocationKey, locationValues);
-
-                                                locationRef.updateChildren(childUpdates);
-                                            }
-                                        }
-
-                                        View view = getView();
-                                        if (view != null) {
-                                            initShop(view);
-                                        }
-                                    }
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-                                        Log.w("TAG", "Error fetching locations: " + error.getMessage());
-                                    }
-                                });
+//                                locationRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//                                    @Override
+//                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                                        boolean locationExists = false;
+//
+//                                        for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+//                                            LocationDomain locationDomain = childSnapshot.getValue(LocationDomain.class);
+//                                            if (locationDomain != null && locationDomain.getUserID() == UserID) {
+//                                                locationExists = true;
+//                                                Map<String, Object> updates = new HashMap<>();
+//                                                updates.put("LocationX", latitude);
+//                                                updates.put("LocationY", longitude);
+//                                                childSnapshot.getRef().updateChildren(updates);
+//                                                break;
+//                                            }
+//                                        }
+//
+//                                        if (!locationExists) {
+//                                            String newLocationKey = locationRef.push().getKey();
+//                                            if (newLocationKey != null) {
+//                                                LocationDomain newLocation = new LocationDomain(UserID, latitude, longitude, finalMyAddress);
+//                                                Map<String, Object> locationValues = newLocation.toMap();
+//
+//                                                Map<String, Object> childUpdates = new HashMap<>();
+//                                                childUpdates.put(newLocationKey, locationValues);
+//
+//                                                locationRef.updateChildren(childUpdates);
+//                                            }
+//                                        }
+//
+//                                        View view = getView();
+//                                        if (view != null) {
+//                                            initShop(view);
+//                                        }
+//                                    }
+//                                    @Override
+//                                    public void onCancelled(@NonNull DatabaseError error) {
+//                                        Log.w("TAG", "Error fetching locations: " + error.getMessage());
+//                                    }
+//                                });
+                            LocationDomain locationDomain = new LocationDomain(UserID, latitude, longitude, finalMyAddress);
+                            locationRef.child(String.valueOf(UserID)).setValue(locationDomain);
+                            View view = getView();
+                            if (view != null){
+                                initShop(view);
+                            }
 
                         }
                     }
@@ -313,63 +333,123 @@ public class ShopFragment extends Fragment implements OnStoreClick, LocationList
         ArrayList<ShopDomain> filteredList = new ArrayList<>();
 
         DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference("LOCATION");
-        locationRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference locationUserRef = locationRef.child(String.valueOf(UserID));
+        locationUserRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
-                    for (DataSnapshot issue : snapshot.getChildren()) {
-                        LocationDomain location = issue.getValue(LocationDomain.class);
-                        if (location.getUserID() == UserID) {
-                            locationX = location.getLocationX();
-                            locationY = location.getLocationY();
-                            break;
-                        }
-                    }
-                    DatabaseReference shopRef = FirebaseDatabase.getInstance().getReference("STORE");
-                    shopRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (snapshot.exists()){
-                                for (DataSnapshot issue : snapshot.getChildren()) {
-                                    ShopDomain shop = issue.getValue(ShopDomain.class);
-                                    String coorString = shop.getCoordinate();
-                                    String valuesString = coorString.substring(6, coorString.length() - 1);
-                                    String[] values = valuesString.split("\\s+");
-                                    Double coorY = Double.parseDouble(values[0]);
-                                    Double coorX = Double.parseDouble(values[1]);
+                    if (snapshot.exists()){
+                        LocationDomain locationDomain = snapshot.getValue(LocationDomain.class);
+                        assert locationDomain != null;
+                        locationX = locationDomain.getLocationX();
+                        locationY = locationDomain.getLocationY();
+                        DatabaseReference shopRef = FirebaseDatabase.getInstance().getReference("STORE");
+                        shopRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists()){
+                                    for (DataSnapshot issue : snapshot.getChildren()) {
+                                        ShopDomain shop = issue.getValue(ShopDomain.class);
+                                        String coorString = shop.getCoordinate();
+                                        String valuesString = coorString.substring(6, coorString.length() - 1);
+                                        String[] values = valuesString.split("\\s+");
+                                        Double coorY = Double.parseDouble(values[0]);
+                                        Double coorX = Double.parseDouble(values[1]);
 
-                                    Double deltaLat = locationX - coorX;
-                                    Double deltaLon = locationY - coorY;
+                                        Double deltaLat = locationX - coorX;
+                                        Double deltaLon = locationY - coorY;
 
-                                    Double deltaLatKm = deltaLat * 111.0;
+                                        Double deltaLatKm = deltaLat * 111.0;
 
-                                    Double latAvg = (locationX + coorX) / 2.0;
-                                    Double cosLatAvg = Math.cos(Math.toRadians(latAvg));
-                                    Double deltaLonKm = deltaLon * 111.0 * cosLatAvg;
+                                        Double latAvg = (locationX + coorX) / 2.0;
+                                        Double cosLatAvg = Math.cos(Math.toRadians(latAvg));
+                                        Double deltaLonKm = deltaLon * 111.0 * cosLatAvg;
 
-                                    Double distance = Math.sqrt(Math.pow(deltaLatKm, 2) + Math.pow(deltaLonKm, 2));
+                                        Double distance = Math.sqrt(Math.pow(deltaLatKm, 2) + Math.pow(deltaLonKm, 2));
 
-                                    String result = String.format("%.1f", distance);
-                                    shop.setCoordinate("Cách đây " + result + " km");
-                                    filteredList.add(shop);
+                                        String result = String.format("%.1f", distance);
+                                        if (distance < ManagementMinDistance.getInstance().getMinDistance()){
+                                            ManagementMinDistance.getInstance().setMinDistance(distance);
+                                        }
+                                        shop.setCoordinate("Cách đây " + result + " km");
+                                        filteredList.add(shop);
+                                    }
+                                    displayShopData(filteredList);
                                 }
-                                displayShopData(filteredList);
                             }
-                        }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
 
-                        }
-                    });
+                            }
+                        });
+                    }
                 }
-            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
+//        locationRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if (snapshot.exists()){
+//                    for (DataSnapshot issue : snapshot.getChildren()) {
+//                        LocationDomain location = issue.getValue(LocationDomain.class);
+//                        if (location.getUserID() == UserID) {
+//                            locationX = location.getLocationX();
+//                            locationY = location.getLocationY();
+//                            break;
+//                        }
+//                    }
+//                    DatabaseReference shopRef = FirebaseDatabase.getInstance().getReference("STORE");
+//                    shopRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                            if (snapshot.exists()){
+//                                for (DataSnapshot issue : snapshot.getChildren()) {
+//                                    ShopDomain shop = issue.getValue(ShopDomain.class);
+//                                    String coorString = shop.getCoordinate();
+//                                    String valuesString = coorString.substring(6, coorString.length() - 1);
+//                                    String[] values = valuesString.split("\\s+");
+//                                    Double coorY = Double.parseDouble(values[0]);
+//                                    Double coorX = Double.parseDouble(values[1]);
+//
+//                                    Double deltaLat = locationX - coorX;
+//                                    Double deltaLon = locationY - coorY;
+//
+//                                    Double deltaLatKm = deltaLat * 111.0;
+//
+//                                    Double latAvg = (locationX + coorX) / 2.0;
+//                                    Double cosLatAvg = Math.cos(Math.toRadians(latAvg));
+//                                    Double deltaLonKm = deltaLon * 111.0 * cosLatAvg;
+//
+//                                    Double distance = Math.sqrt(Math.pow(deltaLatKm, 2) + Math.pow(deltaLonKm, 2));
+//
+//                                    String result = String.format("%.1f", distance);
+//                                    if (distance < ManagementMinDistance.getInstance().getMinDistance()){
+//                                        ManagementMinDistance.getInstance().setMinDistance(distance);
+//                                    }
+//                                    shop.setCoordinate("Cách đây " + result + " km");
+//                                    filteredList.add(shop);
+//                                }
+//                                displayShopData(filteredList);
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError error) {
+//
+//                        }
+//                    });
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
     }
 
     private void displayShopData(ArrayList<ShopDomain> shopList) {
