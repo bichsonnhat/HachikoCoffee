@@ -36,6 +36,7 @@ import com.example.hachikocoffee.Domain.AddressDomain;
 import com.example.hachikocoffee.Fragment.HomeAddressFragment;
 import com.example.hachikocoffee.Listener.OnAddressChangedListener;
 import com.example.hachikocoffee.Login;
+import com.example.hachikocoffee.Management.ManagementUser;
 import com.example.hachikocoffee.NotificationDetail;
 import com.example.hachikocoffee.R;
 import com.example.hachikocoffee.YourVoucher;
@@ -105,8 +106,7 @@ public class SavedAddressActivity extends AppCompatActivity implements OnAddress
 //        }
 
         recyclerView = findViewById(R.id.recycler_view_saved_addresses);
-        SharedPreferences perf = getSharedPreferences("User", Context.MODE_PRIVATE);
-        UserID = perf.getInt("UserID", 1);
+        UserID = ManagementUser.getInstance().getUserId();
         Button btnSavedAddressBack = findViewById(R.id.btnSavedAddressBack);
         btnSavedAddressBack.setOnClickListener(new View.OnClickListener() {
             @Override

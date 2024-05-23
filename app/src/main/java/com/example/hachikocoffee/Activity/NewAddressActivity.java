@@ -16,6 +16,7 @@ import android.widget.EditText;
 import com.example.hachikocoffee.Domain.AddressDomain;
 import com.example.hachikocoffee.Domain.UserDomain;
 import com.example.hachikocoffee.Listener.OnAddressChangedListener;
+import com.example.hachikocoffee.Management.ManagementUser;
 import com.example.hachikocoffee.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,8 +34,7 @@ public class NewAddressActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferences perf = getApplication().getSharedPreferences("User", Context.MODE_PRIVATE);
-        UserID = perf.getInt("UserID", 1);
+        UserID = ManagementUser.getInstance().getUserId();
         setContentView(R.layout.activity_new_address);
         etNewAddressName = findViewById(R.id.newAddressName);
         etNewAddress = findViewById(R.id.newAddress);

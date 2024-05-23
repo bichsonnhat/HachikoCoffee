@@ -107,7 +107,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
                     for (DataSnapshot cartItemSnapshot : snapshot.getChildren()) {
                         if (!"itemCount".equals(cartItemSnapshot.getKey()) && !"noId".equals(cartItemSnapshot.getKey())
                                 && !"recipentName".equals(cartItemSnapshot.getKey()) && !"recipentPhone".equals(cartItemSnapshot.getKey())
-                                && !"orderTime".equals(cartItemSnapshot.getKey())) {
+                                && !"orderTime".equals(cartItemSnapshot.getKey()) && !"voucher".equals(cartItemSnapshot.getKey())) {
                             CartItem item = cartItemSnapshot.getValue(CartItem.class);
                             assert item != null;
                             if (item.getCartItemId().equals(cartItem.getCartItemId())){
