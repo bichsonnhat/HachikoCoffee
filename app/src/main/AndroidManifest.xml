@@ -18,18 +18,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HachikoCoffee"
         tools:targetApi="31">
-<!--        <activity-->
-<!--            android:name=".Login"-->
-<!--            android:exported="true">-->
+        <activity
+            android:name=".Activity.EditAddressActivity"
+            android:exported="true" >
 <!--            <intent-filter>-->
-<!--                 <action android:name="android.intent.action.MAIN" />-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
-<!--        </activity>-->
+        </activity>
+        <!-- <activity -->
+        <!-- android:name=".Login" -->
+        <!-- android:exported="true"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
         <activity
             android:name=".Activity.CartActivity"
-            android:exported="false"
-            />
+            android:exported="false" />
         <activity
             android:name=".Activity.NewAddressActivity"
             android:exported="false" />
@@ -62,19 +70,19 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".InfoAccountLoginActivity"
             android:exported="true">
             <intent-filter>
+
                 <!-- <action android:name="android.intent.action.MAIN" /> -->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Activity.LoginOTPActivity"
             android:exported="true">
@@ -82,34 +90,33 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Login"
             android:exported="true">
             <intent-filter>
+
                 <!-- <action android:name="android.intent.action.MAIN" /> -->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Activity.MainActivity"
             android:exported="true">
             <intent-filter>
+
                 <!-- <action android:name="android.intent.action.MAIN" /> -->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".BottomSheetDialog.ProductDetail"
             android:exported="true">
             <intent-filter>
+
                 <!-- <action android:name="android.intent.action.MAIN" /> -->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".BottomSheetDialog.ShopDetail"
             android:exported="true">
@@ -117,7 +124,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".NotificationDetail"
             android:exported="true">
@@ -125,16 +131,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".OrderDetail"
             android:exported="true">
             <intent-filter>
-                <!--                <action android:name="android.intent.action.MAIN" />-->
+
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".OrderHistory"
             android:exported="true">
@@ -142,7 +147,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".YourVoucher"
             android:exported="true">
