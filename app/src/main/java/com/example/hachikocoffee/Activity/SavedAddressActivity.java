@@ -72,11 +72,11 @@ public class SavedAddressActivity extends AppCompatActivity implements OnAddress
                         // Tạo Fragment và setArguments(bundle)
                         HomeAddressFragment fragment = new HomeAddressFragment();
                         fragment.setArguments(bundle);
-
-                        // Thực hiện thay thế fragment trong container
+//                         Thực hiện thay thế fragment trong container
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.rl_home_address, fragment);
+//                        fragmentTransaction.replace(R.id.btnHomeAddresss, fragment);
+                        fragmentTransaction.add(R.id.activity_saved_address, fragment);
                         fragmentTransaction.commit();
                     }
                 }
@@ -88,20 +88,21 @@ public class SavedAddressActivity extends AppCompatActivity implements OnAddress
         setContentView(R.layout.activity_saved_address);
 
 //        RelativeLayout rlHomeAddress = findViewById(R.id.rl_home_address);
-        boolean replaceHomeAddress = getIntent().getBooleanExtra("show_home_address", false);
-        if (savedInstanceState == null) {
-            if (replaceHomeAddress) {
+//        boolean replaceHomeAddress = getIntent().getBooleanExtra("show_home_address", false);
+//        if (savedInstanceState == null) {
+//            if (replaceHomeAddress) {
                 // Ẩn RelativeLayout
 //                rlHomeAddress.setVisibility(View.GONE);
 
 //                Thêm HomeAddressFragment vào FragmentTransaction
-                Fragment HomeAddressFragment = new HomeAddressFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.rl_home_address, HomeAddressFragment).commit();
-                TextView vhAddressNameAddress = findViewById(R.id.vh_address_nameAddress);
-                TextView vhAddressDetailAddress = findViewById(R.id.vh_address_detailAddress);
-                TextView vhAddressUserNameAndTelephone = findViewById(R.id.vh_address_userNameAndTelephone);
-            }
-        }
+//                Fragment HomeAddressFragment = new HomeAddressFragment();
+//                getSupportFragmentManager().beginTransaction().replace(R.id.rl_home_address, HomeAddressFragment).commit();
+//                getSupportFragmentManager().beginTransaction().add(HomeAddressFragment, "home_address");
+//                TextView vhAddressNameAddress = findViewById(R.id.vh_address_nameAddress);
+//                TextView vhAddressDetailAddress = findViewById(R.id.vh_address_detailAddress);
+//                TextView vhAddressUserNameAndTelephone = findViewById(R.id.vh_address_userNameAndTelephone);
+//            }
+//        }
 
         recyclerView = findViewById(R.id.recycler_view_saved_addresses);
         SharedPreferences perf = getSharedPreferences("User", Context.MODE_PRIVATE);
