@@ -6,7 +6,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".Activity.CompanyAddressActivity">
+    tools:context=".Activity.companyAddressActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -73,6 +73,7 @@
                     android:ellipsize="end" />
 
                 <TextView
+                    android:id="@+id/tvCompanyAddressName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -94,7 +95,7 @@
                     android:textStyle="bold"/>
 
                 <EditText
-                    android:id="@+id/companyAddress"
+                    android:id="@+id/etCompanyAddress"
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
                     android:layout_centerHorizontal="true"
@@ -119,7 +120,7 @@
                     android:textStyle="bold"/>
 
                 <EditText
-                    android:id="@+id/companyFloors"
+                    android:id="@+id/etCompanyAddressBuilding"
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
                     android:layout_centerHorizontal="true"
@@ -144,7 +145,7 @@
                     android:textStyle="bold"/>
 
                 <EditText
-                    android:id="@+id/companyGate"
+                    android:id="@+id/etCompanyGate"
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
                     android:layout_centerHorizontal="true"
@@ -169,7 +170,7 @@
                     android:textStyle="bold"/>
 
                 <EditText
-                    android:id="@+id/companyNote"
+                    android:id="@+id/etCompanyNote"
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
                     android:layout_centerHorizontal="true"
@@ -202,7 +203,7 @@
                     android:textStyle="bold"/>
 
                 <EditText
-                    android:id="@+id/companyRecipentName"
+                    android:id="@+id/etCompanyAddressReceiverName"
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
                     android:layout_centerHorizontal="true"
@@ -227,7 +228,7 @@
                     android:textStyle="bold"/>
 
                 <EditText
-                    android:id="@+id/companyRecipentPhone"
+                    android:id="@+id/etCompanyAddressReceiverPhone"
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
                     android:layout_centerHorizontal="true"
@@ -246,7 +247,7 @@
             </RelativeLayout>
 
             <Button
-                android:id="@+id/companyFinishBtn"
+                android:id="@+id/btnCompanyAddressSave"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="609dp"
