@@ -1,5 +1,7 @@
 package com.example.hachikocoffee.Adapter;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,7 @@ import com.example.hachikocoffee.Fragment.OrderHistoryProcessingFragment;
 import com.example.hachikocoffee.Listener.CanceledClickListener;
 import com.example.hachikocoffee.Listener.FinishedClickListener;
 import com.example.hachikocoffee.Listener.OrderClickListener;
+import com.example.hachikocoffee.OrderDetail;
 import com.example.hachikocoffee.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,6 +29,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,21 +53,29 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         return new OrderViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
         OrderDomain order = mListOrder.get(position);
         if (order == null) {
             return;
         }
-
-        holder.orderHistory_cost.setText(order.getCost() + "đ");
-        holder.orderHistory_date.setText(order.getOrderTime().substring(0, 10));
-        holder.orderHistory_time.setText(order.getOrderTime().substring(11));
+        DecimalFormatSymbols symbols;
+        symbols = new DecimalFormatSymbols();
+        symbols.setGroupingSeparator('.');
+        String a = new DecimalFormat("#,###", symbols).format((long) order.getCost());
+        holder.orderHistory_id.setText(order.getOrderID());
+        holder.orderHistory_cost.setText(a + "đ");
+        holder.orderHistory_date.setText(order.getOrderCreatedTime().substring(0, 10));
+        holder.orderHistory_time.setText(order.getOrderCreatedTime().substring(11));
 
         holder.orderItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                orderClickListener.onClickOrderItem(order);
+                Intent intent = new Intent(v.getContext(), OrderDetail.class);
+                intent.putExtra("OrderID", order.getOrderID());
+                v.getContext().startActivity(intent);
+//                orderClickListener.onClickOrderItem(order);
             }
         });
 
@@ -188,6 +201,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         private final CardView orderHistory_accept;
         private final CardView orderHistory_cancel;
         private final TextView orderHistory_state;
+        private final TextView orderHistory_id;
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -199,6 +213,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             orderHistory_accept = itemView.findViewById(R.id.orderHis_accept);
             orderHistory_cancel = itemView.findViewById(R.id.orderHis_cancel);
             orderHistory_state = itemView.findViewById(R.id.orderHis_state);
+            orderHistory_id = itemView.findViewById(R.id.orderHis_id);
         }
     }
 

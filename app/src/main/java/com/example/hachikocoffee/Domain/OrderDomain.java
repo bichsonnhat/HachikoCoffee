@@ -16,10 +16,20 @@ public class OrderDomain implements Serializable {
     private int StoreID;
     private String OrderStatus;
 
+    private String OrderCreatedTime;
+
+    public String getOrderCreatedTime() {
+        return OrderCreatedTime;
+    }
+
+    public void setOrderCreatedTime(String orderCreatedTime) {
+        OrderCreatedTime = orderCreatedTime;
+    }
+
     public OrderDomain() {
     }
 
-    public OrderDomain(String orderID, int userID, String delivered, String orderAddress, String orderTime, String orderMethod, int cost, int voucherID, String recipentName, String recipentPhone, int storeID, String orderStatus) {
+    public OrderDomain(String orderID, int userID, String delivered, String orderAddress, String orderTime, String orderMethod, int cost, int voucherID, String recipentName, String recipentPhone, int storeID, String orderStatus, String orderCreatedTime) {
         OrderID = orderID;
         UserID = userID;
         Delivered = delivered;
@@ -32,6 +42,7 @@ public class OrderDomain implements Serializable {
         RecipentPhone = recipentPhone;
         StoreID = storeID;
         OrderStatus = orderStatus;
+        OrderCreatedTime = orderCreatedTime;
     }
 
     public String getOrderID() {

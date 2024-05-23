@@ -1,18 +1,32 @@
 package com.example.hachikocoffee.Adapter;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.hachikocoffee.Activity.ContactFeedbackActivity;
+import com.example.hachikocoffee.Activity.FavouriteActivity;
+import com.example.hachikocoffee.Activity.MainActivity;
+import com.example.hachikocoffee.Activity.UpdateInfoActivity;
 import com.example.hachikocoffee.Domain.ShortcutDomain;
+import com.example.hachikocoffee.Fragment.OrderFragment;
+import com.example.hachikocoffee.OrderHistory;
 import com.example.hachikocoffee.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
@@ -24,9 +38,12 @@ public class ShortcutAdapter extends RecyclerView.Adapter<ShortcutAdapter.MyView
         this.itemList = itemList;
     }
 
+    Context context;
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        context = parent.getContext();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_shortcut, parent, false);
         return new MyViewHolder(view);
     }
@@ -46,8 +63,29 @@ public class ShortcutAdapter extends RecyclerView.Adapter<ShortcutAdapter.MyView
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // ShortcutDomain item = itemList.get(position);
-                // Toast.makeText(holder.itemView.getContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
+                Intent intent;
+                switch (position) {
+                    case 0:
+                        BottomNavigationView bottomNavigationView = ((Activity)context).findViewById(R.id.bottomNavigationView);
+                        bottomNavigationView.setSelectedItemId(R.id.order);
+                        break;
+                    case 1:
+                        intent = new Intent(context, OrderHistory.class);
+                        ((Activity)context).startActivity(intent);
+                        break;
+                    case 2:
+                        intent = new Intent(context, FavouriteActivity.class);
+                        ((Activity)context).startActivity(intent);
+                        break;
+                    case 3:
+                        intent = new Intent(context, ContactFeedbackActivity.class);
+                        ((Activity)context).startActivity(intent);
+                        break;
+                    case 4:
+                        intent = new Intent(context, UpdateInfoActivity.class);
+                        ((Activity)context).startActivity(intent);
+                        break;
+                }
             }
         });
 

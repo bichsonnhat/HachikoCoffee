@@ -14,6 +14,7 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:src="@drawable/shipping"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,14 +23,15 @@
 
     <TextView
         android:id="@+id/shortcutName"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:lines="2"
+        android:layout_marginHorizontal="10dp"
         android:maxLines="2"
+        android:textAlignment="center"
         android:text="TextView"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/shortcutPic"
         app:layout_constraintStart_toStartOf="@+id/shortcutPic"
-        app:layout_constraintTop_toBottomOf="@+id/shortcutPic" />
+        app:layout_constraintTop_toBottomOf="@+id/shortcutPic"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
