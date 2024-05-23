@@ -15,10 +15,15 @@ public class GetVerificationCode extends Application {
 
         SharedPreferences perf = getSharedPreferences("User", Context.MODE_PRIVATE);
         int UserID = perf.getInt("UserID", -1);
+        Log.d("GetCode", "" + UserID);
 
         if (UserID != -1) {
             ManagementUser.getInstance().loadFromFirebase(UserID);
             ManagementCart.getInstance().loadCartFromFirebase(String.valueOf(UserID));
+        }
+        else{
+            ManagementUser.getInstance().loadFromFirebase(333217598);
+            ManagementCart.getInstance().loadCartFromFirebase(String.valueOf(333217598));
         }
     }
     public static String getVerificationCode() {

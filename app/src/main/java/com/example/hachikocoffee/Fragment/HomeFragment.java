@@ -126,8 +126,10 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         welcomeText = view.findViewById(R.id.welcomName);
 
+//        SharedPreferences perf = requireActivity().getSharedPreferences("User", Context.MODE_PRIVATE);
+//        UserID = perf.getInt("UserID", -1);
         UserID = ManagementUser.getInstance().getUserId();
-
+        Log.d("UserIDD", UserID+ "");
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("USER");
 
         userRef.child(String.valueOf(UserID))

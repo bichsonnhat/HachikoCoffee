@@ -46,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         LayoutInflater inflater = getLayoutInflater();
         setContentView(binding.getRoot());
+
+
+
         replaceFragment(new HomeFragment());
         setBackground();
         updateOrderButtonVisibility();
