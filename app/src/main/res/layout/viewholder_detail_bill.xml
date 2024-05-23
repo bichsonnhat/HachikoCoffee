@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -27,7 +28,6 @@
                 android:background="@drawable/white_background"
                 android:padding="5dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/takeaway"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -58,7 +58,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginStart="5dp"
-            android:text="L"
             android:textStyle="bold"
             android:textColor="#000000"
             app:layout_constraintStart_toEndOf="@+id/vh_detail_bill_sizeHeader"
@@ -80,7 +79,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginStart="5dp"
-            android:text="2"
             android:textStyle="bold"
             android:textColor="#000000"
             app:layout_constraintStart_toEndOf="@+id/vh_detail_bill_numberOfDrinkHeader"
@@ -102,7 +100,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="75,000đ"
             android:textColor="#000000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/vh_detail_bill_sizeHeader" />
@@ -113,7 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:lineSpacingExtra="10dp"
-            android:text="Topping 1 (10,000đ)\nTopping 2 (10,000đ)\nTopping 3 (10,000đ)"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/vh_detail_bill_constraintLayout_1" />
 
@@ -122,7 +119,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="x2"
             android:textColor="#757575"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/vh_detail_bill_ListTopping" />
@@ -143,7 +139,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="210,000đ"
             android:textColor="#000000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/vh_detail_bill_ListTopping" />
