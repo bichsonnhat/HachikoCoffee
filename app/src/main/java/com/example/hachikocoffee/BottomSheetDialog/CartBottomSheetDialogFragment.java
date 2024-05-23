@@ -1,7 +1,9 @@
 package com.example.hachikocoffee.BottomSheetDialog;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -26,8 +28,10 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hachikocoffee.Activity.YourVoucherPick;
 import com.example.hachikocoffee.Adapter.CartAdapter;
 import com.example.hachikocoffee.Domain.CartItem;
+import com.example.hachikocoffee.Domain.DiscountDomain;
 import com.example.hachikocoffee.Management.ManagementCart;
 import com.example.hachikocoffee.Listener.OnCartChangedListener;
 import com.example.hachikocoffee.Management.ManagementUser;
@@ -53,6 +57,7 @@ import java.util.Locale;
 
 public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment{
 
+    private static final int REQUEST_CODE_VOUCHER_PICK = 1;
     private static final String TODAY = "Hôm nay";
     private static final String TOMORROW = LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("dd/MM"));
     private static final String DAY_AFTER_TOMORROW = LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("dd/MM"));;
@@ -67,6 +72,9 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment{
     TextView recipentPhone;
     TextView orderDay;
     TextView orderTime;
+    TextView chonKhuyenMai;
+    TextView khuyenMai;
+    TextView ndKhuyenMai;
     RecyclerView recyclerViewCart;
     private CartAdapter cartAdapter;
     @Nullable
@@ -84,6 +92,7 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment{
         ConstraintLayout addBtn = view.findViewById(R.id.addBtn);
         RelativeLayout infoBtn = view.findViewById(R.id.infoBtn);
         RelativeLayout timeBtn = view.findViewById(R.id.timeBtn);
+        RelativeLayout voucherBtn = view.findViewById(R.id.voucherPick);
         TextView deleteCartBtn = view.findViewById(R.id.deleteCart);
         totalItemCost = view.findViewById(R.id.itemsCost);
         AppCompatButton confirmBtn = view.findViewById(R.id.confirmBtn);
@@ -94,6 +103,9 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment{
         recipentPhone = view.findViewById(R.id.phone);
         orderDay = view.findViewById(R.id.day);
         orderTime = view.findViewById(R.id.time);
+        chonKhuyenMai = view.findViewById(R.id.chonKhuyenMai);
+        khuyenMai = view.findViewById(R.id.khuyenMai);
+        ndKhuyenMai = view.findViewById(R.id.ndKhuyenMai);
 
         recyclerViewCart.setLayoutManager(new LinearLayoutManager(requireContext()));
 
@@ -138,6 +150,13 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment{
             @Override
             public void onClick(View v) {
                 showTimePickerDialog();
+            }
+        });
+        voucherBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), YourVoucherPick.class);
+                startActivityForResult(intent, REQUEST_CODE_VOUCHER_PICK);
             }
         });
 
@@ -424,6 +443,22 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment{
                 recyclerViewCart.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_VOUCHER_PICK && resultCode == Activity.RESULT_OK && data != null) {
+            DiscountDomain selectedDiscount = (DiscountDomain) data.getSerializableExtra("selectedDiscount");
+            Log.d("SelectedDisCount", "" + selectedDiscount.getTitle());
+            chonKhuyenMai.setVisibility(View.GONE);
+            khuyenMai.setVisibility(View.VISIBLE);
+            ndKhuyenMai.setVisibility(View.VISIBLE);
+
+            ndKhuyenMai.setText(selectedDiscount.getTitle());
+        }
     }
 
 }

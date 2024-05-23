@@ -27,6 +27,7 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.example.hachikocoffee.Activity.MainActivity;
+import com.example.hachikocoffee.Activity.SplashActivity;
 import com.example.hachikocoffee.Domain.LocationDomain;
 import com.example.hachikocoffee.Domain.UserDomain;
 import com.google.firebase.database.DataSnapshot;
@@ -221,7 +222,7 @@ public class InfoAccountLoginActivity extends AppCompatActivity {
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Intent intent = new Intent(InfoAccountLoginActivity.this, MainActivity.class);
+                Intent intent = new Intent(InfoAccountLoginActivity.this, SplashActivity.class);
                 startActivity(intent);
                 InfoAccountLoginActivity.this.finish();
             }

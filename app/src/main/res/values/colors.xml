@@ -9,4 +9,6 @@
     <color name="colorPrimary">#E47905</color>
     <color name="green">#4CAF50</color>
     <color name="my_divider_color">#CCC8C8</color>
+    <color name="selectedItemColor">#DDDDDD</color>
+    <color name="defaultItemColor">#FFFFFF</color>
 </resources>
