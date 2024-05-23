@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -111,7 +112,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                 });
 //                order.setOrderStatus("Finished");
 //                holder.orderHistory_state.setText("Đã hoàn tất");
-                holder.orderHistory_state.setTextColor(v.getResources().getColor(R.color.green));
+//                holder.orderHistory_state.setTextColor(v.getResources().getColor(R.color.green));
 //                holder.orderHistory_accept.setVisibility(View.INVISIBLE);
 //                holder.orderHistory_cancel.setVisibility(View.INVISIBLE);
                 mListOrder.remove(position);
@@ -139,6 +140,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                                     Map<String, Object> updates = new HashMap<>();
                                     updates.put("orderStatus", "Canceled");
                                     childSnapshot.getRef().updateChildren(updates);
+                                    if (canceledClickListener != null){
+                                        canceledClickListener.onCanceledClick();
+                                    }
                                     break;
                                 }
                             }
@@ -150,20 +154,19 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
                     }
                 });
-//                order.setOrderStatus("Canceled");
-//                holder.orderHistory_state.setText("Đã hủy");
-//                holder.orderHistory_state.setTextColor(v.getResources().getColor(R.color.red));
+//                order.setOrderStatus("Finished");
+//                holder.orderHistory_state.setText("Đã hoàn tất");
+//                holder.orderHistory_state.setTextColor(v.getResources().getColor(R.color.green));
 //                holder.orderHistory_accept.setVisibility(View.INVISIBLE);
 //                holder.orderHistory_cancel.setVisibility(View.INVISIBLE);
                 mListOrder.remove(position);
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position, mListOrder.size());
-                canceledClickListener.onCanceledClick();
                 //OrderHistoryProcessingFragment orderHistoryProcessingFragment = new OrderHistoryProcessingFragment();
                 //orderHistoryProcessingFragment.removeOrder(order);
 
-                //OrderHistoryCancelledFragment orderHistoryCancelledFragment = new OrderHistoryCancelledFragment();
-                //orderHistoryCancelledFragment.addOrder(order);
+                //OrderHistoryFinishedFragment orderHistoryFinishedFragment = new OrderHistoryFinishedFragment();
+                //orderHistoryFinishedFragment.addOrder(order);
             }
         });
 
