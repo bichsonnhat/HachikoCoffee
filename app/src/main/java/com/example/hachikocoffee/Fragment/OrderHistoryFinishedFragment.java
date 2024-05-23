@@ -29,7 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 import static com.example.hachikocoffee.Adapter.OrderAdapter.setInterfaceInstanceFinished;
-
+import static com.example.hachikocoffee.Adapter.OrderAdapter.setInterfaceInstanceCanceled;
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link OrderHistoryFinishedFragment#newInstance} factory method to

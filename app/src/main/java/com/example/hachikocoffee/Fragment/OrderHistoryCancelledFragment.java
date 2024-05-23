@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -79,13 +80,19 @@ public class OrderHistoryCancelledFragment extends Fragment implements CanceledC
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_order_history_cancelled, container, false);
         setInterfaceInstanceCanceled(this);
-        globalView = view;
         SharedPreferences perf = requireActivity().getSharedPreferences("User", Context.MODE_PRIVATE);
         UserID = perf.getInt("UserID", 1);
+        View view = inflater.inflate(R.layout.fragment_order_history_cancelled, container, false);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+
+        rcv_cancelledOrderList = view.findViewById(R.id.rcv_orderList_cancelled);
+        rcv_cancelledOrderList.setLayoutManager(linearLayoutManager);
+
         initCancelledOrderList(view);
 
+        globalView = view;
         return view;
     }
 
@@ -138,7 +145,8 @@ public class OrderHistoryCancelledFragment extends Fragment implements CanceledC
 
     @Override
     public void onCanceledClick() {
-        rcv_cancelledOrderList.clearFocus();
-        initCancelledOrderList(globalView);
+        Toast.makeText(getContext(), "Canceled", Toast.LENGTH_SHORT).show();
+//        rcv_cancelledOrderList.clearFocus();
+//        initCancelledOrderList(globalView);
     }
 }
