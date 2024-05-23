@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:paddingBottom="10dp">
 
     <View
+        android:id="@+id/vh_address_divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginLeft="70dp"
