@@ -49,6 +49,7 @@
             android:background="@drawable/ic_home"/>
 
         <TextView
+            android:id="@+id/addHomeAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Thêm địa chỉ nhà"
@@ -56,6 +57,54 @@
             android:layout_marginTop="86dp"
             android:layout_marginLeft="70dp"
             android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tvNameHomeAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginTop="70dp"
+            android:layout_marginLeft="70dp"
+            android:text="Nhà"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvDetailHomeAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="70dp"
+            android:layout_marginEnd="90dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="87/17 Tân Lập, khu phố Tân Lập, Dĩ An, Bình Dươngggggggggggggg"
+            android:textColor="#757575"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_marginTop="92dp" />
+
+        <TextView
+            android:id="@+id/tvUserNameAndTelephoneHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="70dp"
+            android:layout_marginEnd="40dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="Nhật Bích 0333217598"
+            android:textColor="#757575"
+            android:textSize="12sp"
+            android:layout_marginTop="111dp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/deleteButtonHome"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/ic_edit"
+            android:layout_marginTop="87dp"
+            android:layout_marginStart="350dp"/>
 
         <View
             android:id="@+id/line1"
@@ -81,7 +130,7 @@
             android:background="@drawable/ic_company"/>
 
         <TextView
-            android:id="@+id/companyName"
+            android:id="@+id/addCompanyAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Thêm địa chỉ công ty"
@@ -89,6 +138,54 @@
             android:layout_marginTop="157dp"
             android:layout_marginLeft="70dp"
             android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tvNameCompanyAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginTop="140dp"
+            android:layout_marginLeft="70dp"
+            android:text="Công ty"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvDetailCompanyAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="70dp"
+            android:layout_marginEnd="90dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="87/17 Tân Lập, khu phố Tân Lập, Dĩ An, Bình Dươngggggggggggggg"
+            android:textColor="#757575"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_marginTop="162dp" />
+
+        <TextView
+            android:id="@+id/tvUserNameAndTelephoneCompany"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="70dp"
+            android:layout_marginEnd="40dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="Nhật Bích 0333217598"
+            android:textColor="#757575"
+            android:textSize="12sp"
+            android:layout_marginTop="180dp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/deleteButtonCompany"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/ic_edit"
+            android:layout_marginTop="160dp"
+            android:layout_marginStart="350dp"/>
 
         <View
             android:id="@+id/line2"

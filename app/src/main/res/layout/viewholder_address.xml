@@ -52,7 +52,7 @@
         android:layout_marginEnd="15dp"
         android:ellipsize="end"
         android:maxLines="2"
-        android:text="87/17 Tân Lập, khu phố Tân Lập, Dĩ An, Bình Dương, Việt Nam"
+        android:text="87/17 Tân Lập, khu phố Tân Lập, Dĩ An, Bình Dương,"
         android:textColor="#757575"
         android:textSize="12sp"
         android:textStyle="bold"
@@ -93,7 +93,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="371dp" />
+        app:layout_constraintGuide_end="40dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -107,6 +107,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="76dp" />
+        app:layout_constraintGuide_percent="0.7790698" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05109489" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
