@@ -3,6 +3,7 @@ package com.example.hachikocoffee;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.example.hachikocoffee.Management.ManagementCart;
 import com.example.hachikocoffee.Management.ManagementUser;
@@ -11,12 +12,13 @@ public class GetVerificationCode extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-//        SharedPreferences perf = getSharedPreferences("User", Context.MODE_PRIVATE);
-//        int UserID = perf.getInt("UserID", -1);
-        int UserID = 1;
+
+        SharedPreferences perf = getSharedPreferences("User", Context.MODE_PRIVATE);
+        int UserID = perf.getInt("UserID", -1);
+
         if (UserID != -1) {
-            ManagementCart.getInstance().loadCartFromFirebase(String.valueOf(UserID));
             ManagementUser.getInstance().loadFromFirebase(UserID);
+            ManagementCart.getInstance().loadCartFromFirebase(String.valueOf(UserID));
         }
     }
     public static String getVerificationCode() {
