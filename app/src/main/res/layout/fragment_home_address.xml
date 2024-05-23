@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingBottom="10dp"
+    tools:context=".Fragment.HomeAddressFragment">
+
+    <ImageView
+        android:layout_marginStart="20dp"
+        android:id="@+id/vh_address_ic_save"
+        android:layout_width="22dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_home"
+        tools:ignore="MissingConstraints"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/vh_address_nameAddress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:text="Nhà"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/vh_address_ic_save"
+        app:layout_constraintEnd_toStartOf="@id/vh_address_deleteButton"/>
+
+    <TextView
+        android:layout_marginStart="30dp"
+        android:id="@+id/vh_address_detailAddress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="Phường Linh Trung Thủ Đức, TPHCM"
+        android:textColor="#757575"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@id/vh_address_deleteButton"
+        app:layout_constraintStart_toEndOf="@+id/vh_address_ic_save"
+        app:layout_constraintTop_toBottomOf="@id/vh_address_nameAddress" />
+
+    <TextView
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/vh_address_userNameAndTelephone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="Nhật Bích 0333217598"
+        android:textColor="#757575"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@id/vh_address_deleteButton"
+        app:layout_constraintStart_toEndOf="@+id/vh_address_ic_save"
+        app:layout_constraintTop_toBottomOf="@id/vh_address_detailAddress" />
+
+    <ImageView
+        android:id="@+id/vh_address_deleteButton"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/ic_edit" />
+</androidx.constraintlayout.widget.ConstraintLayout>
