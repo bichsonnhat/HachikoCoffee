@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.hachikocoffee.Activity.LoginOTPActivity;
 import com.example.hachikocoffee.Activity.MainActivity;
+import com.example.hachikocoffee.Activity.SplashActivity;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
@@ -33,7 +34,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         SharedPreferences perf = getSharedPreferences("User", MODE_PRIVATE);
         if (perf.getBoolean("LoggedIn", false)){
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
             startActivity(intent);
             return;
         }
