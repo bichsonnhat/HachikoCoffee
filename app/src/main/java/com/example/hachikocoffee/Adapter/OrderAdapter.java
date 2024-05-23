@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -54,9 +55,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             return;
         }
 
+        holder.orderHistory_id.setText(order.getOrderID());
         holder.orderHistory_cost.setText(order.getCost() + "đ");
-        holder.orderHistory_date.setText(order.getOrderTime().substring(0, 10));
-        holder.orderHistory_time.setText(order.getOrderTime().substring(11));
+        holder.orderHistory_date.setText(order.getOrderCreatedTime().substring(0, 10));
+        holder.orderHistory_time.setText(order.getOrderCreatedTime().substring(11));
 
         holder.orderItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,7 +113,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                 });
 //                order.setOrderStatus("Finished");
 //                holder.orderHistory_state.setText("Đã hoàn tất");
-                holder.orderHistory_state.setTextColor(v.getResources().getColor(R.color.green));
+//                holder.orderHistory_state.setTextColor(v.getResources().getColor(R.color.green));
 //                holder.orderHistory_accept.setVisibility(View.INVISIBLE);
 //                holder.orderHistory_cancel.setVisibility(View.INVISIBLE);
                 mListOrder.remove(position);
@@ -139,6 +141,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                                     Map<String, Object> updates = new HashMap<>();
                                     updates.put("orderStatus", "Canceled");
                                     childSnapshot.getRef().updateChildren(updates);
+                                    if (canceledClickListener != null){
+                                        canceledClickListener.onCanceledClick();
+                                    }
                                     break;
                                 }
                             }
@@ -150,20 +155,19 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
                     }
                 });
-//                order.setOrderStatus("Canceled");
-//                holder.orderHistory_state.setText("Đã hủy");
-//                holder.orderHistory_state.setTextColor(v.getResources().getColor(R.color.red));
+//                order.setOrderStatus("Finished");
+//                holder.orderHistory_state.setText("Đã hoàn tất");
+//                holder.orderHistory_state.setTextColor(v.getResources().getColor(R.color.green));
 //                holder.orderHistory_accept.setVisibility(View.INVISIBLE);
 //                holder.orderHistory_cancel.setVisibility(View.INVISIBLE);
                 mListOrder.remove(position);
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position, mListOrder.size());
-                canceledClickListener.onCanceledClick();
                 //OrderHistoryProcessingFragment orderHistoryProcessingFragment = new OrderHistoryProcessingFragment();
                 //orderHistoryProcessingFragment.removeOrder(order);
 
-                //OrderHistoryCancelledFragment orderHistoryCancelledFragment = new OrderHistoryCancelledFragment();
-                //orderHistoryCancelledFragment.addOrder(order);
+                //OrderHistoryFinishedFragment orderHistoryFinishedFragment = new OrderHistoryFinishedFragment();
+                //orderHistoryFinishedFragment.addOrder(order);
             }
         });
 
@@ -185,6 +189,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         private final CardView orderHistory_accept;
         private final CardView orderHistory_cancel;
         private final TextView orderHistory_state;
+        private final TextView orderHistory_id;
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -196,6 +201,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             orderHistory_accept = itemView.findViewById(R.id.orderHis_accept);
             orderHistory_cancel = itemView.findViewById(R.id.orderHis_cancel);
             orderHistory_state = itemView.findViewById(R.id.orderHis_state);
+            orderHistory_id = itemView.findViewById(R.id.orderHis_id);
         }
     }
 

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -108,21 +109,30 @@ public class LoginOTPActivity extends AppCompatActivity {
                                                         }
                                                     }
                                                     if (isExist) {
-                                                        ManagementUser.getInstance().loadFromFirebase(Integer.valueOf(getIntent().getStringExtra("mobile")));
-                                                        ManagementCart.getInstance().loadCartFromFirebase(String.valueOf(ManagementUser.getInstance().getUser().getUserID()));
+//                                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                                        intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                        Log.d("LoginOTPActivity", "UserId:" + Integer.valueOf(getIntent().getStringExtra("mobile")));
+//                                                        ManagementUser.getInstance().loadFromFirebase(Integer.valueOf(getIntent().getStringExtra("mobile")));
+//                                                        ManagementCart.getInstance().loadCartFromFirebase(getIntent().getStringExtra("mobile"));
+                                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                                         startActivity(intent);
+                                                        finish();
                                                     } else {
                                                         // Create new record for USER here ...
                                                         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("USER");
                                                         String phoneNumber = getIntent().getStringExtra("mobile");
-                                                        UserDomain userDomain = new UserDomain(Integer.valueOf(phoneNumber), phoneNumber, "", "", "", "");
-                                                        userRef.push().setValue(userDomain);
+                                                        assert phoneNumber != null;
+                                                        int userID = Integer.parseInt(phoneNumber);
+                                                        UserDomain userDomain = new UserDomain(userID, phoneNumber, "", "", "", "");
+                                                        userRef.child(String.valueOf(userID)).setValue(userDomain);
+
                                                         Intent intent = new Intent(getApplicationContext(), InfoAccountLoginActivity.class);
                                                         intent.putExtra("phoneNumber", phoneNumber);
-//                                                        intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                                                        ManagementUser.getInstance().loadFromFirebase(Integer.valueOf(getIntent().getStringExtra("mobile")));
+//                                                        ManagementCart.getInstance().loadCartFromFirebase(getIntent().getStringExtra("mobile"));
+                                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                                         startActivity(intent);
+                                                        finish();
                                                     }
                                                 }
                                             }

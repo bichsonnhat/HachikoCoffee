@@ -126,28 +126,26 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         welcomeText = view.findViewById(R.id.welcomName);
 
-        UserID = ManagementUser.getInstance().getUser().getUserID();
+        UserID = ManagementUser.getInstance().getUserId();
 
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("USER");
-        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
-                    for (DataSnapshot issue : snapshot.getChildren()){
-                        UserDomain user = issue.getValue(UserDomain.class);
-                        if (user.getUserID() == UserID){
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("USER");
+
+        userRef.child(String.valueOf(UserID))
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            UserDomain user = dataSnapshot.getValue(UserDomain.class);
                             welcomeText.setText("" + user.getName() + " ơi, Hi-Tea đi!");
-                            break;
+                            Log.d("HomeFragment", "UserID: " + UserID);
                         }
                     }
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        // Xử lý lỗi
+                    }
+                });
 
         initShorcut(view);
         initViewPager(view);

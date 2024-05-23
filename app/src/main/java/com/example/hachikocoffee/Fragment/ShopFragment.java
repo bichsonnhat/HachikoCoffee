@@ -36,6 +36,7 @@ import com.example.hachikocoffee.Adapter.ShopAdapter;
 import com.example.hachikocoffee.Domain.LocationDomain;
 import com.example.hachikocoffee.Domain.ShopDomain;
 import com.example.hachikocoffee.Listener.OnStoreClick;
+import com.example.hachikocoffee.Management.ManagementUser;
 import com.example.hachikocoffee.NotificationDetail;
 import com.example.hachikocoffee.R;
 import com.example.hachikocoffee.Listener.ShopClickListener;
@@ -137,67 +138,6 @@ public class ShopFragment extends Fragment implements OnStoreClick, LocationList
                 } else {
                     getLastLocation();
                 }
-
-                ArrayList<ShopDomain> filteredList = new ArrayList<>();
-
-                DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference("LOCATION");
-                locationRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()){
-                            for (DataSnapshot issue : snapshot.getChildren()) {
-                                LocationDomain location = issue.getValue(LocationDomain.class);
-                                if (location.getUserID() == UserID) {
-                                    locationX = location.getLocationX();
-                                    locationY = location.getLocationY();
-                                    break;
-                                }
-                            }
-                            DatabaseReference shopRef = FirebaseDatabase.getInstance().getReference("STORE");
-                            shopRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if (snapshot.exists()){
-                                        for (DataSnapshot issue : snapshot.getChildren()) {
-                                            ShopDomain shop = issue.getValue(ShopDomain.class);
-                                            String coorString = shop.getCoordinate();
-                                            String valuesString = coorString.substring(6, coorString.length() - 1);
-                                            String[] values = valuesString.split("\\s+");
-                                            Double coorX = Double.parseDouble(values[0]);
-                                            Double coorY = Double.parseDouble(values[1]);
-
-                                            Double deltaLat = locationX - coorX;
-                                            Double deltaLon = locationY - coorY;
-
-                                            Double deltaLatKm = deltaLat * 111.0;
-
-                                            Double latAvg = (locationX + coorX) / 2.0;
-                                            Double cosLatAvg = Math.cos(Math.toRadians(latAvg));
-                                            Double deltaLonKm = deltaLon * 111.0 * cosLatAvg;
-
-                                            Double distance = Math.sqrt(Math.pow(deltaLatKm, 2) + Math.pow(deltaLonKm, 2));
-
-                                            String result = String.format("%.1f", distance);
-                                            shop.setCoordinate("Cách đây " + result + " km");
-                                            filteredList.add(shop);
-                                        }
-                                        displayShopData(filteredList);
-                                    }
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-
-                                }
-                            });
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
             }
         });
 
@@ -264,6 +204,7 @@ public class ShopFragment extends Fragment implements OnStoreClick, LocationList
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
+        Log.d("ShopFragment", ""+UserID);
         fusedLocationProviderClient.getLastLocation()
                 .addOnSuccessListener(requireActivity(), new OnSuccessListener<Location>() {
                     @Override
@@ -274,25 +215,47 @@ public class ShopFragment extends Fragment implements OnStoreClick, LocationList
                             Log.d("LocationXY", "Latitude: " + latitude + ", Longitude: " + longitude);
 
                             DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference().child("LOCATION");
-                            locationRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
-                                        LocationDomain locationDomain = childSnapshot.getValue(LocationDomain.class);
-                                        if (locationDomain.getUserID() == UserID) {
-                                            Map<String, Object> updates = new HashMap<>();
-                                            updates.put("LocationX", latitude);
-                                            updates.put("LocationY", longitude);
-                                            childSnapshot.getRef().updateChildren(updates);
-                                            break;
+                                locationRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        boolean locationExists = false;
+
+                                        for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                                            LocationDomain locationDomain = childSnapshot.getValue(LocationDomain.class);
+                                            if (locationDomain != null && locationDomain.getUserID() == UserID) {
+                                                locationExists = true;
+                                                Map<String, Object> updates = new HashMap<>();
+                                                updates.put("LocationX", latitude);
+                                                updates.put("LocationY", longitude);
+                                                childSnapshot.getRef().updateChildren(updates);
+                                                break;
+                                            }
+                                        }
+
+                                        if (!locationExists) {
+                                            String newLocationKey = locationRef.push().getKey();
+                                            if (newLocationKey != null) {
+                                                LocationDomain newLocation = new LocationDomain(UserID, latitude, longitude);
+                                                Map<String, Object> locationValues = newLocation.toMap();
+
+                                                Map<String, Object> childUpdates = new HashMap<>();
+                                                childUpdates.put(newLocationKey, locationValues);
+
+                                                locationRef.updateChildren(childUpdates);
+                                            }
+                                        }
+
+                                        View view = getView();
+                                        if (view != null) {
+                                            initShop(view);
                                         }
                                     }
-                                }
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-                                    Log.w("TAG", "Error fetching locations: " + error.getMessage());
-                                }
-                            });
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                        Log.w("TAG", "Error fetching locations: " + error.getMessage());
+                                    }
+                                });
+
                         }
                     }
                 });
@@ -339,41 +302,13 @@ public class ShopFragment extends Fragment implements OnStoreClick, LocationList
         });
     }
 
-//    @SuppressLint("MissingPermission")
-//    private void getLocation() {
-//        try {
-//            locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
-//
-//            LocationListener locationListener = new LocationListener() {
-//                @Override
-//                public void onLocationChanged(@NonNull Location location) {
-//                    // Lấy tọa độ vị trí tại đây
-//                    double latitude = location.getLatitude();
-//                    double longitude = location.getLongitude();
-//
-//                    // Ghi log tọa độ vị trí
-//                    Log.d("LocationXY", "Latitude: " + latitude + ", Longitude: " + longitude);
-//                }
-//
-//                // Implement các phương thức khác của LocationListener nếu cần
-//            };
-//
-//            // Yêu cầu cập nhật vị trí với các thông số tương tự như trong đoạn mã gốc
-//            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, locationListener);
-//            Log.d("error", "true");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            Log.e("error", e.toString());
-//        }
-//    }
-
     public void initShop(View view) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
 
         rcv_listShop = view.findViewById(R.id.rcv_list_shop);
         rcv_listShop.setLayoutManager(linearLayoutManager);
-        SharedPreferences perf = requireActivity().getSharedPreferences("User", Context.MODE_PRIVATE);
-        UserID = perf.getInt("UserID", 1);
+
+        UserID = ManagementUser.getInstance().getUserId();
 
         ArrayList<ShopDomain> filteredList = new ArrayList<>();
 
@@ -400,8 +335,8 @@ public class ShopFragment extends Fragment implements OnStoreClick, LocationList
                                     String coorString = shop.getCoordinate();
                                     String valuesString = coorString.substring(6, coorString.length() - 1);
                                     String[] values = valuesString.split("\\s+");
-                                    Double coorX = Double.parseDouble(values[0]);
-                                    Double coorY = Double.parseDouble(values[1]);
+                                    Double coorY = Double.parseDouble(values[0]);
+                                    Double coorX = Double.parseDouble(values[1]);
 
                                     Double deltaLat = locationX - coorX;
                                     Double deltaLon = locationY - coorY;
@@ -476,13 +411,6 @@ public class ShopFragment extends Fragment implements OnStoreClick, LocationList
                 Log.w("TAG", "Error fetching locations: " + error.getMessage());
             }
         });
-        try {
-            Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
-            List<Address> address = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-            String myAddress = address.get(0).getAddressLine(0);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
     }
 
     @Override

@@ -259,6 +259,7 @@ public class ManagementCart {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 cartItems.clear();
                 if (snapshot.exists()){
+                    Log.d("Cart", "True");
                     if (snapshot.hasChild("itemCount")) {
                         itemsCount = snapshot.child("itemCount").getValue(Long.class);
                     }
@@ -280,10 +281,12 @@ public class ManagementCart {
                             CartItem item = cartItemSnapshot.getValue(CartItem.class);
                             if (item != null) {
                                 cartItems.add(item);
+                                Log.d("Cart1", "true");
                             }
                         }
                     }
                 }
+                Log.d("Cart", "Size" + cartItems.size());
             }
 
             @Override

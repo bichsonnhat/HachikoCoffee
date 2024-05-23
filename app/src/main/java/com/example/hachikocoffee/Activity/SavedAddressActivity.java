@@ -32,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import static com.example.hachikocoffee.Activity.NewAddressActivity.setInterfaceInstance;
+import static com.example.hachikocoffee.Activity.EditAddressActivity.setEditInterfaceInstance;
 
 public class SavedAddressActivity extends AppCompatActivity implements OnAddressChangedListener {
     private RecyclerView recyclerView;
