@@ -33,6 +33,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.concurrent.CountDownLatch;
+
 public class LoginOTPActivity extends AppCompatActivity {
     private TextView textMobile;
     private String verificationId;
@@ -101,19 +103,22 @@ public class LoginOTPActivity extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                 if (snapshot.exists()){
                                                     boolean isExist = false;
+                                                    int UserId = 0;
                                                     for (DataSnapshot issue : snapshot.getChildren()) {
                                                         UserDomain user = issue.getValue(UserDomain.class);
                                                         if (user.getPhoneNumber().equals(getIntent().getStringExtra("mobile"))) {
                                                             isExist = true;
+                                                            UserId = user.getUserID();
                                                             break;
                                                         }
                                                     }
                                                     if (isExist) {
 //                                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                                        Log.d("LoginOTPActivity", "UserId:" + Integer.valueOf(getIntent().getStringExtra("mobile")));
-//                                                        ManagementUser.getInstance().loadFromFirebase(Integer.valueOf(getIntent().getStringExtra("mobile")));
-//                                                        ManagementCart.getInstance().loadCartFromFirebase(getIntent().getStringExtra("mobile"));
+
+                                                        Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
+                                                        Log.d("LoginOTPActivity", "UserId: " + UserId);
+//                                                        ManagementUser.getInstance().loadFromFirebase(UserId);
+//                                                        ManagementCart.getInstance().loadCartFromFirebase(String.valueOf(UserId));
                                                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                                         startActivity(intent);
                                                         finish();

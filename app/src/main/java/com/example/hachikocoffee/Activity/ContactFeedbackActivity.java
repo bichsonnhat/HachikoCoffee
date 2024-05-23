@@ -28,6 +28,15 @@ public class ContactFeedbackActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        Button btnFeedback = findViewById(R.id.btnFeedback);
+        btnFeedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ContactFeedbackActivity.this, FeedbackActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 }
