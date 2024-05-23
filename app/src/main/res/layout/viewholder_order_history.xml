@@ -8,7 +8,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="match_parent"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="10dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,8 +17,28 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:paddingHorizontal="15dp"
             android:paddingTop="15dp"
+            android:paddingVertical="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/vh_order_history_textIdHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mã đơn:"
+                android:textColor="#757575"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/orderHis_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="#000001"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@+id/vh_order_history_textPriceHeader"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/vh_order_history_textPriceHeader"
@@ -27,17 +47,19 @@
                 android:text="Tổng cộng:"
                 android:textColor="#757575"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_marginTop="5dp"
+                app:layout_constraintTop_toBottomOf="@id/vh_order_history_textIdHeader" />
 
             <TextView
                 android:id="@+id/orderHis_cost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
                 android:text="999,999đ"
                 android:textColor="@color/black"
-                app:layout_constraintStart_toEndOf="@+id/vh_order_history_textPriceHeader"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/vh_order_history_textIdHeader"
+                app:layout_constraintStart_toEndOf="@id/vh_order_history_textPriceHeader" />
 
             <TextView
                 android:id="@+id/vh_order_history_textDateHeader"
@@ -54,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="15dp"
                 android:text="Ngày 1 Tháng 1 Năm 2024"
                 android:textColor="#757575"
                 app:layout_constraintTop_toBottomOf="@id/vh_order_history_textPriceHeader"
@@ -75,17 +97,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="13dp"
                 android:text="23:59:59"
                 android:textColor="#757575"
                 app:layout_constraintTop_toBottomOf="@+id/vh_order_history_textDateHeader"
                 app:layout_constraintStart_toEndOf="@+id/vh_order_history_textTimeHeader" />
 
             <View
+                android:id="@+id/orderHis_line"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="80dp"
-                android:background="#FF0000FF"
+                android:layout_marginTop="105dp"
+                android:background="@color/darkgray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -94,10 +117,11 @@
                 android:id="@+id/orderHis_state"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
                 android:text="Chờ xác nhận"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
+                android:layout_marginTop="12dp"
+                app:layout_constraintTop_toTopOf="@+id/orderHis_line"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -106,11 +130,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="15dp"
                 android:visibility="visible"
                 app:cardBackgroundColor="#07B50F"
                 app:cardCornerRadius="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/orderHis_line"
                 app:layout_constraintEnd_toStartOf="@+id/orderHis_cancel">
 
                 <TextView
@@ -129,8 +154,8 @@
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="#D12828"
                 app:cardCornerRadius="10dp"
-                android:layout_marginBottom="10dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="15dp"
+                app:layout_constraintTop_toTopOf="@+id/orderHis_line"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:visibility="visible">
 

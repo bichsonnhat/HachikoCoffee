@@ -1,11 +1,14 @@
 package com.example.hachikocoffee.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -14,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hachikocoffee.Adapter.OrderAdapter;
 import com.example.hachikocoffee.Domain.OrderDomain;
+import com.example.hachikocoffee.Listener.CanceledClickListener;
+import com.example.hachikocoffee.Listener.FinishedClickListener;
 import com.example.hachikocoffee.OrderDetail;
 import com.example.hachikocoffee.R;
 import com.google.firebase.database.DataSnapshot;
@@ -23,13 +28,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import static com.example.hachikocoffee.Adapter.OrderAdapter.setInterfaceInstanceCanceled;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link OrderHistoryCancelledFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class OrderHistoryCancelledFragment extends Fragment {
+public class OrderHistoryCancelledFragment extends Fragment implements CanceledClickListener {
     ArrayList<OrderDomain> cancelledOrderList = new ArrayList<>();
     private RecyclerView rcv_cancelledOrderList;
 
@@ -41,10 +47,8 @@ public class OrderHistoryCancelledFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
-    public OrderHistoryCancelledFragment() {
-        // Required empty public constructor
-    }
+    View globalView;
+    private int UserID;
 
     /**
      * Use this factory method to create a new instance of
@@ -76,10 +80,19 @@ public class OrderHistoryCancelledFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        setInterfaceInstanceCanceled(this);
+        SharedPreferences perf = requireActivity().getSharedPreferences("User", Context.MODE_PRIVATE);
+        UserID = perf.getInt("UserID", 1);
         View view = inflater.inflate(R.layout.fragment_order_history_cancelled, container, false);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+
+        rcv_cancelledOrderList = view.findViewById(R.id.rcv_orderList_cancelled);
+        rcv_cancelledOrderList.setLayoutManager(linearLayoutManager);
 
         initCancelledOrderList(view);
 
+        globalView = view;
         return view;
     }
 
@@ -98,7 +111,7 @@ public class OrderHistoryCancelledFragment extends Fragment {
                     for (DataSnapshot issue : snapshot.getChildren()) {
                         OrderDomain order = issue.getValue(OrderDomain.class);
 
-                        if (order != null && "Canceled".equals(order.getOrderStatus())) {
+                        if (order != null && "Canceled".equals(order.getOrderStatus()) && order.getUserID() == UserID){
                             cancelledOrderList.add(order);
                         }
                     }
@@ -128,5 +141,12 @@ public class OrderHistoryCancelledFragment extends Fragment {
     public void addOrder(OrderDomain order) {
         cancelledOrderList.add(order);
         displayCancelledOrderList(cancelledOrderList); // Refresh the RecyclerView
+    }
+
+    @Override
+    public void onCanceledClick() {
+        Toast.makeText(getContext(), "Canceled", Toast.LENGTH_SHORT).show();
+//        rcv_cancelledOrderList.clearFocus();
+//        initCancelledOrderList(globalView);
     }
 }

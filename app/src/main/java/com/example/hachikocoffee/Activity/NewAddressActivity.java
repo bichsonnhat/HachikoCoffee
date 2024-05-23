@@ -162,7 +162,7 @@ public class NewAddressActivity extends AppCompatActivity {
                 DatabaseReference addressRef = FirebaseDatabase.getInstance().getReference().child("ADDRESS");
                 UUID uuid = UUID.randomUUID();
                 String addressID = uuid.toString();
-                AddressDomain addressDomain = new AddressDomain(addressID, etNewAddress.getText().toString(), etNewAddress.getText().toString(), etNewAddressGate.getText().toString(), etNewAddressNote.getText().toString(), etNewAddressReceiverName.getText().toString(), etNewAddressReceiverPhone.getText().toString(), etNewAddressName.getText().toString(), UserID);
+                AddressDomain addressDomain = new AddressDomain(addressID, etNewAddress.getText().toString(), etNewAddressBuilding.getText().toString(), etNewAddressGate.getText().toString(), etNewAddressNote.getText().toString(), etNewAddressReceiverName.getText().toString(), etNewAddressReceiverPhone.getText().toString(), etNewAddressName.getText().toString(), UserID);
                 // (String addressID, String description, String detail, String gate, String note, String recipentName, String recipentPhone, String title, int userID)
                 addressRef.push().setValue(addressDomain);
                 finish();

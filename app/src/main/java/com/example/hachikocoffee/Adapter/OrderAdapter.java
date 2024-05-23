@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -11,17 +12,29 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hachikocoffee.Domain.OrderDomain;
+import com.example.hachikocoffee.Domain.UserDomain;
 import com.example.hachikocoffee.Fragment.OrderHistoryCancelledFragment;
 import com.example.hachikocoffee.Fragment.OrderHistoryFinishedFragment;
 import com.example.hachikocoffee.Fragment.OrderHistoryProcessingFragment;
+import com.example.hachikocoffee.Listener.CanceledClickListener;
+import com.example.hachikocoffee.Listener.FinishedClickListener;
 import com.example.hachikocoffee.Listener.OrderClickListener;
 import com.example.hachikocoffee.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder>{
     private final List<OrderDomain> mListOrder;
     private final OrderClickListener orderClickListener;
+    private static CanceledClickListener canceledClickListener;
+    private static FinishedClickListener finishedClickListener;
 
     public OrderAdapter(List<OrderDomain> mListOrder, OrderClickListener orderClickListener) {
         this.mListOrder = mListOrder;
@@ -42,9 +55,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             return;
         }
 
+        holder.orderHistory_id.setText(order.getOrderID());
         holder.orderHistory_cost.setText(order.getCost() + "đ");
-        holder.orderHistory_date.setText(order.getOrderTime().substring(0, 10));
-        holder.orderHistory_time.setText(order.getOrderTime().substring(11));
+        holder.orderHistory_date.setText(order.getOrderCreatedTime().substring(0, 10));
+        holder.orderHistory_time.setText(order.getOrderCreatedTime().substring(11));
 
         holder.orderItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,15 +67,58 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             }
         });
 
+        if (order.getOrderStatus().equals("Finished")){
+            order.setOrderStatus("Finished");
+            holder.orderHistory_state.setText("Đã hoàn tất");
+            holder.orderHistory_state.setTextColor(holder.itemView.getResources().getColor(R.color.green));
+            holder.orderHistory_accept.setVisibility(View.INVISIBLE);
+            holder.orderHistory_cancel.setVisibility(View.INVISIBLE);
+            return;
+        }
+
+        if (order.getOrderStatus().equals("Canceled")){
+            order.setOrderStatus("Canceled");
+            holder.orderHistory_state.setText("Đã hủy");
+            holder.orderHistory_state.setTextColor(holder.itemView.getResources().getColor(R.color.red));
+            holder.orderHistory_accept.setVisibility(View.INVISIBLE);
+            holder.orderHistory_cancel.setVisibility(View.INVISIBLE);
+            return;
+        }
+
         holder.orderHistory_accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                order.setOrderStatus("Finished");
-                holder.orderHistory_state.setText("Đã hoàn tất");
-                holder.orderHistory_state.setTextColor(v.getResources().getColor(R.color.green));
-                holder.orderHistory_accept.setVisibility(View.INVISIBLE);
-                holder.orderHistory_cancel.setVisibility(View.INVISIBLE);
+                DatabaseReference historyOrderRef = FirebaseDatabase.getInstance().getReference().child("ORDER");
+                historyOrderRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()){
+                            for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+                                OrderDomain orderDomain = childSnapshot.getValue(OrderDomain.class);
+                                if (order.getOrderID().equals(orderDomain.getOrderID())) {
+                                    Map<String, Object> updates = new HashMap<>();
+                                    updates.put("orderStatus", "Finished");
+                                    childSnapshot.getRef().updateChildren(updates);
+                                    finishedClickListener.onFinishedClick();
+                                    break;
+                                }
+                            }
+                        }
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+//                order.setOrderStatus("Finished");
+//                holder.orderHistory_state.setText("Đã hoàn tất");
+//                holder.orderHistory_state.setTextColor(v.getResources().getColor(R.color.green));
+//                holder.orderHistory_accept.setVisibility(View.INVISIBLE);
+//                holder.orderHistory_cancel.setVisibility(View.INVISIBLE);
+                mListOrder.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, mListOrder.size());
                 //OrderHistoryProcessingFragment orderHistoryProcessingFragment = new OrderHistoryProcessingFragment();
                 //orderHistoryProcessingFragment.removeOrder(order);
 
@@ -73,17 +130,44 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         holder.orderHistory_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                order.setOrderStatus("Canceled");
-                holder.orderHistory_state.setText("Đã hủy");
-                holder.orderHistory_state.setTextColor(v.getResources().getColor(R.color.red));
-                holder.orderHistory_accept.setVisibility(View.INVISIBLE);
-                holder.orderHistory_cancel.setVisibility(View.INVISIBLE);
+                DatabaseReference historyOrderRef = FirebaseDatabase.getInstance().getReference().child("ORDER");
+                historyOrderRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()){
+                            for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+                                OrderDomain orderDomain = childSnapshot.getValue(OrderDomain.class);
+                                if (order.getOrderID().equals(orderDomain.getOrderID())) {
+                                    Map<String, Object> updates = new HashMap<>();
+                                    updates.put("orderStatus", "Canceled");
+                                    childSnapshot.getRef().updateChildren(updates);
+                                    if (canceledClickListener != null){
+                                        canceledClickListener.onCanceledClick();
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+//                order.setOrderStatus("Finished");
+//                holder.orderHistory_state.setText("Đã hoàn tất");
+//                holder.orderHistory_state.setTextColor(v.getResources().getColor(R.color.green));
+//                holder.orderHistory_accept.setVisibility(View.INVISIBLE);
+//                holder.orderHistory_cancel.setVisibility(View.INVISIBLE);
+                mListOrder.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, mListOrder.size());
                 //OrderHistoryProcessingFragment orderHistoryProcessingFragment = new OrderHistoryProcessingFragment();
                 //orderHistoryProcessingFragment.removeOrder(order);
 
-                //OrderHistoryCancelledFragment orderHistoryCancelledFragment = new OrderHistoryCancelledFragment();
-                //orderHistoryCancelledFragment.addOrder(order);
+                //OrderHistoryFinishedFragment orderHistoryFinishedFragment = new OrderHistoryFinishedFragment();
+                //orderHistoryFinishedFragment.addOrder(order);
             }
         });
 
@@ -105,6 +189,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         private final CardView orderHistory_accept;
         private final CardView orderHistory_cancel;
         private final TextView orderHistory_state;
+        private final TextView orderHistory_id;
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -116,6 +201,15 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             orderHistory_accept = itemView.findViewById(R.id.orderHis_accept);
             orderHistory_cancel = itemView.findViewById(R.id.orderHis_cancel);
             orderHistory_state = itemView.findViewById(R.id.orderHis_state);
+            orderHistory_id = itemView.findViewById(R.id.orderHis_id);
         }
+    }
+
+    public static void setInterfaceInstanceFinished(OrderHistoryFinishedFragment context){
+        finishedClickListener = (FinishedClickListener) context;
+    }
+
+    public static void setInterfaceInstanceCanceled(OrderHistoryCancelledFragment context){
+        canceledClickListener = (CanceledClickListener) context;
     }
 }
