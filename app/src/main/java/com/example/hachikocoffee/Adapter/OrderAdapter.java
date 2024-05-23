@@ -55,9 +55,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             return;
         }
 
+        holder.orderHistory_id.setText(order.getOrderID());
         holder.orderHistory_cost.setText(order.getCost() + "đ");
-        holder.orderHistory_date.setText(order.getOrderTime().substring(0, 10));
-        holder.orderHistory_time.setText(order.getOrderTime().substring(11));
+        holder.orderHistory_date.setText(order.getOrderCreatedTime().substring(0, 10));
+        holder.orderHistory_time.setText(order.getOrderCreatedTime().substring(11));
 
         holder.orderItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,6 +189,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         private final CardView orderHistory_accept;
         private final CardView orderHistory_cancel;
         private final TextView orderHistory_state;
+        private final TextView orderHistory_id;
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -199,6 +201,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             orderHistory_accept = itemView.findViewById(R.id.orderHis_accept);
             orderHistory_cancel = itemView.findViewById(R.id.orderHis_cancel);
             orderHistory_state = itemView.findViewById(R.id.orderHis_state);
+            orderHistory_id = itemView.findViewById(R.id.orderHis_id);
         }
     }
 
