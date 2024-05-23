@@ -109,7 +109,7 @@ public class OrderFragment extends Fragment {
         seekbarHorizontalScroll = view.findViewById(R.id.seekbar);
         nestedScrollView = view.findViewById(R.id.nestedScrollViewItem);
         ImageView searchButton = view.findViewById(R.id.SearchItem);
-        ImageView backButton = view.findViewById(R.id.FavouriteBtn);
+        ImageView favouriteButton = view.findViewById(R.id.FavouriteBtn);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,7 +118,7 @@ public class OrderFragment extends Fragment {
             }
         });
 
-        backButton.setOnClickListener(new View.OnClickListener() {
+        favouriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), FavouriteActivity.class);
@@ -131,7 +131,7 @@ public class OrderFragment extends Fragment {
         initParseJSON();
 
 //        searchButton.setBackgroundResource(R.drawable.background_item);
-//        backButton.setBackgroundResource(R.drawable.background_item);
+//        favouriteButton.setBackgroundResource(R.drawable.background_item);
 
 
 

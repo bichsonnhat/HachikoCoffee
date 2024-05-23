@@ -243,10 +243,10 @@ public class HomeFragment extends Fragment {
 
         itemList = new ArrayList<>();
         itemList.add(new ShortcutDomain("Giao hàng", "shipping"));
-        itemList.add(new ShortcutDomain("Mang đi", "takeaway"));
-        itemList.add(new ShortcutDomain("Giao hàng", "shipping"));
-        itemList.add(new ShortcutDomain("Giao hàng", "shipping"));
-        itemList.add(new ShortcutDomain("Giao hàng", "shipping"));
+        itemList.add(new ShortcutDomain("Lịch sử đơn hàng", "bill_history"));
+        itemList.add(new ShortcutDomain("Yêu thích", "favourite_2"));
+        itemList.add(new ShortcutDomain("Góp ý", "feedback"));
+        itemList.add(new ShortcutDomain("Thông tin cá nhân", "personal_information"));
 
         adapter = new ShortcutAdapter(itemList);
         recyclerViewShortcutList.setAdapter(adapter);
