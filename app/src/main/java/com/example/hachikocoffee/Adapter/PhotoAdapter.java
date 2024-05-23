@@ -1,6 +1,7 @@
 package com.example.hachikocoffee.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,9 @@ import androidx.viewpager.widget.PagerAdapter;
 
 import com.bumptech.glide.Glide;
 import com.example.hachikocoffee.Photo;
+import com.example.hachikocoffee.PhotoDetail;
 import com.example.hachikocoffee.R;
+import com.example.hachikocoffee.databinding.ActivityMainBinding;
 
 import java.util.List;
 
@@ -20,7 +23,6 @@ public class PhotoAdapter extends PagerAdapter {
 
     private Context mContext;
     private List<Photo> mListPhoto;
-
     public PhotoAdapter(Context mContext, List<Photo> mListPhoto) {
         this.mContext = mContext;
         this.mListPhoto = mListPhoto;
@@ -40,7 +42,9 @@ public class PhotoAdapter extends PagerAdapter {
         imgPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "Photo " + position, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(mContext, PhotoDetail.class);
+                intent.putExtra("position", position);
+                mContext.startActivity(intent);
             }
         });
         container.addView(view);
