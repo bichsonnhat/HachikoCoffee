@@ -60,6 +60,7 @@
                     android:textStyle="bold"/>
 
                 <EditText
+                    android:id="@+id/editAddressName"
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
                     android:layout_centerHorizontal="true"
@@ -70,8 +71,7 @@
                     android:textSize="16sp"
                     android:paddingLeft="13sp"
                     android:singleLine="true"
-                    android:ellipsize="end"
-                    android:text="Hi"/>
+                    android:ellipsize="end"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -84,6 +84,7 @@
                     android:textStyle="bold"/>
 
                 <EditText
+                    android:id="@+id/editAddress"
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
                     android:layout_centerHorizontal="true"
@@ -108,6 +109,7 @@
                     android:textStyle="bold"/>
 
                 <EditText
+                    android:id="@+id/editAddressBuilding"
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
                     android:layout_centerHorizontal="true"
@@ -132,6 +134,7 @@
                     android:textStyle="bold"/>
 
                 <EditText
+                    android:id="@+id/editAddressGate"
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
                     android:layout_centerHorizontal="true"
@@ -156,6 +159,7 @@
                     android:textStyle="bold"/>
 
                 <EditText
+                    android:id="@+id/editAddressNote"
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
                     android:layout_centerHorizontal="true"
@@ -188,6 +192,7 @@
                     android:textStyle="bold"/>
 
                 <EditText
+                    android:id="@+id/editAddressReceiverName"
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
                     android:layout_centerHorizontal="true"
@@ -212,6 +217,7 @@
                     android:textStyle="bold"/>
 
                 <EditText
+                    android:id="@+id/editAddressReceiverPhone"
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
                     android:layout_centerHorizontal="true"
@@ -230,6 +236,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/btnDeleteAddress"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginTop="605dp"
@@ -255,6 +262,7 @@
             </RelativeLayout>
 
             <Button
+                android:id="@+id/btnEditAddress"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="680dp"
