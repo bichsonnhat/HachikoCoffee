@@ -19,46 +19,57 @@
         android:theme="@style/Theme.HachikoCoffee"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.FeedbackActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.EditAddressActivity"
+            android:exported="true">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity
+            android:name=".Login"
+            android:exported="true">
+            <intent-filter>
+
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
             android:name=".Activity.YourVoucherPick"
             android:exported="false" />
-        <!-- <activity -->
-        <!-- android:name=".Activity.EditAddressActivity" -->
-        <!-- android:exported="true" > -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-        <!-- </intent-filter> -->
-<!--        <activity-->
-<!--            android:name=".Login"-->
-<!--            android:exported="true">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
         <activity
             android:name=".Activity.CartActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.NewAddressActivity"
-            android:exported="true" >
-<!--            <intent-filter>-->
-<!--                            <action android:name="android.intent.action.MAIN" />-->
+            android:exported="true">
 
-<!--                            <category android:name="android.intent.category.LAUNCHER" />-->
-<!--                        </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".Activity.CompanyAddressActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.HomeAddressActivity"
-            android:exported="true" >
-<!--                        <intent-filter>-->
-<!--                                        <action android:name="android.intent.action.MAIN" />-->
+            android:exported="true">
 
-<!--                                        <category android:name="android.intent.category.LAUNCHER" />-->
-<!--                                    </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".Activity.FavouriteActivity"
@@ -100,7 +111,6 @@
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
 <!--         <activity-->
 <!--         android:name=".Login"-->
 <!--         android:exported="true">-->
@@ -114,7 +124,7 @@
             android:exported="true">
             <intent-filter>
 
-<!--                 <action android:name="android.intent.action.MAIN" />-->
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
