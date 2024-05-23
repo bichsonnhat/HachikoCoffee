@@ -10,28 +10,28 @@
     <RelativeLayout
         android:id="@+id/first"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:layout_centerVertical="true"
             android:id="@+id/txt_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="23dp"
             android:text="Chi tiết đơn hàng"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"/>
 
         <Button
+            android:layout_centerVertical="true"
             android:id="@+id/btnback"
             android:layout_width="25dp"
             android:layout_height="22dp"
-            android:layout_marginTop="23dp"
             android:layout_marginLeft="11dp"
             android:background="@drawable/icon_back"
             app:backgroundTint="@null"
@@ -71,7 +71,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:ignore="MissingConstraints">
-
             </androidx.recyclerview.widget.RecyclerView>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
@@ -113,23 +112,21 @@
                 tools:ignore="MissingConstraints" />
 
             <TextView
-                android:id="@+id/txt_4"
+                android:id="@+id/TotalOrderCost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="13dp"
                 android:layout_marginTop="4dp"
-                android:text="Giảm giá"
-                android:textAlignment="textStart"
-                android:textColor="#8E8C8C"
+                android:layout_marginEnd="16dp"
+                android:text="400,000đ"
+                android:textAlignment="textEnd"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_3"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteY="5dp" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_2"
+                tools:ignore="MissingConstraints" />
 
             <TextView
-                android:id="@+id/txt_5"
+                android:id="@+id/txt_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="13dp"
@@ -140,9 +137,53 @@
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_3"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteY="5dp" />
+
+            <TextView
+                android:id="@+id/ShippingCost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:text="40,000đ"
+                android:textAlignment="textEnd"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/TotalOrderCost"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/txt_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="4dp"
+                android:text="Giảm giá"
+                android:textAlignment="textStart"
+                android:textColor="#8E8C8C"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_4"
                 tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteY="80dp" />
+
+            <TextView
+                android:id="@+id/DiscountCost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:text="-20,000đ"
+                android:textAlignment="textEnd"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ShippingCost"
+                tools:ignore="MissingConstraints" />
 
             <View
                 android:id="@+id/line2"
@@ -167,6 +208,21 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line2"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/txt_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="12dp"
+                android:text="380,000đ"
+                android:textAlignment="textStart"
+                android:textColor="@color/orange"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line2"
                 tools:ignore="MissingConstraints" />
 

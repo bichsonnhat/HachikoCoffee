@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_saved_address"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".Activity.SavedAddressActivity">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
 
         <Button
             android:id="@+id/btnSavedAddressBack"
@@ -34,18 +33,23 @@
             android:background="#666666"
             android:layout_marginTop="60dp" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="62dp"
+        android:id="@+id/rl_home_address">
+
         <Button
             android:id="@+id/btnHomeAddresss"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginTop="62dp"
             app:backgroundTint="@null"
             android:background="@color/white"/>
 
         <ImageView
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginTop="83dp"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="22dp"
             android:background="@drawable/ic_home"/>
 
@@ -54,9 +58,11 @@
             android:layout_height="wrap_content"
             android:text="Thêm địa chỉ nhà"
             android:textSize="16sp"
-            android:layout_marginTop="83dp"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="70dp"
             android:textStyle="bold"/>
+
+    </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
@@ -81,6 +87,7 @@
             android:background="@drawable/ic_company"/>
 
         <TextView
+            android:id="@+id/companyName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Thêm địa chỉ công ty"
@@ -125,6 +132,4 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/btnNewAddress" />
-    </RelativeLayout>
-
-</layout>
+</RelativeLayout>
