@@ -19,6 +19,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.hachikocoffee.Domain.AddressDomain;
+import com.example.hachikocoffee.Listener.OnAddressChangedListener;
+import com.example.hachikocoffee.Management.ManagementUser;
 import com.example.hachikocoffee.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -36,12 +38,12 @@ public class CompanyAddressActivity extends AppCompatActivity {
     private EditText etCompanyAddressReceiverPhone;
     private TextView tvCompanyAddressName;
     private Button btnCompanyAddressSave;
+    private static OnAddressChangedListener onAddressChangedListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_company_address);
-        SharedPreferences perf = getApplication().getSharedPreferences("User", Context.MODE_PRIVATE);
-        UserID = perf.getInt("UserID", 1);
+        UserID = ManagementUser.getInstance().getUserId();
         etCompanyAddress = findViewById(R.id.etCompanyAddress);
         etCompanyAddressBuilding = findViewById(R.id.etCompanyAddressBuilding);
         etCompanyGate = findViewById(R.id.etCompanyGate);
@@ -123,9 +125,14 @@ public class CompanyAddressActivity extends AppCompatActivity {
                 DatabaseReference addressRef = FirebaseDatabase.getInstance().getReference().child("ADDRESS");
                 UUID uuid = UUID.randomUUID();
                 String addressID = uuid.toString();
-                AddressDomain addressDomain = new AddressDomain(addressID, etCompanyAddress.getText().toString(), etCompanyAddress.getText().toString(), etCompanyGate.getText().toString(), etCompanyNote.getText().toString(), etCompanyAddressReceiverName.getText().toString(), etCompanyAddressReceiverPhone.getText().toString(), tvCompanyAddressName.getText().toString(), UserID);
+                AddressDomain addressDomain = new AddressDomain(addressID, etCompanyAddress.getText().toString(), etCompanyAddress.getText().toString(), etCompanyGate.getText().toString(), etCompanyNote.getText().toString(), etCompanyAddressReceiverName.getText().toString(), etCompanyAddressReceiverPhone.getText().toString(), "Công ty", UserID);
 //                 (String addressID, String description, String detail, String gate, String note, String recipentName, String recipentPhone, String title, int userID)
                 addressRef.push().setValue(addressDomain);
+
+                if (onAddressChangedListener != null){
+                    onAddressChangedListener.onAddressChanged();
+                }
+
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(CompanyAddressActivity.this);
                 builder.setTitle("Thông báo");
@@ -134,15 +141,15 @@ public class CompanyAddressActivity extends AppCompatActivity {
                 builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        String companyAddress = etCompanyAddress.getText().toString() + ", " + etCompanyAddressBuilding.getText().toString() + ", " + etCompanyGate.getText().toString() + ", " + etCompanyNote.getText().toString();
-                        String userNameAndTelephone = etCompanyAddressReceiverName.getText().toString() + " " + etCompanyAddressReceiverPhone.getText().toString();
-
-                        // Trả kết quả về activity trước
-                        Intent resultIntent = new Intent(CompanyAddressActivity.this, SavedAddressActivity.class);
-                        resultIntent.putExtra("show_Company_address", true);
-                        resultIntent.putExtra("Address", companyAddress);
-                        resultIntent.putExtra("NameAndTelephone", userNameAndTelephone);
-                        setResult(Activity.RESULT_OK, resultIntent);
+//                        String companyAddress = etCompanyAddress.getText().toString() + ", " + etCompanyAddressBuilding.getText().toString() + ", " + etCompanyGate.getText().toString() + ", " + etCompanyNote.getText().toString();
+//                        String userNameAndTelephone = etCompanyAddressReceiverName.getText().toString() + " " + etCompanyAddressReceiverPhone.getText().toString();
+//
+//                        // Trả kết quả về activity trước
+//                        Intent resultIntent = new Intent(CompanyAddressActivity.this, SavedAddressActivity.class);
+//                        resultIntent.putExtra("show_Company_address", true);
+//                        resultIntent.putExtra("Address", companyAddress);
+//                        resultIntent.putExtra("NameAndTelephone", userNameAndTelephone);
+//                        setResult(Activity.RESULT_OK, resultIntent);
                         finish();
                     }
                 });
@@ -160,5 +167,9 @@ public class CompanyAddressActivity extends AppCompatActivity {
             btnCompanyAddressSave.setBackground(ContextCompat.getDrawable(this, R.drawable.rounded_rectangle_darkgrey));
             btnCompanyAddressSave.setEnabled(false);
         }
+    }
+
+    public static void setCompanyInterfaceInstance(SavedAddressActivity context){
+        onAddressChangedListener = context;
     }
 }

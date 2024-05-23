@@ -22,6 +22,7 @@ import com.example.hachikocoffee.Domain.AddressDomain;
 import com.example.hachikocoffee.Domain.UserDomain;
 import com.example.hachikocoffee.InfoAccountLoginActivity;
 import com.example.hachikocoffee.Listener.OnAddressChangedListener;
+import com.example.hachikocoffee.Management.ManagementUser;
 import com.example.hachikocoffee.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,8 +41,7 @@ public class HomeAddressActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferences perf = getApplication().getSharedPreferences("User", Context.MODE_PRIVATE);
-        UserID = perf.getInt("UserID", 1);
+        UserID = ManagementUser.getInstance().getUserId();
         setContentView(R.layout.activity_home_address);
         tvHomeAddressName = findViewById(R.id.homeAddressName);
         etHomeAddress = findViewById(R.id.homeAddress);
@@ -149,6 +149,8 @@ public class HomeAddressActivity extends AppCompatActivity {
         btnHomeAddressSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                saveHomeAddress();
+                onAddressChangedListener.onAddressChanged();
                 AlertDialog.Builder builder = new AlertDialog.Builder(HomeAddressActivity.this);
                 builder.setTitle("Thông báo");
                 builder.setMessage("Bạn đã thêm địa chỉ nhà thành công!");
@@ -156,15 +158,15 @@ public class HomeAddressActivity extends AppCompatActivity {
                 builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        String homeAddress = etHomeAddress.getText().toString() + ", " + etHomeAddressBuilding.getText().toString() + ", " + etHomeAddressGate.getText().toString() + ", " + etHomeAddressNote.getText().toString();
-                        String userNameAndTelephone = etHomeAddressReceiverName.getText().toString() + " " + etHomeAddressReceiverPhone.getText().toString();
-
-                        // Trả kết quả về activity trước
-                        Intent resultIntent = new Intent(HomeAddressActivity.this, SavedAddressActivity.class);
-                        resultIntent.putExtra("show_home_address", true);
-                        resultIntent.putExtra("Address", homeAddress);
-                        resultIntent.putExtra("NameAndTelephone", userNameAndTelephone);
-                        setResult(Activity.RESULT_OK, resultIntent);
+//                        String homeAddress = etHomeAddress.getText().toString() + ", " + etHomeAddressBuilding.getText().toString() + ", " + etHomeAddressGate.getText().toString() + ", " + etHomeAddressNote.getText().toString();
+//                        String userNameAndTelephone = etHomeAddressReceiverName.getText().toString() + " " + etHomeAddressReceiverPhone.getText().toString();
+//
+//                        // Trả kết quả về activity trước
+//                        Intent resultIntent = new Intent(HomeAddressActivity.this, SavedAddressActivity.class);
+//                        resultIntent.putExtra("show_home_address", true);
+//                        resultIntent.putExtra("Address", homeAddress);
+//                        resultIntent.putExtra("NameAndTelephone", userNameAndTelephone);
+//                        setResult(Activity.RESULT_OK, resultIntent);
                         finish();
                     }
                 });
@@ -172,6 +174,15 @@ public class HomeAddressActivity extends AppCompatActivity {
                 AlertDialog alertDialog = builder.show();
             }
         });
+    }
+
+    private void saveHomeAddress() {
+        DatabaseReference addressRef = FirebaseDatabase.getInstance().getReference().child("ADDRESS");
+        String addressID = UUID.randomUUID().toString();
+        AddressDomain address = new AddressDomain(addressID, etHomeAddress.getText().toString(), etHomeAddressBuilding.getText().toString(), etHomeAddressGate.getText().toString(), etHomeAddressNote.getText().toString(), etHomeAddressReceiverName.getText().toString(), etHomeAddressReceiverPhone.getText().toString(), "Nhà", UserID);
+        addressRef.child(addressID).setValue(address);
+        // (String addressID, String description, String detail, String gate, String note, String recipentName, String recipentPhone, String title, int userID)
+        addressRef.child(addressID).setValue(address);
     }
 
     private void checkAllFieldsRequire() {
@@ -182,5 +193,9 @@ public class HomeAddressActivity extends AppCompatActivity {
             btnHomeAddressSave.setBackground(ContextCompat.getDrawable(this, R.drawable.rounded_rectangle_darkgrey));
             btnHomeAddressSave.setEnabled(false);
         }
+    }
+
+    public static void setHomeInterfaceInstance(SavedAddressActivity context){
+        onAddressChangedListener = context;
     }
 }
