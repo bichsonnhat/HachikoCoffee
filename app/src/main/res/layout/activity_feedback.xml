@@ -43,6 +43,7 @@
         android:textStyle="bold" />
 
     <EditText
+        android:id="@+id/edtFeedbackContent"
         android:layout_width="match_parent"
         android:layout_height="140dp"
         android:layout_marginTop="110dp"
@@ -60,7 +61,7 @@
 
     <Button
         android:backgroundTint="@null"
-        android:id="@+id/btnRegisterAccount"
+        android:id="@+id/sendFeedback"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="640dp"
