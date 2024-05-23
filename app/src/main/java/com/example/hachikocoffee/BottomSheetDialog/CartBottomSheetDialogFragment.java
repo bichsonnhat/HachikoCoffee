@@ -28,10 +28,13 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hachikocoffee.Activity.YourAddressPick;
 import com.example.hachikocoffee.Activity.YourVoucherPick;
 import com.example.hachikocoffee.Adapter.CartAdapter;
+import com.example.hachikocoffee.Domain.AddressDomain;
 import com.example.hachikocoffee.Domain.CartItem;
 import com.example.hachikocoffee.Domain.DiscountDomain;
+import com.example.hachikocoffee.Listener.OnAddressPickListener;
 import com.example.hachikocoffee.Management.ManagementCart;
 import com.example.hachikocoffee.Listener.OnCartChangedListener;
 import com.example.hachikocoffee.Management.ManagementMinDistance;
@@ -55,8 +58,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import static com.example.hachikocoffee.Adapter.AddressAdapter1.setInterfaceInstance;
 
-public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment implements CartAdapter.OnFragmentDismissListener{
+
+public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment implements CartAdapter.OnFragmentDismissListener, OnAddressPickListener{
 
     private static final int REQUEST_CODE_VOUCHER_PICK = 1;
     private static final String TODAY = "Hôm nay";
@@ -80,8 +85,10 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment imp
     TextView discountMoney;
     TextView feeCost;
     TextView totalCostAfterFee;
+    TextView location, sublocation;
     RecyclerView recyclerViewCart;
     private CartAdapter cartAdapter;
+    private RelativeLayout btnPickAddress;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -115,8 +122,10 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment imp
         discountMoney = view.findViewById(R.id.discountMoney);
         feeCost = view.findViewById(R.id.feeCost);
         totalCostAfterFee = view.findViewById(R.id.totalCostAfterFee);
-
         updateVoucher();
+        btnPickAddress = view.findViewById(R.id.locationBtn);
+        location = view.findViewById(R.id.location);
+        sublocation = view.findViewById(R.id.sublocation);
 
         recyclerViewCart.setLayoutManager(new LinearLayoutManager(requireContext()));
 
@@ -168,6 +177,14 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment imp
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), YourVoucherPick.class);
                 startActivityForResult(intent, REQUEST_CODE_VOUCHER_PICK);
+            }
+        });
+        btnPickAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setInterfaceInstance(CartBottomSheetDialogFragment.this);
+                Intent intent = new Intent(getActivity(), YourAddressPick.class);
+                startActivity(intent);
             }
         });
 
@@ -533,4 +550,8 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment imp
         dismissAllowingStateLoss();
     }
 
+    public void onAddressPick(AddressDomain address) {
+        location.setText(""+address.getTitle());
+        sublocation.setText(""+address.getDescription());
+    }
 }

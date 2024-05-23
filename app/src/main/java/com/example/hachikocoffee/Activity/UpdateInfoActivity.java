@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.example.hachikocoffee.Domain.UserDomain;
 import com.example.hachikocoffee.InfoAccountLoginActivity;
+import com.example.hachikocoffee.Management.ManagementUser;
 import com.example.hachikocoffee.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -56,8 +57,7 @@ public class UpdateInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_info);
-        SharedPreferences perf = getApplication().getSharedPreferences("User", Context.MODE_PRIVATE);
-        UserID = perf.getInt("UserID", 1);
+        UserID = ManagementUser.getInstance().getUserId();
         spGender = findViewById(R.id.spGender);
         createGenderSpinner();
 

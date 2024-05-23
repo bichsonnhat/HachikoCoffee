@@ -5,40 +5,27 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.core.view.ViewCompat;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hachikocoffee.Adapter.AddressAdapter;
 import com.example.hachikocoffee.Domain.AddressDomain;
-import com.example.hachikocoffee.Fragment.HomeAddressFragment;
 import com.example.hachikocoffee.Listener.OnAddressChangedListener;
 import com.example.hachikocoffee.Login;
+import com.example.hachikocoffee.Management.ManagementUser;
 import com.example.hachikocoffee.NotificationDetail;
 import com.example.hachikocoffee.R;
-import com.example.hachikocoffee.YourVoucher;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -46,66 +33,49 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import static com.example.hachikocoffee.Activity.NewAddressActivity.setInterfaceInstance;
-import static com.example.hachikocoffee.Activity.EditAddressActivity.setEditInterfaceInstance;
-
-
+import static com.example.hachikocoffee.Activity.CompanyAddressActivity.setCompanyInterfaceInstance;
+import static com.example.hachikocoffee.Activity.HomeAddressActivity.setHomeInterfaceInstance;
+import static com.example.hachikocoffee.Activity.NewAddressActivity.setInterfaceInstance;;
 
 public class SavedAddressActivity extends AppCompatActivity implements OnAddressChangedListener {
     private RecyclerView recyclerView;
     private int UserID = 1;
-    private ActivityResultLauncher<Intent> startForResult = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                        Intent data = result.getData();
-                        String homeAddress = data.getStringExtra("Address");
-                        String userNameAndTelephone = data.getStringExtra("NameAndTelephone");
 
-                        // Tạo bundle và đặt dữ liệu vào
-                        Bundle bundle = new Bundle();
-                        bundle.putString("Address", homeAddress);
-                        bundle.putString("NameAndTelephone", userNameAndTelephone);
+    private TextView tvAddHomeAddress;
+    private TextView tvHome;
+    private TextView tvDetailHomeAddress;
+    private TextView tvUserNameAndTelephoneHome;
 
-                        // Tạo Fragment và setArguments(bundle)
-                        HomeAddressFragment fragment = new HomeAddressFragment();
-                        fragment.setArguments(bundle);
-
-                        // Thực hiện thay thế fragment trong container
-                        FragmentManager fragmentManager = getSupportFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.rl_home_address, fragment);
-                        fragmentTransaction.commit();
-                    }
-                }
-            });
+    private TextView tvAddCompanyAddress;
+    private TextView tvCompany;
+    private TextView tvDetailCompanyAddress;
+    private TextView tvUserNameAndTelephoneCompany;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_address);
 
-//        RelativeLayout rlHomeAddress = findViewById(R.id.rl_home_address);
-        boolean replaceHomeAddress = getIntent().getBooleanExtra("show_home_address", false);
-        if (savedInstanceState == null) {
-            if (replaceHomeAddress) {
-                // Ẩn RelativeLayout
-//                rlHomeAddress.setVisibility(View.GONE);
+        tvAddHomeAddress = findViewById(R.id.addHomeAddress);
+        tvHome = findViewById(R.id.tvNameHomeAddress);
+        tvDetailHomeAddress = findViewById(R.id.tvDetailHomeAddress);
+        tvUserNameAndTelephoneHome = findViewById(R.id.tvUserNameAndTelephoneHome);
 
-//                Thêm HomeAddressFragment vào FragmentTransaction
-                Fragment HomeAddressFragment = new HomeAddressFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.rl_home_address, HomeAddressFragment).commit();
-                TextView vhAddressNameAddress = findViewById(R.id.vh_address_nameAddress);
-                TextView vhAddressDetailAddress = findViewById(R.id.vh_address_detailAddress);
-                TextView vhAddressUserNameAndTelephone = findViewById(R.id.vh_address_userNameAndTelephone);
-            }
-        }
+        tvAddCompanyAddress = findViewById(R.id.addCompanyAddress);
+        tvCompany = findViewById(R.id.tvNameCompanyAddress);
+        tvDetailCompanyAddress = findViewById(R.id.tvDetailCompanyAddress);
+        tvUserNameAndTelephoneCompany = findViewById(R.id.tvUserNameAndTelephoneCompany);
+
+        tvDetailHomeAddress.setVisibility(View.GONE);
+        tvHome.setVisibility(View.GONE);
+        tvUserNameAndTelephoneHome.setVisibility(View.GONE);
+
+        tvDetailCompanyAddress.setVisibility(View.GONE);
+        tvCompany.setVisibility(View.GONE);
+        tvUserNameAndTelephoneCompany.setVisibility(View.GONE);
 
         recyclerView = findViewById(R.id.recycler_view_saved_addresses);
-        SharedPreferences perf = getSharedPreferences("User", Context.MODE_PRIVATE);
-        UserID = perf.getInt("UserID", 1);
+        UserID = ManagementUser.getInstance().getUserId();
         Button btnSavedAddressBack = findViewById(R.id.btnSavedAddressBack);
         btnSavedAddressBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,8 +87,32 @@ public class SavedAddressActivity extends AppCompatActivity implements OnAddress
         btnHomeAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SavedAddressActivity.this, HomeAddressActivity.class);
-                startForResult.launch(intent);
+                DatabaseReference addressRef = FirebaseDatabase.getInstance().getReference().child("ADDRESS");
+                addressRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()){
+                            for (DataSnapshot issue : snapshot.getChildren()){
+                                AddressDomain address = issue.getValue(AddressDomain.class);
+                                if (address.getUserID() == UserID && address.getTitle().equals("Nhà")){
+                                    Intent intent = new Intent(SavedAddressActivity.this, EditAddressActivity.class);
+                                    intent.putExtra("AddressID", address.getAddressID());
+                                    startActivity(intent);
+                                    return;
+                                }
+                            }
+                            setHomeInterfaceInstance(SavedAddressActivity.this);
+                            Intent intent = new Intent(SavedAddressActivity.this, HomeAddressActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+//                startHomeForResult.launch(intent);
             }
         });
 
@@ -126,8 +120,32 @@ public class SavedAddressActivity extends AppCompatActivity implements OnAddress
         btnCompanyAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SavedAddressActivity.this, CompanyAddressActivity.class);
-                startActivity(intent);
+                DatabaseReference addressRef = FirebaseDatabase.getInstance().getReference().child("ADDRESS");
+                addressRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()){
+                            for (DataSnapshot issue : snapshot.getChildren()){
+                                AddressDomain address = issue.getValue(AddressDomain.class);
+                                if (address.getUserID() == UserID && address.getTitle().equals("Công ty")){
+                                    Intent intent = new Intent(SavedAddressActivity.this, EditAddressActivity.class);
+                                    intent.putExtra("AddressID", address.getAddressID());
+                                    startActivity(intent);
+                                    return;
+                                }
+                            }
+                            setCompanyInterfaceInstance(SavedAddressActivity.this);
+                            Intent intent = new Intent(SavedAddressActivity.this, CompanyAddressActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+//                startCompanyForResult.launch(intent);;
             }
         });
 
@@ -141,6 +159,8 @@ public class SavedAddressActivity extends AppCompatActivity implements OnAddress
             }
         });
         initAddress();
+        initHomeAddress();
+        initCompanyAddress();
     }
 
     private void initAddress() {
@@ -154,7 +174,7 @@ public class SavedAddressActivity extends AppCompatActivity implements OnAddress
                 if (snapshot.exists()){
                     for (DataSnapshot issue : snapshot.getChildren()){
                         AddressDomain address = issue.getValue(AddressDomain.class);
-                        if (address.getUserID() == UserID){
+                        if (address.getUserID() == UserID && !address.getTitle().equals("Nhà") && !address.getTitle().equals("Công ty")){
                             addressList.add(address);
                         }
                     }
@@ -175,5 +195,63 @@ public class SavedAddressActivity extends AppCompatActivity implements OnAddress
     public void onAddressChanged() {
         recyclerView.clearFocus();
         initAddress();
+        initHomeAddress();
+        initCompanyAddress();
+    }
+
+    private void initHomeAddress() {
+        DatabaseReference addressRef = FirebaseDatabase.getInstance().getReference().child("ADDRESS");
+        addressRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    for (DataSnapshot issue : snapshot.getChildren()){
+                        AddressDomain address = issue.getValue(AddressDomain.class);
+                        if (address.getUserID() == UserID && address.getTitle().equals("Nhà")){
+                            tvDetailHomeAddress.setText(address.getDescription());
+                            tvUserNameAndTelephoneHome.setText(address.getRecipentName() + " " + address.getRecipentPhone());
+                            tvDetailHomeAddress.setVisibility(View.VISIBLE);
+                            tvHome.setVisibility(View.VISIBLE);
+                            tvUserNameAndTelephoneHome.setVisibility(View.VISIBLE);
+                            tvAddHomeAddress.setVisibility(View.GONE);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void initCompanyAddress() {
+        DatabaseReference addressRef = FirebaseDatabase.getInstance().getReference().child("ADDRESS");
+        addressRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    for (DataSnapshot issue : snapshot.getChildren()){
+                        AddressDomain address = issue.getValue(AddressDomain.class);
+                        if (address.getUserID() == UserID && address.getTitle().equals("Công ty")){
+                            tvDetailCompanyAddress.setText(address.getDescription());
+                            tvUserNameAndTelephoneCompany.setText(address.getRecipentName() + " " + address.getRecipentPhone());
+                            tvDetailCompanyAddress.setVisibility(View.VISIBLE);
+                            tvCompany.setVisibility(View.VISIBLE);
+                            tvUserNameAndTelephoneCompany.setVisibility(View.VISIBLE);
+                            tvAddCompanyAddress.setVisibility(View.GONE);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

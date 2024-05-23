@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.hachikocoffee.Domain.AddressDomain;
 import com.example.hachikocoffee.InfoAccountLoginActivity;
@@ -60,6 +61,7 @@ public class EditAddressActivity extends AppCompatActivity {
         btnEditAddress = findViewById(R.id.btnEditAddress);
         btnHomeAddressBack = findViewById(R.id.btnHomeAddressBack);
         String addressID = getIntent().getStringExtra("AddressID");
+        Toast.makeText(this, ""+addressID, Toast.LENGTH_SHORT).show();
         initEditedAddress(addressID);
         btnEditAddress.setBackground(ContextCompat.getDrawable(this, R.drawable.rounded_rectangle_darkgrey));
         btnEditAddress.setEnabled(false);

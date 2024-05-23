@@ -38,6 +38,7 @@
         app:layout_constraintTop_toBottomOf="@+id/photodetail_image">
 
         <TextView
+            android:id="@+id/AdvertisementDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Decription"
