@@ -1,77 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="10dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:paddingBottom="10dp">
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#CCCCCC"
-        android:layout_marginTop="0dp"
         android:layout_marginLeft="70dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="0dp"
+        android:background="#CCCCCC"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
     <ImageView
-        android:layout_marginStart="20dp"
         android:id="@+id/vh_address_ic_save"
         android:layout_width="22dp"
         android:layout_height="20dp"
+        android:layout_marginStart="20dp"
         android:src="@drawable/ic_save"
-        tools:ignore="MissingConstraints"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <TextView
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="10dp"
         android:id="@+id/vh_address_nameAddress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="15dp"
         android:text="Hi"
         android:textColor="#000000"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/vh_address_deleteButton"
         app:layout_constraintStart_toEndOf="@+id/vh_address_ic_save"
-        app:layout_constraintEnd_toStartOf="@id/vh_address_deleteButton"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:layout_marginStart="30dp"
         android:id="@+id/vh_address_detailAddress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
         android:layout_marginEnd="15dp"
         android:ellipsize="end"
         android:maxLines="2"
         android:text="87/17 Tân Lập, khu phố Tân Lập, Dĩ An, Bình Dương, Việt Nam"
         android:textColor="#757575"
-        android:textStyle="bold"
         android:textSize="12sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@id/vh_address_deleteButton"
         app:layout_constraintStart_toEndOf="@+id/vh_address_ic_save"
         app:layout_constraintTop_toBottomOf="@id/vh_address_nameAddress" />
 
     <TextView
-        android:layout_marginStart="30dp"
-        android:layout_marginBottom="10dp"
         android:id="@+id/vh_address_userNameAndTelephone"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
         android:layout_marginEnd="15dp"
+        android:layout_marginBottom="10dp"
         android:ellipsize="end"
         android:maxLines="2"
         android:text="Nhật Bích 0333217598"
         android:textColor="#757575"
-        android:textStyle="bold"
         android:textSize="12sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@id/vh_address_deleteButton"
         app:layout_constraintStart_toEndOf="@+id/vh_address_ic_save"
         app:layout_constraintTop_toBottomOf="@id/vh_address_detailAddress" />
@@ -80,11 +79,32 @@
         android:id="@+id/vh_address_deleteButton"
         android:layout_width="20dp"
         android:layout_height="20dp"
+        android:layout_marginEnd="20dp"
         android:scaleType="centerInside"
+        android:src="@drawable/ic_edit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginEnd="20dp"
-        android:src="@drawable/ic_edit" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="371dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="76dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
