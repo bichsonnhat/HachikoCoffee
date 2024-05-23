@@ -227,7 +227,6 @@ public class DetailCart extends BottomSheetDialogFragment implements ToppingList
                 check = true;
                 cartAdapter.notifyItemChanged(this.position);
             }
-
             dismiss();
         });
 

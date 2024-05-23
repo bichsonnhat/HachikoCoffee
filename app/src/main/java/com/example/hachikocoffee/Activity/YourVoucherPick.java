@@ -127,6 +127,7 @@ public class YourVoucherPick extends AppCompatActivity implements DiscountAdapte
 
     private boolean isVoucherSelectedTrue() {
         DiscountDomain selectedDiscount = adapter.getSelectedDiscount();
+        Log.d("count", ""+ ManagementCart.getInstance().getItemsCount());
         if (selectedDiscount == null){
             return false;
         }

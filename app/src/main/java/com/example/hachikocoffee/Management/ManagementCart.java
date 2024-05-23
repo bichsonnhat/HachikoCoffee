@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.example.hachikocoffee.Domain.CartItem;
+import com.example.hachikocoffee.Domain.DiscountDomain;
 import com.example.hachikocoffee.Listener.OnCartChangedListener;
 import com.example.hachikocoffee.Listener.OnCartLoadedListener;
 import com.example.hachikocoffee.Listener.OnDataLoadedCallback;
@@ -27,6 +28,7 @@ public class ManagementCart {
     private FirebaseDatabase database;
     private long itemsCount;
     private int noId;
+    private DiscountDomain voucher;
     private String recipentName;
     private String recipentPhone;
     private String orderTime;
@@ -36,6 +38,14 @@ public class ManagementCart {
         this.onCartLoadedListener = listener;
     }
 
+    public DiscountDomain getVoucher() {
+        return voucher;
+    }
+
+    public void setVoucher(DiscountDomain voucher) {
+        this.voucher = voucher;
+        notifyCartChanged();
+    }
 
     public String getOrderTime() {
         return orderTime;
@@ -74,6 +84,7 @@ public class ManagementCart {
         noId = 0;
         recipentName = "";
         recipentPhone = "";
+        voucher = null;
         database = FirebaseDatabase.getInstance();
         cartRef = database.getReference("CARTS");
     }
@@ -197,6 +208,7 @@ public class ManagementCart {
         cartItems.clear();
         itemsCount = 0;
         noId = 0;
+        voucher = null;
         DatabaseReference userCartRef = cartRef.child(String.valueOf(UserId));
         userCartRef.removeValue();
         notifyCartChanged();
@@ -226,6 +238,16 @@ public class ManagementCart {
         DatabaseReference userCartRef = cartRef.child(userId);
         userCartRef.child("recipentName").setValue(recipentName);
         userCartRef.child("recipentPhone").setValue(recipentPhone);
+    }
+    public void updateVoucherToFireBase(String userId){
+        DatabaseReference userCartRef = cartRef.child(userId);
+        userCartRef.child("voucher").setValue(voucher);
+    }
+
+    public void removeVoucherFromFireBase(String userId){
+        voucher = null;
+        DatabaseReference userCartRef = cartRef.child(userId);
+        userCartRef.child("voucher").removeValue();
     }
 
     public void loadNameAndPhone(){
@@ -271,6 +293,9 @@ public class ManagementCart {
                         recipentName = snapshot.child("recipentName").getValue(String.class);
                         recipentPhone = snapshot.child("recipentPhone").getValue(String.class);
                     }
+                    if (snapshot.hasChild("voucher")){
+                        voucher = snapshot.child("voucher").getValue(DiscountDomain.class);
+                    }
                     else{
                         loadNameAndPhone();
                     }
@@ -278,7 +303,7 @@ public class ManagementCart {
                     for (DataSnapshot cartItemSnapshot : snapshot.getChildren()) {
                         if (!"itemCount".equals(cartItemSnapshot.getKey()) && !"noId".equals(cartItemSnapshot.getKey())
                             && !"recipentName".equals(cartItemSnapshot.getKey()) && !"recipentPhone".equals(cartItemSnapshot.getKey())
-                            && !"orderTime".equals(cartItemSnapshot.getKey())) {
+                            && !"orderTime".equals(cartItemSnapshot.getKey()) && !"voucher".equals(cartItemSnapshot.getKey())) {
                             CartItem item = cartItemSnapshot.getValue(CartItem.class);
                             if (item != null) {
                                 cartItems.add(item);

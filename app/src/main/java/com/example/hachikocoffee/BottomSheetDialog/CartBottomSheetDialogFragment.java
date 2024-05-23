@@ -34,6 +34,7 @@ import com.example.hachikocoffee.Domain.CartItem;
 import com.example.hachikocoffee.Domain.DiscountDomain;
 import com.example.hachikocoffee.Management.ManagementCart;
 import com.example.hachikocoffee.Listener.OnCartChangedListener;
+import com.example.hachikocoffee.Management.ManagementMinDistance;
 import com.example.hachikocoffee.Management.ManagementUser;
 import com.example.hachikocoffee.R;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -55,7 +56,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment{
+public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment implements CartAdapter.OnFragmentDismissListener{
 
     private static final int REQUEST_CODE_VOUCHER_PICK = 1;
     private static final String TODAY = "Hôm nay";
@@ -75,6 +76,10 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment{
     TextView chonKhuyenMai;
     TextView khuyenMai;
     TextView ndKhuyenMai;
+    ImageView ar_khuyenmai;
+    TextView discountMoney;
+    TextView feeCost;
+    TextView totalCostAfterFee;
     RecyclerView recyclerViewCart;
     private CartAdapter cartAdapter;
     @Nullable
@@ -106,6 +111,12 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment{
         chonKhuyenMai = view.findViewById(R.id.chonKhuyenMai);
         khuyenMai = view.findViewById(R.id.khuyenMai);
         ndKhuyenMai = view.findViewById(R.id.ndKhuyenMai);
+        ar_khuyenmai = view.findViewById(R.id.ar_khuyenmai);
+        discountMoney = view.findViewById(R.id.discountMoney);
+        feeCost = view.findViewById(R.id.feeCost);
+        totalCostAfterFee = view.findViewById(R.id.totalCostAfterFee);
+
+        updateVoucher();
 
         recyclerViewCart.setLayoutManager(new LinearLayoutManager(requireContext()));
 
@@ -165,6 +176,7 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment{
         if (cartItems.size() > 0)
         {
             cartAdapter = new CartAdapter(cartItems, getChildFragmentManager());
+            cartAdapter.setOnFragmentDismissListener(this);
             recyclerViewCart.setAdapter(cartAdapter);
         }
 
@@ -402,11 +414,70 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment{
             @Override
             public void onCartChanged() {
                 updateRecyclerview();
+                updateVoucher();
             }
         });
 
 
+
         return dialog;
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void updateVoucher() {
+        double discount = 0;
+        double fee = 0;
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setGroupingSeparator('.');
+        if (ManagementMinDistance.getInstance().getMinDistance() != Double.MAX_VALUE){
+            fee = ManagementMinDistance.getInstance().getMinDistance() * 1000;
+        }
+
+        DiscountDomain curVoucher = ManagementCart.getInstance().getVoucher();
+        if (curVoucher != null){
+            chonKhuyenMai.setVisibility(View.GONE);
+            khuyenMai.setVisibility(View.VISIBLE);
+            ndKhuyenMai.setVisibility(View.VISIBLE);
+            discountMoney.setVisibility(View.VISIBLE);
+            ar_khuyenmai.setVisibility(View.GONE);
+
+
+            if (curVoucher.getValueDouble() != 0){
+                discount = curVoucher.getValueDouble() * ManagementCart.getInstance().getTotalCost();
+            }
+            if (curVoucher.getValueInteger() != 0){
+                discount = curVoucher.getValueInteger();
+            }
+            if (curVoucher.getFreeShipping().equals("1")){
+                fee = 0;
+            }
+
+            double total = ManagementCart.getInstance().getTotalCost() - discount + fee;
+
+
+            String discount_money = new DecimalFormat("#,###", symbols).format(discount);
+            String ship_cost = new DecimalFormat("#,###", symbols).format(fee);
+            String total_afterfee = new DecimalFormat("#,###", symbols).format(total);
+            discountMoney.setText("- " + discount_money + "đ");
+            feeCost.setText(ship_cost + "đ");
+            totalAfterFee.setText(total_afterfee + "đ");
+            totalCostAfterFee.setText(total_afterfee + "đ");
+
+            ndKhuyenMai.setText(ManagementCart.getInstance().getVoucher().getTitle());
+        }
+        else{
+            khuyenMai.setVisibility(View.GONE);
+            ndKhuyenMai.setVisibility(View.GONE);
+            chonKhuyenMai.setVisibility(View.VISIBLE);
+            ar_khuyenmai.setVisibility(View.VISIBLE);
+
+            String ship_cost = new DecimalFormat("#,###", symbols).format(fee);
+            double total = ManagementCart.getInstance().getTotalCost() - discount + fee;
+            String total_afterfee = new DecimalFormat("#,###", symbols).format(total);
+            feeCost.setText(ship_cost + "đ");
+            totalAfterFee.setText(total_afterfee + "đ");
+            totalCostAfterFee.setText(total_afterfee + "đ");
+        }
     }
 
     private void setupFullHeight(View bottomSheet) {
@@ -415,34 +486,26 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment{
         bottomSheet.setLayoutParams(layoutParams);
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint({"NotifyDataSetChanged", "SetTextI18n"})
     private void updateRecyclerview(){
-        if (ManagementCart.getInstance().getCartItems().isEmpty())
-        {
-            dismiss();
-            return;
-        }
+//        if (ManagementCart.getInstance().getCartItems().isEmpty())
+//        {
+////            ManagementCart.getInstance().setVoucher(null);
+//            dismiss();
+//
+//            return;
+//        }
         Log.d("Size", "" + ManagementCart.getInstance().getItemsCount());
-        cartAdapter.setCartItems(ManagementCart.getInstance().getCartItems());
-        cartAdapter.notifyDataSetChanged();
-
-        recyclerViewCart.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-
-                Log.d("Change", "true");
-
-                DecimalFormatSymbols symbols = new DecimalFormatSymbols();
-                symbols.setGroupingSeparator('.');
-                String a = new DecimalFormat("#,###", symbols).format(ManagementCart.getInstance().getTotalCost());
-                totalItemCost.setText(a +"đ");
+//
 
 
-                itemCount.setText("Giao hàng • " + ManagementCart.getInstance().getItemsCount() + " sản phẩm");
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setGroupingSeparator('.');
+        String a = new DecimalFormat("#,###", symbols).format(ManagementCart.getInstance().getTotalCost());
+        totalItemCost.setText(a +"đ");
 
-                recyclerViewCart.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-            }
-        });
+
+        itemCount.setText("Giao hàng • " + ManagementCart.getInstance().getItemsCount() + " sản phẩm");
 
     }
 
@@ -452,6 +515,10 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment{
 
         if (requestCode == REQUEST_CODE_VOUCHER_PICK && resultCode == Activity.RESULT_OK && data != null) {
             DiscountDomain selectedDiscount = (DiscountDomain) data.getSerializableExtra("selectedDiscount");
+            ManagementCart.getInstance().setVoucher(selectedDiscount);
+            Log.d("Voucher", "truee");
+            ManagementCart.getInstance().updateVoucherToFireBase(String.valueOf(ManagementUser.getInstance().getUserId()));
+
             Log.d("SelectedDisCount", "" + selectedDiscount.getTitle());
             chonKhuyenMai.setVisibility(View.GONE);
             khuyenMai.setVisibility(View.VISIBLE);
@@ -459,6 +526,11 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment{
 
             ndKhuyenMai.setText(selectedDiscount.getTitle());
         }
+    }
+
+    @Override
+    public void onDismissFragment() {
+        dismissAllowingStateLoss();
     }
 
 }

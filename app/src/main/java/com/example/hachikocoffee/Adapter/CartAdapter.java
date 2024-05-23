@@ -80,6 +80,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
         }
     }
 
+    public interface OnFragmentDismissListener {
+        void onDismissFragment();
+    }
+
+    private OnFragmentDismissListener listener;
+
+    public void setOnFragmentDismissListener(OnFragmentDismissListener listener) {
+        this.listener = listener;
+    }
+
     public CartAdapter(ArrayList<CartItem> cartItems, FragmentManager fragmentManager) {
         this.cartItems = cartItems;
         this.fragmentManager = fragmentManager;
@@ -107,7 +117,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
                     for (DataSnapshot cartItemSnapshot : snapshot.getChildren()) {
                         if (!"itemCount".equals(cartItemSnapshot.getKey()) && !"noId".equals(cartItemSnapshot.getKey())
                                 && !"recipentName".equals(cartItemSnapshot.getKey()) && !"recipentPhone".equals(cartItemSnapshot.getKey())
-                                && !"orderTime".equals(cartItemSnapshot.getKey())) {
+                                && !"orderTime".equals(cartItemSnapshot.getKey()) && !"voucher".equals(cartItemSnapshot.getKey())) {
                             CartItem item = cartItemSnapshot.getValue(CartItem.class);
                             assert item != null;
                             if (item.getCartItemId().equals(cartItem.getCartItemId())){
@@ -173,6 +183,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
                 @Override
                 public void onClick(View v) {
                     if (position != RecyclerView.NO_POSITION) {
+                        if (ManagementCart.getInstance().getCartItems().size() == 1){
+                            if (listener != null) {
+                                ManagementCart.getInstance().clearCart();
+                                listener.onDismissFragment();
+                                return;
+                            }
+                        }
 
                         ManagementCart.getInstance().removeFromCart(position);
 
