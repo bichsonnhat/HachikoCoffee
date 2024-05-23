@@ -10,28 +10,28 @@
     <RelativeLayout
         android:id="@+id/first"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:layout_centerVertical="true"
             android:id="@+id/txt_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="23dp"
             android:text="Chi tiết đơn hàng"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"/>
 
         <Button
+            android:layout_centerVertical="true"
             android:id="@+id/btnback"
             android:layout_width="25dp"
             android:layout_height="22dp"
-            android:layout_marginTop="23dp"
             android:layout_marginLeft="11dp"
             android:background="@drawable/icon_back"
             app:backgroundTint="@null"
@@ -112,7 +112,7 @@
                 tools:ignore="MissingConstraints" />
 
             <TextView
-                android:id="@+id/txt_7"
+                android:id="@+id/TotalOrderCost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -131,7 +131,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="13dp"
                 android:layout_marginTop="4dp"
-                android:text="Giảm giá"
+                android:text="Phí vận chuyển"
                 android:textAlignment="textStart"
                 android:textColor="#8E8C8C"
                 android:textSize="14sp"
@@ -142,17 +142,17 @@
                 tools:layout_editor_absoluteY="5dp" />
 
             <TextView
-                android:id="@+id/txt_8"
+                android:id="@+id/ShippingCost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="16dp"
-                android:text="-40,000đ"
+                android:text="40,000đ"
                 android:textAlignment="textEnd"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_7"
+                app:layout_constraintTop_toBottomOf="@+id/TotalOrderCost"
                 tools:ignore="MissingConstraints" />
 
             <TextView
@@ -161,7 +161,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="13dp"
                 android:layout_marginTop="4dp"
-                android:text="Phí vận chuyển"
+                android:text="Giảm giá"
                 android:textAlignment="textStart"
                 android:textColor="#8E8C8C"
                 android:textSize="14sp"
@@ -172,17 +172,17 @@
                 tools:layout_editor_absoluteY="80dp" />
 
             <TextView
-                android:id="@+id/txt_9"
+                android:id="@+id/DiscountCost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="16dp"
-                android:text="20,000đ"
+                android:text="-20,000đ"
                 android:textAlignment="textEnd"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_8"
+                app:layout_constraintTop_toBottomOf="@+id/ShippingCost"
                 tools:ignore="MissingConstraints" />
 
             <View
