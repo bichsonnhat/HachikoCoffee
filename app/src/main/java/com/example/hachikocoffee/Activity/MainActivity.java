@@ -6,6 +6,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
@@ -22,6 +24,7 @@ import com.example.hachikocoffee.Fragment.OrderFragment;
 import com.example.hachikocoffee.Fragment.OtherFragment;
 import com.example.hachikocoffee.Fragment.ShopFragment;
 import com.example.hachikocoffee.Listener.OnCartChangedListener;
+import com.example.hachikocoffee.Management.ManagementUser;
 import com.example.hachikocoffee.R;
 import com.example.hachikocoffee.databinding.ActivityMainBinding;
 import com.google.android.material.shape.MaterialShapeDrawable;
@@ -89,6 +92,10 @@ public class MainActivity extends AppCompatActivity {
                 cartBottomSheet.show(getSupportFragmentManager(), "CartBottomSheet");
             }
         });
+    }
+
+    private void updateActivity(){
+
     }
 
     @SuppressLint("SetTextI18n")

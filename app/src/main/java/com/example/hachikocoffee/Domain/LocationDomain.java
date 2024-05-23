@@ -1,6 +1,8 @@
 package com.example.hachikocoffee.Domain;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LocationDomain implements Serializable {
     private int UserID;
@@ -36,5 +38,12 @@ public class LocationDomain implements Serializable {
 
     public void setLocationY(double locationY) {
         LocationY = locationY;
+    }
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("UserID", UserID);
+        result.put("LocationX", LocationX);
+        result.put("LocationY", LocationY);
+        return result;
     }
 }

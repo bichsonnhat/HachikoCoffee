@@ -29,17 +29,15 @@ public class ManagementUser {
     }
 
     public void loadFromFirebase(int userId) {
-        usersRef.orderByChild("UserID").equalTo(userId)
+        usersRef.child(String.valueOf(userId))
                 .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                        user = userSnapshot.getValue(UserDomain.class);
-                        Log.d("ManagementUser", "user " + user.getName());
-                        break;
-                    }
+                    user = dataSnapshot.getValue(UserDomain.class);
+                    Log.d("ManagementUser", "user " + user.getName());
                 } else {
+                    Log.d("MangermentUsser", String.valueOf(userId));
                     Log.d("ManagementUser", "not found user");
                 }
             }
@@ -57,4 +55,5 @@ public class ManagementUser {
     public int getUserId(){
         return user.getUserID();
     }
+    public void setUserID(int ID){ user.setUserID(ID);}
 }
