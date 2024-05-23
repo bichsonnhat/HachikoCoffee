@@ -51,7 +51,7 @@ public class FavouriteActivity extends AppCompatActivity implements UpdateUIList
         starIcon = findViewById(R.id.starIcon);
 
         listFavourites = new ArrayList<>();
-        recyclerViewFavourites.setLayoutManager(new GridLayoutManager(this, ManagementUser.getInstance().getUserId()));
+        recyclerViewFavourites.setLayoutManager(new GridLayoutManager(this, 1));
         //updateUI(previousItemCount);
 
 

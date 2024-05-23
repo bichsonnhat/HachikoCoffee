@@ -368,12 +368,32 @@
                         app:layout_constraintTop_toBottomOf="@id/fee">
 
                         <TextView
+                            android:id="@+id/chonKhuyenMai"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:text="Chọn khuyến mãi"
+                            android:visibility="visible"
                             android:textColor="#2c2c2c"
                             android:textSize="15sp" />
+                        <TextView
+                            android:id="@+id/khuyenMai"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Khuyến mãi"
+                            android:textColor="#2C42B8"
+                            android:visibility="gone"
+                            android:textSize="13sp"
+                            android:layout_marginStart="16dp"/>
+                        <TextView
+                            android:id="@+id/ndKhuyenMai"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Giảm 10% Đơn từ 2 món"
+                            android:layout_below="@+id/khuyenMai"
+                            android:visibility="gone"
+                            android:textSize="12sp"
+                            android:layout_marginStart="16dp"/>
                         <ImageView
                             android:layout_width="15dp"
                             android:layout_height="20dp"
