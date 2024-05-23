@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".Activity.FeedbackActivity">
+
+    <Button
+        android:id="@+id/btnFeedbackBack"
+        app:backgroundTint="@null"
+        android:layout_width="25dp"
+        android:layout_height="22dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginLeft="11dp"
+        android:background="@drawable/icon_back"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="23dp"
+        android:text="Gửi góp ý về ứng dụng"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#666666"
+        android:layout_marginTop="60dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="75dp"
+        android:layout_marginLeft="20dp"
+        android:text="Đối với Hachiko, mọi góp ý của bạn đều quý giá 💛️"
+        android:fontFamily="sans-serif"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_marginTop="110dp"
+        android:inputType="textMultiLine"
+        android:gravity="top|start"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/rounded_corner_feedback"
+        android:hint="Chia sẻ cảm nghĩ của bạn về ứng dụng cho Hachiko tại đây"
+        android:textSize="14sp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:paddingTop="10dp"
+        android:textColor="#000000" />
+
+    <Button
+        android:backgroundTint="@null"
+        android:id="@+id/btnRegisterAccount"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="640dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        app:backgroundTint="@null"
+        android:background="@drawable/rounded_rectangle_darkgrey"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="655dp"
+        android:text="Gửi phản hồi"
+        android:fontFamily="sans-serif"
+        android:textSize="16sp"
+        android:textColor="@color/white" />
+</RelativeLayout>

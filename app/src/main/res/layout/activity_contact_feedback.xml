@@ -41,7 +41,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="270dp"
+                android:layout_height="335dp"
                 android:layout_marginTop="20dp"
                 android:background="@color/white">
 
@@ -161,6 +161,45 @@
                     android:textSize="14sp"
                     android:layout_marginTop="235dp"
                     android:layout_marginLeft="60dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#CCCCCC"
+                    android:layout_marginTop="270dp"
+                    android:layout_marginLeft="20dp"/>
+
+                <Button
+                    android:id="@+id/btnFeedback"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="271dp"
+                    android:background="@color/white"
+                    app:backgroundTint="@null"/>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/ic_feedback"
+                    android:layout_marginTop="293dp"
+                    android:layout_marginLeft="20dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gửi góp ý về ứng dụng"
+                    android:textSize="16sp"
+                    android:layout_marginTop="291dp"
+                    android:layout_marginLeft="60dp"
+                    android:textStyle="bold"/>
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="293dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/arrow_right" />
 
             </RelativeLayout>
 
