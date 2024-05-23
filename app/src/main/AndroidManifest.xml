@@ -40,13 +40,25 @@
             android:exported="false" />
         <activity
             android:name=".Activity.NewAddressActivity"
-            android:exported="false" />
+            android:exported="true" >
+<!--            <intent-filter>-->
+<!--                            <action android:name="android.intent.action.MAIN" />-->
+
+<!--                            <category android:name="android.intent.category.LAUNCHER" />-->
+<!--                        </intent-filter>-->
+        </activity>
         <activity
             android:name=".Activity.CompanyAddressActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.HomeAddressActivity"
-            android:exported="false" />
+            android:exported="true" >
+<!--                        <intent-filter>-->
+<!--                                        <action android:name="android.intent.action.MAIN" />-->
+
+<!--                                        <category android:name="android.intent.category.LAUNCHER" />-->
+<!--                                    </intent-filter>-->
+        </activity>
         <activity
             android:name=".Activity.FavouriteActivity"
             android:exported="false" />
@@ -69,7 +81,7 @@
             android:name=".Activity.SplashActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -104,7 +116,7 @@
             android:exported="true">
             <intent-filter>
 
-                <!-- <action android:name="android.intent.action.MAIN" /> -->
+                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
