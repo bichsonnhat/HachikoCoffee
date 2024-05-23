@@ -1,5 +1,6 @@
 package com.example.hachikocoffee.Adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.hachikocoffee.Activity.EditAddressActivity;
 import com.example.hachikocoffee.Domain.AddressDomain;
 import com.example.hachikocoffee.Domain.DiscountDomain;
 import com.example.hachikocoffee.R;
@@ -18,6 +20,7 @@ import com.example.hachikocoffee.R;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import static com.example.hachikocoffee.Activity.EditAddressActivity.setEditInterfaceInstance;
 
 public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressViewHolder> {
 
@@ -43,6 +46,15 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
         holder.AddressTitle.setText(""+address.getTitle());
         holder.AddressDetail.setText(""+address.getDescription());
         holder.AddressInfo.setText(""+address.getRecipentName()+ " " +address.getRecipentPhone());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setEditInterfaceInstance(v.getContext());
+                Intent intent = new Intent(v.getContext(), EditAddressActivity.class);
+                intent.putExtra("AddressID", address.getAddressID());
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
