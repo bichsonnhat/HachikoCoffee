@@ -75,7 +75,11 @@ public class DiscountDetail extends BottomSheetDialogFragment {
             return;
         }
 
-        Glide.with(discountdetailImage.getContext()).load(discount.getImageURL()).into(discountdetailImage);
+        if (discount.getType().equals("Pick up")){
+            Glide.with(discountdetailImage.getContext()).load("https://firebasestorage.googleapis.com/v0/b/thehachikocoffee-aed51.appspot.com/o/qrcode2.jpg?alt=media&token=05acf7f1-3cfa-49d6-8076-31286b2089d5").into(discountdetailImage);
+        } else {
+            Glide.with(discountdetailImage.getContext()).load(discount.getImageURL()).into(discountdetailImage);
+        }
         discountdetailTitle.setText(discount.getTitle());
         discountdetailDescription.setText(discount.getDescription());
         discountdetailExpirydate.setText(discount.getExpiryDate());
