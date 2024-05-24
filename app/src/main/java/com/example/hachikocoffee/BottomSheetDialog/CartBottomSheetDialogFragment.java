@@ -198,9 +198,9 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment imp
                 }
                 String orderMethod = "Tiền mặt";
 
-                @SuppressLint("DefaultLocale") double cost = Double.parseDouble(String.format("%.3f", totalafterFee));;
-                @SuppressLint("DefaultLocale") double discount = Double.parseDouble(String.format("%.3f", discountmoney));
-                @SuppressLint("DefaultLocale") double feeship = Double.parseDouble(String.format("%.3f", shippingFee));;
+                double cost = totalafterFee;
+                double discount = discountmoney;
+                double feeship = shippingFee;
                 String recipentname = (String) recipentName.getText();
                 String recipentphone = (String) recipentPhone.getText();
                 int storeId = ManagementCart.getInstance().getStoreId();
