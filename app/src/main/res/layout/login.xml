@@ -17,7 +17,7 @@
                 android:layout_weight="1"
                 android:layout_height="415dp"
                 android:layout_gravity="top"
-                android:layout_marginTop="-5dp"
+                android:layout_marginTop="-15dp"
                 android:layout_marginStart="0sp"
                 android:src="@drawable/tradao_login" />
         </LinearLayout>
