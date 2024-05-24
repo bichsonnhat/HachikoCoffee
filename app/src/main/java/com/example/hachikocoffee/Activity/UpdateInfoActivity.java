@@ -4,8 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
@@ -32,6 +35,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -124,6 +129,32 @@ public class UpdateInfoActivity extends AppCompatActivity {
         btnUpdateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("USER");
+                userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()){
+                            for (DataSnapshot issue : snapshot.getChildren()){
+                                UserDomain user = issue.getValue(UserDomain.class);
+                                if (user.getUserID() == UserID){
+                                    Map<String, Object> updates = new HashMap<>();
+                                    updates.put("name", etFirstName.getText().toString().trim() + ", " + etLastName.getText().toString().trim());
+                                    updates.put("email", etEmail.getText().toString().trim());
+                                    updates.put("birthday", tvCanlendar.getText().toString().trim());
+                                    updates.put("gender", spGender.getSelectedItem().toString().trim());
+                                    userRef.child(String.valueOf(UserID)).updateChildren(updates);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+                showSuccessDialog();
             }
         });
 
@@ -272,8 +303,41 @@ public class UpdateInfoActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         tvCanlendar.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                        checkAge(year, monthOfYear, dayOfMonth);
                     }
                 }, year, month, dayOfMonth);
         datePickerDialog.show();
+    }
+
+    private void checkAge(int year, int monthOfYear, int dayOfMonth) {
+        Calendar dob = Calendar.getInstance();
+        Calendar today = Calendar.getInstance();
+
+        dob.set(year, monthOfYear, dayOfMonth);
+
+        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)) {
+            age--;
+        }
+        if (age < 18) {
+            tvCanlendar.setError("Vui lòng nhập ngày sinh trên 18 tuổi!");
+            Toast.makeText(this, "Vui lòng nhập ngày sinh trên 18 tuổi!", Toast.LENGTH_SHORT).show();
+        } else {
+            tvCanlendar.setError(null);
+            checkAllFieldsFilled();
+        }
+    }
+
+    private void showSuccessDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Thông báo");
+        builder.setMessage("Cập nhật tài khoản thành công!");
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
+        AlertDialog alertDialog = builder.show();
     }
 }
