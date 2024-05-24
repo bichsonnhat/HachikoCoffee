@@ -23,6 +23,7 @@ import com.example.hachikocoffee.Adapter.DiscountAdapter;
 import com.example.hachikocoffee.DiscountDetail;
 import com.example.hachikocoffee.Domain.DiscountDomain;
 import com.example.hachikocoffee.Listener.OnVoucherClick;
+import com.example.hachikocoffee.Management.ManagementUser;
 import com.example.hachikocoffee.R;
 import com.example.hachikocoffee.YourVoucher;
 import com.google.firebase.database.DataSnapshot;
@@ -32,6 +33,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static com.example.hachikocoffee.DiscountDetail.setInterfaceInstance;
@@ -57,6 +59,8 @@ public class DiscountFragment extends Fragment implements OnVoucherClick {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private int UserID;
 
     public DiscountFragment() {
         // Required empty public constructor
@@ -96,6 +100,7 @@ public class DiscountFragment extends Fragment implements OnVoucherClick {
         CardView btnToVouchers3 = (CardView) view.findViewById(R.id.btn_to_voucher3);
         Button btnToVouchers4 = view.findViewById(R.id.btn_seeall_voucher1);
         Button btnToVouchers5 = view.findViewById(R.id.btn_seeall_voucher2);
+        UserID = ManagementUser.getInstance().getUserId();
         btnToVouchers3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,36 +143,94 @@ public class DiscountFragment extends Fragment implements OnVoucherClick {
         rcv_listVoucher1.setLayoutManager(linearLayoutManager1);
         rcv_listVoucher2.setLayoutManager(linearLayoutManager2);
 
-        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("VOUCHER");
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference userVoucherRef = FirebaseDatabase.getInstance().getReference("USERVOUCHER");
+        userVoucherRef.orderByChild("UserID").equalTo(ManagementUser.getInstance().getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    ArrayList<DiscountDomain> discountList1 = new ArrayList<>();
-                    ArrayList<DiscountDomain> discountList2 = new ArrayList<>();
-
-                    for (DataSnapshot issue : snapshot.getChildren()) {
-                        DiscountDomain discount = issue.getValue(DiscountDomain.class);
-
-                        if (discount.isAboutToExpire() && discountList1.size() < 3){
-                            discountList1.add(discount);
-                            Log.d("Discount", "Add a discount that is about to expire");
-                        }
-
-                        if (discountList2.size() < 3) {
-                            discountList2.add(discount);
-                            Log.d("Discount", "Add a discount that is not about to expire");
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<String> voucherIDs = new ArrayList<>();
+                ArrayList<DiscountDomain> discountList1 = new ArrayList<>();
+                ArrayList<DiscountDomain> discountList2 = new ArrayList<>();
+                if (dataSnapshot.exists()){
+                    for (DataSnapshot userVoucherSnapshot : dataSnapshot.getChildren()) {
+                        int isUse = userVoucherSnapshot.child("IsUse").getValue(Integer.class);
+                        if (isUse == 0){
+                            String voucherID = String.valueOf(userVoucherSnapshot.child("VoucherID").getValue(Long.class));
+                            voucherIDs.add(voucherID);
                         }
                     }
-                    displayDiscountData(discountList1, discountList2);
+
+                    DatabaseReference voucherRef = FirebaseDatabase.getInstance().getReference("VOUCHER");
+
+                    voucherRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot voucherSnapshot : dataSnapshot.getChildren()) {
+                                String currentVoucherID = String.valueOf(voucherSnapshot.child("VoucherID").getValue(Long.class));
+                                if (voucherIDs.contains(currentVoucherID)) {
+                                    DiscountDomain discount = voucherSnapshot.getValue(DiscountDomain.class);
+                                    if (discount != null) { // Must add check date function
+                                        if (!discount.isAboutToExpire()) {
+                                            if (discountList2.size() < 3){
+                                                discountList2.add(discount);
+                                            }
+                                        } else {
+                                            if (discountList1.size() < 3){
+                                                discountList1.add(discount);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            displayDiscountData(discountList1, discountList2);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            // Xử lý lỗi nếu có
+                            System.err.println("Error retrieving vouchers: " + databaseError.getMessage());
+                        }
+                    });
                 }
+
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("FirebaseError", "Failed to read value.", error.toException());
+            public void onCancelled(DatabaseError databaseError) {
+                // Xử lý lỗi nếu có
+                System.err.println("Error retrieving user vouchers: " + databaseError.getMessage());
             }
         });
+
+//        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("VOUCHER");
+//        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if (snapshot.exists()) {
+//                    ArrayList<DiscountDomain> discountList1 = new ArrayList<>();
+//                    ArrayList<DiscountDomain> discountList2 = new ArrayList<>();
+//
+//                    for (DataSnapshot issue : snapshot.getChildren()) {
+//                        DiscountDomain discount = issue.getValue(DiscountDomain.class);
+//
+//                        if (discount.isAboutToExpire() && discountList1.size() < 3){
+//                            discountList1.add(discount);
+//                            Log.d("Discount", "Add a discount that is about to expire");
+//                        }
+//
+//                        if (discountList2.size() < 3) {
+//                            discountList2.add(discount);
+//                            Log.d("Discount", "Add a discount that is not about to expire");
+//                        }
+//                    }
+//                    displayDiscountData(discountList1, discountList2);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                Log.e("FirebaseError", "Failed to read value.", error.toException());
+//            }
+//        });
     }
 
     private void displayDiscountData(ArrayList<DiscountDomain> discountList1, ArrayList<DiscountDomain> discountList2) {

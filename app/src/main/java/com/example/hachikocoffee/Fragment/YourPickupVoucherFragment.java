@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.hachikocoffee.Adapter.DiscountAdapter;
 import com.example.hachikocoffee.DiscountDetail;
 import com.example.hachikocoffee.Domain.DiscountDomain;
+import com.example.hachikocoffee.Management.ManagementUser;
 import com.example.hachikocoffee.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -95,34 +97,88 @@ public class YourPickupVoucherFragment extends Fragment {
         rcv_pickupList1.setLayoutManager(linearLayoutManager1);
         rcv_pickupList2.setLayoutManager(linearLayoutManager2);
 
-        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("VOUCHER");
+//        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("VOUCHER");
 
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference userVoucherRef = FirebaseDatabase.getInstance().getReference("USERVOUCHER");
+        userVoucherRef.orderByChild("UserID").equalTo(ManagementUser.getInstance().getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                //    ArrayList<DiscountDomain> pickupVoucherList1 = new ArrayList<>();
-                //    ArrayList<DiscountDomain> pickupVoucherList2 = new ArrayList<>();
-
-                    for (DataSnapshot issue : snapshot.getChildren()) {
-                        DiscountDomain discount = issue.getValue(DiscountDomain.class);
-
-                        if (discount != null && discount.getType().equals("Pick up")) { // Must add check date function
-                            if (discount.isAboutToExpire()) {
-                                pickupVoucherList1.add(discount);
-                            }
-                            pickupVoucherList2.add(discount);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<String> voucherIDs = new ArrayList<>();
+                ArrayList<DiscountDomain> discountList1 = new ArrayList<>();
+                ArrayList<DiscountDomain> discountList2 = new ArrayList<>();
+                if (dataSnapshot.exists()){
+                    for (DataSnapshot userVoucherSnapshot : dataSnapshot.getChildren()) {
+                        int isUse = userVoucherSnapshot.child("IsUse").getValue(Integer.class);
+                        if (isUse == 0){
+                            String voucherID = String.valueOf(userVoucherSnapshot.child("VoucherID").getValue(Long.class));
+                            voucherIDs.add(voucherID);
                         }
                     }
-                    displayDiscountData(pickupVoucherList1, pickupVoucherList2);
+
+                    DatabaseReference voucherRef = FirebaseDatabase.getInstance().getReference("VOUCHER");
+
+                    voucherRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot voucherSnapshot : dataSnapshot.getChildren()) {
+                                String currentVoucherID = String.valueOf(voucherSnapshot.child("VoucherID").getValue(Long.class));
+                                if (voucherIDs.contains(currentVoucherID)) {
+                                    DiscountDomain discount = voucherSnapshot.getValue(DiscountDomain.class);
+                                    if (discount != null && discount.getType().equals("Pick up")) { // Must add check date function
+                                        if (!discount.isAboutToExpire()) {
+                                            pickupVoucherList2.add(discount);
+                                        } else {
+                                            pickupVoucherList1.add(discount);
+                                        }
+                                    }
+                                }
+                            }
+                            displayDiscountData(pickupVoucherList1, pickupVoucherList2);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            // Xử lý lỗi nếu có
+                            System.err.println("Error retrieving vouchers: " + databaseError.getMessage());
+                        }
+                    });
                 }
+
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("FirebaseError", "Failed to read value.", error.toException());
+            public void onCancelled(DatabaseError databaseError) {
+                // Xử lý lỗi nếu có
+                System.err.println("Error retrieving user vouchers: " + databaseError.getMessage());
             }
         });
+
+//        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if (snapshot.exists()) {
+//                //    ArrayList<DiscountDomain> pickupVoucherList1 = new ArrayList<>();
+//                //    ArrayList<DiscountDomain> pickupVoucherList2 = new ArrayList<>();
+//
+//                    for (DataSnapshot issue : snapshot.getChildren()) {
+//                        DiscountDomain discount = issue.getValue(DiscountDomain.class);
+//
+//                        if (discount != null && discount.getType().equals("Pick up")) { // Must add check date function
+//                            if (discount.isAboutToExpire()) {
+//                                pickupVoucherList1.add(discount);
+//                            }
+//                            pickupVoucherList2.add(discount);
+//                        }
+//                    }
+//                    displayDiscountData(pickupVoucherList1, pickupVoucherList2);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                Log.e("FirebaseError", "Failed to read value.", error.toException());
+//            }
+//        });
     }
 
     private void displayDiscountData(ArrayList<DiscountDomain> discountList1, ArrayList<DiscountDomain> discountList2) {
