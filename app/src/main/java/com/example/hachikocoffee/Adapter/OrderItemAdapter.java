@@ -81,7 +81,10 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         });
         String a = new DecimalFormat("#,###", symbols).format((long) orderItem.getTotalOrderItemPrice());
         holder.vh_detail_bill_totalPrice.setText(a + "đ");
-        holder.vh_detail_bill_ListTopping.setText(orderItem.getTopping());
+        String topping = orderItem.getTopping();
+        String newString = topping.replaceAll("[\\[\\]]", "");
+
+        holder.vh_detail_bill_ListTopping.setText(newString);
     }
 
     @Override
