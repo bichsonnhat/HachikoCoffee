@@ -1,7 +1,9 @@
 package com.example.hachikocoffee.Adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hachikocoffee.BottomSheetDialog.DetailCart;
 import com.example.hachikocoffee.Domain.CartItem;
+import com.example.hachikocoffee.Domain.DiscountDomain;
 import com.example.hachikocoffee.Management.ManagementCart;
 import com.example.hachikocoffee.Management.ManagementUser;
 import com.example.hachikocoffee.databinding.ViewholderItemCartBinding;
@@ -117,7 +120,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
                     for (DataSnapshot cartItemSnapshot : snapshot.getChildren()) {
                         if (!"itemCount".equals(cartItemSnapshot.getKey()) && !"noId".equals(cartItemSnapshot.getKey())
                                 && !"recipentName".equals(cartItemSnapshot.getKey()) && !"recipentPhone".equals(cartItemSnapshot.getKey())
-                                && !"orderTime".equals(cartItemSnapshot.getKey()) && !"voucher".equals(cartItemSnapshot.getKey())) {
+                                && !"orderTime".equals(cartItemSnapshot.getKey()) && !"voucher".equals(cartItemSnapshot.getKey())
+                                && !"location".equals(cartItemSnapshot.getKey())) {
                             CartItem item = cartItemSnapshot.getValue(CartItem.class);
                             assert item != null;
                             if (item.getCartItemId().equals(cartItem.getCartItemId())){
@@ -197,6 +201,17 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
 
                         notifyItemRangeChanged(position, cartItems.size());
 
+                        DiscountDomain curVoucher = ManagementCart.getInstance().getVoucher();
+                        if (curVoucher != null){
+                            if (ManagementCart.getInstance().getItemsCount() < curVoucher.getMinOrderCapacity()){
+                                ManagementCart.getInstance().removeVoucherFromFireBase(String.valueOf(ManagementUser.getInstance().getUserId()));
+                                Toast.makeText(context, "Không đủ số lượng mặt hàng để áp dụng voucher.", Toast.LENGTH_SHORT).show();
+                            }
+                            else if (ManagementCart.getInstance().getTotalCost() < curVoucher.getMinOrderPrice()){
+                                ManagementCart.getInstance().removeVoucherFromFireBase(String.valueOf(ManagementUser.getInstance().getUserId()));
+                                Toast.makeText(context, "Tổng chi phí đơn hàng không đủ để áp dụng voucher.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
                     }
                 }
             });

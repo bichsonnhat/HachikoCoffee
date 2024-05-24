@@ -102,8 +102,10 @@ public class DetailCart extends BottomSheetDialogFragment implements ToppingList
         numberOfProduct.setText(String.valueOf(countProduct));
         notes = view.findViewById(R.id.notes);
 
-        if (!cartItem.getNote().trim().isEmpty()){
-            notes.setText(cartItem.getNote());
+        if (cartItem!=null){
+            if (!cartItem.getNote().trim().isEmpty()){
+                notes.setText(cartItem.getNote());
+            }
         }
 
         switch (sizeProduct) {
@@ -149,7 +151,7 @@ public class DetailCart extends BottomSheetDialogFragment implements ToppingList
                     }
                 });
                 sizeProduct = s;
-                Toast.makeText(getContext(), "Selected " + s, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Selected " + s, Toast.LENGTH_SHORT).show();
                 switch (sizeProduct) {
                     case "Lớn":
                         totalCost = (int) (productCost + 20000);
@@ -295,7 +297,7 @@ public class DetailCart extends BottomSheetDialogFragment implements ToppingList
         toppingList.clear();
         toppingList.addAll(toppings);
         updateTotalCost();
-        Toast.makeText(requireContext(), toppings.toString(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(requireContext(), toppings.toString(), Toast.LENGTH_SHORT).show();
     }
 
     @NonNull

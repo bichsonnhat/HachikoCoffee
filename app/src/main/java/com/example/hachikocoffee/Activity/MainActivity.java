@@ -143,22 +143,22 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference("LOCATION");
         DatabaseReference locationUserRef = locationRef.child(String.valueOf(UserID));
-        locationUserRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
-                    if (snapshot.hasChild("address")){
-                        String curAddress = snapshot.child("address").getValue(String.class);
-                        binding.location.setText(curAddress);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+//        locationUserRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if (snapshot.exists()){
+//                    if (snapshot.hasChild("address")){
+//                        String curAddress = snapshot.child("address").getValue(String.class);
+//                        binding.location.setText(curAddress);
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
     }
 
     @Override
@@ -206,47 +206,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
                             String finalMyAddress = myAddress;
 
+                            ManagementCart.getInstance().setLocation(finalMyAddress);
+                            ManagementCart.getInstance().setSubLocation("");
+                            binding.location.setText(finalMyAddress);
                             DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference().child("LOCATION");
                             LocationDomain locationDomain = new LocationDomain(UserID, latitude, longitude, finalMyAddress);
                             locationRef.child(String.valueOf(UserID)).setValue(locationDomain);
-//                            locationRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//                                @Override
-//                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                                    boolean locationExists = false;
-//
-//                                    for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
-//                                        LocationDomain locationDomain = childSnapshot.getValue(LocationDomain.class);
-//                                        if (locationDomain != null && locationDomain.getUserID() == UserID) {
-//                                            locationExists = true;
-//                                            Map<String, Object> updates = new HashMap<>();
-//                                            updates.put("LocationX", latitude);
-//                                            updates.put("LocationY", longitude);
-//                                            updates.put("CurAddress", finalMyAddress);
-//                                            childSnapshot.getRef().updateChildren(updates);
-//                                            break;
-//                                        }
-//                                    }
-//
-//                                    if (!locationExists) {
-//                                        String newLocationKey = locationRef.push().getKey();
-//                                        if (newLocationKey != null) {
-//                                            LocationDomain newLocation = new LocationDomain(UserID, latitude, longitude, finalMyAddress);
-//                                            Map<String, Object> locationValues = newLocation.toMap();
-//
-//                                            Map<String, Object> childUpdates = new HashMap<>();
-//                                            childUpdates.put(newLocationKey, locationValues);
-//
-//                                            locationRef.updateChildren(childUpdates);
-//                                        }
-//                                    }
-//
-//                                }
-//                                @Override
-//                                public void onCancelled(@NonNull DatabaseError error) {
-//                                    Log.w("TAG", "Error fetching locations: " + error.getMessage());
-//                                }
-//                            });
-
                         }
                     }
                 });
@@ -290,6 +255,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
                                     if (distance < ManagementMinDistance.getInstance().getMinDistance()){
                                         ManagementMinDistance.getInstance().setMinDistance(distance);
+                                        ManagementCart.getInstance().setStoreId(shop.getStoreID());
                                     }
                                 }
                             }

@@ -145,7 +145,7 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
                     }
                 });
                 sizeProduct = s;
-                Toast.makeText(getContext(), "Selected " + s, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Selected " + s, Toast.LENGTH_SHORT).show();
                 switch (sizeProduct) {
                     case "Lớn":
                         totalCost = (int) (product.getPrice() + 20000);
@@ -360,7 +360,7 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
         toppingList.clear();
         toppingList.addAll(toppings);
         updateTotalCost();
-        Toast.makeText(requireContext(), toppings.toString(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(requireContext(), toppings.toString(), Toast.LENGTH_SHORT).show();
     }
 
     public void setUpdateUIListener(UpdateUIListener listener) {

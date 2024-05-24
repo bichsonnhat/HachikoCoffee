@@ -10,12 +10,12 @@ public class OrderItemDomain implements Serializable {
     private String Size;
     private String Topping;
     private String Note;
-    private int TotalOrderItemPrice;
+    private double TotalOrderItemPrice;
 
     public OrderItemDomain() {
     }
 
-    public OrderItemDomain(String ordderItemID, String orderID, String productID, int quantity, String size, String topping, String note, int totalOrderItemPrice) {
+    public OrderItemDomain(String ordderItemID, String orderID, String productID, int quantity, String size, String topping, String note, double totalOrderItemPrice) {
         OrderItemID = ordderItemID;
         OrderID = orderID;
         ProductID = productID;
@@ -82,7 +82,7 @@ public class OrderItemDomain implements Serializable {
         Note = note;
     }
 
-    public int getTotalOrderItemPrice() {
+    public double getTotalOrderItemPrice() {
         return TotalOrderItemPrice;
     }
 

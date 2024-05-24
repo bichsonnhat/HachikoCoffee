@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,6 +35,8 @@ import com.example.hachikocoffee.Adapter.CartAdapter;
 import com.example.hachikocoffee.Domain.AddressDomain;
 import com.example.hachikocoffee.Domain.CartItem;
 import com.example.hachikocoffee.Domain.DiscountDomain;
+import com.example.hachikocoffee.Domain.OrderDomain;
+import com.example.hachikocoffee.Domain.OrderItemDomain;
 import com.example.hachikocoffee.Listener.OnAddressPickListener;
 import com.example.hachikocoffee.Management.ManagementCart;
 import com.example.hachikocoffee.Listener.OnCartChangedListener;
@@ -45,6 +48,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.shape.MaterialShapeDrawable;
 import com.google.android.material.shape.ShapeAppearanceModel;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
 
@@ -52,12 +57,15 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
+
 import static com.example.hachikocoffee.Adapter.AddressAdapter1.setInterfaceInstance;
 
 
@@ -71,6 +79,9 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment imp
     private final String[] dayValues = {TODAY, TOMORROW, DAY_AFTER_TOMORROW};
     private String[] todayTimeValues;
     private String[] otherDayTimeValues;
+    private double totalafterFee = 0;
+    private double discountmoney = 0;
+    private double shippingFee = 0;
     TextView itemCount;
     TextView totalItemCost;
     TextView totalAfterFee;
@@ -86,7 +97,9 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment imp
     TextView feeCost;
     TextView totalCostAfterFee;
     TextView location, sublocation;
+    ImageView deleteVoucherBtn;
     RecyclerView recyclerViewCart;
+    AppCompatButton confirmOrderBtn;
     private CartAdapter cartAdapter;
     private RelativeLayout btnPickAddress;
     @Nullable
@@ -107,7 +120,6 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment imp
         RelativeLayout voucherBtn = view.findViewById(R.id.voucherPick);
         TextView deleteCartBtn = view.findViewById(R.id.deleteCart);
         totalItemCost = view.findViewById(R.id.itemsCost);
-        AppCompatButton confirmBtn = view.findViewById(R.id.confirmBtn);
         recyclerViewCart = view.findViewById(R.id.recyclerView_CartItems);
         itemCount = view.findViewById(R.id.itemCount);
         totalAfterFee = view.findViewById(R.id.totalAfterFee);
@@ -122,10 +134,13 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment imp
         discountMoney = view.findViewById(R.id.discountMoney);
         feeCost = view.findViewById(R.id.feeCost);
         totalCostAfterFee = view.findViewById(R.id.totalCostAfterFee);
-        updateVoucher();
+        deleteVoucherBtn = view.findViewById(R.id.deleteVoucherBtn);
         btnPickAddress = view.findViewById(R.id.locationBtn);
         location = view.findViewById(R.id.location);
         sublocation = view.findViewById(R.id.sublocation);
+        confirmOrderBtn = view.findViewById(R.id.confirmOrderBtn);
+
+        updateVoucher();
 
         recyclerViewCart.setLayoutManager(new LinearLayoutManager(requireContext()));
 
@@ -135,11 +150,81 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment imp
                 .build();
         MaterialShapeDrawable materialShapeDrawable = new MaterialShapeDrawable(shapeAppearanceModel);
         materialShapeDrawable.setFillColor(ColorStateList.valueOf(Color.WHITE));
-        confirmBtn.setBackground(materialShapeDrawable);
+        confirmOrderBtn.setBackground(materialShapeDrawable);
 
         MaterialShapeDrawable materialShapeDrawable1 = new MaterialShapeDrawable(shapeAppearanceModel);
         materialShapeDrawable1.setFillColor(ColorStateList.valueOf(Color.parseColor("#fef7e5")));
         addBtn.setBackground(materialShapeDrawable1);
+
+        confirmOrderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int voucherID = -1;
+                DiscountDomain curVoucher = ManagementCart.getInstance().getVoucher();
+                if (curVoucher != null){
+                    voucherID = ManagementCart.getInstance().getVoucher().getVoucherID();
+                    if (!curVoucher.getFreeShipping().equals("1") && shippingFee == 0){
+                        Toast.makeText(requireContext(), "Vui lòng định vị trước khi đặt hàng", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    else{
+                        if (location.getText().equals("Vui lòng định vị")){
+                            Toast.makeText(requireContext(), "Vui lòng định vị trước khi đặt hàng", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                }
+                else{
+                    if (shippingFee == 0){
+                        Toast.makeText(requireContext(), "Vui lòng định vị trước khi đặt hàng", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+                UUID uuid = UUID.randomUUID();
+                String orderID = uuid.toString();
+                int userID = ManagementUser.getInstance().getUserId();
+                String orderAdress = (String) location.getText();
+                String orderTime = ManagementCart.getInstance().getOrderTime();
+                String orderCreatedTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+                String orderMethod = "Tiền mặt";
+
+                @SuppressLint("DefaultLocale") double cost = Double.parseDouble(String.format("%.3f", totalafterFee));;
+                @SuppressLint("DefaultLocale") double discount = Double.parseDouble(String.format("%.3f", discountmoney));
+                @SuppressLint("DefaultLocale") double feeship = Double.parseDouble(String.format("%.3f", shippingFee));;
+                String recipentname = (String) recipentName.getText();
+                String recipentphone = (String) recipentPhone.getText();
+                int storeId = ManagementCart.getInstance().getStoreId();
+                String orderStatus = "Pending";
+
+                OrderDomain order = new OrderDomain(orderID, userID, "1", orderAdress, orderTime, orderMethod,
+                        cost, voucherID, recipentname, recipentphone, storeId, orderStatus, orderCreatedTime, discount, feeship);
+                DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference("ORDER");
+                orderRef.child(orderID).setValue(order);
+
+                DatabaseReference orderItemRef = FirebaseDatabase.getInstance().getReference("ORDERITEM");
+                ArrayList<CartItem> cartItems = ManagementCart.getInstance().getCartItems();
+                for (int i = 0; i < cartItems.size(); i++) {
+                    CartItem item = cartItems.get(i);
+                    UUID id = UUID.randomUUID();
+                    String orderItemID = id.toString();
+                    String note = item.getNote();
+                    String productId = item.getProductId();
+                    int quantity = item.getQuantity();
+                    String size = item.getSize();
+                    String topping = "";
+                    if (item.getToppings() != null){
+                        topping = item.getToppings().toString();
+                    }
+                    double totalOrderItemPice = item.getTotalCost();
+
+                    OrderItemDomain orderItem = new OrderItemDomain(orderItemID, orderID, productId, quantity, size, topping, note, totalOrderItemPice);
+                    orderItemRef.child(orderItemID).setValue(orderItem);
+                }
+                ManagementCart.getInstance().clearCart();
+                Toast.makeText(requireContext(), "Đặt hàng thành công!", Toast.LENGTH_SHORT).show();
+                dismiss();
+            }
+        });
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -179,6 +264,13 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment imp
                 startActivityForResult(intent, REQUEST_CODE_VOUCHER_PICK);
             }
         });
+
+        deleteVoucherBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ManagementCart.getInstance().removeVoucherFromFireBase(String.valueOf(ManagementUser.getInstance().getUserId()));
+            }
+        });
         btnPickAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -196,7 +288,19 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment imp
             cartAdapter.setOnFragmentDismissListener(this);
             recyclerViewCart.setAdapter(cartAdapter);
         }
-
+        if (ManagementCart.getInstance().getLocation().equals("") ){
+            location.setText("Vui lòng định vị");
+            sublocation.setVisibility(View.GONE);
+        }
+        else if (ManagementCart.getInstance().getSubLocation().equals("")){
+            location.setText(ManagementCart.getInstance().getLocation());
+            sublocation.setVisibility(View.GONE);
+        }
+        else{
+            location.setText(ManagementCart.getInstance().getLocation());
+            sublocation.setText(ManagementCart.getInstance().getSubLocation());
+            sublocation.setVisibility(View.VISIBLE);
+        }
         recipentName.setText(ManagementCart.getInstance().getRecipentName());
         recipentPhone.setText(ManagementCart.getInstance().getRecipentPhone());
         itemCount.setText("Giao hàng • " + ManagementCart.getInstance().getItemsCount() + " sản phẩm");
@@ -457,7 +561,7 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment imp
             ndKhuyenMai.setVisibility(View.VISIBLE);
             discountMoney.setVisibility(View.VISIBLE);
             ar_khuyenmai.setVisibility(View.GONE);
-
+            deleteVoucherBtn.setVisibility(View.VISIBLE);
 
             if (curVoucher.getValueDouble() != 0){
                 discount = curVoucher.getValueDouble() * ManagementCart.getInstance().getTotalCost();
@@ -470,7 +574,9 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment imp
             }
 
             double total = ManagementCart.getInstance().getTotalCost() - discount + fee;
-
+            totalafterFee = total;
+            shippingFee = fee;
+            discountmoney = discount;
 
             String discount_money = new DecimalFormat("#,###", symbols).format(discount);
             String ship_cost = new DecimalFormat("#,###", symbols).format(fee);
@@ -487,10 +593,18 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment imp
             ndKhuyenMai.setVisibility(View.GONE);
             chonKhuyenMai.setVisibility(View.VISIBLE);
             ar_khuyenmai.setVisibility(View.VISIBLE);
+            discountMoney.setVisibility(View.GONE);
+            deleteVoucherBtn.setVisibility(View.GONE);
+
+
+            double total = ManagementCart.getInstance().getTotalCost() - discount + fee;
+            totalafterFee = total;
+            shippingFee = fee;
+            discountmoney = discount;
 
             String ship_cost = new DecimalFormat("#,###", symbols).format(fee);
-            double total = ManagementCart.getInstance().getTotalCost() - discount + fee;
             String total_afterfee = new DecimalFormat("#,###", symbols).format(total);
+
             feeCost.setText(ship_cost + "đ");
             totalAfterFee.setText(total_afterfee + "đ");
             totalCostAfterFee.setText(total_afterfee + "đ");
@@ -550,8 +664,12 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment imp
         dismissAllowingStateLoss();
     }
 
+    @SuppressLint("SetTextI18n")
     public void onAddressPick(AddressDomain address) {
         location.setText(""+address.getTitle());
         sublocation.setText(""+address.getDescription());
+        sublocation.setVisibility(View.VISIBLE);
+        ManagementCart.getInstance().setLocation(address.getTitle());
+        ManagementCart.getInstance().setSubLocation(address.getDescription());
     }
 }
