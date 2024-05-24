@@ -104,6 +104,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:text="Kho than củi Dĩ An"
+                            android:layout_alignParentStart="true"
+                            android:layout_toStartOf="@id/arrow_right"
+                            android:layout_marginEnd="8dp"
                             android:textStyle="bold"
                             android:textColor="#2c2c2c"
                             android:textSize="15sp" />
@@ -114,10 +117,14 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="20dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_toStartOf="@id/arrow_right"
+                            android:layout_marginEnd="8dp"
                             android:textSize="13sp"
                             android:textColor="#6b6b6b"
                             android:text="K12 Tân lập, Đông Hòa, Dĩ An, Bình Dương, Việt Nam"/>
                         <ImageView
+                            android:id="@+id/arrow_right"
                             android:layout_width="15dp"
                             android:layout_height="20dp"
                             android:layout_marginEnd="14dp"
@@ -392,8 +399,19 @@
                             android:text="Giảm 10% Đơn từ 2 món"
                             android:layout_below="@+id/khuyenMai"
                             android:visibility="gone"
+                            android:layout_alignParentStart="true"
+                            android:layout_toStartOf="@+id/deleteVoucherBtn"
                             android:textSize="12sp"
                             android:layout_marginStart="16dp"/>
+                        <ImageView
+                            android:id="@+id/deleteVoucherBtn"
+                            android:visibility="gone"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/ic_delete"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="110dp"/>
                         <TextView
                             android:id="@+id/discountMoney"
                             android:textSize="15sp"
@@ -479,7 +497,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
-                            android:text="VNPay"
+                            android:text="Trả bằng tiền mặt"
                             android:textColor="#2c2c2c"
                             android:textSize="16sp" />
                         <ImageView
@@ -527,7 +545,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/confirmBtn"
+                android:id="@+id/confirmOrderBtn"
                 android:layout_width="wrap_content"
 
                 android:layout_height="30dp"

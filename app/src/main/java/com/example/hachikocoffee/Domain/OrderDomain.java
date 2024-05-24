@@ -9,7 +9,7 @@ public class OrderDomain implements Serializable {
     private String OrderAddress;
     private String OrderTime;
     private String OrderMethod;
-    private int Cost;
+    private double Cost;
     private int VoucherID;
     private String RecipentName;
     private String RecipentPhone;
@@ -17,6 +17,8 @@ public class OrderDomain implements Serializable {
     private String OrderStatus;
 
     private String OrderCreatedTime;
+    private double discountMoney;
+    private double shippingFee;
 
     public String getOrderCreatedTime() {
         return OrderCreatedTime;
@@ -29,7 +31,10 @@ public class OrderDomain implements Serializable {
     public OrderDomain() {
     }
 
-    public OrderDomain(String orderID, int userID, String delivered, String orderAddress, String orderTime, String orderMethod, int cost, int voucherID, String recipentName, String recipentPhone, int storeID, String orderStatus, String orderCreatedTime) {
+    public OrderDomain(String orderID, int userID, String delivered, String orderAddress,
+                       String orderTime, String orderMethod, double cost, int voucherID,
+                       String recipentName, String recipentPhone, int storeID, String orderStatus,
+                       String orderCreatedTime, double discountMoney, double shippingFee) {
         OrderID = orderID;
         UserID = userID;
         Delivered = delivered;
@@ -43,6 +48,24 @@ public class OrderDomain implements Serializable {
         StoreID = storeID;
         OrderStatus = orderStatus;
         OrderCreatedTime = orderCreatedTime;
+        this.discountMoney = discountMoney;
+        this.shippingFee = shippingFee;
+    }
+
+    public double getDiscountMoney() {
+        return discountMoney;
+    }
+
+    public void setDiscountMoney(double discountMoney) {
+        this.discountMoney = discountMoney;
+    }
+
+    public double getShippingFee() {
+        return shippingFee;
+    }
+
+    public void setShippingFee(double shippingFee) {
+        this.shippingFee = shippingFee;
     }
 
     public String getOrderID() {
@@ -93,7 +116,7 @@ public class OrderDomain implements Serializable {
         OrderMethod = orderMethod;
     }
 
-    public int getCost() {
+    public double getCost() {
         return Cost;
     }
 

@@ -32,10 +32,39 @@ public class ManagementCart {
     private String recipentName;
     private String recipentPhone;
     private String orderTime;
+    private int storeId;
+    private String location;
+    private String subLocation;
     private DatabaseReference cartRef;
     private OnCartLoadedListener onCartLoadedListener;
     public void setOnCartLoadedListener(OnCartLoadedListener listener) {
         this.onCartLoadedListener = listener;
+    }
+
+    public String getSubLocation() {
+        return subLocation;
+    }
+
+    public void setSubLocation(String subLocation) {
+        this.subLocation = subLocation;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+        DatabaseReference userCartRef = cartRef.child(String.valueOf(UserId));
+        userCartRef.child("location").setValue(location);
+    }
+
+    public int getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(int storeId) {
+        this.storeId = storeId;
     }
 
     public DiscountDomain getVoucher() {
@@ -84,7 +113,9 @@ public class ManagementCart {
         noId = 0;
         recipentName = "";
         recipentPhone = "";
+        location = "";
         voucher = null;
+        storeId = -1;
         database = FirebaseDatabase.getInstance();
         cartRef = database.getReference("CARTS");
     }
@@ -248,6 +279,7 @@ public class ManagementCart {
         voucher = null;
         DatabaseReference userCartRef = cartRef.child(userId);
         userCartRef.child("voucher").removeValue();
+        notifyCartChanged();
     }
 
     public void loadNameAndPhone(){
@@ -303,7 +335,8 @@ public class ManagementCart {
                     for (DataSnapshot cartItemSnapshot : snapshot.getChildren()) {
                         if (!"itemCount".equals(cartItemSnapshot.getKey()) && !"noId".equals(cartItemSnapshot.getKey())
                             && !"recipentName".equals(cartItemSnapshot.getKey()) && !"recipentPhone".equals(cartItemSnapshot.getKey())
-                            && !"orderTime".equals(cartItemSnapshot.getKey()) && !"voucher".equals(cartItemSnapshot.getKey())) {
+                            && !"orderTime".equals(cartItemSnapshot.getKey()) && !"voucher".equals(cartItemSnapshot.getKey())
+                            && !"location".equals(cartItemSnapshot.getKey())) {
                             CartItem item = cartItemSnapshot.getValue(CartItem.class);
                             if (item != null) {
                                 cartItems.add(item);
