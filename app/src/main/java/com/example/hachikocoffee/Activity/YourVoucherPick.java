@@ -1,5 +1,6 @@
 package com.example.hachikocoffee.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -72,40 +73,45 @@ public class YourVoucherPick extends AppCompatActivity implements DiscountAdapte
         DatabaseReference userVoucherRef = FirebaseDatabase.getInstance().getReference("USERVOUCHER");
         userVoucherRef.orderByChild("UserID").equalTo(ManagementUser.getInstance().getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<String> voucherIDs = new ArrayList<>();
+                if (dataSnapshot.exists()){
+                    for (DataSnapshot userVoucherSnapshot : dataSnapshot.getChildren()) {
+                        int isUse = userVoucherSnapshot.child("IsUse").getValue(Integer.class);
+                        if (isUse == 0){
+                            String voucherID = String.valueOf(userVoucherSnapshot.child("VoucherID").getValue(Long.class));
+                            voucherIDs.add(voucherID);
+                        }
+                    }
 
-                for (DataSnapshot userVoucherSnapshot : dataSnapshot.getChildren()) {
-                    String voucherID = String.valueOf(userVoucherSnapshot.child("VoucherID").getValue(Long.class));
-                    voucherIDs.add(voucherID);
-                }
+                    DatabaseReference voucherRef = FirebaseDatabase.getInstance().getReference("VOUCHER");
 
-                DatabaseReference voucherRef = FirebaseDatabase.getInstance().getReference("VOUCHER");
-
-                voucherRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot voucherSnapshot : dataSnapshot.getChildren()) {
-                            String currentVoucherID = String.valueOf(voucherSnapshot.child("VoucherID").getValue(Long.class));
-                            if (voucherIDs.contains(currentVoucherID)) {
-                                DiscountDomain discount = voucherSnapshot.getValue(DiscountDomain.class);
-                                if (discount != null && discount.getType().equals("Delivery")) { // Must add check date function
-                                    if (!discount.isAboutToExpire()) {
-                                        deliveryVoucherList1.add(discount);
+                    voucherRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot voucherSnapshot : dataSnapshot.getChildren()) {
+                                String currentVoucherID = String.valueOf(voucherSnapshot.child("VoucherID").getValue(Long.class));
+                                if (voucherIDs.contains(currentVoucherID)) {
+                                    DiscountDomain discount = voucherSnapshot.getValue(DiscountDomain.class);
+                                    if (discount != null && discount.getType().equals("Delivery")) { // Must add check date function
+                                        if (!discount.isAboutToExpire()) {
+                                            deliveryVoucherList1.add(discount);
+                                        }
                                     }
                                 }
                             }
+
+                            displayDiscountData(deliveryVoucherList1);
                         }
 
-                        displayDiscountData(deliveryVoucherList1);
-                    }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            // Xử lý lỗi nếu có
+                            System.err.println("Error retrieving vouchers: " + databaseError.getMessage());
+                        }
+                    });
+                }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        // Xử lý lỗi nếu có
-                        System.err.println("Error retrieving vouchers: " + databaseError.getMessage());
-                    }
-                });
             }
 
             @Override
