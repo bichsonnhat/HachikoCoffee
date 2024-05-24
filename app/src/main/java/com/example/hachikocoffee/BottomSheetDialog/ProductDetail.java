@@ -64,6 +64,7 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
     private UpdateUIListener updateUIListener;
     private EditText notes;
     DecimalFormatSymbols symbols;
+    ImageView product_closeBtn;
 
     public ProductDetail(ItemsDomain product) {
         this.product = product;
@@ -103,6 +104,7 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
         TextView productMinimumSize = view.findViewById(R.id.productMinimumSize);
         TextView productMediumSize = view.findViewById(R.id.productMediumSize);
         TextView productLargeSize = view.findViewById(R.id.productLargeSize);
+        product_closeBtn = view.findViewById(R.id.product_closeBtn);
         totalCost = (int) product.getPrice();
         //totalProductCost.setText("Chọn • " + (totalCost) + "đ");
 
@@ -125,6 +127,13 @@ public class ProductDetail extends BottomSheetDialogFragment implements ToppingL
                 .into(productImage);
 
         updateTotalCost();
+
+        product_closeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
     }
 
     private void setupRecyclerViews(View view) {

@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,6 +18,7 @@ import com.example.hachikocoffee.Activity.MainActivity;
 import com.example.hachikocoffee.Domain.DiscountDomain;
 import com.example.hachikocoffee.Fragment.DiscountFragment;
 import com.example.hachikocoffee.Listener.OnVoucherClick;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
@@ -57,6 +60,17 @@ public class DiscountDetail extends BottomSheetDialogFragment {
 
         View viewDialog = LayoutInflater.from(getContext()).inflate(R.layout.view_voucher, null);
         bottomSheetDialog.setContentView(viewDialog);
+        bottomSheetDialog.setOnShowListener(dialogInterface -> {
+            BottomSheetDialog dialog = (BottomSheetDialog) dialogInterface;
+            View parentLayout = dialog.findViewById(com.google.android.material.R.id.design_bottom_sheet);
+            if (parentLayout != null) {
+                BottomSheetBehavior<View> behavior = BottomSheetBehavior.from(parentLayout);
+                setupFullHeight(parentLayout);
+                behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            }
+        });
+
+        bottomSheetDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
 
         initView(viewDialog);
 
@@ -108,5 +122,12 @@ public class DiscountDetail extends BottomSheetDialogFragment {
 
     public static void setInterfaceInstance(DiscountFragment context){
         onVoucherClick = (OnVoucherClick) context;
+    }
+
+
+    private void setupFullHeight(View bottomSheet) {
+        ViewGroup.LayoutParams layoutParams = bottomSheet.getLayoutParams();
+        layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT;
+        bottomSheet.setLayoutParams(layoutParams);
     }
 }

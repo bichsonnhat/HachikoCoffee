@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="-12dp">
+
             <ImageView
                 android:id="@+id/product_image_scr"
                 android:layout_width="match_parent"
@@ -358,4 +359,13 @@
                 android:textColor="@color/white"/>
         </RelativeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/product_closeBtn"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="6dp"
+        android:src="@drawable/ic_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

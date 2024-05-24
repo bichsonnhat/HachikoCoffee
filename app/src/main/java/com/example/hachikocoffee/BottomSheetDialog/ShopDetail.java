@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +20,7 @@ import com.example.hachikocoffee.Domain.ShopDomain;
 import com.example.hachikocoffee.Fragment.ShopFragment;
 import com.example.hachikocoffee.Listener.OnStoreClick;
 import com.example.hachikocoffee.R;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
@@ -55,14 +58,25 @@ public class ShopDetail extends BottomSheetDialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        BottomSheetDialog bottomSheetDialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
+        BottomSheetDialog dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
 
         View viewDialog = LayoutInflater.from(getContext()).inflate(R.layout.shop_detail, null);
-        bottomSheetDialog.setContentView(viewDialog);
+        dialog.setContentView(viewDialog);
+        dialog.setOnShowListener(dialogInterface -> {
+            BottomSheetDialog bottomSheetDialog = (BottomSheetDialog) dialogInterface;
+            View parentLayout = bottomSheetDialog.findViewById(com.google.android.material.R.id.design_bottom_sheet);
+            if (parentLayout != null) {
+                BottomSheetBehavior<View> behavior = BottomSheetBehavior.from(parentLayout);
+                setupFullHeight(parentLayout);
+                behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            }
+        });
+
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
 
         initView(viewDialog);
 
-        return bottomSheetDialog;
+        return dialog;
     }
 
     private void initView(View view) {
@@ -105,5 +119,12 @@ public class ShopDetail extends BottomSheetDialogFragment {
 
     public static void setInterfaceInstance(ShopFragment context){
         onStoreClick = (OnStoreClick) context;
+    }
+
+
+    private void setupFullHeight(View bottomSheet) {
+        ViewGroup.LayoutParams layoutParams = bottomSheet.getLayoutParams();
+        layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT;
+        bottomSheet.setLayoutParams(layoutParams);
     }
 }

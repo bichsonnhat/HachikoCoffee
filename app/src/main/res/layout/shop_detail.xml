@@ -95,7 +95,8 @@
             android:id="@+id/shopdetail_shop2fav"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp">
+            android:layout_marginTop="24dp"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/shopdetail_icbg2"
@@ -130,7 +131,8 @@
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="24dp" />
+            android:layout_marginTop="24dp"
+            android:visibility="gone"/>
 
     </LinearLayout>
 
