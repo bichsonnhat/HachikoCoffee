@@ -138,7 +138,10 @@ public class HomeFragment extends Fragment {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
                             UserDomain user = dataSnapshot.getValue(UserDomain.class);
-                            welcomeText.setText("" + user.getName() + " ơi, Hi-Tea đi!");
+                            String fullname = user.getName();
+                            String[] name = fullname.split(",");
+                            String first_name = name[0];
+                            welcomeText.setText("" + first_name + " ơi, Hi-Tea đi!");
                             Log.d("HomeFragment", "UserID: " + UserID);
                         }
                     }
