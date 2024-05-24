@@ -98,6 +98,7 @@ public class OtherFragment extends Fragment {
         Button btnToNotification2 = view.findViewById(R.id.btn_to_notification2);
         voucherCount = view.findViewById(R.id.voucherBtn_count2);
         notificationCount = view.findViewById(R.id.notificationCountOther);
+        voucherCount.setText("0");
         initVoucherCount();
         initNotificationCount();
 

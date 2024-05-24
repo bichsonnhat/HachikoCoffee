@@ -124,6 +124,7 @@ public class ShopFragment extends Fragment implements OnStoreClick, LocationList
         View view = inflater.inflate(R.layout.fragment_shop, container, false);
         voucherCount = view.findViewById(R.id.voucherBtn_count1);
         notificationCount = view.findViewById(R.id.notBtn_cntFinal);
+        voucherCount.setText("0");
         initVoucherCount();
         initNotificationCount();
         TextView location = view.findViewById(R.id.map);

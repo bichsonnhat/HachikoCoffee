@@ -86,7 +86,7 @@ public class OrderHistoryFinishedFragment extends Fragment implements FinishedCl
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//        setInterfaceInstanceFinished(this);
+        setInterfaceInstanceFinished(this);
         UserID = ManagementUser.getInstance().getUserId();
         View view = inflater.inflate(R.layout.fragment_order_history_finished, container, false);
 
@@ -151,6 +151,7 @@ public class OrderHistoryFinishedFragment extends Fragment implements FinishedCl
     @Override
     public void onFinishedClick() {
         rcv_finishedOrderList.clearFocus();
+        finishedOrderList.clear();
         initFinishedOrderList(glocalView);
 //        Toast.makeText(getContext(), "Finished", Toast.LENGTH_SHORT).show();
     }
