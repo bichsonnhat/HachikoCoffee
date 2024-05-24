@@ -19,6 +19,7 @@ import com.example.hachikocoffee.Adapter.OrderAdapter;
 import com.example.hachikocoffee.Domain.OrderDomain;
 import com.example.hachikocoffee.Listener.CanceledClickListener;
 import com.example.hachikocoffee.Listener.FinishedClickListener;
+import com.example.hachikocoffee.Management.ManagementUser;
 import com.example.hachikocoffee.OrderDetail;
 import com.example.hachikocoffee.R;
 import com.google.firebase.database.DataSnapshot;
@@ -81,8 +82,7 @@ public class OrderHistoryCancelledFragment extends Fragment implements CanceledC
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setInterfaceInstanceCanceled(this);
-        SharedPreferences perf = requireActivity().getSharedPreferences("User", Context.MODE_PRIVATE);
-        UserID = perf.getInt("UserID", 1);
+        UserID = ManagementUser.getInstance().getUserId();
         View view = inflater.inflate(R.layout.fragment_order_history_cancelled, container, false);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);

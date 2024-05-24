@@ -210,7 +210,7 @@
                 tools:ignore="MissingConstraints" />
 
             <TextView
-                android:id="@+id/txt_10"
+                android:id="@+id/finalTotalCost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"

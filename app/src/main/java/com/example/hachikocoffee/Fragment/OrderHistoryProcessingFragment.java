@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.example.hachikocoffee.Adapter.OrderAdapter;
 import com.example.hachikocoffee.Domain.OrderDomain;
+import com.example.hachikocoffee.Management.ManagementUser;
 import com.example.hachikocoffee.OrderDetail;
 import com.example.hachikocoffee.R;
 import com.google.firebase.database.DataSnapshot;
@@ -42,6 +43,7 @@ public class OrderHistoryProcessingFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private int UserID;
 
     public OrderHistoryProcessingFragment() {
         // Required empty public constructor
@@ -78,7 +80,7 @@ public class OrderHistoryProcessingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_order_history_processing, container, false);
-
+        UserID = ManagementUser.getInstance().getUserId();
         initProcessingOrderList(view);
 
         return view;
@@ -99,7 +101,7 @@ public class OrderHistoryProcessingFragment extends Fragment {
                     for (DataSnapshot issue : snapshot.getChildren()) {
                         OrderDomain order = issue.getValue(OrderDomain.class);
 
-                        if (order != null && "Pending".equals(order.getOrderStatus())) {
+                        if (order != null && "Pending".equals(order.getOrderStatus()) && order.getUserID() == UserID){
                             processingOrderList.add(order);
                         }
                     }

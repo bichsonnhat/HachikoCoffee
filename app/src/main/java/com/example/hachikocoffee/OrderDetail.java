@@ -29,9 +29,10 @@ public class OrderDetail extends AppCompatActivity {
     Button btnback;
     private RecyclerView recyclerView;
     private String OrderID;
-    private TextView TotalOrderCost, ShippingCost, DiscountCost;
+    private TextView TotalOrderCost, ShippingCost, DiscountCost, finalTotalCost;
 
     DecimalFormatSymbols symbols;
+    private double totalOrderCost = 0;
 
 
     @Override
@@ -44,6 +45,7 @@ public class OrderDetail extends AppCompatActivity {
         TotalOrderCost = findViewById(R.id.TotalOrderCost);
         ShippingCost = findViewById(R.id.ShippingCost);
         DiscountCost = findViewById(R.id.DiscountCost);
+        finalTotalCost = findViewById(R.id.finalTotalCost);
         symbols = new DecimalFormatSymbols();
         symbols.setGroupingSeparator('.');
 
@@ -70,7 +72,9 @@ public class OrderDetail extends AppCompatActivity {
                         OrderDomain order = issue.getValue(OrderDomain.class);
                         if (order.getOrderID().equals(OrderID)) {
                             String a = new DecimalFormat("#,###", symbols).format((long) order.getCost());
-                            TotalOrderCost.setText(a + "đ");
+                            finalTotalCost.setText(a + "đ");
+                            ShippingCost.setText(new DecimalFormat("#,###", symbols).format((long) order.getShippingFee()) + "đ");
+                            DiscountCost.setText(new DecimalFormat("#,###", symbols).format((long) order.getDiscountMoney()) + "đ");
                             break;
                         }
                     }
@@ -97,11 +101,14 @@ public class OrderDetail extends AppCompatActivity {
                         OrderItemDomain orderItem = issue.getValue(OrderItemDomain.class);
                         if (orderItem.getOrderID().equals(OrderID)) {
                             list.add(orderItem);
+                            totalOrderCost += orderItem.getTotalOrderItemPrice();
                         }
                     }
+                    TotalOrderCost.setText(new DecimalFormat("#,###", symbols).format((long) totalOrderCost) + "đ");
                     OrderItemAdapter orderItemAdapter = new OrderItemAdapter(list);
                     recyclerView.setLayoutManager(linearLayoutManager);
                     recyclerView.setAdapter(orderItemAdapter);
+
                 }
             }
 
