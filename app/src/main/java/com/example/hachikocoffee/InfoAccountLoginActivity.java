@@ -180,8 +180,8 @@ public class InfoAccountLoginActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
-                            UserDomain locationDomain = childSnapshot.getValue(UserDomain.class);
-                            if (locationDomain.getPhoneNumber().equals(phoneNumber)) {
+                            UserDomain userDomain = childSnapshot.getValue(UserDomain.class);
+                            if (userDomain.getPhoneNumber().equals(phoneNumber)) {
                                 Map<String, Object> updates = new HashMap<>();
                                 updates.put("name", firstName.getText().toString() + "," + lastName.getText().toString());
                                 updates.put("email", email.getText().toString());
@@ -258,8 +258,28 @@ public class InfoAccountLoginActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         textView.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                        checkAge(year, monthOfYear, dayOfMonth);
                     }
                 }, year, month, dayOfMonth);
         datePickerDialog.show();
+    }
+
+    private void checkAge(int year, int monthOfYear, int dayOfMonth) {
+        Calendar dob = Calendar.getInstance();
+        Calendar today = Calendar.getInstance();
+
+        dob.set(year, monthOfYear, dayOfMonth);
+
+        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)) {
+            age--;
+        }
+        if (age < 18) {
+            textView.setError("Vui lòng nhập ngày sinh trên 18 tuổi!");
+            Toast.makeText(this, "Vui lòng nhập ngày sinh trên 18 tuổi!", Toast.LENGTH_SHORT).show();
+        } else {
+            textView.setError(null);
+            checkAllFieldsFilled();
+        }
     }
 }
