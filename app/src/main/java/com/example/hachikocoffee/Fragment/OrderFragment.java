@@ -135,9 +135,9 @@ public class OrderFragment extends Fragment {
 
 
 
-        initCategory();
+//        initCategory();
         initSeekbar();
-        topBarOnClick(view);
+//        topBarOnClick(view);
         initRecyclerViewItem(view);
 
         return view;
@@ -212,8 +212,8 @@ public class OrderFragment extends Fragment {
         recyclerView.setLayoutManager(gridLayoutManager);
 
         recyclerView.setAdapter(new ListHeaderItemAdapter(data));
-//        initCategory();
-//        topBarOnClick(view);
+        initCategory();
+        topBarOnClick(view);
 //        categoryRef.addListenerForSingleValueEvent(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(@NonNull DataSnapshot snapshot) {

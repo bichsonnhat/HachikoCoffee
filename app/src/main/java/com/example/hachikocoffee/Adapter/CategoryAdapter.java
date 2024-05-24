@@ -22,6 +22,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Viewho
     private Context context;
     private final NestedScrollView nestedScrollView;
     private final RecyclerView recyclerView;
+    private int y = 0;
 
     public CategoryAdapter(ArrayList<CategoryDomain> items, NestedScrollView nestedScrollView, RecyclerView recyclerView){
         this.items = items;
@@ -45,48 +46,61 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Viewho
         Glide.with(context)
                 .load(items.get(position).getImageURL())
                 .into(holder.binding.categryImage);
+
+        if (recyclerView == null){
+            Toast.makeText(context, "RecyclerView is null", Toast.LENGTH_SHORT).show();
+        }
+
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(context, items.get(position).getTitle().toString(), Toast.LENGTH_SHORT).show();
-                if (items.get(position).getTitle().toString().equals("Món Mới Phải Thử")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, 780));
+                for (int i = 0; i <= 12; ++i){
+                    if (items.get(position).getTitle().toString().equals("Cafe")){
+                        int[] location = new int[2];
+                        v.getLocationOnScreen(location);
+                        y = location[1];
+                        break;
+                    }
+                }
+                if (items.get(position).getTitle().toString().equals("Món mới phải thử")){
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(3).getTop()));
                 }
                 if (items.get(position).getTitle().toString().equals("Trà Trái Cây")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, 8903));
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(26).getTop() + y + y / 3));
                 }
                 if (items.get(position).getTitle().equals("CloudFee")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(50).getBottom() + 340));
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(51).getBottom() + y + y / 3));
                 }
                 if (items.get(position).getTitle().equals("Đá Xay Frosty")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(60).getTop() + 300));
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(60).getTop() + y + y / 3));
                 }
                 if (items.get(position).getTitle().equals("Bánh Ngọt")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(76).getTop() + 300));
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(76).getTop() + y + y / 3));
                 }
                 if (items.get(position).getTitle().equals("Cafe Tại Nhà")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(98).getTop() + 300));
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(98).getTop() + y + y / 3));
                 }
                 if (items.get(position).getTitle().equals("Các Loại Đồ Ăn Khác")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(114).getTop() + 300));
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(114).getTop() + y + y / 3));
                 }
                 if (items.get(position).getTitle().equals("Cafe")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, 1620));
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(4).getTop() + y + y / 3));
                 }
                 if (items.get(position).getTitle().equals("Trà Sữa Macchiato")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(40).getTop() + 300));
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(40).getTop() + y + y / 3));
                 }
                 if (items.get(position).getTitle().equals("Trà Xanh Tây Bắc")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(55).getTop() + 300));
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(55).getTop() + y + y / 3));
                 }
                 if (items.get(position).getTitle().equals("Bánh Mặn")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(68).getTop() + 300));
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(68).getTop() + y + y / 3));
                 }
                 if (items.get(position).getTitle().equals("Topping")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(90).getTop() + 300));
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(90).getTop() + y + y / 3));
                 }
                 if (items.get(position).getTitle().equals("Chai Fresh Không Đá")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(106).getTop() + 300));
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(106).getTop() + y + y / 3));
                 }
 //                Toast.makeText(context, "Nhatwooo", Toast.LENGTH_SHORT).show();
             }
