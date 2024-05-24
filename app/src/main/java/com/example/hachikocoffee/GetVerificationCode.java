@@ -22,8 +22,8 @@ public class GetVerificationCode extends Application {
             ManagementCart.getInstance().loadCartFromFirebase(String.valueOf(UserID));
         }
         else{
-            ManagementUser.getInstance().loadFromFirebase(333217598);
-            ManagementCart.getInstance().loadCartFromFirebase(String.valueOf(333217598));
+            ManagementUser.getInstance().loadFromFirebase(1);
+            ManagementCart.getInstance().loadCartFromFirebase(String.valueOf(1));
         }
     }
     public static String getVerificationCode() {

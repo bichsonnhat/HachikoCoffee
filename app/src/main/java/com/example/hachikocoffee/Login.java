@@ -50,7 +50,10 @@ public class Login extends AppCompatActivity {
                     return;
                 }
                 String number = phone.getText().toString();
-                sendVerificationCode(number);
+                Intent intent = new Intent(getApplicationContext(), LoginOTPActivity.class);
+                intent.putExtra("mobile", phone.getText().toString());
+                startActivity(intent);
+//                sendVerificationCode(number);
             }
         });
     }

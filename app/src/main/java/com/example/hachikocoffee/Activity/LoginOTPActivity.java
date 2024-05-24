@@ -68,93 +68,149 @@ public class LoginOTPActivity extends AppCompatActivity {
         final Button buttonVerify = findViewById(R.id.verifyButton);
         verificationId = getIntent().getStringExtra("verificationId");
 
-        buttonVerify.setOnClickListener(new View.OnClickListener(){
+        buttonVerify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (inputCode1.getText().toString().trim().isEmpty()
-                || inputCode2.getText().toString().trim().isEmpty()
-                || inputCode3.getText().toString().trim().isEmpty()
-                || inputCode4.getText().toString().trim().isEmpty()
-                || inputCode5.getText().toString().trim().isEmpty()
-                || inputCode6.getText().toString().trim().isEmpty()){
-                    Toast.makeText(LoginOTPActivity.this, "Please enter valid code", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                String code = inputCode1.getText().toString() +
-                        inputCode2.getText().toString() +
-                        inputCode3.getText().toString() +
-                        inputCode4.getText().toString() +
-                        inputCode5.getText().toString() +
-                        inputCode6.getText().toString();
-                if (verificationId != null) {
-                    PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(
-                            verificationId,
-                            code
-                    );
-                    FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential)
-                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        // Check account is existed
-                                        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("USER");
-                                        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                if (snapshot.exists()){
-                                                    boolean isExist = false;
-                                                    int UserId = 0;
-                                                    for (DataSnapshot issue : snapshot.getChildren()) {
-                                                        UserDomain user = issue.getValue(UserDomain.class);
-                                                        if (user.getPhoneNumber().equals(getIntent().getStringExtra("mobile"))) {
-                                                            isExist = true;
-                                                            UserId = user.getUserID();
-                                                            break;
-                                                        }
-                                                    }
-                                                    if (isExist) {
+                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("USER");
+                userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()){
+                            boolean isExist = false;
+                            int UserId = 0;
+                            for (DataSnapshot issue : snapshot.getChildren()) {
+                                UserDomain user = issue.getValue(UserDomain.class);
+                                if (user.getPhoneNumber().equals(getIntent().getStringExtra("mobile"))) {
+                                    isExist = true;
+                                    UserId = user.getUserID();
+                                    break;
+                                }
+                            }
+                            if (isExist) {
 //                                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 
-                                                        Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
-                                                        Log.d("LoginOTPActivity", "UserId: " + UserId);
-                                                        ManagementUser.getInstance().loadFromFirebase(UserId);
-                                                        ManagementCart.getInstance().loadCartFromFirebase(String.valueOf(UserId));
-                                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                                        startActivity(intent);
-                                                        finish();
-                                                    } else {
-                                                        // Create new record for USER here ...
-                                                        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("USER");
-                                                        String phoneNumber = getIntent().getStringExtra("mobile");
-                                                        assert phoneNumber != null;
-                                                        int userID = Integer.parseInt(phoneNumber);
-                                                        UserDomain userDomain = new UserDomain(userID, phoneNumber, "", "", "", "");
-                                                        userRef.child(String.valueOf(userID)).setValue(userDomain);
+                                Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
+                                Log.d("LoginOTPActivity", "UserId: " + UserId);
+                                ManagementUser.getInstance().loadFromFirebase(UserId);
+                                ManagementCart.getInstance().loadCartFromFirebase(String.valueOf(UserId));
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                // Create new record for USER here ...
+                                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("USER");
+                                String phoneNumber = getIntent().getStringExtra("mobile");
+                                assert phoneNumber != null;
+                                int userID = Integer.parseInt(phoneNumber);
+                                UserDomain userDomain = new UserDomain(userID, phoneNumber, "", "", "", "");
+                                userRef.child(String.valueOf(userID)).setValue(userDomain);
 
-                                                        Intent intent = new Intent(getApplicationContext(), InfoAccountLoginActivity.class);
-                                                        intent.putExtra("phoneNumber", phoneNumber);
-                                                        ManagementUser.getInstance().loadFromFirebase(userID);
-                                                        ManagementCart.getInstance().loadCartFromFirebase(String.valueOf(userID));
-                                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                                        startActivity(intent);
-                                                        finish();
-                                                    }
-                                                }
-                                            }
+                                Intent intent = new Intent(getApplicationContext(), InfoAccountLoginActivity.class);
+                                intent.putExtra("phoneNumber", phoneNumber);
+                                ManagementUser.getInstance().loadFromFirebase(userID);
+                                ManagementCart.getInstance().loadCartFromFirebase(String.valueOf(userID));
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }
+                    }
 
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                                            }
-                                        });
-                                    } else {
-                                        Toast.makeText(LoginOTPActivity.this, "The verification code entered was invalid", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-                }
+                    }
+                });
             }
         });
+
+//        buttonVerify.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View v) {
+//                if (inputCode1.getText().toString().trim().isEmpty()
+//                || inputCode2.getText().toString().trim().isEmpty()
+//                || inputCode3.getText().toString().trim().isEmpty()
+//                || inputCode4.getText().toString().trim().isEmpty()
+//                || inputCode5.getText().toString().trim().isEmpty()
+//                || inputCode6.getText().toString().trim().isEmpty()){
+//                    Toast.makeText(LoginOTPActivity.this, "Please enter valid code", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                String code = inputCode1.getText().toString() +
+//                        inputCode2.getText().toString() +
+//                        inputCode3.getText().toString() +
+//                        inputCode4.getText().toString() +
+//                        inputCode5.getText().toString() +
+//                        inputCode6.getText().toString();
+//                if (verificationId != null) {
+//                    PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(
+//                            verificationId,
+//                            code
+//                    );
+//                    FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential)
+//                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                                @Override
+//                                public void onComplete(@NonNull Task<AuthResult> task) {
+//                                    if (task.isSuccessful()) {
+//                                        // Check account is existed
+//                                        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("USER");
+//                                        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//                                            @Override
+//                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                                if (snapshot.exists()){
+//                                                    boolean isExist = false;
+//                                                    int UserId = 0;
+//                                                    for (DataSnapshot issue : snapshot.getChildren()) {
+//                                                        UserDomain user = issue.getValue(UserDomain.class);
+//                                                        if (user.getPhoneNumber().equals(getIntent().getStringExtra("mobile"))) {
+//                                                            isExist = true;
+//                                                            UserId = user.getUserID();
+//                                                            break;
+//                                                        }
+//                                                    }
+//                                                    if (isExist) {
+////                                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//
+//                                                        Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
+//                                                        Log.d("LoginOTPActivity", "UserId: " + UserId);
+//                                                        ManagementUser.getInstance().loadFromFirebase(UserId);
+//                                                        ManagementCart.getInstance().loadCartFromFirebase(String.valueOf(UserId));
+//                                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                                                        startActivity(intent);
+//                                                        finish();
+//                                                    } else {
+//                                                        // Create new record for USER here ...
+//                                                        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("USER");
+//                                                        String phoneNumber = getIntent().getStringExtra("mobile");
+//                                                        assert phoneNumber != null;
+//                                                        int userID = Integer.parseInt(phoneNumber);
+//                                                        UserDomain userDomain = new UserDomain(userID, phoneNumber, "", "", "", "");
+//                                                        userRef.child(String.valueOf(userID)).setValue(userDomain);
+//
+//                                                        Intent intent = new Intent(getApplicationContext(), InfoAccountLoginActivity.class);
+//                                                        intent.putExtra("phoneNumber", phoneNumber);
+//                                                        ManagementUser.getInstance().loadFromFirebase(userID);
+//                                                        ManagementCart.getInstance().loadCartFromFirebase(String.valueOf(userID));
+//                                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                                                        startActivity(intent);
+//                                                        finish();
+//                                                    }
+//                                                }
+//                                            }
+//
+//                                            @Override
+//                                            public void onCancelled(@NonNull DatabaseError error) {
+//
+//                                            }
+//                                        });
+//                                    } else {
+//                                        Toast.makeText(LoginOTPActivity.this, "The verification code entered was invalid", Toast.LENGTH_SHORT).show();
+//                                    }
+//                                }
+//                            });
+//                }
+//            }
+//        });
     }
 
     private void setupOTPInputs() {

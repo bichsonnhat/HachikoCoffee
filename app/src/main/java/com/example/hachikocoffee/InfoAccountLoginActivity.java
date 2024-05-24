@@ -30,6 +30,8 @@ import com.example.hachikocoffee.Activity.MainActivity;
 import com.example.hachikocoffee.Activity.SplashActivity;
 import com.example.hachikocoffee.Domain.LocationDomain;
 import com.example.hachikocoffee.Domain.UserDomain;
+import com.example.hachikocoffee.Management.ManagementCart;
+import com.example.hachikocoffee.Management.ManagementUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -174,6 +176,7 @@ public class InfoAccountLoginActivity extends AppCompatActivity {
         btnRegisterAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                ManagementCart.getInstance().setRecipentName(lastName.getText().toString() + " " + firstName.getText().toString());
                 // Save this information to Firebase
                 DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference().child("USER");
                 locationRef.addListenerForSingleValueEvent(new ValueEventListener() {

@@ -145,6 +145,8 @@ public class OrderHistoryCancelledFragment extends Fragment implements CanceledC
 
     @Override
     public void onCanceledClick() {
+        cancelledOrderList.clear();
+        initCancelledOrderList(globalView);
         Toast.makeText(getContext(), "Canceled", Toast.LENGTH_SHORT).show();
 //        rcv_cancelledOrderList.clearFocus();
 //        initCancelledOrderList(globalView);
