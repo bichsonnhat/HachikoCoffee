@@ -16,6 +16,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ import java.util.ArrayList;
 import static com.example.hachikocoffee.Activity.CompanyAddressActivity.setCompanyInterfaceInstance;
 import static com.example.hachikocoffee.Activity.HomeAddressActivity.setHomeInterfaceInstance;
 import static com.example.hachikocoffee.Activity.NewAddressActivity.setInterfaceInstance;;
+import static com.example.hachikocoffee.Activity.EditAddressActivity.setEditInterfaceInstance;
 
 public class SavedAddressActivity extends AppCompatActivity implements OnAddressChangedListener {
     private RecyclerView recyclerView;
@@ -50,6 +52,7 @@ public class SavedAddressActivity extends AppCompatActivity implements OnAddress
     private TextView tvCompany;
     private TextView tvDetailCompanyAddress;
     private TextView tvUserNameAndTelephoneCompany;
+    private ImageView deleteButtonHome, deleteButtonCompany;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,19 +63,23 @@ public class SavedAddressActivity extends AppCompatActivity implements OnAddress
         tvHome = findViewById(R.id.tvNameHomeAddress);
         tvDetailHomeAddress = findViewById(R.id.tvDetailHomeAddress);
         tvUserNameAndTelephoneHome = findViewById(R.id.tvUserNameAndTelephoneHome);
+        deleteButtonHome = findViewById(R.id.deleteButtonHome);
 
         tvAddCompanyAddress = findViewById(R.id.addCompanyAddress);
         tvCompany = findViewById(R.id.tvNameCompanyAddress);
         tvDetailCompanyAddress = findViewById(R.id.tvDetailCompanyAddress);
         tvUserNameAndTelephoneCompany = findViewById(R.id.tvUserNameAndTelephoneCompany);
+        deleteButtonCompany = findViewById(R.id.deleteButtonCompany);
 
         tvDetailHomeAddress.setVisibility(View.GONE);
         tvHome.setVisibility(View.GONE);
         tvUserNameAndTelephoneHome.setVisibility(View.GONE);
+        deleteButtonHome.setVisibility(View.GONE);
 
         tvDetailCompanyAddress.setVisibility(View.GONE);
         tvCompany.setVisibility(View.GONE);
         tvUserNameAndTelephoneCompany.setVisibility(View.GONE);
+        deleteButtonCompany.setVisibility(View.GONE);
 
         recyclerView = findViewById(R.id.recycler_view_saved_addresses);
         UserID = ManagementUser.getInstance().getUserId();
@@ -95,6 +102,7 @@ public class SavedAddressActivity extends AppCompatActivity implements OnAddress
                             for (DataSnapshot issue : snapshot.getChildren()){
                                 AddressDomain address = issue.getValue(AddressDomain.class);
                                 if (address.getUserID() == UserID && address.getTitle().equals("Nhà")){
+                                    setEditInterfaceInstance(SavedAddressActivity.this);
                                     Intent intent = new Intent(SavedAddressActivity.this, EditAddressActivity.class);
                                     intent.putExtra("AddressID", address.getAddressID());
                                     startActivity(intent);
@@ -128,6 +136,7 @@ public class SavedAddressActivity extends AppCompatActivity implements OnAddress
                             for (DataSnapshot issue : snapshot.getChildren()){
                                 AddressDomain address = issue.getValue(AddressDomain.class);
                                 if (address.getUserID() == UserID && address.getTitle().equals("Công ty")){
+                                    setEditInterfaceInstance(SavedAddressActivity.this);
                                     Intent intent = new Intent(SavedAddressActivity.this, EditAddressActivity.class);
                                     intent.putExtra("AddressID", address.getAddressID());
                                     startActivity(intent);
@@ -205,6 +214,7 @@ public class SavedAddressActivity extends AppCompatActivity implements OnAddress
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
+                    boolean isHomeAddressExist = false;
                     for (DataSnapshot issue : snapshot.getChildren()){
                         AddressDomain address = issue.getValue(AddressDomain.class);
                         if (address.getUserID() == UserID && address.getTitle().equals("Nhà")){
@@ -214,8 +224,17 @@ public class SavedAddressActivity extends AppCompatActivity implements OnAddress
                             tvHome.setVisibility(View.VISIBLE);
                             tvUserNameAndTelephoneHome.setVisibility(View.VISIBLE);
                             tvAddHomeAddress.setVisibility(View.GONE);
+                            deleteButtonHome.setVisibility(View.VISIBLE);
+                            isHomeAddressExist = true;
                             break;
                         }
+                    }
+                    if (!isHomeAddressExist){
+                        tvAddHomeAddress.setVisibility(View.VISIBLE);
+                        deleteButtonHome.setVisibility(View.GONE);
+                        tvDetailHomeAddress.setVisibility(View.GONE);
+                        tvHome.setVisibility(View.GONE);
+                        tvUserNameAndTelephoneHome.setVisibility(View.GONE);
                     }
                 }
             }
@@ -233,6 +252,7 @@ public class SavedAddressActivity extends AppCompatActivity implements OnAddress
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
+                    boolean isCompanyAddressExist = false;
                     for (DataSnapshot issue : snapshot.getChildren()){
                         AddressDomain address = issue.getValue(AddressDomain.class);
                         if (address.getUserID() == UserID && address.getTitle().equals("Công ty")){
@@ -242,8 +262,17 @@ public class SavedAddressActivity extends AppCompatActivity implements OnAddress
                             tvCompany.setVisibility(View.VISIBLE);
                             tvUserNameAndTelephoneCompany.setVisibility(View.VISIBLE);
                             tvAddCompanyAddress.setVisibility(View.GONE);
+                            deleteButtonCompany.setVisibility(View.VISIBLE);
+                            isCompanyAddressExist = true;
                             break;
                         }
+                    }
+                    if (!isCompanyAddressExist) {
+                        tvAddCompanyAddress.setVisibility(View.VISIBLE);
+                        tvDetailCompanyAddress.setVisibility(View.GONE);
+                        tvCompany.setVisibility(View.GONE);
+                        tvUserNameAndTelephoneCompany.setVisibility(View.GONE);
+                        deleteButtonCompany.setVisibility(View.GONE);
                     }
                 }
             }

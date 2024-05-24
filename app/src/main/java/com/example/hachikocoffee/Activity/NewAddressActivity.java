@@ -78,8 +78,35 @@ public class NewAddressActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (etNewAddressName.getText().toString().isEmpty()){
                     etNewAddressName.setError("Vui lòng nhập tên địa chỉ!");
+                    return;
                 }
-                checkAllFieldsRequire();
+                DatabaseReference addressRef = FirebaseDatabase.getInstance().getReference().child("ADDRESS");
+                addressRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()){
+                            for (DataSnapshot issue : snapshot.getChildren()){
+                                AddressDomain address = issue.getValue(AddressDomain.class);
+                                String a = address.getTitle().toLowerCase().trim();
+                                String b = etNewAddressName.getText().toString().toLowerCase().trim();
+                                if (a.equals(b) && a.equals("nhà") && address.getUserID() == UserID){
+                                    etNewAddressName.setError("Địa chỉ nhà đã tồn tại!");
+                                    return;
+                                }
+                                if (a.equals(b) && a.equals("công ty") && address.getUserID() == UserID){
+                                    etNewAddressName.setError("Địa chỉ công ty đã tồn tại!");
+                                    return;
+                                }
+                            }
+                            checkAllFieldsRequire();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
 
             @Override
@@ -162,6 +189,11 @@ public class NewAddressActivity extends AppCompatActivity {
                 DatabaseReference addressRef = FirebaseDatabase.getInstance().getReference().child("ADDRESS");
                 UUID uuid = UUID.randomUUID();
                 String addressID = uuid.toString();
+                if (etNewAddressName.getText().toString().toLowerCase().trim().equals("nhà")){
+                    etNewAddressName.setText("Nhà");
+                } else if (etNewAddressName.getText().toString().toLowerCase().trim().equals("công ty")){
+                    etNewAddressName.setText("Công ty");
+                }
                 AddressDomain addressDomain = new AddressDomain(addressID, etNewAddress.getText().toString(), etNewAddressBuilding.getText().toString(), etNewAddressGate.getText().toString(), etNewAddressNote.getText().toString(), etNewAddressReceiverName.getText().toString(), etNewAddressReceiverPhone.getText().toString(), etNewAddressName.getText().toString(), UserID);
                 // (String addressID, String description, String detail, String gate, String note, String recipentName, String recipentPhone, String title, int userID)
                 addressRef.push().setValue(addressDomain);

@@ -61,10 +61,11 @@ public class EditAddressActivity extends AppCompatActivity {
         btnEditAddress = findViewById(R.id.btnEditAddress);
         btnHomeAddressBack = findViewById(R.id.btnHomeAddressBack);
         String addressID = getIntent().getStringExtra("AddressID");
-        Toast.makeText(this, ""+addressID, Toast.LENGTH_SHORT).show();
         initEditedAddress(addressID);
         btnEditAddress.setBackground(ContextCompat.getDrawable(this, R.drawable.rounded_rectangle_darkgrey));
         btnEditAddress.setEnabled(false);
+
+        checkHomeCompanyAddress();
 
         btnHomeAddressBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -221,6 +222,32 @@ public class EditAddressActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void checkHomeCompanyAddress() {
+        DatabaseReference addressRef = FirebaseDatabase.getInstance().getReference().child("ADDRESS");
+        addressRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    for (DataSnapshot issue : snapshot.getChildren()){
+                        AddressDomain address = issue.getValue(AddressDomain.class);
+                        if (address.getAddressID().equals(getIntent().getStringExtra("AddressID"))){
+                            if (address.getTitle().equals("Công ty") || address.getTitle().equals("Nhà")){
+                                editAddressName.setEnabled(false);
+                                editAddressName.setBackground(ContextCompat.getDrawable(EditAddressActivity.this, R.drawable.rounded_rectangle_darkgrey));
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void checkAllFieldsRequire() {
