@@ -111,7 +111,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                                     Map<String, Object> updates = new HashMap<>();
                                     updates.put("orderStatus", "Finished");
                                     childSnapshot.getRef().updateChildren(updates);
-                                    finishedClickListener.onFinishedClick();
+//                                    finishedClickListener.onFinishedClick();
                                     break;
                                 }
                             }
@@ -153,9 +153,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                                     Map<String, Object> updates = new HashMap<>();
                                     updates.put("orderStatus", "Canceled");
                                     childSnapshot.getRef().updateChildren(updates);
-                                    if (canceledClickListener != null){
-                                        canceledClickListener.onCanceledClick();
-                                    }
+//                                    if (canceledClickListener != null){
+//                                        canceledClickListener.onCanceledClick();
+//                                    }
                                     break;
                                 }
                             }

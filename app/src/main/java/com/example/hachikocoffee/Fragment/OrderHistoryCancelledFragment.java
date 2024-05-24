@@ -81,7 +81,7 @@ public class OrderHistoryCancelledFragment extends Fragment implements CanceledC
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        setInterfaceInstanceCanceled(this);
+//        setInterfaceInstanceCanceled(this);
         UserID = ManagementUser.getInstance().getUserId();
         View view = inflater.inflate(R.layout.fragment_order_history_cancelled, container, false);
 

@@ -26,6 +26,7 @@ public class CategoryDialogAdapter extends RecyclerView.Adapter<CategoryDialogAd
     private NestedScrollView nestedScrollView;
 
     private CategoryDialog categoryDialog;
+    private int y = 0;
 
     public  CategoryDialogAdapter(ArrayList<CategoryDomain> items, RecyclerView recyclerView, NestedScrollView nestedScrollView, CategoryDialog categoryDialog){
         this.items = items;
@@ -53,44 +54,58 @@ public class CategoryDialogAdapter extends RecyclerView.Adapter<CategoryDialogAd
             @Override
             public void onClick(View v) {
                 categoryDialog.dismiss();
-                if (items.get(position).getTitle().toString().equals("Món Mới Phải Thử")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, 780));
+                y = recyclerView.getChildAt(1).getTop();
+                if (items.get(position).getTitle().toString().equals("Món mới phải thử")){
+                    y = y + (y * 10) / 17;
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(2).getTop() + y + y / 3 + y / 5));
                 }
                 if (items.get(position).getTitle().toString().equals("Trà Trái Cây")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, 8903));
+                    y = y + (y * 10) / 17;
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(26).getTop() + y + y / 3 + y / 5));
                 }
                 if (items.get(position).getTitle().equals("CloudFee")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(50).getBottom() + 340));
+                    y = y + (y * 10) / 17;
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(50).getBottom() + y + y / 3 + y / 5));
                 }
                 if (items.get(position).getTitle().equals("Đá Xay Frosty")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(60).getTop() + 300));
+                    y = y + (y * 10) / 17;
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(60).getTop() + y + y / 3 + y / 5));
                 }
                 if (items.get(position).getTitle().equals("Bánh Ngọt")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(76).getTop() + 300));
+                    y = y + (y * 10) / 17;
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(76).getTop() + y + y / 3 + y / 5));
                 }
                 if (items.get(position).getTitle().equals("Cafe Tại Nhà")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(98).getTop() + 300));
+                    y = y + (y * 10) / 17;
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(98).getTop() + y + y / 3 + y / 5));
                 }
                 if (items.get(position).getTitle().equals("Các Loại Đồ Ăn Khác")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(114).getTop() + 300));
+                    y = y + (y * 10) / 17;
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(114).getTop() + y + y / 3 + y / 5));
                 }
                 if (items.get(position).getTitle().equals("Cafe")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, 1620));
+                    y = y + 3 * y;
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(4).getTop() + y + y / 3));
                 }
                 if (items.get(position).getTitle().equals("Trà Sữa Macchiato")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(40).getTop() + 300));
+                    y = y + 3 * y;
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(39).getTop() + y + y / 3));
                 }
                 if (items.get(position).getTitle().equals("Trà Xanh Tây Bắc")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(55).getTop() + 300));
+                    y = y + 3 * y;
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(54).getTop() + y + y / 3));
                 }
                 if (items.get(position).getTitle().equals("Bánh Mặn")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(68).getTop() + 300));
+                    y = y + 3 * y;
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(67).getTop() + y + y / 3));
                 }
                 if (items.get(position).getTitle().equals("Topping")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(90).getTop() + 300));
+                    y = y + 3 * y;
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(89).getTop() + y + y / 3));
                 }
                 if (items.get(position).getTitle().equals("Chai Fresh Không Đá")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(106).getTop() + 300));
+                    y = y + 3 * y;
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(105).getTop() + y + y / 3));
                 }
             }
         });
@@ -109,4 +124,5 @@ public class CategoryDialogAdapter extends RecyclerView.Adapter<CategoryDialogAd
             this.binding = binding;
         }
     }
+
 }
