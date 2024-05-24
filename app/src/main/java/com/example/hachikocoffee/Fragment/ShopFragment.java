@@ -302,22 +302,54 @@ public class ShopFragment extends Fragment implements OnStoreClick, LocationList
     }
 
     private void initVoucherCount() {
-        DatabaseReference voucherRef = FirebaseDatabase.getInstance().getReference("VOUCHER");
-        voucherRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference userVoucherRef = FirebaseDatabase.getInstance().getReference("USERVOUCHER");
+        userVoucherRef.orderByChild("UserID").equalTo(ManagementUser.getInstance().getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
-                    int cnt_voucher = 0;
-                    for (DataSnapshot issue : snapshot.getChildren()){
-                        cnt_voucher += 1;
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<String> voucherIDs = new ArrayList<>();
+                ArrayList<DiscountDomain> discountList1 = new ArrayList<>();
+                ArrayList<DiscountDomain> discountList2 = new ArrayList<>();
+                if (dataSnapshot.exists()){
+                    for (DataSnapshot userVoucherSnapshot : dataSnapshot.getChildren()) {
+                        int isUse = userVoucherSnapshot.child("IsUse").getValue(Integer.class);
+                        if (isUse == 0){
+                            String voucherID = String.valueOf(userVoucherSnapshot.child("VoucherID").getValue(Long.class));
+                            voucherIDs.add(voucherID);
+                        }
                     }
-                    voucherCount.setText(""+cnt_voucher);
+
+                    DatabaseReference voucherRef = FirebaseDatabase.getInstance().getReference("VOUCHER");
+
+                    voucherRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            int voucherAvailable = 0;
+                            for (DataSnapshot voucherSnapshot : dataSnapshot.getChildren()) {
+                                String currentVoucherID = String.valueOf(voucherSnapshot.child("VoucherID").getValue(Long.class));
+                                if (voucherIDs.contains(currentVoucherID)) {
+                                    DiscountDomain discount = voucherSnapshot.getValue(DiscountDomain.class);
+                                    if (discount != null) { // Must add check date function
+                                        voucherAvailable += 1;
+                                    }
+                                }
+                            }
+                            voucherCount.setText("" + voucherAvailable);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            // Xử lý lỗi nếu có
+                            System.err.println("Error retrieving vouchers: " + databaseError.getMessage());
+                        }
+                    });
                 }
+
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+            public void onCancelled(DatabaseError databaseError) {
+                // Xử lý lỗi nếu có
+                System.err.println("Error retrieving user vouchers: " + databaseError.getMessage());
             }
         });
     }
