@@ -117,8 +117,8 @@ public class LoginOTPActivity extends AppCompatActivity {
 
                                                         Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
                                                         Log.d("LoginOTPActivity", "UserId: " + UserId);
-//                                                        ManagementUser.getInstance().loadFromFirebase(UserId);
-//                                                        ManagementCart.getInstance().loadCartFromFirebase(String.valueOf(UserId));
+                                                        ManagementUser.getInstance().loadFromFirebase(UserId);
+                                                        ManagementCart.getInstance().loadCartFromFirebase(String.valueOf(UserId));
                                                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                                         startActivity(intent);
                                                         finish();
@@ -133,8 +133,8 @@ public class LoginOTPActivity extends AppCompatActivity {
 
                                                         Intent intent = new Intent(getApplicationContext(), InfoAccountLoginActivity.class);
                                                         intent.putExtra("phoneNumber", phoneNumber);
-//                                                        ManagementUser.getInstance().loadFromFirebase(Integer.valueOf(getIntent().getStringExtra("mobile")));
-//                                                        ManagementCart.getInstance().loadCartFromFirebase(getIntent().getStringExtra("mobile"));
+                                                        ManagementUser.getInstance().loadFromFirebase(userID);
+                                                        ManagementCart.getInstance().loadCartFromFirebase(String.valueOf(userID));
                                                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                                         startActivity(intent);
                                                         finish();
