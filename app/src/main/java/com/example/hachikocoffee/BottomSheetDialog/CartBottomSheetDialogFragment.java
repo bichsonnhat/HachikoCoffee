@@ -48,8 +48,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.shape.MaterialShapeDrawable;
 import com.google.android.material.shape.ShapeAppearanceModel;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
@@ -184,8 +187,15 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment imp
                 String orderID = uuid.toString();
                 int userID = ManagementUser.getInstance().getUserId();
                 String orderAdress = (String) location.getText();
-                String orderTime = ManagementCart.getInstance().getOrderTime();
                 String orderCreatedTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+                String orderTime;
+                if (!ManagementCart.getInstance().getOrderTime().equals(""))
+                {
+                    orderTime = ManagementCart.getInstance().getOrderTime();
+                }
+                else{
+                    orderTime = orderCreatedTime;
+                }
                 String orderMethod = "Tiền mặt";
 
                 @SuppressLint("DefaultLocale") double cost = Double.parseDouble(String.format("%.3f", totalafterFee));;
@@ -220,6 +230,31 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment imp
                     OrderItemDomain orderItem = new OrderItemDomain(orderItemID, orderID, productId, quantity, size, topping, note, totalOrderItemPice);
                     orderItemRef.child(orderItemID).setValue(orderItem);
                 }
+                DatabaseReference userVoucherRef = FirebaseDatabase.getInstance().getReference("USERVOUCHER");
+                int finalVoucherID = voucherID;
+                userVoucherRef.orderByChild("UserID").equalTo(ManagementUser.getInstance().getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()){
+                            for (DataSnapshot userVoucherSnapshot : dataSnapshot.getChildren()) {
+                                String voucherIDD = String.valueOf(userVoucherSnapshot.child("VoucherID").getValue(Long.class));
+                                String curVoucherID = String.valueOf(finalVoucherID);
+                                if (voucherIDD.equals(curVoucherID)){
+                                    DatabaseReference isUseRef = userVoucherSnapshot.getRef().child("IsUse");
+                                    isUseRef.setValue(1);
+                                }
+                            }
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // Xử lý lỗi nếu có
+                        System.err.println("Error retrieving user vouchers: " + databaseError.getMessage());
+                    }
+                });
+
                 ManagementCart.getInstance().clearCart();
                 Toast.makeText(requireContext(), "Đặt hàng thành công!", Toast.LENGTH_SHORT).show();
                 dismiss();

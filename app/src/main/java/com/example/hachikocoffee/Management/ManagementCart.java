@@ -111,6 +111,7 @@ public class ManagementCart {
         cartItems = new ArrayList<>();
         itemsCount = 0;
         noId = 0;
+        orderTime = "";
         recipentName = "";
         recipentPhone = "";
         location = "";
