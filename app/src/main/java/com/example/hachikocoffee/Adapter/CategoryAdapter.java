@@ -56,7 +56,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Viewho
             @Override
             public void onClick(View v) {
                 for (int i = 0; i <= 12; ++i){
-                    if (items.get(position).getTitle().toString().equals("Cafe")){
+                    if (items.get(i).getTitle().toString().equals("Cafe")){
                         int[] location = new int[2];
                         v.getLocationOnScreen(location);
                         y = location[1];
@@ -64,43 +64,43 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Viewho
                     }
                 }
                 if (items.get(position).getTitle().toString().equals("Món mới phải thử")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(3).getTop()));
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(2).getTop() + y + y / 3 + y / 5));
                 }
                 if (items.get(position).getTitle().toString().equals("Trà Trái Cây")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(26).getTop() + y + y / 3));
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(26).getTop() + y + y / 3 + y / 5));
                 }
                 if (items.get(position).getTitle().equals("CloudFee")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(51).getBottom() + y + y / 3));
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(50).getBottom() + y + y / 3 + y / 5));
                 }
                 if (items.get(position).getTitle().equals("Đá Xay Frosty")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(60).getTop() + y + y / 3));
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(60).getTop() + y + y / 3 + y / 5));
                 }
                 if (items.get(position).getTitle().equals("Bánh Ngọt")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(76).getTop() + y + y / 3));
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(76).getTop() + y + y / 3 + y / 5));
                 }
                 if (items.get(position).getTitle().equals("Cafe Tại Nhà")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(98).getTop() + y + y / 3));
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(98).getTop() + y + y / 3 + y / 5));
                 }
                 if (items.get(position).getTitle().equals("Các Loại Đồ Ăn Khác")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(114).getTop() + y + y / 3));
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(114).getTop() + y + y / 3 + y / 5));
                 }
                 if (items.get(position).getTitle().equals("Cafe")){
                     nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(4).getTop() + y + y / 3));
                 }
                 if (items.get(position).getTitle().equals("Trà Sữa Macchiato")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(40).getTop() + y + y / 3));
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(39).getTop() + y + y / 3));
                 }
                 if (items.get(position).getTitle().equals("Trà Xanh Tây Bắc")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(55).getTop() + y + y / 3));
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(54).getTop() + y + y / 3));
                 }
                 if (items.get(position).getTitle().equals("Bánh Mặn")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(68).getTop() + y + y / 3));
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(67).getTop() + y + y / 3));
                 }
                 if (items.get(position).getTitle().equals("Topping")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(90).getTop() + y + y / 3));
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(89).getTop() + y + y / 3));
                 }
                 if (items.get(position).getTitle().equals("Chai Fresh Không Đá")){
-                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(106).getTop() + y + y / 3));
+                    nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(105).getTop() + y + y / 3));
                 }
 //                Toast.makeText(context, "Nhatwooo", Toast.LENGTH_SHORT).show();
             }
