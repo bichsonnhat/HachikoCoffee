@@ -81,8 +81,10 @@ public class CategoryDialog extends BottomSheetDialogFragment {
                 if (snapshot.exists()) {
                     ArrayList<CategoryDomain> items = new ArrayList<>();
                     for (DataSnapshot issue : snapshot.getChildren()) {
-                        CategoryDomain category = issue.getValue(CategoryDomain.class);
-                        items.add(category);
+                        if (!"idCount".equals(issue.getKey())){
+                            CategoryDomain category = issue.getValue(CategoryDomain.class);
+                            items.add(category);
+                        }
                     }
                     displayCategoryData(items);
                 }

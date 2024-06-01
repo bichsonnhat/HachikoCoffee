@@ -14,6 +14,8 @@ import com.example.hachikocoffee.Activity.AddCategoryAcivity;
 import com.example.hachikocoffee.Activity.CategoryManagementActivity;
 import com.example.hachikocoffee.Activity.EditCategoryActivity;
 import com.example.hachikocoffee.Domain.CategoryDomain;
+import com.example.hachikocoffee.Listener.OnCategoryChangedListener;
+import com.example.hachikocoffee.Management.ListenerSingleton;
 import com.example.hachikocoffee.databinding.ViewholderCategoryBinding;
 import com.example.hachikocoffee.databinding.ViewholderCategoryItemBinding;
 
@@ -49,6 +51,7 @@ public class ListCategoryAdapter extends RecyclerView.Adapter<ListCategoryAdapte
             public void onClick(View v) {
                 Intent intent = new Intent(context, EditCategoryActivity.class);
                 intent.putExtra("category", items.get(position));
+                ListenerSingleton.getInstance().setCategoryChangedListener((OnCategoryChangedListener) context);
                 context.startActivity(intent);
             }
         });

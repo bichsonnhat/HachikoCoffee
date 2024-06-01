@@ -21,14 +21,14 @@
         <activity
             android:name=".Activity.VoucherManagementActivity"
             android:exported="false" />
-        <activity android:name=".Activity.AddVoucherActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--        <activity android:name=".Activity.AddVoucherActivity"-->
+<!--            android:exported="true">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
         <activity android:name=".Activity.EditVoucherActivity"
             android:exported="false" />
         <activity
@@ -37,10 +37,18 @@
         </activity>
         <activity
             android:name=".Activity.AddCategoryAcivity"
-            android:exported="false" />
+            android:exported="false" >
+
+        </activity>
         <activity
             android:name=".Activity.CategoryManagementActivity"
-            android:exported="false"/>
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Activity.PendingOrdersActivity"
             android:exported="false"/>
@@ -50,15 +58,15 @@
         <activity
             android:name=".Activity.EditAddressActivity"
             android:exported="true" />
-        <activity
-            android:name=".Login"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--        <activity-->
+<!--            android:name=".Login"-->
+<!--            android:exported="true">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
         <activity
             android:name=".Activity.YourVoucherPick"
             android:exported="true">
@@ -112,7 +120,7 @@
             android:exported="true">
             <intent-filter>
 
-                <!-- <action android:name="android.intent.action.MAIN" /> -->
+<!--                 <action android:name="android.intent.action.MAIN" />-->
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
