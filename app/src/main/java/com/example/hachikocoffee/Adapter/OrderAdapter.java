@@ -13,6 +13,7 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hachikocoffee.Activity.PendingOrdersActivity;
 import com.example.hachikocoffee.Domain.OrderDomain;
 import com.example.hachikocoffee.Domain.UserDomain;
 import com.example.hachikocoffee.Fragment.OrderHistoryCancelledFragment;
@@ -38,12 +39,20 @@ import java.util.Map;
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder>{
     private final List<OrderDomain> mListOrder;
     private final OrderClickListener orderClickListener;
+    private final PendingOrdersActivity activity;
     private static CanceledClickListener canceledClickListener;
     private static FinishedClickListener finishedClickListener;
 
     public OrderAdapter(List<OrderDomain> mListOrder, OrderClickListener orderClickListener) {
         this.mListOrder = mListOrder;
         this.orderClickListener = orderClickListener;
+        this.activity = null;
+    }
+
+    public OrderAdapter(List<OrderDomain> mListOrder, OrderClickListener orderClickListener, PendingOrdersActivity activity) {
+        this.mListOrder = mListOrder;
+        this.orderClickListener = orderClickListener;
+        this.activity = activity;
     }
 
     @NonNull
@@ -55,7 +64,17 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull OrderViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        if (this.activity != null){
+            holder.orderHistory_accept.setVisibility(View.GONE);
+            holder.orderHistory_cancel.setVisibility(View.GONE);
+        }
+        else{
+            holder.orderHistory_accept.setVisibility(View.VISIBLE);
+            holder.orderHistory_cancel.setVisibility(View.VISIBLE);
+        }
+
+
         OrderDomain order = mListOrder.get(position);
         if (order == null) {
             return;
