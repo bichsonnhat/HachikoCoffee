@@ -2,7 +2,6 @@ package com.example.hachikocoffee.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
@@ -11,12 +10,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.example.hachikocoffee.Adapter.CategoryDialogAdapter;
 import com.example.hachikocoffee.Adapter.ListCategoryAdapter;
 import com.example.hachikocoffee.Domain.CategoryDomain;
-import com.example.hachikocoffee.R;
+import com.example.hachikocoffee.Listener.OnCategoryChangedListener;
+import com.example.hachikocoffee.Management.ListenerSingleton;
 import com.example.hachikocoffee.databinding.ActivityCategoryManagementBinding;
-import com.example.hachikocoffee.databinding.ActivityMainBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,7 +23,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class CategoryManagementActivity extends AppCompatActivity {
+public class CategoryManagementActivity extends AppCompatActivity implements OnCategoryChangedListener {
+
 
     ActivityCategoryManagementBinding binding;
     @Override
@@ -41,6 +40,7 @@ public class CategoryManagementActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CategoryManagementActivity.this, AddCategoryAcivity.class);
+                ListenerSingleton.getInstance().setCategoryChangedListener(CategoryManagementActivity.this);
                 startActivity(intent);
             }
         });
@@ -54,8 +54,10 @@ public class CategoryManagementActivity extends AppCompatActivity {
                 if (snapshot.exists()) {
                     ArrayList<CategoryDomain> items = new ArrayList<>();
                     for (DataSnapshot issue : snapshot.getChildren()) {
-                        CategoryDomain category = issue.getValue(CategoryDomain.class);
-                        items.add(category);
+                        if (!"idCount".equals(issue.getKey())){
+                            CategoryDomain category = issue.getValue(CategoryDomain.class);
+                            items.add(category);
+                        }
                     }
                     displayCategoryData(items);
                 }
@@ -74,5 +76,10 @@ public class CategoryManagementActivity extends AppCompatActivity {
             binding.recyclerViewCategory.setLayoutManager(new LinearLayoutManager(this));
             binding.recyclerViewCategory.setAdapter(new ListCategoryAdapter(items));
         }
+    }
+
+    @Override
+    public void onCategoryChanged() {
+        loadCategoryData();
     }
 }
