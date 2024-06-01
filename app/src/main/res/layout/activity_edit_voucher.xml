@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/white_background"
+    tools:context=".Activity.EditVoucherActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/topBarCatergoryManagement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView31"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sửa thông tin voucher"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/back_button"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/background_item"
+            android:padding="5dp"
+            android:src="@drawable/arrow_back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="#939393"
+        app:layout_constraintTop_toBottomOf="@+id/topBarCatergoryManagement"/>
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/separator">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/separator">
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tên voucher*"
+                android:textColor="#686363"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"/>
+
+            <EditText
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/editName"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:background="@drawable/bg_note"
+                android:hint="Nhập tên voucher"
+                android:layout_marginTop="8dp"
+                android:inputType="text"
+                android:lines="2"
+                android:layout_weight="1"
+                android:maxLines="2"
+                android:paddingStart="16dp"
+                android:paddingEnd="18sp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/name"
+                tools:ignore="TextFields" />
+
+            <TextView
+                android:id="@+id/type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Loại*"
+                android:textColor="#686363"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/editName"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="16dp"/>
+
+            <Spinner
+                android:id="@+id/spType"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:spinnerMode="dropdown"
+                app:layout_constraintTop_toBottomOf="@+id/type"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
+                />
+
+            <TextView
+                android:id="@+id/image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hình ảnh*"
+                android:textColor="#686363"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/spType"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="16dp"/>
+
+            <EditText
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/imageURL"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:background="@drawable/bg_note"
+                android:hint="Nhập link hình ảnh"
+                android:layout_marginTop="8dp"
+                android:inputType="text"
+                android:lines="2"
+                android:layout_weight="1"
+                android:maxLines="2"
+                android:paddingStart="16dp"
+                android:paddingEnd="18sp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image"
+                tools:ignore="TextFields" />
+
+            <TextView
+                android:id="@+id/FreeShippingType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FreeShipping*"
+                android:textColor="#686363"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/imageURL"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="16dp"/>
+
+            <Spinner
+                android:id="@+id/spFreeShipping"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:spinnerMode="dropdown"
+                app:layout_constraintTop_toBottomOf="@+id/FreeShippingType"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
+                />
+
+            <TextView
+                android:id="@+id/DateExpire"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ngày hết hạn*"
+                android:textColor="#686363"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/spFreeShipping"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="16dp"/>
+
+            <TextView
+                android:id="@+id/txtview_canlendar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Ngày hết hạn"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="16dp"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/btnCalendar"
+                app:layout_constraintTop_toBottomOf="@+id/DateExpire" />
+
+            <Button
+                android:id="@+id/btn_calendar"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/calendar"
+                app:backgroundTint="@null"
+                android:layout_marginTop="7dp"
+                app:layout_constraintEnd_toEndOf="@+id/btnCalendar"
+                app:layout_constraintTop_toTopOf="@+id/btnCalendar" />
+            <TextView
+                android:id="@+id/btnCalendar"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/rounded_corner"
+                android:ellipsize="end"
+                android:padding="10dp"
+                android:paddingEnd="70dp"
+                android:singleLine="true"
+                app:backgroundTint="@null"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/DateExpire" />
+
+            <TextView
+                android:id="@+id/Description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mô tả*"
+                android:textColor="#686363"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/btnCalendar"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="16dp"/>
+
+            <EditText
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/etDescription"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:background="@drawable/bg_note"
+                android:hint="Nhập mô tả"
+                android:layout_marginTop="8dp"
+                android:inputType="text"
+                android:lines="2"
+                android:layout_weight="1"
+                android:maxLines="2"
+                android:paddingStart="16dp"
+                android:paddingEnd="18sp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Description"
+                tools:ignore="TextFields" />
+
+            <TextView
+                android:id="@+id/minOderCapacity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Min Order Capacity*"
+                android:textColor="#686363"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/etDescription"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="16dp"/>
+
+            <EditText
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/etMinOderCapacity"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:background="@drawable/bg_note"
+                android:hint="Nhập Min Order Capacity"
+                android:layout_marginTop="8dp"
+                android:inputType="text"
+                android:lines="2"
+                android:layout_weight="1"
+                android:maxLines="2"
+                android:paddingStart="16dp"
+                android:paddingEnd="18sp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/minOderCapacity"
+                tools:ignore="TextFields" />
+
+            <TextView
+                android:id="@+id/minOrderPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Min Order Price*"
+                android:textColor="#686363"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/etMinOderCapacity"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="16dp"/>
+
+            <EditText
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/etMinOrderPrice"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:background="@drawable/bg_note"
+                android:hint="Nhập Min Order Price"
+                android:layout_marginTop="8dp"
+                android:inputType="text"
+                android:lines="2"
+                android:layout_weight="1"
+                android:maxLines="2"
+                android:paddingStart="16dp"
+                android:paddingEnd="18sp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/minOrderPrice"
+                tools:ignore="TextFields" />
+
+            <TextView
+                android:id="@+id/ValueDouble"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Value Double*"
+                android:textColor="#686363"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/etMinOrderPrice"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="16dp"/>
+
+            <EditText
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/etValueDouble"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:background="@drawable/bg_note"
+                android:hint="Nhập Value Double"
+                android:layout_marginTop="8dp"
+                android:inputType="text"
+                android:lines="2"
+                android:layout_weight="1"
+                android:maxLines="2"
+                android:paddingStart="16dp"
+                android:paddingEnd="18sp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ValueDouble"
+                tools:ignore="TextFields" />
+
+
+            <TextView
+                android:id="@+id/ValueInteger"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Value Integer*"
+                android:textColor="#686363"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/etValueDouble"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="16dp"/>
+
+            <EditText
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/etValueInteger"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:background="@drawable/bg_note"
+                android:hint="Nhập Value Integer"
+                android:layout_marginTop="8dp"
+                android:inputType="text"
+                android:lines="2"
+                android:layout_weight="1"
+                android:maxLines="2"
+                android:paddingStart="16dp"
+                android:paddingEnd="18sp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ValueInteger"
+                tools:ignore="TextFields" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayoutDelete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="16dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etValueInteger">
+
+                <ImageView
+                    android:id="@+id/deleteBtn"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_delete"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:text="Xóa danh mục này"
+                    android:textColor="@color/red"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/deleteBtn"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnConfirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/order_button"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:text="Xong"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayoutDelete"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnConfirm"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
