@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -37,6 +38,7 @@ public class RevenueOrdersActivity extends AppCompatActivity {
     private Button btn_calendarStart;
     private Button btn_calendarEnd;
     private PieChart pieChart;
+    private ImageView back_button;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +48,14 @@ public class RevenueOrdersActivity extends AppCompatActivity {
         btn_calendarStart = findViewById(R.id.btn_calendarStart);
         btn_calendarEnd = findViewById(R.id.btn_calendarEnd);
         pieChart = findViewById(R.id.pieChart);
+        back_button = findViewById(R.id.back_button);
+
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         btn_calendarStart.setOnClickListener(new View.OnClickListener() {
             @Override

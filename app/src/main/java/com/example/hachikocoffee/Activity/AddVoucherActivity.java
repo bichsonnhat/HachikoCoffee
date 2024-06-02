@@ -282,9 +282,8 @@ public class AddVoucherActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (etValueInteger.getText().toString().length() == 0){
                     etValueInteger.setError("Vui lòng nhập giá trị voucher");
-                } else {
-                    checkAllRequireFields();
                 }
+                checkAllRequireFields();
             }
 
             @Override
@@ -305,9 +304,8 @@ public class AddVoucherActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (etValueDouble.getText().toString().length() == 0){
                     etValueDouble.setError("Vui lòng nhập giá trị voucher");
-                } else {
-                    checkAllRequireFields();
                 }
+                checkAllRequireFields();
             }
 
             @Override
@@ -328,9 +326,8 @@ public class AddVoucherActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (etMinOrderPrice.getText().toString().length() == 0){
                     etMinOrderPrice.setError("Vui lòng nhập giá trị đơn hàng tối thiểu");
-                } else {
-                    checkAllRequireFields();
                 }
+                checkAllRequireFields();
             }
 
             @Override
@@ -351,9 +348,8 @@ public class AddVoucherActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (etMinOderCapacity.getText().toString().length() == 0){
                     etMinOderCapacity.setError("Vui lòng nhập số lượng đơn hàng tối thiểu");
-                } else {
-                    checkAllRequireFields();
                 }
+                checkAllRequireFields();
             }
 
             @Override
@@ -374,9 +370,8 @@ public class AddVoucherActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (etDescription.getText().toString().length() == 0){
                     etDescription.setError("Vui lòng nhập mô tả");
-                } else {
-                    checkAllRequireFields();
                 }
+                checkAllRequireFields();
             }
 
             @Override
@@ -397,9 +392,8 @@ public class AddVoucherActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (addImageVoucher.getText().toString().length() == 0){
                     addImageVoucher.setError("Vui lòng nhập URL ảnh");
-                } else {
-                    checkAllRequireFields();
                 }
+                checkAllRequireFields();
             }
 
             @Override
@@ -420,9 +414,8 @@ public class AddVoucherActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (addVoucherName.getText().toString().length() == 0){
                     addVoucherName.setError("Vui lòng nhập tên voucher");
-                } else {
-                    checkAllRequireFields();
                 }
+                checkAllRequireFields();
             }
 
             @Override
