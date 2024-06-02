@@ -3,23 +3,20 @@ package com.example.hachikocoffee.Domain;
 import java.io.Serializable;
 
 public class ShopDomain implements Serializable {
-    private String Address;
-    private String Coordinate;
-    private String ImageURL;
-    private String Name;
     private int StoreID;
-
-    //private String distance;
-    //private String detailaddress; // cái địa chỉ cụ thể hơn hiển thị trong bottomsheet khi ấn vào shop
+    private String Address;
+    private String Name;
+    private String ImageURL;
+    private String Coordinate; // POINT(106.641594 10.800494) (longitude, latitude)
 
     public ShopDomain() {}
 
-    public ShopDomain(String address, String coordinate, String imageURL, String name, int storeID) {
-        Address = address;
-        Coordinate = coordinate;
-        ImageURL = imageURL;
-        Name = name;
+    public ShopDomain(int storeID, String address, String name, String imageURL, String coordinate) {
         StoreID = storeID;
+        Address = address;
+        Name = name;
+        ImageURL = imageURL;
+        Coordinate = coordinate;
     }
 
     public String getAddress() {
@@ -36,6 +33,18 @@ public class ShopDomain implements Serializable {
 
     public void setCoordinate(String coordinate) {
         Coordinate = coordinate;
+    }
+
+    // Get longitude from Coordinate POINT(106.641594 10.800494)
+    public double getLongitude() {
+        String[] parts = Coordinate.split(" ");
+        return Double.parseDouble(parts[0].substring(6)); // 106.641594
+    }
+
+    // Get latitude from Coordinate
+    public double getLatitude() {
+        String[] parts = Coordinate.split(" ");
+        return Double.parseDouble(parts[1].substring(0, parts[1].length() - 1)); // 10.800494
     }
 
     public String getImageURL() {
