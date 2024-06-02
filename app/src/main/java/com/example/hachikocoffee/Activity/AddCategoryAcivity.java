@@ -2,8 +2,11 @@ package com.example.hachikocoffee.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +15,7 @@ import android.widget.Toast;
 import com.example.hachikocoffee.Domain.CategoryDomain;
 import com.example.hachikocoffee.Listener.OnCategoryChangedListener;
 import com.example.hachikocoffee.Management.ListenerSingleton;
+import com.example.hachikocoffee.R;
 import com.example.hachikocoffee.databinding.ActivityAddCategoryAcivityBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,6 +35,7 @@ public class AddCategoryAcivity extends AppCompatActivity {
         LayoutInflater inflater = getLayoutInflater();
         setContentView(binding.getRoot());
 
+        addValidation();
         onCategoryAddedListener = ListenerSingleton.getInstance().getCategoryChangedListener();
 
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("CATEGORY");
@@ -78,5 +83,61 @@ public class AddCategoryAcivity extends AppCompatActivity {
 
             }
         });
+
+
+    }
+
+    private void addValidation() {
+        binding.editName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.toString().length() == 0){
+                    binding.editName.setError("Vui lòng nhập tên danh mục");
+                }
+                checkAllRequireFields();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        binding.imageURL.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.toString().length() == 0){
+                    binding.imageURL.setError("Vui lòng nhập URL ảnh cho danh mục");
+                }
+                checkAllRequireFields();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
+    private void checkAllRequireFields() {
+        if (binding.editName.getText().toString().length() != 0
+            && binding.imageURL.getText().toString().length() != 0){
+            binding.btnConfirm.setBackground(ContextCompat.getDrawable(this, R.drawable.order_button));
+            binding.btnConfirm.setEnabled(true);
+        }
+        else{
+            binding.btnConfirm.setBackground(ContextCompat.getDrawable(this, R.drawable.rounded_rectangle_darkgrey));
+            binding.btnConfirm.setEnabled(false);
+        }
     }
 }
