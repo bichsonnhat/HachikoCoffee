@@ -67,4 +67,7 @@ dependencies {
     implementation ("com.squareup.picasso:picasso:2.8")
     implementation("com.google.firebase:firebase-appcheck-playintegrity")
     implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
+
+    // Charts
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 }
