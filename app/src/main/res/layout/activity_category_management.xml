@@ -72,15 +72,15 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/constraintLayoutStart"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="70dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
                             android:id="@+id/plusBtn"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginStart="16dp"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_marginStart="21dp"
                             android:src="@drawable/ic_plus"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -104,8 +104,11 @@
                     android:layout_height="wrap_content">
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView_Category"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
