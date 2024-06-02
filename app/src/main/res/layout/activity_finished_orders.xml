@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/white_background"
-    tools:context=".Activity.PendingOrdersActivity">
+    tools:context=".Activity.FinishedOrdersActivity">
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/topBarPendingOrder"
+        android:id="@+id/topBarFinishedOrder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -21,7 +21,7 @@
             android:id="@+id/textView31"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Đơn hàng đang chờ"
+            android:text="Đơn hàng đã xác nhận"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -47,7 +47,7 @@
         android:layout_height="1dp"
         android:layout_marginTop="10dp"
         android:background="#939393"
-        app:layout_constraintTop_toBottomOf="@+id/topBarPendingOrder"/>
+        app:layout_constraintTop_toBottomOf="@+id/topBarFinishedOrder"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -164,7 +164,7 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerView_PendingOrders"
+                        android:id="@+id/recyclerView_FinishedOrders"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"

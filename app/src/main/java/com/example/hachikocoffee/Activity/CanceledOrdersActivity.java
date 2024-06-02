@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,10 +16,10 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
-import com.example.hachikocoffee.Adapter.OrderAdapter;
+import com.example.hachikocoffee.Adapter.OrderAdapter1;
 import com.example.hachikocoffee.Domain.OrderDomain;
 import com.example.hachikocoffee.OrderDetail;
-import com.example.hachikocoffee.databinding.ActivityPendingOrdersBinding;
+import com.example.hachikocoffee.databinding.ActivityCanceledOrdersBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,12 +34,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class PendingOrdersActivity extends AppCompatActivity {
+public class CanceledOrdersActivity extends AppCompatActivity {
 
     String startDate;
     String endDate;
-    ActivityPendingOrdersBinding binding;
-    ArrayList<OrderDomain> processingOrderList = new ArrayList<>();
+    ActivityCanceledOrdersBinding binding;
+    ArrayList<OrderDomain> canceledOrderList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,14 +48,14 @@ public class PendingOrdersActivity extends AppCompatActivity {
         startDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         endDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
-        binding = ActivityPendingOrdersBinding.inflate(getLayoutInflater());
+        binding = ActivityCanceledOrdersBinding.inflate(getLayoutInflater());
         LayoutInflater inflater = getLayoutInflater();
         setContentView(binding.getRoot());
 
         binding.startDate.setText(startDate);
         binding.endDate.setText(endDate);
 
-        initPendingOrdersList();
+        initCancelOrdersList();
 
         binding.btnCalendarStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,8 +93,8 @@ public class PendingOrdersActivity extends AppCompatActivity {
                     binding.startDate.setError("Ngày bắt đầu không được lớn hơn ngày kết thúc");
                 }
                 else{
-                    processingOrderList.clear();
-                    initPendingOrdersList();
+                    canceledOrderList.clear();
+                    initCancelOrdersList();
                     binding.startDate.setError(null);
                 }
             }
@@ -119,9 +118,9 @@ public class PendingOrdersActivity extends AppCompatActivity {
                     binding.endDate.setError("Ngày kết thúc không được nhỏ hơn ngày kết thúc");
                 }
                 else{
-                    processingOrderList.clear();
-                    initPendingOrdersList();
-                    binding.endDate.setError(null);
+                    canceledOrderList.clear();
+                    initCancelOrdersList();
+                    binding.endDate.setText(null);
                 }
             }
         });
@@ -133,7 +132,7 @@ public class PendingOrdersActivity extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH);
         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(PendingOrdersActivity.this,
+        DatePickerDialog datePickerDialog = new DatePickerDialog(CanceledOrdersActivity.this,
                 new DatePickerDialog.OnDateSetListener() {
                     @SuppressLint("SetTextI18n")
                     @Override
@@ -157,7 +156,7 @@ public class PendingOrdersActivity extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH);
         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(PendingOrdersActivity.this,
+        DatePickerDialog datePickerDialog = new DatePickerDialog(CanceledOrdersActivity.this,
                 new DatePickerDialog.OnDateSetListener() {
                     @SuppressLint("SetTextI18n")
                     @Override
@@ -175,11 +174,11 @@ public class PendingOrdersActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    private void initPendingOrdersList() {
+    private void initCancelOrdersList() {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
-        binding.recyclerViewPendingOrders.setLayoutManager(linearLayoutManager);
+        binding.recyclerViewCancelOrders.setLayoutManager(linearLayoutManager);
 
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("ORDER");
 
@@ -190,14 +189,14 @@ public class PendingOrdersActivity extends AppCompatActivity {
                     for (DataSnapshot issue : snapshot.getChildren()) {
                         OrderDomain order = issue.getValue(OrderDomain.class);
 
-                        if (order != null && "Pending".equals(order.getOrderStatus())){
+                        if (order != null && "Canceled".equals(order.getOrderStatus())){
                             String createdTime = order.getOrderCreatedTime().substring(0, 10);
                             if (compareDates(createdTime, startDate) >= 0 && compareDates(createdTime, endDate) <= 0){
-                                processingOrderList.add(order);
+                                canceledOrderList.add(order);
                             }
                         }
                     }
-                    displayProcessingOrderList(processingOrderList);
+                    displayCancelOrderList(canceledOrderList);
                 }
             }
 
@@ -208,15 +207,15 @@ public class PendingOrdersActivity extends AppCompatActivity {
         });
     }
 
-    private void displayProcessingOrderList(ArrayList<OrderDomain> processingOrderList) {
-        if (!processingOrderList.isEmpty()) {
-            OrderAdapter orderAdapter = new OrderAdapter(processingOrderList, this::onClickToOrderDetailFunc, PendingOrdersActivity.this);
-            binding.recyclerViewPendingOrders.setAdapter(orderAdapter);
+    private void displayCancelOrderList(ArrayList<OrderDomain> canceledOrderList) {
+        if (!canceledOrderList.isEmpty()) {
+            OrderAdapter1 orderAdapter1 = new OrderAdapter1(canceledOrderList, this::onClickToOrderDetailFunc, CanceledOrdersActivity.this);
+            binding.recyclerViewCancelOrders.setAdapter(orderAdapter1);
         }
     }
 
-    private void onClickToOrderDetailFunc(OrderDomain order) {
-        Intent intent = new Intent(PendingOrdersActivity.this, OrderDetail.class);
+    private void onClickToOrderDetailFunc(OrderDomain orderDomain) {
+        Intent intent = new Intent(CanceledOrdersActivity.this, OrderDetail.class);
         startActivity(intent);
     }
 
@@ -229,7 +228,7 @@ public class PendingOrdersActivity extends AppCompatActivity {
 
             return parsedDate1.compareTo(parsedDate2);
         } catch (DateTimeParseException e) {
-            Toast.makeText(PendingOrdersActivity.this,"Định dạng ngày không hợp lệ: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(CanceledOrdersActivity.this,"Định dạng ngày không hợp lệ: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             return 0;
         }
     }
