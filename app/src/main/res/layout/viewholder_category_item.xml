@@ -3,48 +3,64 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/white_background"
-    android:paddingTop="12dp"
-    android:paddingBottom="12dp">
+    android:layout_height="70dp"
+    android:background="@drawable/white_background">
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="49dp"
+        android:background="#CFCFCF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+
         android:src="@drawable/category_ic_sample"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/itemTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="19dp"
-        android:text="Danh mục mới"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/icon"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/itemSize"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="19dp"
-        android:text="ID danh mục"
-        android:textColor="#807E7E"
-        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/icon"
-        app:layout_constraintTop_toBottomOf="@+id/itemTitle" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/itemTitle"
+            android:layout_width="0dp"
+            android:textSize="16sp"
+            android:layout_height="wrap_content"
+            android:text="Danh mục mới"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/itemID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ID danh mục"
+            android:textColor="#807E7E"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/itemTitle" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
+        android:id="@+id/imageView3"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:layout_marginEnd="16dp"
         android:src="@drawable/ic_edit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginEnd="16dp"/>
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

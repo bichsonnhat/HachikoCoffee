@@ -1,5 +1,6 @@
 package com.example.hachikocoffee.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 
@@ -40,7 +41,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Viewho
 
 
     @Override
-    public void onBindViewHolder(@NonNull CategoryAdapter.Viewholder holder, int position) {
+    public void onBindViewHolder(@NonNull CategoryAdapter.Viewholder holder, @SuppressLint("RecyclerView") int position) {
         holder.binding.categoryName.setText(items.get(position).getTitle());
 
         Glide.with(context)
