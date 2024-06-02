@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,9 +17,11 @@ import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.example.hachikocoffee.Adapter.OrderAdapter;
+import com.example.hachikocoffee.Adapter.OrderAdapter1;
 import com.example.hachikocoffee.Domain.OrderDomain;
 import com.example.hachikocoffee.OrderDetail;
-import com.example.hachikocoffee.databinding.ActivityPendingOrdersBinding;
+import com.example.hachikocoffee.R;
+import com.example.hachikocoffee.databinding.ActivityFinishedOrdersBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,13 +36,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class PendingOrdersActivity extends AppCompatActivity {
-
+public class FinishedOrdersActivity extends AppCompatActivity {
     String startDate;
     String endDate;
-    ActivityPendingOrdersBinding binding;
-    ArrayList<OrderDomain> processingOrderList = new ArrayList<>();
-
+    ActivityFinishedOrdersBinding binding;
+    ArrayList<OrderDomain> finishedOrderList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,14 +48,14 @@ public class PendingOrdersActivity extends AppCompatActivity {
         startDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         endDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
-        binding = ActivityPendingOrdersBinding.inflate(getLayoutInflater());
+        binding = ActivityFinishedOrdersBinding.inflate(getLayoutInflater());
         LayoutInflater inflater = getLayoutInflater();
         setContentView(binding.getRoot());
 
         binding.startDate.setText(startDate);
         binding.endDate.setText(endDate);
 
-        initPendingOrdersList();
+        initFinishedOrdersList();
 
         binding.btnCalendarStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +72,38 @@ public class PendingOrdersActivity extends AppCompatActivity {
         });
 
         addValidation();
+    }
+
+    private void initFinishedOrdersList() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+
+        binding.recyclerViewFinishedOrders.setLayoutManager(linearLayoutManager);
+
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("ORDER");
+
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot issue : snapshot.getChildren()) {
+                        OrderDomain order = issue.getValue(OrderDomain.class);
+
+                        if (order != null && "Finished".equals(order.getOrderStatus())){
+                            String createdTime = order.getOrderCreatedTime().substring(0, 10);
+                            if (compareDates(createdTime, startDate) >= 0 && compareDates(createdTime, endDate) <= 0){
+                                finishedOrderList.add(order);
+                            }
+                        }
+                    }
+                    displayProcessingOrderList(finishedOrderList);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("FirebaseError", "Failed to read value.", error.toException());
+            }
+        });
     }
 
     private void addValidation() {
@@ -94,8 +125,8 @@ public class PendingOrdersActivity extends AppCompatActivity {
                     binding.startDate.setError("Ngày bắt đầu không được lớn hơn ngày kết thúc");
                 }
                 else{
-                    processingOrderList.clear();
-                    initPendingOrdersList();
+                    finishedOrderList.clear();
+                    initFinishedOrdersList();
                     binding.startDate.setError(null);
                 }
             }
@@ -119,8 +150,8 @@ public class PendingOrdersActivity extends AppCompatActivity {
                     binding.endDate.setError("Ngày kết thúc không được nhỏ hơn ngày kết thúc");
                 }
                 else{
-                    processingOrderList.clear();
-                    initPendingOrdersList();
+                    finishedOrderList.clear();
+                    initFinishedOrdersList();
                     binding.endDate.setError(null);
                 }
             }
@@ -133,7 +164,7 @@ public class PendingOrdersActivity extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH);
         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(PendingOrdersActivity.this,
+        DatePickerDialog datePickerDialog = new DatePickerDialog(FinishedOrdersActivity.this,
                 new DatePickerDialog.OnDateSetListener() {
                     @SuppressLint("SetTextI18n")
                     @Override
@@ -157,7 +188,7 @@ public class PendingOrdersActivity extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH);
         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(PendingOrdersActivity.this,
+        DatePickerDialog datePickerDialog = new DatePickerDialog(FinishedOrdersActivity.this,
                 new DatePickerDialog.OnDateSetListener() {
                     @SuppressLint("SetTextI18n")
                     @Override
@@ -175,51 +206,17 @@ public class PendingOrdersActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    private void initPendingOrdersList() {
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-
-        binding.recyclerViewPendingOrders.setLayoutManager(linearLayoutManager);
-
-        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("ORDER");
-
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    for (DataSnapshot issue : snapshot.getChildren()) {
-                        OrderDomain order = issue.getValue(OrderDomain.class);
-
-                        if (order != null && "Pending".equals(order.getOrderStatus())){
-                            String createdTime = order.getOrderCreatedTime().substring(0, 10);
-                            if (compareDates(createdTime, startDate) >= 0 && compareDates(createdTime, endDate) <= 0){
-                                processingOrderList.add(order);
-                            }
-                        }
-                    }
-                    displayProcessingOrderList(processingOrderList);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("FirebaseError", "Failed to read value.", error.toException());
-            }
-        });
-    }
-
     private void displayProcessingOrderList(ArrayList<OrderDomain> processingOrderList) {
         if (!processingOrderList.isEmpty()) {
-            OrderAdapter orderAdapter = new OrderAdapter(processingOrderList, this::onClickToOrderDetailFunc, PendingOrdersActivity.this);
-            binding.recyclerViewPendingOrders.setAdapter(orderAdapter);
+            OrderAdapter orderAdapter = new OrderAdapter(processingOrderList, this::onClickToOrderDetailFunc);
+            binding.recyclerViewFinishedOrders.setAdapter(orderAdapter);
         }
     }
 
     private void onClickToOrderDetailFunc(OrderDomain order) {
-        Intent intent = new Intent(PendingOrdersActivity.this, OrderDetail.class);
+        Intent intent = new Intent(FinishedOrdersActivity.this, OrderDetail.class);
         startActivity(intent);
     }
-
     private int compareDates(String date1, String date2) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
@@ -229,7 +226,7 @@ public class PendingOrdersActivity extends AppCompatActivity {
 
             return parsedDate1.compareTo(parsedDate2);
         } catch (DateTimeParseException e) {
-            Toast.makeText(PendingOrdersActivity.this,"Định dạng ngày không hợp lệ: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(FinishedOrdersActivity.this,"Định dạng ngày không hợp lệ: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             return 0;
         }
     }

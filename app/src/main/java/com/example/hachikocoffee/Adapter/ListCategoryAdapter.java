@@ -40,7 +40,7 @@ public class ListCategoryAdapter extends RecyclerView.Adapter<ListCategoryAdapte
     @Override
     public void onBindViewHolder(@NonNull ListCategoryAdapter.Viewholder holder, int position) {
         holder.binding.itemTitle.setText(items.get(position).getTitle());
-        holder.binding.itemID.setText(String.valueOf(items.get(position).getCategoryID()));
+        holder.binding.itemID.setText(String.valueOf("Id: " + items.get(position).getCategoryID()));
 
         Glide.with(context)
                 .load(items.get(position).getImageURL())
