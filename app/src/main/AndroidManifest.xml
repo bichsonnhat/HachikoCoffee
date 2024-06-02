@@ -19,13 +19,30 @@
         android:theme="@style/Theme.HachikoCoffee"
         tools:targetApi="31">
         <activity
-            android:name=".Activity.CanceledOrdersActivity"
+            android:name=".Activity.UserManagementActivity"
             android:exported="true">
-             <intent-filter>
-                 <action android:name="android.intent.action.MAIN" />
-                 <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity
+            android:name=".Activity.FinishedOrdersActivity"
+            android:exported="true">
+            <intent-filter>
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- <activity -->
+        <!-- android:name=".Activity.CanceledOrdersActivity" -->
+        <!-- android:exported="true"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
         <activity
             android:name=".Activity.AddStoreActivity"
             android:exported="false" />
@@ -35,10 +52,11 @@
         <activity
             android:name=".Activity.StoreManagementActivity"
             android:exported="false">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".Activity.RevenueOrdersActivity"
@@ -46,10 +64,11 @@
         <activity
             android:name=".Activity.VoucherManagementActivity"
             android:exported="false">
-<!--             <intent-filter> -->
-<!--                 <action android:name="android.intent.action.MAIN" />-->
-<!--                 <category android:name="android.intent.category.LAUNCHER" /> -->
-<!--             </intent-filter> -->
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".Activity.AddVoucherActivity"
@@ -68,7 +87,7 @@
             android:exported="true">
             <intent-filter>
 
-<!--                 <action android:name="android.intent.action.MAIN" />-->
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -104,28 +123,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activity.AddVoucherActivity"
-            android:exported="true" />
-        <activity
-            android:name=".Activity.EditVoucherActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.EditCategoryActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.AddCategoryAcivity"
-            android:exported="false" />
-        <activity
             android:name=".Activity.CategoryManagementActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.PendingOrdersActivity"
-            android:exported="false">
-<!--             <intent-filter>-->
-<!--                 <action android:name="android.intent.action.MAIN" />-->
-<!--                 <category android:name="android.intent.category.LAUNCHER" />-->
-<!--             </intent-filter>-->
-        </activity>
+            android:exported="false" /> <!-- <activity -->
+        <!-- android:name=".Activity.PendingOrdersActivity" -->
+        <!-- android:exported="true"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
         <activity
             android:name=".Activity.FeedbackActivity"
             android:exported="false" />
@@ -143,6 +149,7 @@
             android:name=".Activity.YourVoucherPick"
             android:exported="true">
             <intent-filter>
+
                 <!-- <action android:name="android.intent.action.MAIN" /> -->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
