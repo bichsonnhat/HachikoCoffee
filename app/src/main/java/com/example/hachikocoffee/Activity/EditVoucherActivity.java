@@ -207,9 +207,8 @@ public class EditVoucherActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (txtview_canlendar.getText().toString().length() == 0){
                     txtview_canlendar.setError("Vui lòng chọn ngày hết hạn");
-                } else {
-                    checkAllRequireFields();
                 }
+                checkAllRequireFields();
             }
 
             @Override
@@ -367,9 +366,8 @@ public class EditVoucherActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (etValueInteger.getText().toString().length() == 0){
                     etValueInteger.setError("Vui lòng nhập giá trị voucher");
-                } else {
-                    checkAllRequireFields();
                 }
+                checkAllRequireFields();
             }
 
             @Override
@@ -390,9 +388,8 @@ public class EditVoucherActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (etValueDouble.getText().toString().length() == 0){
                     etValueDouble.setError("Vui lòng nhập giá trị voucher");
-                } else {
-                    checkAllRequireFields();
                 }
+                checkAllRequireFields();
             }
 
             @Override
@@ -413,9 +410,8 @@ public class EditVoucherActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (etMinOrderPrice.getText().toString().length() == 0){
                     etMinOrderPrice.setError("Vui lòng nhập giá trị đơn hàng tối thiểu");
-                } else {
-                    checkAllRequireFields();
                 }
+                checkAllRequireFields();
             }
 
             @Override
@@ -436,9 +432,8 @@ public class EditVoucherActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (etMinOderCapacity.getText().toString().length() == 0){
                     etMinOderCapacity.setError("Vui lòng nhập số lượng đơn hàng tối thiểu");
-                } else {
-                    checkAllRequireFields();
                 }
+                checkAllRequireFields();
             }
 
             @Override
@@ -459,9 +454,8 @@ public class EditVoucherActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (etDescription.getText().toString().length() == 0){
                     etDescription.setError("Vui lòng nhập mô tả");
-                } else {
-                    checkAllRequireFields();
                 }
+                checkAllRequireFields();
             }
 
             @Override
@@ -482,9 +476,8 @@ public class EditVoucherActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (addImageVoucher.getText().toString().length() == 0){
                     addImageVoucher.setError("Vui lòng nhập URL ảnh");
-                } else {
-                    checkAllRequireFields();
                 }
+                checkAllRequireFields();
             }
 
             @Override
@@ -505,9 +498,8 @@ public class EditVoucherActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (addVoucherName.getText().toString().length() == 0){
                     addVoucherName.setError("Vui lòng nhập tên voucher");
-                } else {
-                    checkAllRequireFields();
                 }
+                checkAllRequireFields();
             }
 
             @Override
@@ -547,8 +539,10 @@ public class EditVoucherActivity extends AppCompatActivity {
                                         && etValueInteger.getText().toString().equals(String.valueOf(voucher.getValueInteger()))
                                         && txtview_canlendar.getText().toString().equals(voucher.getExpiryDate()))
                                 {
-                                    btnConfirmAddVoucher.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_rectangle_darkgrey));
-                                    btnConfirmAddVoucher.setEnabled(false);
+                                    if (btnConfirmAddVoucher.isEnabled()){
+                                        btnConfirmAddVoucher.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_rectangle_darkgrey));
+                                        btnConfirmAddVoucher.setEnabled(false);
+                                    }
                                 } else {
                                     btnConfirmAddVoucher.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.background_color));
                                     btnConfirmAddVoucher.setEnabled(true);
