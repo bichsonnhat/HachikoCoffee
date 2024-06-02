@@ -19,33 +19,50 @@
         android:theme="@style/Theme.HachikoCoffee"
         tools:targetApi="31">
         <activity
-            android:name=".Activity.RevenueOrdersActivity"
-            android:exported="true">
-        </activity>
-        <activity
-            android:name=".Activity.VoucherManagementActivity"
+            android:name=".Activity.DashboardActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+
+<!--                 <action android:name="android.intent.action.MAIN" />-->
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.AddVoucherActivity"
+        <activity
+            android:name=".Activity.EditProductActivity"
             android:exported="true">
-        </activity>
-        <activity android:name=".Activity.EditVoucherActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.EditCategoryActivity"
-            android:exported="false" >
-        </activity>
-        <activity
-            android:name=".Activity.AddCategoryAcivity"
-            android:exported="false" >
+            <intent-filter>
 
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
-            android:name=".Activity.CategoryManagementActivity"
+            android:name=".Activity.AddProductActivity"
+            android:exported="true">
+            <intent-filter>
+
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity.ProductManagementActivity"
+            android:exported="true">
+            <intent-filter>
+
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity.RevenueOrdersActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.VoucherManagementActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -54,23 +71,42 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".Activity.AddVoucherActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.EditVoucherActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.EditCategoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.AddCategoryAcivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.CategoryManagementActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.PendingOrdersActivity"
-            android:exported="false"/>
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Activity.FeedbackActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.EditAddressActivity"
-            android:exported="true" />
-<!--        <activity-->
-<!--            android:name=".Login"-->
-<!--            android:exported="true">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
+            android:exported="true" /> <!-- <activity -->
+        <!-- android:name=".Login" -->
+        <!-- android:exported="true"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
         <activity
             android:name=".Activity.YourVoucherPick"
             android:exported="true">
@@ -124,7 +160,7 @@
             android:exported="true">
             <intent-filter>
 
-<!--                 <action android:name="android.intent.action.MAIN" />-->
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
