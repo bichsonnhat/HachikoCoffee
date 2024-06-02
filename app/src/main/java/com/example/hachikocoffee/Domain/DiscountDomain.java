@@ -151,6 +151,6 @@ public class DiscountDomain implements Serializable {
         LocalDate expiryDate = LocalDate.parse(ExpiryDate, formatter);
         LocalDate currentDate = LocalDate.now();
         long days = ChronoUnit.DAYS.between(currentDate, expiryDate);
-        return days < 1;
+        return days < 1 && expiryDate.isAfter(currentDate);
     }
 }
