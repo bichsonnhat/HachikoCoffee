@@ -14,7 +14,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hachikocoffee.Activity.CanceledOrdersActivity;
-import com.example.hachikocoffee.Activity.PendingOrdersActivity;
 import com.example.hachikocoffee.Domain.OrderDomain;
 import com.example.hachikocoffee.Domain.UserDomain;
 import com.example.hachikocoffee.Fragment.OrderHistoryCancelledFragment;
@@ -37,20 +36,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder>{
+public class OrderAdapter1 extends RecyclerView.Adapter<OrderAdapter1.OrderViewHolder>{
     private final List<OrderDomain> mListOrder;
     private final OrderClickListener orderClickListener;
-    private final PendingOrdersActivity activity;
+    private final CanceledOrdersActivity activity;
     private static CanceledClickListener canceledClickListener;
     private static FinishedClickListener finishedClickListener;
 
-    public OrderAdapter(List<OrderDomain> mListOrder, OrderClickListener orderClickListener) {
+    public OrderAdapter1(List<OrderDomain> mListOrder, OrderClickListener orderClickListener) {
         this.mListOrder = mListOrder;
         this.orderClickListener = orderClickListener;
         this.activity = null;
     }
 
-    public OrderAdapter(List<OrderDomain> mListOrder, OrderClickListener orderClickListener, PendingOrdersActivity activity) {
+    public OrderAdapter1(List<OrderDomain> mListOrder, OrderClickListener orderClickListener, CanceledOrdersActivity activity) {
         this.mListOrder = mListOrder;
         this.orderClickListener = orderClickListener;
         this.activity = activity;
