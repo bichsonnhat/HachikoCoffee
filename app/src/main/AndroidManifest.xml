@@ -64,6 +64,58 @@
             android:name=".Activity.AddCategoryAcivity"
             android:exported="false" />
         <activity
+            android:name=".Activity.DashboardActivity"
+            android:exported="true">
+            <intent-filter>
+
+<!--                 <action android:name="android.intent.action.MAIN" />-->
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity.EditProductActivity"
+            android:exported="true">
+            <intent-filter>
+
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity.AddProductActivity"
+            android:exported="true">
+            <intent-filter>
+
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity.ProductManagementActivity"
+            android:exported="true">
+            <intent-filter>
+
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity.AddVoucherActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.EditVoucherActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.EditCategoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.AddCategoryAcivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.CategoryManagementActivity"
             android:exported="false" />
         <activity
