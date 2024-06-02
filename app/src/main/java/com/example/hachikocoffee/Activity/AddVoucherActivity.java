@@ -2,6 +2,7 @@ package com.example.hachikocoffee.Activity;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +26,8 @@ import androidx.core.content.ContextCompat;
 
 import com.example.hachikocoffee.Domain.DiscountDomain;
 import com.example.hachikocoffee.Domain.UserDomain;
+import com.example.hachikocoffee.Listener.Callback;
+import com.example.hachikocoffee.Listener.OnAddressChangedListener;
 import com.example.hachikocoffee.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,6 +38,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Calendar;
 
 public class AddVoucherActivity extends AppCompatActivity {
+    private static Callback callback;
     private EditText addVoucherName;
     private EditText addImageVoucher;
     private EditText etDescription;
@@ -48,12 +53,14 @@ public class AddVoucherActivity extends AppCompatActivity {
     private TextView txtview_canlendar;
     private ArrayAdapter<CharSequence> typeAdapter;
     private ArrayAdapter<Integer> freeShippingAdapter;
+    private ImageView btnBackAddVoucher;
     private static final String[] type_options = {"Pick up", "Delivery"};
     private static final Integer[] free_shipping_options = {0, 1};
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_voucher);
+        btnBackAddVoucher = findViewById(R.id.btnBackAddVoucher);
         txtview_canlendar = findViewById(R.id.txtview_canlendar);
         addTxtViewCalendar();
         addVoucherName = findViewById(R.id.addVoucherName);
@@ -98,6 +105,7 @@ public class AddVoucherActivity extends AppCompatActivity {
                             }
                             addVoucher(index + 1);
                             Toast.makeText(AddVoucherActivity.this, "Thêm voucher thành công!", Toast.LENGTH_SHORT).show();
+                            callback.onCallback();
                             finish();
                         }
                     }
@@ -107,6 +115,13 @@ public class AddVoucherActivity extends AppCompatActivity {
 
                     }
                 });
+            }
+        });
+
+        btnBackAddVoucher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
@@ -163,7 +178,7 @@ public class AddVoucherActivity extends AppCompatActivity {
         DiscountDomain discountDomain = new DiscountDomain(
                 i,
                 etDescription.getText().toString(),
-                "01-01-2022",
+                txtview_canlendar.getText().toString(),
                 addImageVoucher.getText().toString(),
                 addVoucherName.getText().toString(),
                 Integer.parseInt(etValueInteger.getText().toString()),
@@ -233,7 +248,18 @@ public class AddVoucherActivity extends AppCompatActivity {
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        txtview_canlendar.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                        String x, y;
+                        if (dayOfMonth < 10){
+                            x = "0" + dayOfMonth;
+                        } else {
+                            x = String.valueOf(dayOfMonth);
+                        }
+                        if (monthOfYear + 1 < 10){
+                            y = "0" + (monthOfYear + 1);
+                        } else {
+                            y = String.valueOf(monthOfYear + 1);
+                        }
+                        txtview_canlendar.setText(x + "-" + y + "-" + year);
                     }
                 }, year, month, dayOfMonth);
         datePickerDialog.show();
@@ -423,5 +449,9 @@ public class AddVoucherActivity extends AppCompatActivity {
             btnConfirmAddVoucher.setBackground(ContextCompat.getDrawable(this, R.drawable.rounded_rectangle_darkgrey));
             btnConfirmAddVoucher.setEnabled(false);
         }
+    }
+
+    public static void setEditInterfaceInstance(VoucherManagementActivity context){
+        callback = (Callback) context;
     }
 }

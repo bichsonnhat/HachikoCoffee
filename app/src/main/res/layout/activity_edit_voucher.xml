@@ -31,7 +31,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/back_button"
+            android:id="@+id/btnBackAddVoucher"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:background="@drawable/background_item"
@@ -79,7 +79,7 @@
             <EditText
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:id="@+id/editName"
+                android:id="@+id/addVoucherName"
                 android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:background="@drawable/bg_note"
@@ -105,16 +105,26 @@
                 android:textColor="#686363"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/editName"
+                app:layout_constraintTop_toBottomOf="@+id/addVoucherName"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="16dp"/>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/rounded_corner"
+                app:layout_constraintTop_toBottomOf="@+id/type"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"/>
+
             <Spinner
-                android:id="@+id/spType"
+                android:id="@+id/spVoucherType"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:spinnerMode="dropdown"
+                android:paddingStart="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/type"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
@@ -129,7 +139,7 @@
                 android:textColor="#686363"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/spType"
+                app:layout_constraintTop_toBottomOf="@+id/spVoucherType"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="16dp"/>
@@ -137,7 +147,7 @@
             <EditText
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:id="@+id/imageURL"
+                android:id="@+id/addImageVoucher"
                 android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:background="@drawable/bg_note"
@@ -163,10 +173,19 @@
                 android:textColor="#686363"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/imageURL"
+                app:layout_constraintTop_toBottomOf="@+id/addImageVoucher"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="16dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/rounded_corner"
+                app:layout_constraintTop_toBottomOf="@+id/FreeShippingType"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"/>
 
             <Spinner
                 android:id="@+id/spFreeShipping"
@@ -177,6 +196,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="8dp"
+                android:paddingStart="8dp"
                 />
 
             <TextView
@@ -191,7 +211,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="16dp"/>
-
             <TextView
                 android:id="@+id/txtview_canlendar"
                 android:layout_width="wrap_content"
@@ -200,7 +219,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="16dp"
                 android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@+id/btnCalendar"
+                app:layout_constraintStart_toStartOf="@+id/btnCalendarAddVoucher"
                 app:layout_constraintTop_toBottomOf="@+id/DateExpire" />
 
             <Button
@@ -212,10 +231,10 @@
                 android:background="@drawable/calendar"
                 app:backgroundTint="@null"
                 android:layout_marginTop="7dp"
-                app:layout_constraintEnd_toEndOf="@+id/btnCalendar"
-                app:layout_constraintTop_toTopOf="@+id/btnCalendar" />
-            <TextView
-                android:id="@+id/btnCalendar"
+                app:layout_constraintEnd_toEndOf="@+id/btnCalendarAddVoucher"
+                app:layout_constraintTop_toTopOf="@+id/btnCalendarAddVoucher" />
+            <Button
+                android:id="@+id/btnCalendarAddVoucher"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_centerHorizontal="true"
@@ -238,7 +257,7 @@
                 android:textColor="#686363"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/btnCalendar"
+                app:layout_constraintTop_toBottomOf="@+id/btnCalendarAddVoucher"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="16dp"/>
@@ -280,13 +299,13 @@
             <EditText
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:id="@+id/etMinOderCapacity"
+                android:id="@+id/etMinOrderCapacity"
                 android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:background="@drawable/bg_note"
                 android:hint="Nhập Min Order Capacity"
                 android:layout_marginTop="8dp"
-                android:inputType="text"
+                android:inputType="number"
                 android:lines="2"
                 android:layout_weight="1"
                 android:maxLines="2"
@@ -296,7 +315,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/minOderCapacity"
-                tools:ignore="TextFields" />
+                tools:ignore="TextFields"
+                />
 
             <TextView
                 android:id="@+id/minOrderPrice"
@@ -306,7 +326,7 @@
                 android:textColor="#686363"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/etMinOderCapacity"
+                app:layout_constraintTop_toBottomOf="@+id/etMinOrderCapacity"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="16dp"/>
@@ -320,7 +340,7 @@
                 android:background="@drawable/bg_note"
                 android:hint="Nhập Min Order Price"
                 android:layout_marginTop="8dp"
-                android:inputType="text"
+                android:inputType="number"
                 android:lines="2"
                 android:layout_weight="1"
                 android:maxLines="2"
@@ -354,7 +374,7 @@
                 android:background="@drawable/bg_note"
                 android:hint="Nhập Value Double"
                 android:layout_marginTop="8dp"
-                android:inputType="text"
+                android:inputType="numberDecimal"
                 android:lines="2"
                 android:layout_weight="1"
                 android:maxLines="2"
@@ -389,7 +409,7 @@
                 android:background="@drawable/bg_note"
                 android:hint="Nhập Value Integer"
                 android:layout_marginTop="8dp"
-                android:inputType="text"
+                android:inputType="number"
                 android:lines="2"
                 android:layout_weight="1"
                 android:maxLines="2"
@@ -402,7 +422,7 @@
                 tools:ignore="TextFields" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayoutDelete"
+                android:id="@+id/btnDeleteVoucher"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -436,7 +456,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnConfirm"
+                android:id="@+id/btnConfirmAddVoucher"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -451,14 +471,14 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayoutDelete"/>
+                app:layout_constraintTop_toBottomOf="@+id/btnDeleteVoucher"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnConfirm"
+                app:layout_constraintTop_toBottomOf="@+id/btnConfirmAddVoucher"
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
