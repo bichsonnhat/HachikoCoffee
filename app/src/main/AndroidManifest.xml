@@ -19,16 +19,20 @@
         android:theme="@style/Theme.HachikoCoffee"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.RevenueOrdersActivity"
+            android:exported="true">
+        </activity>
+        <activity
             android:name=".Activity.VoucherManagementActivity"
-            android:exported="false" />
-<!--        <activity android:name=".Activity.AddVoucherActivity"-->
-<!--            android:exported="true">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activity.AddVoucherActivity"
+            android:exported="true">
+        </activity>
         <activity android:name=".Activity.EditVoucherActivity"
             android:exported="false" />
         <activity
