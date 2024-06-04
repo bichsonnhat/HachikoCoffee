@@ -47,7 +47,9 @@ public class UserManagementActivity extends AppCompatActivity implements OnUserC
                     ArrayList<UserDomain> items = new ArrayList<>();
                     for (DataSnapshot issue : snapshot.getChildren()) {
                         UserDomain category = issue.getValue(UserDomain.class);
-                        items.add(category);
+                        if (category != null && category.getIsAdmin() == 0){
+                            items.add(category);
+                        }
                         Log.d("User: ", "true");
                     }
                     displayUserData(items);

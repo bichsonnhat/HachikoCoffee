@@ -15,6 +15,7 @@ public class UserDomain implements Parcelable {
     private String Email;
 
     private String Gender;
+    private int IsAdmin;
 
     protected UserDomain(Parcel in) {
         UserID = in.readInt();
@@ -23,6 +24,7 @@ public class UserDomain implements Parcelable {
         Birthday = in.readString();
         Email = in.readString();
         Gender = in.readString();
+        IsAdmin = in.readInt();
     }
 
     public static final Creator<UserDomain> CREATOR = new Creator<UserDomain>() {
@@ -37,6 +39,14 @@ public class UserDomain implements Parcelable {
         }
     };
 
+    public int getIsAdmin() {
+        return IsAdmin;
+    }
+
+    public void setIsAdmin(int isAdmin) {
+        IsAdmin = isAdmin;
+    }
+
     public String getGender() {
         return Gender;
     }
@@ -46,13 +56,14 @@ public class UserDomain implements Parcelable {
     }
 
     public UserDomain() {}
-    public UserDomain(int userID, String phoneNumber, String name, String birthday, String email, String gender) {
+    public UserDomain(int userID, String phoneNumber, String name, String birthday, String email, String gender, int isAdmin) {
         UserID = userID;
         PhoneNumber = phoneNumber;
         Name = name;
         Birthday = birthday;
         Email = email;
         Gender = gender;
+        IsAdmin = isAdmin;
     }
 
     public int getUserID() {

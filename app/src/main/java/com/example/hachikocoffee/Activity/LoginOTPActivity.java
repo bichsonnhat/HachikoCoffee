@@ -128,7 +128,7 @@ public class LoginOTPActivity extends AppCompatActivity {
                                                         String phoneNumber = getIntent().getStringExtra("mobile");
                                                         assert phoneNumber != null;
                                                         int userID = Integer.parseInt(phoneNumber);
-                                                        UserDomain userDomain = new UserDomain(userID, phoneNumber, "", "", "", "");
+                                                        UserDomain userDomain = new UserDomain(userID, phoneNumber, "", "", "", "", 0);
                                                         userRef.child(String.valueOf(userID)).setValue(userDomain);
 
                                                         Intent intent = new Intent(getApplicationContext(), InfoAccountLoginActivity.class);

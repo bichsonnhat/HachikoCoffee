@@ -13,6 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hachikocoffee.Activity.EditUserActivity;
 import com.example.hachikocoffee.Domain.UserDomain;
+import com.example.hachikocoffee.Listener.OnCategoryChangedListener;
+import com.example.hachikocoffee.Listener.OnUserChangedListener;
+import com.example.hachikocoffee.Management.ListenerSingleton;
 import com.example.hachikocoffee.databinding.ViewholderUserItemBinding;
 
 import java.util.ArrayList;
@@ -44,6 +47,7 @@ public class ListUserAdapter extends RecyclerView.Adapter<ListUserAdapter.Viewho
             public void onClick(View v) {
                 Intent intent = new Intent(context, EditUserActivity.class);
                 intent.putExtra("userr", items.get(position));
+                ListenerSingleton.getInstance().setUserChangedListener((OnUserChangedListener) context);
                 context.startActivity(intent);
             }
         });
