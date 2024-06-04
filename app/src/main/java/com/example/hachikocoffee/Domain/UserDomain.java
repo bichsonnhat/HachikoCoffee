@@ -1,8 +1,13 @@
 package com.example.hachikocoffee.Domain;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 
-public class UserDomain implements Serializable {
+public class UserDomain implements Parcelable {
     private int UserID;
     private String PhoneNumber;
     private String Name;
@@ -10,6 +15,27 @@ public class UserDomain implements Serializable {
     private String Email;
 
     private String Gender;
+
+    protected UserDomain(Parcel in) {
+        UserID = in.readInt();
+        PhoneNumber = in.readString();
+        Name = in.readString();
+        Birthday = in.readString();
+        Email = in.readString();
+        Gender = in.readString();
+    }
+
+    public static final Creator<UserDomain> CREATOR = new Creator<UserDomain>() {
+        @Override
+        public UserDomain createFromParcel(Parcel in) {
+            return new UserDomain(in);
+        }
+
+        @Override
+        public UserDomain[] newArray(int size) {
+            return new UserDomain[size];
+        }
+    };
 
     public String getGender() {
         return Gender;
@@ -67,5 +93,20 @@ public class UserDomain implements Serializable {
 
     public void setEmail(String email) {
         Email = email;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeInt(UserID);
+        dest.writeString(PhoneNumber);
+        dest.writeString(Name);
+        dest.writeString(Birthday);
+        dest.writeString(Email);
+        dest.writeString(Gender);
     }
 }
