@@ -312,7 +312,7 @@ public class ShopFragment extends Fragment implements OnStoreClick, LocationList
                 ArrayList<DiscountDomain> discountList2 = new ArrayList<>();
                 if (dataSnapshot.exists()){
                     for (DataSnapshot userVoucherSnapshot : dataSnapshot.getChildren()) {
-                        int isUse = userVoucherSnapshot.child("IsUse").getValue(Integer.class);
+                        int isUse = userVoucherSnapshot.child("isUse").getValue(Integer.class);
                         if (isUse == 0){
                             String voucherID = String.valueOf(userVoucherSnapshot.child("VoucherID").getValue(Long.class));
                             voucherIDs.add(voucherID);

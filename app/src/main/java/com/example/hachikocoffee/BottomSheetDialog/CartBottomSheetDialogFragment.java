@@ -240,7 +240,7 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment imp
                                 String voucherIDD = String.valueOf(userVoucherSnapshot.child("VoucherID").getValue(Long.class));
                                 String curVoucherID = String.valueOf(finalVoucherID);
                                 if (voucherIDD.equals(curVoucherID)){
-                                    DatabaseReference isUseRef = userVoucherSnapshot.getRef().child("IsUse");
+                                    DatabaseReference isUseRef = userVoucherSnapshot.getRef().child("isUse");
                                     isUseRef.setValue(1);
                                 }
                             }

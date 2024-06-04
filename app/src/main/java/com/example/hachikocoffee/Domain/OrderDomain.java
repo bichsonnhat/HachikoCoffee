@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class OrderDomain implements Serializable {
     private String OrderID;
     private int UserID;
-    private String Delivered;
+    private int Delivered;
     private String OrderAddress;
     private String OrderTime;
     private String OrderMethod;
@@ -31,7 +31,7 @@ public class OrderDomain implements Serializable {
     public OrderDomain() {
     }
 
-    public OrderDomain(String orderID, int userID, String delivered, String orderAddress,
+    public OrderDomain(String orderID, int userID, int delivered, String orderAddress,
                        String orderTime, String orderMethod, double cost, int voucherID,
                        String recipentName, String recipentPhone, int storeID, String orderStatus,
                        String orderCreatedTime, double discountMoney, double shippingFee) {
@@ -84,11 +84,11 @@ public class OrderDomain implements Serializable {
         UserID = userID;
     }
 
-    public String getDelivered() {
+    public int getDelivered() {
         return Delivered;
     }
 
-    public void setDelivered(String delivered) {
+    public void setDelivered(int delivered) {
         Delivered = delivered;
     }
 
