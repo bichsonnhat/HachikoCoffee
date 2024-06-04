@@ -16,14 +16,14 @@ public class DiscountDomain implements Serializable {
     private String Title;
     private int ValueInteger;
     private double ValueDouble;
-    private String FreeShipping;
+    private int FreeShipping;
     private int MinOrderCapacity;
     private int MinOrderPrice;
     private String Type;
 
     public DiscountDomain() {}
 
-    public DiscountDomain(int voucherID, String description, String expiryDate, String imageURL, String title, int valueInteger, double valueDouble, String freeShipping, int minOrderCapacity, int minOrderPrice, String type) {
+    public DiscountDomain(int voucherID, String description, String expiryDate, String imageURL, String title, int valueInteger, double valueDouble, int freeShipping, int minOrderCapacity, int minOrderPrice, String type) {
         VoucherID = voucherID;
         Description = description;
         ExpiryDate = expiryDate;
@@ -121,11 +121,11 @@ public class DiscountDomain implements Serializable {
         Type = type;
     }
 
-    public String getFreeShipping() {
+    public int getFreeShipping() {
         return FreeShipping;
     }
 
-    public void setFreeShipping(String freeShipping) {
+    public void setFreeShipping(int freeShipping) {
         FreeShipping = freeShipping;
     }
 
