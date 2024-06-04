@@ -2,6 +2,7 @@ package com.example.hachikocoffee.Adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hachikocoffee.Activity.EditUserActivity;
 import com.example.hachikocoffee.Domain.UserDomain;
 import com.example.hachikocoffee.databinding.ViewholderUserItemBinding;
 
@@ -36,6 +38,15 @@ public class ListUserAdapter extends RecyclerView.Adapter<ListUserAdapter.Viewho
     public void onBindViewHolder(@NonNull ListUserAdapter.Viewholder holder, int position) {
         holder.binding.itemTitle.setText(items.get(position).getName());
         holder.binding.itemID.setText("Id: " + items.get(position).getUserID());
+
+        holder.binding.imageView3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, EditUserActivity.class);
+                intent.putExtra("userr", items.get(position));
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
