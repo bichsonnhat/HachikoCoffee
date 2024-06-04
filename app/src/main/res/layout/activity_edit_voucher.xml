@@ -446,7 +446,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="18dp"
-                    android:text="Xóa danh mục này"
+                    android:text="Xóa voucher này"
                     android:textColor="@color/red"
                     android:textSize="18sp"
                     android:textStyle="bold"
