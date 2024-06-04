@@ -183,7 +183,7 @@ public class AddVoucherActivity extends AppCompatActivity {
                 addVoucherName.getText().toString(),
                 Integer.parseInt(etValueInteger.getText().toString()),
                 Double.parseDouble(etValueDouble.getText().toString()),
-                spFreeShipping.getSelectedItem().toString(),
+                Integer.parseInt(spFreeShipping.getSelectedItem().toString()),
                 Integer.parseInt(etMinOderCapacity.getText().toString()),
                 Integer.parseInt(etMinOrderPrice.getText().toString()),
                 spVoucherType.getSelectedItem().toString()

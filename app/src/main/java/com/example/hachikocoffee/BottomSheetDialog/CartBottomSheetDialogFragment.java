@@ -166,7 +166,7 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment imp
                 DiscountDomain curVoucher = ManagementCart.getInstance().getVoucher();
                 if (curVoucher != null){
                     voucherID = ManagementCart.getInstance().getVoucher().getVoucherID();
-                    if (!curVoucher.getFreeShipping().equals("1") && shippingFee == 0){
+                    if (curVoucher.getFreeShipping() != 1 && shippingFee == 0){
                         Toast.makeText(requireContext(), "Vui lòng định vị trước khi đặt hàng", Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -604,7 +604,7 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment imp
             if (curVoucher.getValueInteger() != 0){
                 discount = curVoucher.getValueInteger();
             }
-            if (curVoucher.getFreeShipping().equals("1")){
+            if (curVoucher.getFreeShipping() == 1){
                 fee = 0;
             }
 
