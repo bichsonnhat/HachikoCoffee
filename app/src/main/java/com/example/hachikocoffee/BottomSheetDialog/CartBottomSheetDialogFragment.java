@@ -206,7 +206,7 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment imp
                 int storeId = ManagementCart.getInstance().getStoreId();
                 String orderStatus = "Pending";
 
-                OrderDomain order = new OrderDomain(orderID, userID, "1", orderAdress, orderTime, orderMethod,
+                OrderDomain order = new OrderDomain(orderID, userID, 1, orderAdress, orderTime, orderMethod,
                         cost, voucherID, recipentname, recipentphone, storeId, orderStatus, orderCreatedTime, discount, feeship);
                 DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference("ORDER");
                 orderRef.child(orderID).setValue(order);

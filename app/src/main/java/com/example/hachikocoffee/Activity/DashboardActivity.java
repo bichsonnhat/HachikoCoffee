@@ -1,6 +1,7 @@
 package com.example.hachikocoffee.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -23,6 +24,7 @@ public class DashboardActivity extends AppCompatActivity {
     private Button btn_voucher;
     private ImageView imageFeedback;
     private ImageView imageExit;
+    private ConstraintLayout revenue;
     SharedPreferences perf;
     SharedPreferences.Editor editor;
     @Override
@@ -33,6 +35,7 @@ public class DashboardActivity extends AppCompatActivity {
         btn_product = findViewById(R.id.btn_product);
         imageFeedback = findViewById(R.id.imageFeedback);
         imageExit = findViewById(R.id.imageExit);
+        revenue = findViewById(R.id.revenue);
         imageFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,6 +83,14 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DashboardActivity.this, VoucherManagementActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        revenue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashboardActivity.this, RevenueOrdersActivity.class);
                 startActivity(intent);
             }
         });
