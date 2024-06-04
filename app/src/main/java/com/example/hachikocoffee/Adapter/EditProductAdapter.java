@@ -13,8 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.hachikocoffee.Activity.EditProductActivity;
+import com.example.hachikocoffee.Domain.CategoryDomain;
 import com.example.hachikocoffee.Domain.ItemsDomain;
 import com.example.hachikocoffee.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import static com.example.hachikocoffee.Activity.EditProductActivity.setEditInterfaceInstance;
@@ -39,9 +45,28 @@ public class EditProductAdapter extends RecyclerView.Adapter<EditProductAdapter.
             return;
         }
 
-        Glide.with(holder.imageEditProduct.getContext()).load(itemsDomain.getImageURL()).into(holder.imageEditProduct);
-        holder.tvEditProductName.setText(""+itemsDomain.getTitle());
-        holder.tvEditProductID.setText(""+itemsDomain.getProductID());
+        DatabaseReference productRef = FirebaseDatabase.getInstance().getReference().child("CATEGORY");
+        productRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    for (DataSnapshot issue : snapshot.getChildren()){
+                        CategoryDomain category = issue.getValue(CategoryDomain.class);
+                        if (category.getCategoryID() == itemsDomain.getCategoryID()) {
+                            Glide.with(holder.imageEditProduct.getContext()).load(itemsDomain.getImageURL()).into(holder.imageEditProduct);
+                            holder.tvEditProductName.setText(""+ itemsDomain.getTitle());
+                            holder.tvEditProductID.setText(""+category.getTitle());
+                            break;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         holder.btnEditProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
