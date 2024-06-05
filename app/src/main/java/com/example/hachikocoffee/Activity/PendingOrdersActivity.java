@@ -72,6 +72,13 @@ public class PendingOrdersActivity extends AppCompatActivity {
             }
         });
 
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         addValidation();
     }
 
@@ -92,8 +99,11 @@ public class PendingOrdersActivity extends AppCompatActivity {
                 int check = compareDates(s.toString(), binding.endDate.getText().toString());
                 if (check > 0){
                     binding.startDate.setError("Ngày bắt đầu không được lớn hơn ngày kết thúc");
+                    processingOrderList.clear();
+                    binding.recyclerViewPendingOrders.setVisibility(View.INVISIBLE);
                 }
                 else{
+                    binding.recyclerViewPendingOrders.setVisibility(View.VISIBLE);
                     processingOrderList.clear();
                     initPendingOrdersList();
                     binding.startDate.setError(null);
@@ -117,8 +127,11 @@ public class PendingOrdersActivity extends AppCompatActivity {
                 int check = compareDates(s.toString(), binding.startDate.getText().toString());
                 if (check < 0){
                     binding.endDate.setError("Ngày kết thúc không được nhỏ hơn ngày kết thúc");
+                    processingOrderList.clear();
+                    binding.recyclerViewPendingOrders.setVisibility(View.INVISIBLE);
                 }
                 else{
+                    binding.recyclerViewPendingOrders.setVisibility(View.VISIBLE);
                     processingOrderList.clear();
                     initPendingOrdersList();
                     binding.endDate.setError(null);

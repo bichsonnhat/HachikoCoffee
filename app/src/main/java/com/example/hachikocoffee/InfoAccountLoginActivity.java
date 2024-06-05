@@ -183,7 +183,7 @@ public class InfoAccountLoginActivity extends AppCompatActivity {
                             UserDomain userDomain = childSnapshot.getValue(UserDomain.class);
                             if (userDomain.getPhoneNumber().equals(phoneNumber)) {
                                 Map<String, Object> updates = new HashMap<>();
-                                updates.put("name", firstName.getText().toString() + "," + lastName.getText().toString());
+                                updates.put("name", firstName.getText().toString() + ", " + lastName.getText().toString());
                                 updates.put("email", email.getText().toString());
                                 updates.put("birthday", textView.getText().toString());
                                 updates.put("gender", spinnerGender.getSelectedItem().toString());

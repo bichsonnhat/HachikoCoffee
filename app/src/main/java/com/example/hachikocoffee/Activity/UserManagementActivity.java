@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 
 import com.example.hachikocoffee.Adapter.ListCategoryAdapter;
 import com.example.hachikocoffee.Adapter.ListUserAdapter;
@@ -35,6 +36,13 @@ public class UserManagementActivity extends AppCompatActivity implements OnUserC
         binding = ActivityUserManagementBinding.inflate(getLayoutInflater());
         LayoutInflater inflater = getLayoutInflater();
         setContentView(binding.getRoot());
+
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         loadUserData();
     }
 
