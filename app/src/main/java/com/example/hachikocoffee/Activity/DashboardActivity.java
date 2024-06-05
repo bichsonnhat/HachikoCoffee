@@ -22,9 +22,13 @@ import com.example.hachikocoffee.R;
 public class DashboardActivity extends AppCompatActivity {
     private Button btn_product;
     private Button btn_voucher;
+    private Button btn_category;
+    private Button btn_user;
     private ImageView imageFeedback;
     private ImageView imageExit;
     private ConstraintLayout revenue;
+    private ConstraintLayout confirmOrders;
+    private ConstraintLayout pendingorders;
     SharedPreferences perf;
     SharedPreferences.Editor editor;
     @Override
@@ -33,8 +37,12 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
         btn_voucher = findViewById(R.id.btn_voucher);
         btn_product = findViewById(R.id.btn_product);
+        btn_category = findViewById(R.id.btn_category);
+        btn_user = findViewById(R.id.btn_user);
         imageFeedback = findViewById(R.id.imageFeedback);
         imageExit = findViewById(R.id.imageExit);
+        confirmOrders = findViewById(R.id.confirmed_orders);
+        pendingorders = findViewById(R.id.pending_orders);
         revenue = findViewById(R.id.revenue);
         imageFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +91,38 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DashboardActivity.this, VoucherManagementActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btn_category.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashboardActivity.this, CategoryManagementActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btn_user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashboardActivity.this, UserManagementActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        pendingorders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashboardActivity.this, PendingOrdersActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        confirmOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashboardActivity.this, FinishedOrdersActivity.class);
                 startActivity(intent);
             }
         });

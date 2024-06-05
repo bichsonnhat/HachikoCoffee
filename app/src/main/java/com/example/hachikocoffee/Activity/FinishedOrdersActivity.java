@@ -71,6 +71,13 @@ public class FinishedOrdersActivity extends AppCompatActivity {
             }
         });
 
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         addValidation();
     }
 
@@ -123,8 +130,10 @@ public class FinishedOrdersActivity extends AppCompatActivity {
                 int check = compareDates(s.toString(), binding.endDate.getText().toString());
                 if (check > 0){
                     binding.startDate.setError("Ngày bắt đầu không được lớn hơn ngày kết thúc");
+                    binding.recyclerViewFinishedOrders.setVisibility(View.INVISIBLE);
                 }
                 else{
+                    binding.recyclerViewFinishedOrders.setVisibility(View.VISIBLE);
                     finishedOrderList.clear();
                     initFinishedOrdersList();
                     binding.startDate.setError(null);
@@ -148,8 +157,10 @@ public class FinishedOrdersActivity extends AppCompatActivity {
                 int check = compareDates(s.toString(), binding.startDate.getText().toString());
                 if (check < 0){
                     binding.endDate.setError("Ngày kết thúc không được nhỏ hơn ngày kết thúc");
+                    binding.recyclerViewFinishedOrders.setVisibility(View.INVISIBLE);
                 }
                 else{
+                    binding.recyclerViewFinishedOrders.setVisibility(View.VISIBLE);
                     finishedOrderList.clear();
                     initFinishedOrdersList();
                     binding.endDate.setError(null);
