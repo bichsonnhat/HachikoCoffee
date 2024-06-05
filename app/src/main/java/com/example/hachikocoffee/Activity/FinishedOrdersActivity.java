@@ -17,10 +17,8 @@ import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.example.hachikocoffee.Adapter.OrderAdapter;
-import com.example.hachikocoffee.Adapter.OrderAdapter1;
 import com.example.hachikocoffee.Domain.OrderDomain;
 import com.example.hachikocoffee.OrderDetail;
-import com.example.hachikocoffee.R;
 import com.example.hachikocoffee.databinding.ActivityFinishedOrdersBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

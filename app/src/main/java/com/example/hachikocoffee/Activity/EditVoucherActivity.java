@@ -28,7 +28,7 @@ import androidx.core.content.ContextCompat;
 import com.example.hachikocoffee.Domain.DiscountDomain;
 import com.example.hachikocoffee.Listener.Callback;
 import com.example.hachikocoffee.R;
-import com.google.android.material.navigation.NavigationBarView;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

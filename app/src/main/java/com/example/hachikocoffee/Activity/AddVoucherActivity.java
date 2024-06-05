@@ -1,14 +1,11 @@
 package com.example.hachikocoffee.Activity;
 
-import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -25,9 +22,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 
 import com.example.hachikocoffee.Domain.DiscountDomain;
-import com.example.hachikocoffee.Domain.UserDomain;
 import com.example.hachikocoffee.Listener.Callback;
-import com.example.hachikocoffee.Listener.OnAddressChangedListener;
 import com.example.hachikocoffee.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

@@ -2,14 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/white_background"
-    tools:context=".Activity.CanceledOrdersActivity">
+    tools:context=".Activity.CancelOrdersActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/topBarPendingOrder"
+        android:id="@+id/topBarFinishedOrder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -49,7 +48,7 @@
         android:layout_height="1dp"
         android:layout_marginTop="10dp"
         android:background="#939393"
-        app:layout_constraintTop_toBottomOf="@+id/topBarPendingOrder"/>
+        app:layout_constraintTop_toBottomOf="@+id/topBarFinishedOrder"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -99,6 +98,9 @@
                             android:layout_height="40dp"
                             android:layout_marginStart="16dp"
                             android:background="@drawable/bg_note"
+                            android:hint="Chọn ngày bắt đầu"
+                            android:paddingStart="16dp"
+                            android:focusable="false"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/startTitle"
@@ -142,6 +144,9 @@
                             android:layout_height="40dp"
                             android:layout_marginStart="16dp"
                             android:background="@drawable/bg_note"
+                            android:paddingStart="16dp"
+                            android:focusable="false"
+                            android:hint="Chọn ngày kết thúc"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/endTitle"
