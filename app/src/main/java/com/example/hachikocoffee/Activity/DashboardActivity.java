@@ -21,9 +21,9 @@ import com.example.hachikocoffee.R;
 
 public class DashboardActivity extends AppCompatActivity {
     private Button btn_category, btn_shop, btn_product, btn_voucher, btn_notification, btn_user;
-    private ImageView imageFeedback;
-    private ImageView imageExit;
-    private ConstraintLayout revenue, confirmedOrders, pendingOrders, cancelledOrders;
+    private ImageView imageFeedback, imageExit;
+    private ConstraintLayout revenue, confirmOrders, pendingorders, cancelledOrders;
+  
     SharedPreferences perf;
     SharedPreferences.Editor editor;
     @Override
@@ -42,8 +42,8 @@ public class DashboardActivity extends AppCompatActivity {
         imageExit = findViewById(R.id.imageExit);
 
         revenue = findViewById(R.id.revenue);
-        confirmedOrders = findViewById(R.id.confirmed_orders);
-        pendingOrders = findViewById(R.id.pending_orders);
+        confirmOrders = findViewById(R.id.confirmed_orders);
+        pendingorders = findViewById(R.id.pending_orders);
         cancelledOrders = findViewById(R.id.canceled_orders);
 
         imageFeedback.setOnClickListener(new View.OnClickListener() {
@@ -112,6 +112,21 @@ public class DashboardActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        btn_category.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashboardActivity.this, CategoryManagementActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btn_user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashboardActivity.this, UserManagementActivity.class);
+                startActivity(intent);
+            }
+        });
 
         revenue.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,7 +136,6 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
-        // Click on cancelledOrders button to move to CancelOrdersActivity
         cancelledOrders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -130,6 +144,20 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
+        pendingorders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashboardActivity.this, PendingOrdersActivity.class);
+                startActivity(intent);
+            }
+        });
 
+        confirmOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashboardActivity.this, FinishedOrdersActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

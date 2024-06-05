@@ -25,7 +25,9 @@ import com.example.hachikocoffee.databinding.ActivityEditUserBinding;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,7 +51,12 @@ public class EditUserActivity extends AppCompatActivity {
 
         user = getIntent().getParcelableExtra("userr");
         if (user != null){
-            binding.editName.setText(user.getName());
+            String fullname = user.getName();
+            String[] names = fullname.split(",");
+            String firstName = names[0].trim();
+            String lastName = names[1].trim();
+            binding.editFirstName.setText(firstName);
+            binding.editLastName.setText(lastName);
             binding.editBirthDay.setText(user.getBirthday());
             binding.editEmail.setText(user.getEmail());
             if (user.getGender().equals("Nam")){
@@ -79,7 +86,7 @@ public class EditUserActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (user != null){
                     DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("USER").child(String.valueOf(user.getUserID()));
-                    myRef.child("name").setValue(binding.editName.getText().toString());
+                    myRef.child("name").setValue(binding.editFirstName.getText().toString() + ", " + binding.editLastName.getText().toString());
                     myRef.child("email").setValue(binding.editEmail.getText().toString());
                     myRef.child("gender").setValue(binding.spGender.getSelectedItem().toString());
                     myRef.child("birthday").setValue(binding.editBirthDay.getText().toString());
@@ -113,7 +120,7 @@ public class EditUserActivity extends AppCompatActivity {
     }
 
     private void addValidation() {
-        binding.editName.addTextChangedListener(new TextWatcher() {
+        binding.editFirstName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -122,7 +129,27 @@ public class EditUserActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.toString().length() == 0){
-                    binding.editName.setError("Vui lòng nhập tên");
+                    binding.editFirstName.setError("Vui lòng nhập tên");
+                }
+                checkAllRequireFields();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        binding.editLastName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.toString().length() == 0){
+                    binding.editLastName.setError("Vui lòng nhập họ");
                 }
                 checkAllRequireFields();
             }
@@ -180,7 +207,13 @@ public class EditUserActivity extends AppCompatActivity {
                     @SuppressLint("SetTextI18n")
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        binding.editBirthDay.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                        Calendar selectedDate = Calendar.getInstance();
+                        selectedDate.set(year, monthOfYear, dayOfMonth);
+
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                        String formattedDate = dateFormat.format(selectedDate.getTime());
+
+                        binding.editBirthDay.setText(formattedDate);
                         checkAge(year, monthOfYear, dayOfMonth);
                     }
                 }, year, month, dayOfMonth);
@@ -215,9 +248,10 @@ public class EditUserActivity extends AppCompatActivity {
     }
 
     private void checkAllRequireFields() {
-        if (binding.editName.getText().toString().length() != 0
+        String fullName = binding.editFirstName.getText().toString() + ", " + binding.editLastName.getText().toString();
+        if (binding.editFirstName.getText().toString().length() != 0
                 && binding.editEmail.getText().toString().length() != 0
-                && (!binding.editName.getText().toString().equals(user.getName()))
+                && (!fullName.equals(user.getName()))
                     || !binding.editEmail.getText().toString().equals(user.getEmail())
                     || !binding.editBirthDay.getText().toString().equals(user.getBirthday())
                     || !binding.spGender.getSelectedItem().toString().equals(user.getGender())){

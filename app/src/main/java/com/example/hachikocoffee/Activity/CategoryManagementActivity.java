@@ -44,6 +44,13 @@ public class CategoryManagementActivity extends AppCompatActivity implements OnC
                 startActivity(intent);
             }
         });
+
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void loadCategoryData() {
