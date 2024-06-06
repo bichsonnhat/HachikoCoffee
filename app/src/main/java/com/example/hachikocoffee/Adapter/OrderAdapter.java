@@ -6,20 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.hachikocoffee.Activity.CanceledOrdersActivity;
 import com.example.hachikocoffee.Activity.PendingOrdersActivity;
 import com.example.hachikocoffee.Domain.OrderDomain;
-import com.example.hachikocoffee.Domain.UserDomain;
 import com.example.hachikocoffee.Fragment.OrderHistoryCancelledFragment;
 import com.example.hachikocoffee.Fragment.OrderHistoryFinishedFragment;
-import com.example.hachikocoffee.Fragment.OrderHistoryProcessingFragment;
 import com.example.hachikocoffee.Listener.CanceledClickListener;
 import com.example.hachikocoffee.Listener.FinishedClickListener;
 import com.example.hachikocoffee.Listener.OrderClickListener;

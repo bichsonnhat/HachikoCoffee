@@ -19,20 +19,57 @@
         android:theme="@style/Theme.HachikoCoffee"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.CancelOrdersActivity"
+            android:exported="true">
+             <intent-filter>
+<!--                 <action android:name="android.intent.action.MAIN" />-->
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity.EditNotificationActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.AddNotificationActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.NotificationManagementActivity"
+            android:exported="true">
+            <intent-filter>
+<!--                <action android:name="android.intent.action.MAIN" />-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".Activity.EditUserActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.FeedbackManagementActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".Activity.UserManagementActivity"
-            android:exported="false"/>
+            android:exported="false">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
         <activity
             android:name=".Activity.FinishedOrdersActivity"
-            android:exported="false"/>
-        <activity
-            android:name=".Activity.CanceledOrdersActivity"
-            android:exported="false" />
+            android:exported="false">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+
+            <!-- <intent-filter> -->
+            <!-- &lt;!&ndash; <action android:name="android.intent.action.MAIN" /> &ndash;&gt; -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
         <activity
             android:name=".Activity.AddStoreActivity"
             android:exported="false" />
@@ -72,14 +109,16 @@
         <activity
             android:name=".Activity.AddCategoryAcivity"
             android:exported="false" />
-         <activity
-             android:name=".Activity.DashboardActivity"
-             android:exported="true">
+
+        <activity
+        android:name=".Activity.DashboardActivity"
+        android:exported="true">
             <intent-filter>
-                 <action android:name="android.intent.action.MAIN" />
-                 <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
-         </activity>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".Activity.EditProductActivity"
             android:exported="true">
@@ -213,8 +252,8 @@
             android:name=".Activity.MainActivity"
             android:exported="true">
             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

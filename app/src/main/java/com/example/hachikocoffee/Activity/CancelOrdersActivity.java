@@ -16,10 +16,10 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
-import com.example.hachikocoffee.Adapter.OrderAdapter1;
+import com.example.hachikocoffee.Adapter.OrderAdapter;
 import com.example.hachikocoffee.Domain.OrderDomain;
 import com.example.hachikocoffee.OrderDetail;
-import com.example.hachikocoffee.databinding.ActivityCanceledOrdersBinding;
+import com.example.hachikocoffee.databinding.ActivityCancelOrdersBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,13 +34,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class CanceledOrdersActivity extends AppCompatActivity {
-
+public class CancelOrdersActivity extends AppCompatActivity {
     String startDate;
     String endDate;
-    ActivityCanceledOrdersBinding binding;
-    ArrayList<OrderDomain> canceledOrderList = new ArrayList<>();
-
+    ActivityCancelOrdersBinding binding;
+    ArrayList<OrderDomain> cancelOrderList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,9 +46,16 @@ public class CanceledOrdersActivity extends AppCompatActivity {
         startDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         endDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
-        binding = ActivityCanceledOrdersBinding.inflate(getLayoutInflater());
+        binding = ActivityCancelOrdersBinding.inflate(getLayoutInflater());
         LayoutInflater inflater = getLayoutInflater();
         setContentView(binding.getRoot());
+
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         binding.startDate.setText(startDate);
         binding.endDate.setText(endDate);
@@ -74,6 +79,38 @@ public class CanceledOrdersActivity extends AppCompatActivity {
         addValidation();
     }
 
+    private void initCancelOrdersList() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+
+        binding.recyclerViewCancelOrders.setLayoutManager(linearLayoutManager);
+
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("ORDER");
+
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot issue : snapshot.getChildren()) {
+                        OrderDomain order = issue.getValue(OrderDomain.class);
+
+                        if (order != null && "Canceled".equals(order.getOrderStatus())){
+                            String createdTime = order.getOrderCreatedTime().substring(0, 10);
+                            if (compareDates(createdTime, startDate) >= 0 && compareDates(createdTime, endDate) <= 0){
+                                cancelOrderList.add(order);
+                            }
+                        }
+                    }
+                    displayCancelOrderList(cancelOrderList);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("FirebaseError", "Failed to read value.", error.toException());
+            }
+        });
+    }
+
     private void addValidation() {
         binding.startDate.addTextChangedListener(new TextWatcher() {
             @Override
@@ -93,7 +130,7 @@ public class CanceledOrdersActivity extends AppCompatActivity {
                     binding.startDate.setError("Ngày bắt đầu không được lớn hơn ngày kết thúc");
                 }
                 else{
-                    canceledOrderList.clear();
+                    cancelOrderList.clear();
                     initCancelOrdersList();
                     binding.startDate.setError(null);
                 }
@@ -118,9 +155,9 @@ public class CanceledOrdersActivity extends AppCompatActivity {
                     binding.endDate.setError("Ngày kết thúc không được nhỏ hơn ngày kết thúc");
                 }
                 else{
-                    canceledOrderList.clear();
+                    cancelOrderList.clear();
                     initCancelOrdersList();
-                    binding.endDate.setText(null);
+                    binding.endDate.setError(null);
                 }
             }
         });
@@ -132,7 +169,7 @@ public class CanceledOrdersActivity extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH);
         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(CanceledOrdersActivity.this,
+        DatePickerDialog datePickerDialog = new DatePickerDialog(CancelOrdersActivity.this,
                 new DatePickerDialog.OnDateSetListener() {
                     @SuppressLint("SetTextI18n")
                     @Override
@@ -156,7 +193,7 @@ public class CanceledOrdersActivity extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH);
         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(CanceledOrdersActivity.this,
+        DatePickerDialog datePickerDialog = new DatePickerDialog(CancelOrdersActivity.this,
                 new DatePickerDialog.OnDateSetListener() {
                     @SuppressLint("SetTextI18n")
                     @Override
@@ -174,51 +211,17 @@ public class CanceledOrdersActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    private void initCancelOrdersList() {
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-
-        binding.recyclerViewCancelOrders.setLayoutManager(linearLayoutManager);
-
-        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("ORDER");
-
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    for (DataSnapshot issue : snapshot.getChildren()) {
-                        OrderDomain order = issue.getValue(OrderDomain.class);
-
-                        if (order != null && "Canceled".equals(order.getOrderStatus())){
-                            String createdTime = order.getOrderCreatedTime().substring(0, 10);
-                            if (compareDates(createdTime, startDate) >= 0 && compareDates(createdTime, endDate) <= 0){
-                                canceledOrderList.add(order);
-                            }
-                        }
-                    }
-                    displayCancelOrderList(canceledOrderList);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("FirebaseError", "Failed to read value.", error.toException());
-            }
-        });
-    }
-
-    private void displayCancelOrderList(ArrayList<OrderDomain> canceledOrderList) {
-        if (!canceledOrderList.isEmpty()) {
-            OrderAdapter1 orderAdapter1 = new OrderAdapter1(canceledOrderList, this::onClickToOrderDetailFunc, CanceledOrdersActivity.this);
-            binding.recyclerViewCancelOrders.setAdapter(orderAdapter1);
+    private void displayCancelOrderList(ArrayList<OrderDomain> cancelOrderList) {
+        if (!cancelOrderList.isEmpty()) {
+            OrderAdapter orderAdapter = new OrderAdapter(cancelOrderList, this::onClickToOrderDetailFunc);
+            binding.recyclerViewCancelOrders.setAdapter(orderAdapter);
         }
     }
 
-    private void onClickToOrderDetailFunc(OrderDomain orderDomain) {
-        Intent intent = new Intent(CanceledOrdersActivity.this, OrderDetail.class);
+    private void onClickToOrderDetailFunc(OrderDomain order) {
+        Intent intent = new Intent(CancelOrdersActivity.this, OrderDetail.class);
         startActivity(intent);
     }
-
     private int compareDates(String date1, String date2) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
@@ -228,7 +231,7 @@ public class CanceledOrdersActivity extends AppCompatActivity {
 
             return parsedDate1.compareTo(parsedDate2);
         } catch (DateTimeParseException e) {
-            Toast.makeText(CanceledOrdersActivity.this,"Định dạng ngày không hợp lệ: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(CancelOrdersActivity.this,"Định dạng ngày không hợp lệ: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             return 0;
         }
     }

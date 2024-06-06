@@ -20,30 +20,32 @@ import com.example.hachikocoffee.Login;
 import com.example.hachikocoffee.R;
 
 public class DashboardActivity extends AppCompatActivity {
-    private Button btn_product;
-    private Button btn_voucher;
-    private Button btn_category;
-    private Button btn_user;
-    private ImageView imageFeedback;
-    private ImageView imageExit;
-    private ConstraintLayout revenue;
-    private ConstraintLayout confirmOrders;
-    private ConstraintLayout pendingorders;
+    private Button btn_category, btn_shop, btn_product, btn_voucher, btn_notification, btn_user;
+    private ImageView imageFeedback, imageExit;
+    private ConstraintLayout revenue, confirmOrders, pendingorders, cancelledOrders;
+  
     SharedPreferences perf;
     SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        btn_voucher = findViewById(R.id.btn_voucher);
-        btn_product = findViewById(R.id.btn_product);
+
         btn_category = findViewById(R.id.btn_category);
+        btn_shop = findViewById(R.id.btn_shop);
+        btn_product = findViewById(R.id.btn_product);
+        btn_voucher = findViewById(R.id.btn_voucher);
+        btn_notification = findViewById(R.id.btn_notification);
         btn_user = findViewById(R.id.btn_user);
+
         imageFeedback = findViewById(R.id.imageFeedback);
         imageExit = findViewById(R.id.imageExit);
+
+        revenue = findViewById(R.id.revenue);
         confirmOrders = findViewById(R.id.confirmed_orders);
         pendingorders = findViewById(R.id.pending_orders);
-        revenue = findViewById(R.id.revenue);
+        cancelledOrders = findViewById(R.id.canceled_orders);
+
         imageFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,6 +81,14 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
+        btn_shop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashboardActivity.this, StoreManagementActivity.class);
+                startActivity(intent);
+            }
+        });
+
         btn_product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,6 +105,13 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
+        btn_notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashboardActivity.this, NotificationManagementActivity.class);
+                startActivity(intent);
+            }
+        });
         btn_category.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,6 +124,22 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DashboardActivity.this, UserManagementActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        revenue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashboardActivity.this, RevenueOrdersActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        cancelledOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashboardActivity.this, CancelOrdersActivity.class);
                 startActivity(intent);
             }
         });
@@ -126,14 +159,5 @@ public class DashboardActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        revenue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DashboardActivity.this, RevenueOrdersActivity.class);
-                startActivity(intent);
-            }
-        });
-
     }
 }
