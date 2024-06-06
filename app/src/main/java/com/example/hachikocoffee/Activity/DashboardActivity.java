@@ -1,5 +1,6 @@
 package com.example.hachikocoffee.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -16,13 +17,27 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.hachikocoffee.Domain.OrderDomain;
 import com.example.hachikocoffee.Login;
 import com.example.hachikocoffee.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class DashboardActivity extends AppCompatActivity {
     private Button btn_category, btn_shop, btn_product, btn_voucher, btn_notification, btn_user;
     private ImageView imageFeedback, imageExit;
     private ConstraintLayout revenue, confirmOrders, pendingorders, cancelledOrders;
+    private TextView confirmOrdersCount, pendingOrdersCount, cancelledOrdersCount, revenueCount;
+    private String startDate, endDate;
+    DecimalFormatSymbols symbols;
   
     SharedPreferences perf;
     SharedPreferences.Editor editor;
@@ -45,6 +60,18 @@ public class DashboardActivity extends AppCompatActivity {
         confirmOrders = findViewById(R.id.confirmed_orders);
         pendingorders = findViewById(R.id.pending_orders);
         cancelledOrders = findViewById(R.id.canceled_orders);
+
+        confirmOrdersCount = findViewById(R.id.confirmOrdersCount);
+        pendingOrdersCount = findViewById(R.id.pendingOrdersCount);
+        cancelledOrdersCount = findViewById(R.id.cancelledOrdersCount);
+        revenueCount = findViewById(R.id.revenueCount);
+
+        symbols = new DecimalFormatSymbols();
+        symbols.setGroupingSeparator('.');
+        startDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        endDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        initDashboard();
+
 
         imageFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,6 +184,51 @@ public class DashboardActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(DashboardActivity.this, FinishedOrdersActivity.class);
                 startActivity(intent);
+            }
+        });
+    }
+
+    private void initDashboard() {
+        DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference().child("ORDER");
+        orderRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    int totalRevenue = 0;
+                    int confirmOrders = 0;
+                    int pendingOrders = 0;
+                    int cancelledOrders = 0;
+                    for (DataSnapshot issue : snapshot.getChildren()){
+                        OrderDomain order = issue.getValue(OrderDomain.class);
+                            String date = order.getOrderCreatedTime().substring(0, 10);
+                            String status = order.getOrderStatus();
+                            // check string date is between start date and end date with format dd/MM/yyyy
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                        LocalDate LocalDate = java.time.LocalDate.parse(date, formatter);
+                        LocalDate LocalStartDate = LocalDate.parse(startDate, formatter);
+                        LocalDate LocalEndDate = LocalDate.parse(endDate, formatter);
+                        if (LocalDate.isAfter(LocalStartDate) && LocalDate.isBefore(LocalEndDate)){
+                            totalRevenue += (int) order.getCost();
+                            if (status.equals("Finished")){
+                                confirmOrders += 1;
+                            } else if (status.equals("Pending")){
+                                pendingOrders += 1;
+                            } else if (status.equals("Canceled")){
+                                cancelledOrders += 1;
+                            }
+                        }
+                    }
+                    String a = new DecimalFormat("#,###", symbols).format(totalRevenue);
+                    confirmOrdersCount.setText(""+String.valueOf(confirmOrders));
+                    pendingOrdersCount.setText(""+String.valueOf(pendingOrders));
+                    cancelledOrdersCount.setText(""+String.valueOf(cancelledOrders));
+                    revenueCount.setText(""+String.valueOf(totalRevenue)+"đ");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }
