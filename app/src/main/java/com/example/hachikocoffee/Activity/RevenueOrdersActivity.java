@@ -29,6 +29,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -49,6 +51,10 @@ public class RevenueOrdersActivity extends AppCompatActivity {
         btn_calendarEnd = findViewById(R.id.btn_calendarEnd);
         pieChart = findViewById(R.id.pieChart);
         back_button = findViewById(R.id.back_button);
+        String start = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String end = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        startDate.setText(""+start);
+        endDate.setText(""+end);
 
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
