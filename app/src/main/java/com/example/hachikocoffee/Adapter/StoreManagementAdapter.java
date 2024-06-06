@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.bumptech.glide.Glide;
 import com.example.hachikocoffee.Activity.EditStoreActivity;
 import com.example.hachikocoffee.Domain.ShopDomain;
 import com.example.hachikocoffee.R;
@@ -40,6 +41,8 @@ public class StoreManagementAdapter extends RecyclerView.Adapter<StoreManagement
 
         holder.item_shopTitle.setText(shop.getName());
         holder.item_shopID.setText(String.valueOf(shop.getStoreID()));
+        Glide.with(holder.item_shopImg.getContext()).load(shop.getImageURL()).into(holder.item_shopImg);
+
         holder.item_shopEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,6 +66,7 @@ public class StoreManagementAdapter extends RecyclerView.Adapter<StoreManagement
         private final TextView item_shopTitle;
         private final TextView item_shopID;
         private final ImageView item_shopEdit;
+        private final ImageView item_shopImg;
 
         public StoreManagementViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -70,6 +74,7 @@ public class StoreManagementAdapter extends RecyclerView.Adapter<StoreManagement
             item_shopTitle = itemView.findViewById(R.id.item_shopTitle);
             item_shopID = itemView.findViewById(R.id.item_shopID);
             item_shopEdit = itemView.findViewById(R.id.item_shopEdit);
+            item_shopImg = itemView.findViewById(R.id.item_shopImg);
         }
     }
 }

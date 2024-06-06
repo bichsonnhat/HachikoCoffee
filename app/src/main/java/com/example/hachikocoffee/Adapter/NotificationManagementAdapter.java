@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.hachikocoffee.Activity.EditNotificationActivity;
 import com.example.hachikocoffee.Domain.NotificationDomain;
 import com.example.hachikocoffee.R;
@@ -41,6 +42,8 @@ public class NotificationManagementAdapter extends RecyclerView.Adapter<Notifica
 
         holder.item_notiTitle.setText(notification.getTitle());
         holder.item_notiID.setText(String.valueOf(notification.getNotificationID()));
+        Glide.with(holder.item_notiImg.getContext()).load(notification.getImageURL()).into(holder.item_notiImg);
+
         holder.item_notiEdit.setOnClickListener(v -> {
             setEditInterfaceInstance(v.getContext());
             Intent intent = new Intent(v.getContext(), EditNotificationActivity.class);
@@ -61,12 +64,14 @@ public class NotificationManagementAdapter extends RecyclerView.Adapter<Notifica
         private final TextView item_notiTitle;
         private final TextView item_notiID;
         private final ImageView item_notiEdit;
+        private final ImageView item_notiImg;
         public NotificationViewHolder(@NonNull View itemView) {
             super(itemView);
 
             item_notiTitle = itemView.findViewById(R.id.item_notiTitle);
             item_notiID = itemView.findViewById(R.id.item_notiID);
             item_notiEdit = itemView.findViewById(R.id.item_notiEdit);
+            item_notiImg = itemView.findViewById(R.id.item_notiImg);
         }
     }
 }
