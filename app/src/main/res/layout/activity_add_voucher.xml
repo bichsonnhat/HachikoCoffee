@@ -421,6 +421,40 @@
             app:layout_constraintTop_toBottomOf="@+id/ValueInteger"
             tools:ignore="TextFields" />
 
+        <TextView
+            android:id="@+id/VoucherUserOption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Áp dụng"
+            android:textColor="#686363"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/etValueInteger"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="16dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/rounded_corner"
+            app:layout_constraintTop_toBottomOf="@+id/VoucherUserOption"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"/>
+
+        <Spinner
+            android:id="@+id/spVoucherUser"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:spinnerMode="dropdown"
+            app:layout_constraintTop_toBottomOf="@+id/VoucherUserOption"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
+            android:paddingStart="8dp"
+            />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnConfirmAddVoucher"
             android:layout_width="match_parent"
@@ -437,7 +471,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etValueInteger"/>
+            app:layout_constraintTop_toBottomOf="@+id/spVoucherUser"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="20dp"
