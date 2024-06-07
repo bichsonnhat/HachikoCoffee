@@ -75,7 +75,7 @@ public class FavouriteActivity extends AppCompatActivity implements UpdateUIList
                         }
 
                         // Query products from PRODUCTS based on productID list
-                        productsRef.orderByChild("ProductID").startAt("").endAt("\uf8ff")
+                        productsRef.orderByChild("productID").startAt("").endAt("\uf8ff")
                                 .addListenerForSingleValueEvent(new ValueEventListener() {
                                     @SuppressLint("NotifyDataSetChanged")
                                     @Override
