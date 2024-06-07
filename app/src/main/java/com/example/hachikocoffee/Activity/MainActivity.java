@@ -141,6 +141,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             }
         });
 
+        binding.appBarLayout.performClick();
+
         DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference("LOCATION");
         DatabaseReference locationUserRef = locationRef.child(String.valueOf(UserID));
 //        locationUserRef.addValueEventListener(new ValueEventListener() {
