@@ -173,10 +173,12 @@ public class HomeFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     for (DataSnapshot categorySnapshot : snapshot.getChildren()) {
-                        CategoryDomain category = categorySnapshot.getValue(CategoryDomain.class);
-                        if (category != null && category.getTitle().equals("Món mới phải thử")) {
-                            setupItemsListener(category.getCategoryID());
-                            break;
+                        if (!"idCount".equals(categorySnapshot.getKey())){
+                            CategoryDomain category = categorySnapshot.getValue(CategoryDomain.class);
+                            if (category != null && category.getTitle().equals("Món mới phải thử")) {
+                                setupItemsListener(category.getCategoryID());
+                                break;
+                            }
                         }
                     }
                 }

@@ -114,11 +114,10 @@
         android:name=".Activity.DashboardActivity"
         android:exported="true">
             <intent-filter>
-<!--                <action android:name="android.intent.action.MAIN" />-->
+                <!-- <action android:name="android.intent.action.MAIN" />-->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Activity.EditProductActivity"
             android:exported="true">
@@ -151,7 +150,14 @@
         </activity>
         <activity
             android:name=".Activity.CategoryManagementActivity"
-            android:exported="false" />
+            android:exported="true">
+            <intent-filter>
+
+                 <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Activity.PendingOrdersActivity"
             android:exported="true">
@@ -229,7 +235,7 @@
             android:exported="true">
             <intent-filter>
 
-                <!-- <action android:name="android.intent.action.MAIN" /> -->
+<!--                 <action android:name="android.intent.action.MAIN" />-->
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

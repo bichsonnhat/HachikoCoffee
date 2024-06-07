@@ -57,8 +57,8 @@ public class EditCategoryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (category != null){
                     DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("CATEGORY").child(String.valueOf(category.getCategoryID()));
-                    myRef.child("Title").setValue(binding.editName.getText().toString());
-                    myRef.child("ImageURL").setValue(binding.imageURL.getText().toString());
+                    myRef.child("title").setValue(binding.editName.getText().toString());
+                    myRef.child("imageURL").setValue(binding.imageURL.getText().toString());
                     if (onCategoryAddedListener != null) {
                         onCategoryAddedListener.onCategoryChanged();
                     }
