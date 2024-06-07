@@ -30,6 +30,7 @@ import com.example.hachikocoffee.Activity.MainActivity;
 import com.example.hachikocoffee.Activity.SplashActivity;
 import com.example.hachikocoffee.Domain.LocationDomain;
 import com.example.hachikocoffee.Domain.UserDomain;
+import com.example.hachikocoffee.Domain.UserVoucherDomain;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -174,6 +175,7 @@ public class InfoAccountLoginActivity extends AppCompatActivity {
         btnRegisterAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                addVoucherForNewUser();
                 // Save this information to Firebase
                 DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference().child("USER");
                 locationRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -201,6 +203,31 @@ public class InfoAccountLoginActivity extends AppCompatActivity {
 //                intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                startActivity(intent);
                 showSuccessDialog();
+            }
+        });
+    }
+
+    private void addVoucherForNewUser() {
+        DatabaseReference userVoucherRef = FirebaseDatabase.getInstance().getReference("USERVOUCHER");
+        userVoucherRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    int max_id = 0;
+                    for (DataSnapshot issue : snapshot.getChildren()){
+                        UserVoucherDomain userVoucherDomain = issue.getValue(UserVoucherDomain.class);
+                        max_id = Math.max(max_id, userVoucherDomain.getUserVoucherID());
+                    }
+                    UserVoucherDomain voucherFree1 = new UserVoucherDomain(6, Integer.parseInt(phoneNumber), max_id + 1, 0);
+                    userVoucherRef.child(String.valueOf(max_id + 1)).setValue(voucherFree1);
+                    UserVoucherDomain voucherFree2 = new UserVoucherDomain(6, Integer.parseInt(phoneNumber), max_id + 2, 0);
+                    userVoucherRef.child(String.valueOf(max_id + 2)).setValue(voucherFree2);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }
