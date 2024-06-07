@@ -104,15 +104,24 @@ public class LoginOTPActivity extends AppCompatActivity {
                                                 if (snapshot.exists()){
                                                     boolean isExist = false;
                                                     int UserId = 0;
+                                                    int isAdmin = 0;
                                                     for (DataSnapshot issue : snapshot.getChildren()) {
                                                         UserDomain user = issue.getValue(UserDomain.class);
                                                         if (user.getPhoneNumber().equals(getIntent().getStringExtra("mobile"))) {
                                                             isExist = true;
+                                                            isAdmin = user.getIsAdmin();
                                                             UserId = user.getUserID();
                                                             break;
                                                         }
                                                     }
                                                     if (isExist) {
+                                                        if (isAdmin == 1){
+                                                            Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+                                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                            startActivity(intent);
+                                                            finish();
+                                                            return;
+                                                        }
 //                                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 
                                                         Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
