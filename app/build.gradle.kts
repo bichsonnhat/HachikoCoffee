@@ -54,7 +54,8 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.12.0")
     implementation("com.google.code.gson:gson:2.8.8")
     implementation ("me.relex:circleindicator:2.1.6")
-    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
+    implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
+    implementation("com.google.firebase:firebase-auth")
 
     implementation("androidx.browser:browser:1.8.0")
 

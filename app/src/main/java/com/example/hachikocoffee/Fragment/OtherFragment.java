@@ -214,7 +214,7 @@ public class OtherFragment extends Fragment {
 
     private void initVoucherCount() {
         DatabaseReference userVoucherRef = FirebaseDatabase.getInstance().getReference("USERVOUCHER");
-        userVoucherRef.orderByChild("UserID").equalTo(ManagementUser.getInstance().getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
+        userVoucherRef.orderByChild("userID").equalTo(ManagementUser.getInstance().getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<String> voucherIDs = new ArrayList<>();
@@ -224,7 +224,7 @@ public class OtherFragment extends Fragment {
                     for (DataSnapshot userVoucherSnapshot : dataSnapshot.getChildren()) {
                         int isUse = userVoucherSnapshot.child("isUse").getValue(Integer.class);
                         if (isUse == 0){
-                            String voucherID = String.valueOf(userVoucherSnapshot.child("VoucherID").getValue(Long.class));
+                            String voucherID = String.valueOf(userVoucherSnapshot.child("voucherID").getValue(Long.class));
                             voucherIDs.add(voucherID);
                         }
                     }
@@ -236,7 +236,7 @@ public class OtherFragment extends Fragment {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             int voucherAvailable = 0;
                             for (DataSnapshot voucherSnapshot : dataSnapshot.getChildren()) {
-                                String currentVoucherID = String.valueOf(voucherSnapshot.child("VoucherID").getValue(Long.class));
+                                String currentVoucherID = String.valueOf(voucherSnapshot.child("voucherID").getValue(Long.class));
                                 if (voucherIDs.contains(currentVoucherID)) {
                                     DiscountDomain discount = voucherSnapshot.getValue(DiscountDomain.class);
                                     if (discount != null) { // Must add check date function

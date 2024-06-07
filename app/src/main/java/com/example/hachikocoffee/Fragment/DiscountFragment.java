@@ -144,7 +144,7 @@ public class DiscountFragment extends Fragment implements OnVoucherClick {
         rcv_listVoucher2.setLayoutManager(linearLayoutManager2);
 
         DatabaseReference userVoucherRef = FirebaseDatabase.getInstance().getReference("USERVOUCHER");
-        userVoucherRef.orderByChild("UserID").equalTo(ManagementUser.getInstance().getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
+        userVoucherRef.orderByChild("userID").equalTo(ManagementUser.getInstance().getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<String> voucherIDs = new ArrayList<>();
@@ -154,7 +154,7 @@ public class DiscountFragment extends Fragment implements OnVoucherClick {
                     for (DataSnapshot userVoucherSnapshot : dataSnapshot.getChildren()) {
                         int isUse = userVoucherSnapshot.child("isUse").getValue(Integer.class);
                         if (isUse == 0){
-                            String voucherID = String.valueOf(userVoucherSnapshot.child("VoucherID").getValue(Long.class));
+                            String voucherID = String.valueOf(userVoucherSnapshot.child("voucherID").getValue(Long.class));
                             voucherIDs.add(voucherID);
                         }
                     }
@@ -165,7 +165,7 @@ public class DiscountFragment extends Fragment implements OnVoucherClick {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for (DataSnapshot voucherSnapshot : dataSnapshot.getChildren()) {
-                                String currentVoucherID = String.valueOf(voucherSnapshot.child("VoucherID").getValue(Long.class));
+                                String currentVoucherID = String.valueOf(voucherSnapshot.child("voucherID").getValue(Long.class));
                                 if (voucherIDs.contains(currentVoucherID)) {
                                     DiscountDomain discount = voucherSnapshot.getValue(DiscountDomain.class);
                                     if (discount != null) { // Must add check date function
