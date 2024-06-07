@@ -232,12 +232,12 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment imp
                 }
                 DatabaseReference userVoucherRef = FirebaseDatabase.getInstance().getReference("USERVOUCHER");
                 int finalVoucherID = voucherID;
-                userVoucherRef.orderByChild("UserID").equalTo(ManagementUser.getInstance().getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
+                userVoucherRef.orderByChild("userID").equalTo(ManagementUser.getInstance().getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()){
                             for (DataSnapshot userVoucherSnapshot : dataSnapshot.getChildren()) {
-                                String voucherIDD = String.valueOf(userVoucherSnapshot.child("VoucherID").getValue(Long.class));
+                                String voucherIDD = String.valueOf(userVoucherSnapshot.child("voucherID").getValue(Long.class));
                                 String curVoucherID = String.valueOf(finalVoucherID);
                                 if (voucherIDD.equals(curVoucherID)){
                                     DatabaseReference isUseRef = userVoucherSnapshot.getRef().child("isUse");
