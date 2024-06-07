@@ -1,14 +1,11 @@
 package com.example.hachikocoffee.Activity;
 
-import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -24,10 +21,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 
+import com.example.hachikocoffee.Adapter.MultiSelectSpinnerAdapter;
 import com.example.hachikocoffee.Domain.DiscountDomain;
 import com.example.hachikocoffee.Domain.UserDomain;
+import com.example.hachikocoffee.Domain.UserVoucherDomain;
 import com.example.hachikocoffee.Listener.Callback;
-import com.example.hachikocoffee.Listener.OnAddressChangedListener;
 import com.example.hachikocoffee.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,7 +33,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class AddVoucherActivity extends AppCompatActivity {
     private static Callback callback;
@@ -54,6 +54,9 @@ public class AddVoucherActivity extends AppCompatActivity {
     private ArrayAdapter<CharSequence> typeAdapter;
     private ArrayAdapter<Integer> freeShippingAdapter;
     private ImageView btnBackAddVoucher;
+    private Spinner spVoucherUser;
+    private List<UserDomain> selectedItem = new ArrayList<>();
+    private ArrayList<UserDomain> spinnerListItem = new ArrayList<>();
     private static final String[] type_options = {"Pick up", "Delivery"};
     private static final Integer[] free_shipping_options = {0, 1};
     @Override
@@ -84,6 +87,9 @@ public class AddVoucherActivity extends AppCompatActivity {
         spFreeShipping = findViewById(R.id.spFreeShipping);
         spFreeShippingTextChanged();
         createFreeShippingSpinner();
+
+        spVoucherUser = findViewById(R.id.spVoucherUser);
+        initSpinnerVoucherUser();
 
         btnCalendarAddVoucher = findViewById(R.id.btnCalendarAddVoucher);
         btnCalendarAddVoucherListener();
@@ -121,10 +127,116 @@ public class AddVoucherActivity extends AppCompatActivity {
         btnBackAddVoucher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DatabaseReference voucherRef = FirebaseDatabase.getInstance().getReference("VOUCHER");
+                voucherRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()){
+                            int voucherID = 0;
+                            for (DataSnapshot issue : snapshot.getChildren()){
+                                DiscountDomain discountDomain = issue.getValue(DiscountDomain.class);
+                                voucherID = Math.max(voucherID, discountDomain.getVoucherID());
+                            }
+                            removeVoucherUser(voucherID + 1);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
                 finish();
             }
         });
 
+    }
+
+    private void initSpinnerVoucherUser() {
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("USER");
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    for (DataSnapshot issue : snapshot.getChildren()){
+                        UserDomain user = issue.getValue(UserDomain.class);
+                        if (user.getIsAdmin() != 1){
+                            spinnerListItem.add(user);
+                        }
+                    }
+                    selectedItem.clear();
+                    MultiSelectSpinnerAdapter adapter = new MultiSelectSpinnerAdapter(
+                            getApplicationContext(),
+                            spinnerListItem,
+                            selectedItem
+                    );
+
+                    spVoucherUser.setAdapter(adapter);
+
+                    adapter.setOnItemSelectedListener(new MultiSelectSpinnerAdapter.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(List<UserDomain> selectedItems, int pos) {
+                            if (selectedItems == null || selectedItems.isEmpty()) {
+                                DatabaseReference voucherRef = FirebaseDatabase.getInstance().getReference("VOUCHER");
+                                voucherRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (snapshot.exists()){
+                                            int voucherID = 0;
+                                            for (DataSnapshot issue : snapshot.getChildren()){
+                                                DiscountDomain discountDomain = issue.getValue(DiscountDomain.class);
+                                                voucherID = Math.max(voucherID, discountDomain.getVoucherID());
+                                            }
+                                            removeVoucherUser(voucherID + 1);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+                            } else {
+                                StringBuilder selectedNames = new StringBuilder();
+                                for (UserDomain item : selectedItems) {
+                                    selectedNames.append(item.getName()).append(", ");
+                                }
+                                // Remove the trailing comma and space
+                                selectedNames.delete(selectedNames.length() - 2, selectedNames.length());
+//                                name.setText(selectedNames.toString());
+                            }
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void removeVoucherUser(int voucherID) {
+        DatabaseReference userVoucherRef = FirebaseDatabase.getInstance().getReference("USERVOUCHER");
+        userVoucherRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    for (DataSnapshot issue : snapshot.getChildren()){
+                        UserVoucherDomain userVoucherDomain = issue.getValue(UserVoucherDomain.class);
+                        if (userVoucherDomain.getVoucherID() == voucherID) {
+                            issue.getRef().removeValue();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void addTxtViewCalendar() {
@@ -195,7 +307,7 @@ public class AddVoucherActivity extends AppCompatActivity {
         Log.d("Title: ", addVoucherName.getText().toString());
         Log.d("ValueInteger: ", etValueInteger.getText().toString());
         Log.d("ValueDouble: ", etValueDouble.getText().toString());
-        Log.d("FreeShipping: ", spFreeShipping.getSelectedItem().toString());
+        Log.d("FreeShipping: ", String.valueOf(Integer.parseInt(spFreeShipping.getSelectedItem().toString())));
         Log.d("MinOrderCapacity: ", etMinOderCapacity.getText().toString());
         Log.d("MinOrderPrice: ", etMinOrderPrice.getText().toString());
         Log.d("Type: ", spVoucherType.getSelectedItem().toString());

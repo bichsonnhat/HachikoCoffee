@@ -78,8 +78,8 @@
 
                         <ImageView
                             android:id="@+id/plusBtn"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
                             android:layout_marginStart="21dp"
                             android:src="@drawable/ic_plus"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -104,6 +104,7 @@
                     android:layout_height="wrap_content">
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:layout_marginStart="16dp"
                         android:id="@+id/recyclerViewProduct"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

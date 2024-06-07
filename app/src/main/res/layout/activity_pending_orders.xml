@@ -97,13 +97,15 @@
                             android:layout_height="40dp"
                             android:layout_marginStart="16dp"
                             android:background="@drawable/bg_note"
+                            android:focusable="false"
                             android:hint="Chọn ngày bắt đầu"
                             android:paddingStart="16dp"
-                            android:focusable="false"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toEndOf="@+id/startTitle"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0" />
 
                         <Button
                             android:id="@+id/btn_calendarStart"

@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="70dp"
-    android:background="@drawable/white_background"
-    android:id="@+id/btnEditVoucher">
+    android:background="@drawable/white_background">
 
     <View
         android:id="@+id/divider"
@@ -17,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageEditVoucher"
+        android:id="@+id/item_notiImg"
         android:layout_width="35dp"
         android:layout_height="35dp"
 
@@ -27,41 +26,36 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="19dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/imageView3"
-        app:layout_constraintStart_toEndOf="@id/imageEditVoucher"
+        app:layout_constraintStart_toEndOf="@id/item_notiImg"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/tvEditVoucherName"
+            android:id="@+id/item_notiTitle"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="Danh mục mới"
             android:textSize="16sp"
+            android:layout_height="wrap_content"
+            android:text="Thông báo mới"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvEditVoucherID"
+            android:id="@+id/item_notiID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ID danh mục"
+            android:text="ID thông báo"
             android:textColor="#807E7E"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvEditVoucherName" />
+            app:layout_constraintTop_toBottomOf="@+id/item_notiTitle" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/item_notiEdit"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginEnd="16dp"
@@ -69,4 +63,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

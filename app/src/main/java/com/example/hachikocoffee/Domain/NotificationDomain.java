@@ -11,10 +11,18 @@ public class NotificationDomain implements Serializable {
 
     public NotificationDomain() {}
 
-    public NotificationDomain(String title, String desciption, String imageURL, String date) {
+//    public NotificationDomain(String title, String desciption, String imageURL, String date) {
+//        Title = title;
+//        Description = desciption;
+//        ImageURL = imageURL;
+//        Date = date;
+//    }
+
+    public NotificationDomain(String title, String description, String imageURL, int notificationID, String date) {
         Title = title;
-        Description = desciption;
+        Description = description;
         ImageURL = imageURL;
+        NotificationID = notificationID;
         Date = date;
     }
 
