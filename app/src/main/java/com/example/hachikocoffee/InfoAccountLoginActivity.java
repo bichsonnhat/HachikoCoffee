@@ -220,7 +220,7 @@ public class InfoAccountLoginActivity extends AppCompatActivity {
                     }
                     UserVoucherDomain voucherFree1 = new UserVoucherDomain(6, Integer.parseInt(phoneNumber), max_id + 1, 0);
                     userVoucherRef.child(String.valueOf(max_id + 1)).setValue(voucherFree1);
-                    UserVoucherDomain voucherFree2 = new UserVoucherDomain(6, Integer.parseInt(phoneNumber), max_id + 2, 0);
+                    UserVoucherDomain voucherFree2 = new UserVoucherDomain(7, Integer.parseInt(phoneNumber), max_id + 2, 0);
                     userVoucherRef.child(String.valueOf(max_id + 2)).setValue(voucherFree2);
                 }
             }
