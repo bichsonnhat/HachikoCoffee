@@ -53,7 +53,7 @@ public class InfoAccountLoginActivity extends AppCompatActivity {
     private ArrayAdapter<CharSequence> genderAdapter;
 
     private TextView btnRegisterAccount;
-
+    private Button backBtn;
     private EditText firstName, lastName, email;
     private String phoneNumber;
     private static final String[] gender_options = {"Nam", "Nữ"};
@@ -69,8 +69,16 @@ public class InfoAccountLoginActivity extends AppCompatActivity {
         firstName = findViewById(R.id.firstNameRegister);
         lastName = findViewById(R.id.lastNameRegister);
         email = findViewById(R.id.emailRegister);
+        backBtn = findViewById(R.id.backBtn);
         btnRegisterAccount = findViewById(R.id.btnRegisterAccount);
         btnRegisterAccount.setEnabled(false);
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         btnCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
