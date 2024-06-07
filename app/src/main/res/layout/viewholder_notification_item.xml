@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/icon"
+        android:id="@+id/item_notiImg"
         android:layout_width="35dp"
         android:layout_height="35dp"
 
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="19dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/icon"
+        app:layout_constraintStart_toEndOf="@id/item_notiImg"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
