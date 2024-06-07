@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FavouriteActivity extends AppCompatActivity implements UpdateUIListener {
-
     private ArrayList<ItemsDomain> listFavourites;
     private TextView textViewNoFavourites;
     private FavouriteAdapter adapter;
