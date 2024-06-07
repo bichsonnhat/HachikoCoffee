@@ -258,7 +258,8 @@ public class InfoAccountLoginActivity extends AppCompatActivity {
     }
 
     private void checkAllFieldsFilled() {
-        if (!TextUtils.isEmpty(firstName.getText().toString()) && !TextUtils.isEmpty(lastName.getText().toString()) && !TextUtils.isEmpty(email.getText().toString()) && !TextUtils.isEmpty(textView.getText().toString())){
+        if (!TextUtils.isEmpty(firstName.getText().toString()) && !TextUtils.isEmpty(lastName.getText().toString()) && !TextUtils.isEmpty(email.getText().toString()) && !TextUtils.isEmpty(textView.getText().toString())
+                && getAge(Integer.parseInt(textView.getText().toString().split("/")[2]), Integer.parseInt(textView.getText().toString().split("/")[1]), Integer.parseInt(textView.getText().toString().split("/")[0])) >= 18 && isValidEmail(email.getText().toString())){
             btnRegisterAccount.setBackground(ContextCompat.getDrawable(this, R.drawable.background_color));
             btnRegisterAccount.setEnabled(true);
         } else {
@@ -308,5 +309,18 @@ public class InfoAccountLoginActivity extends AppCompatActivity {
             textView.setError(null);
             checkAllFieldsFilled();
         }
+    }
+
+    private int getAge(int year, int monthOfYear, int dayOfMonth) {
+        Calendar dob = Calendar.getInstance();
+        Calendar today = Calendar.getInstance();
+
+        dob.set(year, monthOfYear, dayOfMonth);
+
+        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)) {
+            age--;
+        }
+        return age;
     }
 }
