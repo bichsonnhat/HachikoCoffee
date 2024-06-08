@@ -161,6 +161,9 @@ public class AddVoucherActivity extends AppCompatActivity {
                     for (DataSnapshot issue : snapshot.getChildren()){
                         UserDomain user = issue.getValue(UserDomain.class);
                         if (user.getIsAdmin() != 1){
+                            String fullname = user.getName();
+                            String[] name = fullname.split(",");
+                            user.setName(name[1].trim() + " " + name[0]);
                             spinnerListItem.add(user);
                         }
                     }

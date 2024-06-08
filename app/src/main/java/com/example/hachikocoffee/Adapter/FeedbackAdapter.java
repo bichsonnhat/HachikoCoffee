@@ -49,7 +49,9 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.Feedba
                     for (DataSnapshot issue : snapshot.getChildren()){
                         UserDomain user = issue.getValue(UserDomain.class);
                         if (user.getUserID() == userID) {
-                            holder.vh_feedback_nameAccount.setText(""+user.getName());
+                            String fullname = user.getName();
+                            String[] name = fullname.split(",");
+                            holder.vh_feedback_nameAccount.setText(""+name[1]+" "+name[0]);
                             holder.vh_feedback_emailAccount.setText(""+user.getEmail());
                             holder.vh_feedback_feedbackText.setText(""+feedback.getDescription());
                             break;

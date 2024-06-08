@@ -1,5 +1,6 @@
 package com.example.hachikocoffee.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -12,12 +13,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.hachikocoffee.Domain.FeedbackDomain;
+import com.example.hachikocoffee.InfoAccountLoginActivity;
+import com.example.hachikocoffee.Management.ManagementUser;
 import com.example.hachikocoffee.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class FeedbackActivity extends AppCompatActivity {
 
     private EditText etFeedback;
     private Button submitFeedback;
+    private int UserID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +37,7 @@ public class FeedbackActivity extends AppCompatActivity {
         etFeedback = findViewById(R.id.edtFeedbackContent);
         submitFeedback = findViewById(R.id.sendFeedback);
         submitFeedback.setEnabled(false);
+        UserID = ManagementUser.getInstance().getUserId();
         btnFeedbackBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,6 +71,27 @@ public class FeedbackActivity extends AppCompatActivity {
         submitFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DatabaseReference feedbackRef = FirebaseDatabase.getInstance().getReference().child("FEEDBACK");
+                feedbackRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()){
+                            int max_id = 0;
+                            for (DataSnapshot issue : snapshot.getChildren()){
+                                FeedbackDomain feedback = issue.getValue(FeedbackDomain.class);
+                                max_id = Math.max(max_id, feedback.getFeedbackID());
+                            }
+                            max_id += 1;
+                            FeedbackDomain feedback = new FeedbackDomain(UserID, max_id, etFeedback.getText().toString());
+                            feedbackRef.child(String.valueOf(max_id)).setValue(feedback);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
                 showSuccessDialog();
             }
         });
