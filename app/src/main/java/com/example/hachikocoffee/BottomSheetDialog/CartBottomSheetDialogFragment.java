@@ -465,6 +465,9 @@ public class CartBottomSheetDialogFragment extends BottomSheetDialogFragment imp
     private String[] getTodayTimeValues() {
         if (todayTimeValues == null) {
             todayTimeValues = generateTimeValues(getCurrentTime().get(Calendar.HOUR_OF_DAY), getCurrentTime().get(Calendar.MINUTE), 20, 31);
+            if (todayTimeValues.length == 0){
+                todayTimeValues = new String[1];
+            }
         }
         todayTimeValues[0] = "Càng sớm càng tốt";
         return todayTimeValues;
