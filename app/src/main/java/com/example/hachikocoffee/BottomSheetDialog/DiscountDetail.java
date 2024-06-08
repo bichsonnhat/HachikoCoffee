@@ -1,4 +1,4 @@
-package com.example.hachikocoffee;
+package com.example.hachikocoffee.BottomSheetDialog;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -18,6 +18,8 @@ import com.example.hachikocoffee.Activity.MainActivity;
 import com.example.hachikocoffee.Domain.DiscountDomain;
 import com.example.hachikocoffee.Fragment.DiscountFragment;
 import com.example.hachikocoffee.Listener.OnVoucherClick;
+import com.example.hachikocoffee.R;
+import com.example.hachikocoffee.Activity.YourVoucher;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;

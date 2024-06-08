@@ -4,12 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,7 +16,6 @@ import android.widget.TextView;
 
 import com.example.hachikocoffee.Domain.AddressDomain;
 import com.example.hachikocoffee.Domain.UserDomain;
-import com.example.hachikocoffee.InfoAccountLoginActivity;
 import com.example.hachikocoffee.Listener.OnAddressChangedListener;
 import com.example.hachikocoffee.Management.ManagementUser;
 import com.example.hachikocoffee.R;

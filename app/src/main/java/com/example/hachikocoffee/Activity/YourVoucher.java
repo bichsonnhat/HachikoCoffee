@@ -1,4 +1,4 @@
-package com.example.hachikocoffee;
+package com.example.hachikocoffee.Activity;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,6 +21,7 @@ import com.example.hachikocoffee.Adapter.YourVoucherViewPagerAdapter;
 import com.example.hachikocoffee.Fragment.OrderFragment;
 import com.example.hachikocoffee.Fragment.YourDeliveryVoucherFragment;
 import com.example.hachikocoffee.Fragment.YourPickupVoucherFragment;
+import com.example.hachikocoffee.R;
 import com.example.hachikocoffee.databinding.YourVoucherCustomtabBinding;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.tabs.TabLayout;
