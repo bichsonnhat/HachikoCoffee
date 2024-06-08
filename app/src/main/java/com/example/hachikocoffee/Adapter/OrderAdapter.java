@@ -1,10 +1,15 @@
 package com.example.hachikocoffee.Adapter;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,7 +17,10 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hachikocoffee.Activity.InfoAccountLoginActivity;
+import com.example.hachikocoffee.Activity.Login;
 import com.example.hachikocoffee.Activity.PendingOrdersActivity;
+import com.example.hachikocoffee.Activity.SplashActivity;
 import com.example.hachikocoffee.Domain.OrderDomain;
 import com.example.hachikocoffee.Fragment.OrderHistoryCancelledFragment;
 import com.example.hachikocoffee.Fragment.OrderHistoryFinishedFragment;
@@ -116,37 +124,53 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         holder.orderHistory_accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseReference historyOrderRef = FirebaseDatabase.getInstance().getReference().child("ORDER");
-                historyOrderRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()){
-                            for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-                                OrderDomain orderDomain = childSnapshot.getValue(OrderDomain.class);
-                                if (order.getOrderID().equals(orderDomain.getOrderID())) {
-                                    Map<String, Object> updates = new HashMap<>();
-                                    updates.put("orderStatus", "Finished");
-                                    childSnapshot.getRef().updateChildren(updates);
-                                    finishedClickListener.onFinishedClick();
-                                    break;
-                                }
-                            }
-                        }
-                    }
+                AlertDialog alertDialog = new AlertDialog.Builder(v.getContext(), R.style.AlertDialog_AppCompat_Custom)
+                        .setTitle("Đăng xuất")
+                        .setMessage("Xác nhận đơn hàng đã giao thành công?")
+                        .setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                DatabaseReference historyOrderRef = FirebaseDatabase.getInstance().getReference().child("ORDER");
+                                historyOrderRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (snapshot.exists()){
+                                            for (DataSnapshot childSnapshot : snapshot.getChildren()) {
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                                                OrderDomain orderDomain = childSnapshot.getValue(OrderDomain.class);
+                                                if (order.getOrderID().equals(orderDomain.getOrderID())) {
+                                                    Map<String, Object> updates = new HashMap<>();
+                                                    updates.put("orderStatus", "Finished");
+                                                    childSnapshot.getRef().updateChildren(updates);
+                                                    finishedClickListener.onFinishedClick();
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
 
-                    }
-                });
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
 //                order.setOrderStatus("Finished");
 //                holder.orderHistory_state.setText("Đã hoàn tất");
 //                holder.orderHistory_state.setTextColor(v.getResources().getColor(R.color.green));
 //                holder.orderHistory_accept.setVisibility(View.INVISIBLE);
 //                holder.orderHistory_cancel.setVisibility(View.INVISIBLE);
-                mListOrder.remove(position);
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position, mListOrder.size());
+                                mListOrder.remove(position);
+                                notifyItemRemoved(position);
+                                notifyItemRangeChanged(position, mListOrder.size());
+                            }
+                        })
+                        .setNegativeButton("Không", null)
+                        .show();
+
+                Button positiveButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                Button negativeButton = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+                positiveButton.setTextColor(Color.parseColor("#000000"));
+                negativeButton.setTextColor(Color.parseColor("#E47905"));
                 //OrderHistoryProcessingFragment orderHistoryProcessingFragment = new OrderHistoryProcessingFragment();
                 //orderHistoryProcessingFragment.removeOrder(order);
 
@@ -158,39 +182,46 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         holder.orderHistory_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseReference historyOrderRef = FirebaseDatabase.getInstance().getReference().child("ORDER");
-                historyOrderRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()){
-                            for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-                                OrderDomain orderDomain = childSnapshot.getValue(OrderDomain.class);
-                                if (order.getOrderID().equals(orderDomain.getOrderID())) {
-                                    Map<String, Object> updates = new HashMap<>();
-                                    updates.put("orderStatus", "Canceled");
-                                    childSnapshot.getRef().updateChildren(updates);
-//                                    if (canceledClickListener != null){
-//                                        canceledClickListener.onCanceledClick();
-//                                    }
-                                    break;
-                                }
+                AlertDialog alertDialog = new AlertDialog.Builder(v.getContext(), R.style.AlertDialog_AppCompat_Custom)
+                        .setTitle("Đăng xuất")
+                        .setMessage("Xác nhận huỷ đơn hàng?")
+                        .setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                DatabaseReference historyOrderRef = FirebaseDatabase.getInstance().getReference().child("ORDER");
+                                historyOrderRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (snapshot.exists()){
+                                            for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+                                                OrderDomain orderDomain = childSnapshot.getValue(OrderDomain.class);
+                                                if (order.getOrderID().equals(orderDomain.getOrderID())) {
+                                                    Map<String, Object> updates = new HashMap<>();
+                                                    updates.put("orderStatus", "Canceled");
+                                                    childSnapshot.getRef().updateChildren(updates);
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+                                mListOrder.remove(position);
+                                notifyItemRemoved(position);
+                                notifyItemRangeChanged(position, mListOrder.size());
                             }
-                        }
-                    }
+                        })
+                        .setNegativeButton("Không", null)
+                        .show();
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-//                order.setOrderStatus("Finished");
-//                holder.orderHistory_state.setText("Đã hoàn tất");
-//                holder.orderHistory_state.setTextColor(v.getResources().getColor(R.color.green));
-//                holder.orderHistory_accept.setVisibility(View.INVISIBLE);
-//                holder.orderHistory_cancel.setVisibility(View.INVISIBLE);
-                mListOrder.remove(position);
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position, mListOrder.size());
+                Button positiveButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                Button negativeButton = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+                positiveButton.setTextColor(Color.parseColor("#000000"));
+                negativeButton.setTextColor(Color.parseColor("#E47905"));
                 //OrderHistoryProcessingFragment orderHistoryProcessingFragment = new OrderHistoryProcessingFragment();
                 //orderHistoryProcessingFragment.removeOrder(order);
 
@@ -207,6 +238,25 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             return mListOrder.size();
         }
         return 0;
+    }
+
+    private void showIsFinishDialog() {
+        AlertDialog alertDialog = new AlertDialog.Builder(activity.getApplicationContext(), R.style.AlertDialog_AppCompat_Custom)
+                .setTitle("Đăng xuất")
+                .setMessage("Bạn có muốn đăng xuất không?")
+                .setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .setNegativeButton("Không", null)
+                .show();
+
+        Button positiveButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        Button negativeButton = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+        positiveButton.setTextColor(Color.parseColor("#000000"));
+        negativeButton.setTextColor(Color.parseColor("#E47905"));
     }
 
     public class OrderViewHolder extends RecyclerView.ViewHolder {
