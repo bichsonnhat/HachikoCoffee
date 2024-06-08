@@ -15,9 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.hachikocoffee.Domain.ShopDomain;
 import com.example.hachikocoffee.Domain.UserDomain;
-import com.example.hachikocoffee.InfoAccountLoginActivity;
 import com.example.hachikocoffee.Management.ManagementCart;
 import com.example.hachikocoffee.Management.ManagementUser;
 import com.example.hachikocoffee.R;
@@ -32,8 +30,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.concurrent.CountDownLatch;
 
 public class LoginOTPActivity extends AppCompatActivity {
     private TextView textMobile;

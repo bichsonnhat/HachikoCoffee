@@ -1,6 +1,4 @@
-package com.example.hachikocoffee;
-
-import static java.security.AccessController.getContext;
+package com.example.hachikocoffee.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,7 +8,6 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -23,24 +20,19 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.AdapterView;
 import android.widget.Toast;
 
-import com.example.hachikocoffee.Activity.MainActivity;
-import com.example.hachikocoffee.Activity.SplashActivity;
-import com.example.hachikocoffee.Domain.LocationDomain;
 import com.example.hachikocoffee.Domain.UserDomain;
 import com.example.hachikocoffee.Domain.UserVoucherDomain;
+import com.example.hachikocoffee.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

@@ -8,7 +8,6 @@ import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,7 +16,6 @@ import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.example.hachikocoffee.Domain.UserDomain;
-import com.example.hachikocoffee.InfoAccountLoginActivity;
 import com.example.hachikocoffee.Listener.OnUserChangedListener;
 import com.example.hachikocoffee.Management.ListenerSingleton;
 import com.example.hachikocoffee.R;

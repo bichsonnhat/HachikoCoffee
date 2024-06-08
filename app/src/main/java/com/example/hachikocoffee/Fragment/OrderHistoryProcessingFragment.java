@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import com.example.hachikocoffee.Adapter.OrderAdapter;
 import com.example.hachikocoffee.Domain.OrderDomain;
 import com.example.hachikocoffee.Management.ManagementUser;
-import com.example.hachikocoffee.OrderDetail;
+import com.example.hachikocoffee.Activity.OrderDetail;
 import com.example.hachikocoffee.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
