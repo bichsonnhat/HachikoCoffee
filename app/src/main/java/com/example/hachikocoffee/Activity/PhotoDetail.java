@@ -1,4 +1,4 @@
-package com.example.hachikocoffee;
+package com.example.hachikocoffee.Activity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.hachikocoffee.Domain.AdvertisementDomain;
+import com.example.hachikocoffee.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

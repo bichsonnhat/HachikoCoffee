@@ -1,4 +1,4 @@
-package com.example.hachikocoffee;
+package com.example.hachikocoffee.Activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,9 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.hachikocoffee.Activity.LoginOTPActivity;
-import com.example.hachikocoffee.Activity.MainActivity;
-import com.example.hachikocoffee.Activity.SplashActivity;
+import com.example.hachikocoffee.R;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;

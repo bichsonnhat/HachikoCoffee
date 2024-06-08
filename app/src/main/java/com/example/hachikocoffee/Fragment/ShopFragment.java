@@ -1,17 +1,12 @@
 package com.example.hachikocoffee.Fragment;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -33,18 +28,17 @@ import android.widget.TextView;
 import com.example.hachikocoffee.Activity.MainActivity;
 import com.example.hachikocoffee.Activity.SearchShopActivity;
 import com.example.hachikocoffee.Adapter.ShopAdapter;
-import com.example.hachikocoffee.Domain.CartItem;
 import com.example.hachikocoffee.Domain.DiscountDomain;
 import com.example.hachikocoffee.Domain.LocationDomain;
 import com.example.hachikocoffee.Domain.ShopDomain;
 import com.example.hachikocoffee.Listener.OnStoreClick;
 import com.example.hachikocoffee.Management.ManagementMinDistance;
 import com.example.hachikocoffee.Management.ManagementUser;
-import com.example.hachikocoffee.NotificationDetail;
+import com.example.hachikocoffee.Activity.NotificationDetail;
 import com.example.hachikocoffee.R;
 import com.example.hachikocoffee.Listener.ShopClickListener;
 import com.example.hachikocoffee.BottomSheetDialog.ShopDetail;
-import com.example.hachikocoffee.YourVoucher;
+import com.example.hachikocoffee.Activity.YourVoucher;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;

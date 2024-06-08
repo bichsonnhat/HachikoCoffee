@@ -1,7 +1,6 @@
 package com.example.hachikocoffee.Fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hachikocoffee.Adapter.DiscountAdapter;
-import com.example.hachikocoffee.DiscountDetail;
+import com.example.hachikocoffee.BottomSheetDialog.DiscountDetail;
 import com.example.hachikocoffee.Domain.DiscountDomain;
 import com.example.hachikocoffee.Management.ManagementUser;
 import com.example.hachikocoffee.R;

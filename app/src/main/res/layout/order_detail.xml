@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EDECEC"
-    tools:context=".OrderDetail">
+    tools:context=".Activity.OrderDetail">
 
     <RelativeLayout
         android:id="@+id/first"

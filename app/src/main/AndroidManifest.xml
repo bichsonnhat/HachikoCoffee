@@ -114,11 +114,11 @@
         android:name=".Activity.DashboardActivity"
         android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <!-- <action android:name="android.intent.action.MAIN" />-->
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Activity.EditProductActivity"
             android:exported="true">
@@ -151,7 +151,14 @@
         </activity>
         <activity
             android:name=".Activity.CategoryManagementActivity"
-            android:exported="false" />
+            android:exported="true">
+            <intent-filter>
+
+<!--                 <action android:name="android.intent.action.MAIN" />-->
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Activity.PendingOrdersActivity"
             android:exported="true">
@@ -168,7 +175,7 @@
             android:name=".Activity.EditAddressActivity"
             android:exported="true" />
         <activity
-            android:name=".Login"
+            android:name=".Activity.Login"
             android:exported="true">
             <intent-filter>
 
@@ -181,13 +188,10 @@
             android:exported="true">
             <intent-filter>
 
-                <!-- <action android:name="android.intent.action.MAIN" /> -->
+                <!-- <action android:name="android.inte nt.action.MAIN" /> -->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Activity.CartActivity"
-            android:exported="false" />
         <activity
             android:name=".Activity.NewAddressActivity"
             android:exported="true" />
@@ -229,13 +233,13 @@
             android:exported="true">
             <intent-filter>
 
-                <!-- <action android:name="android.intent.action.MAIN" /> -->
+<!--                 <action android:name="android.intent.action.MAIN" />-->
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".InfoAccountLoginActivity"
+            android:name=".Activity.InfoAccountLoginActivity"
             android:exported="true">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -274,14 +278,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NotificationDetail"
+            android:name=".Activity.NotificationDetail"
             android:exported="true">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".OrderDetail"
+            android:name=".Activity.OrderDetail"
             android:exported="true">
             <intent-filter>
 
@@ -290,21 +294,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".OrderHistory"
+            android:name=".Activity.OrderHistory"
             android:exported="true">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".YourVoucher"
+            android:name=".Activity.YourVoucher"
             android:exported="true">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".PhotoDetail"
+            android:name=".Activity.PhotoDetail"
             android:exported="true">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
