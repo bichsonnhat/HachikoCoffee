@@ -39,7 +39,9 @@ public class ListUserAdapter extends RecyclerView.Adapter<ListUserAdapter.Viewho
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ListUserAdapter.Viewholder holder, int position) {
-        holder.binding.itemTitle.setText(items.get(position).getName());
+        String fullname = items.get(position).getName();
+        String[] name = fullname.split(",");
+        holder.binding.itemTitle.setText(name[1].trim() + " " + name[0]);
         holder.binding.itemID.setText("Id: " + items.get(position).getUserID());
 
         holder.binding.imageView3.setOnClickListener(new View.OnClickListener() {

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.hachikocoffee.Activity.EditVoucherActivity;
 import com.example.hachikocoffee.Domain.DiscountDomain;
 import com.example.hachikocoffee.Domain.UserDomain;
 import com.example.hachikocoffee.Domain.UserVoucherDomain;
@@ -81,7 +82,9 @@ public class MultiSelectSpinnerAdapterEdit extends ArrayAdapter<UserDomain> {
         if (isDropDown) {
             CheckBox checkBox = view.findViewById(R.id.spinnerCheckbox);
             TextView itemName = view.findViewById(R.id.itemName);
-            checkBox.setChecked(checkedItems[position]);
+            if (checkedItems[position] == true){
+                checkBox.setChecked(true);
+            }
 
             itemName.setText(items.get(position).getName());
             checkBox.setOnCheckedChangeListener((compoundButton, isChecked) -> {
@@ -89,19 +92,14 @@ public class MultiSelectSpinnerAdapterEdit extends ArrayAdapter<UserDomain> {
                 if (isChecked) {
                     for (int i = 0; i < selectedItems.size(); ++i){
                         if (selectedItems.get(i).getUserID() == items.get(position).getUserID()){
+//                            Toast.makeText(getContext(), "Removed!", Toast.LENGTH_SHORT).show();
                             selectedItems.remove(i);
-                            selectedItems.add(items.get(position));
                         }
                     }
                     if (!selectedItems.contains(items.get(position))) {
                         selectedItems.add(items.get(position));
                     }
                 } else {
-                    for (int i = 0; i < selectedItems.size(); ++i){
-                        if (selectedItems.get(i).getUserID() == items.get(position).getUserID()){
-                            selectedItems.remove(i);
-                        }
-                    }
                     selectedItems.remove(items.get(position));
                 }
                 notifyDataSetChanged();

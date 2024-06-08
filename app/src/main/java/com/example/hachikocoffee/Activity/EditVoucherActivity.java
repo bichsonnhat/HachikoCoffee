@@ -154,6 +154,9 @@ public class EditVoucherActivity extends AppCompatActivity {
                     for (DataSnapshot issue : snapshot.getChildren()){
                         UserDomain user = issue.getValue(UserDomain.class);
                         if (user.getIsAdmin() != 1){
+                            String fullname = user.getName();
+                            String[] name = fullname.split(",");
+                            user.setName(name[1].trim() + " " + name[0]);
                             spinnerListItem.add(user);
                         }
                     }
@@ -176,10 +179,13 @@ public class EditVoucherActivity extends AppCompatActivity {
                                                         UserDomain userDomain = issue.getValue(UserDomain.class);
 //                                                        Log.d("userVoucherDomain", userDomain.getUserID() + " " + userVoucherDomain.getUserID() + " " + userVoucherDomain.getVoucherID() + " " + VoucherID);
                                                         if (userDomain.getUserID() == userVoucherDomain.getUserID() && userVoucherDomain.getVoucherID() == VoucherID){
+                                                            String fullname = userDomain.getName();
+                                                            String[] name = fullname.split(",");
+                                                            userDomain.setName(name[1].trim() + " " + name[0]);
                                                             selectedItem.add(userDomain);
                                                         }
                                                     }
-                                                    if (userVoucherDomain.getVoucherID() == VoucherID){
+//                                                    if (userVoucherDomain.getVoucherID() == VoucherID){
                                                         MultiSelectSpinnerAdapterEdit adapter = new MultiSelectSpinnerAdapterEdit(
                                                                 getApplicationContext(),
                                                                 spinnerListItem,
@@ -192,6 +198,7 @@ public class EditVoucherActivity extends AppCompatActivity {
                                                         adapter.setOnItemSelectedListener(new MultiSelectSpinnerAdapterEdit.OnItemSelectedListener() {
                                                             @Override
                                                             public void onItemSelected(List<UserDomain> selectedItems, int pos) {
+                                                                Toast.makeText(EditVoucherActivity.this, "Đã thay đổi đối tượng áp dụng!", Toast.LENGTH_SHORT).show();
                                                                 if (selectedItems == null || selectedItems.isEmpty()) {
                                                                     removeVoucherUser();
                                                                 } else {
@@ -205,7 +212,7 @@ public class EditVoucherActivity extends AppCompatActivity {
                                                                 }
                                                             }
                                                         });
-                                                    }
+//                                                    }
                                                 }
                                             }
 
@@ -659,6 +666,25 @@ public class EditVoucherActivity extends AppCompatActivity {
 
                 }
             });
+        } else {
+            btnConfirmAddVoucher.setBackground(ContextCompat.getDrawable(this, R.drawable.rounded_rectangle_darkgrey));
+            btnConfirmAddVoucher.setEnabled(false);
+        }
+    }
+
+    private void checkAllFieldRequireSpiner(){
+        if (addVoucherName.getText().toString().length() != 0
+                && spVoucherType.getSelectedItem().toString().length() != 0
+                && spFreeShipping.getSelectedItem().toString().length() != 0
+                && addImageVoucher.getText().toString().length() != 0
+                && etDescription.getText().toString().length() != 0
+                && etMinOderCapacity.getText().toString().length() != 0
+                && etMinOrderPrice.getText().toString().length() != 0
+                && etValueDouble.getText().toString().length() != 0
+                && etValueInteger.getText().toString().length() != 0
+                && txtview_canlendar.getText().toString().length() != 0){
+           btnConfirmAddVoucher.setBackground(ContextCompat.getDrawable(this, R.drawable.background_color));
+           btnConfirmAddVoucher.setEnabled(true);
         } else {
             btnConfirmAddVoucher.setBackground(ContextCompat.getDrawable(this, R.drawable.rounded_rectangle_darkgrey));
             btnConfirmAddVoucher.setEnabled(false);
