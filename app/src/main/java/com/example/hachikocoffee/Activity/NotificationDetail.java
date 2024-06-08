@@ -1,4 +1,4 @@
-package com.example.hachikocoffee;
+package com.example.hachikocoffee.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +19,7 @@ import com.example.hachikocoffee.BottomSheetDialog.NotificationBottomSheet;
 import com.example.hachikocoffee.BottomSheetDialog.ShopDetail;
 import com.example.hachikocoffee.Domain.NotificationDomain;
 import com.example.hachikocoffee.Listener.NotificationClickListener;
+import com.example.hachikocoffee.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

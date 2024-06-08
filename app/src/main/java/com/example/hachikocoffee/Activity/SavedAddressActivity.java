@@ -1,31 +1,21 @@
 package com.example.hachikocoffee.Activity;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.hachikocoffee.Adapter.AddressAdapter;
 import com.example.hachikocoffee.Domain.AddressDomain;
 import com.example.hachikocoffee.Listener.OnAddressChangedListener;
-import com.example.hachikocoffee.Login;
 import com.example.hachikocoffee.Management.ManagementUser;
-import com.example.hachikocoffee.NotificationDetail;
 import com.example.hachikocoffee.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

@@ -19,7 +19,7 @@ import com.example.hachikocoffee.Fragment.OrderHistoryFinishedFragment;
 import com.example.hachikocoffee.Listener.CanceledClickListener;
 import com.example.hachikocoffee.Listener.FinishedClickListener;
 import com.example.hachikocoffee.Listener.OrderClickListener;
-import com.example.hachikocoffee.OrderDetail;
+import com.example.hachikocoffee.Activity.OrderDetail;
 import com.example.hachikocoffee.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

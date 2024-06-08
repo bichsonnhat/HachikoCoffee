@@ -1,14 +1,11 @@
 package com.example.hachikocoffee.Fragment;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -19,7 +16,7 @@ import com.example.hachikocoffee.Adapter.OrderAdapter;
 import com.example.hachikocoffee.Domain.OrderDomain;
 import com.example.hachikocoffee.Listener.FinishedClickListener;
 import com.example.hachikocoffee.Management.ManagementUser;
-import com.example.hachikocoffee.OrderDetail;
+import com.example.hachikocoffee.Activity.OrderDetail;
 import com.example.hachikocoffee.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,9 +25,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
+
 import static com.example.hachikocoffee.Adapter.OrderAdapter.setInterfaceInstanceFinished;
-import static com.example.hachikocoffee.Adapter.OrderAdapter.setInterfaceInstanceCanceled;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link OrderHistoryFinishedFragment#newInstance} factory method to

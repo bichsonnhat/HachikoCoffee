@@ -1,4 +1,4 @@
-package com.example.hachikocoffee;
+package com.example.hachikocoffee.Activity;
 
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.hachikocoffee.Adapter.ViewPagerAdapter;
+import com.example.hachikocoffee.R;
 import com.google.android.material.tabs.TabLayout;
 
 public class OrderHistory extends AppCompatActivity {

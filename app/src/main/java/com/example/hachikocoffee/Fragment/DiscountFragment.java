@@ -7,25 +7,22 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.hachikocoffee.Activity.MainActivity;
 import com.example.hachikocoffee.Adapter.DiscountAdapter;
-import com.example.hachikocoffee.DiscountDetail;
+import com.example.hachikocoffee.BottomSheetDialog.DiscountDetail;
 import com.example.hachikocoffee.Domain.DiscountDomain;
 import com.example.hachikocoffee.Listener.OnVoucherClick;
 import com.example.hachikocoffee.Management.ManagementUser;
 import com.example.hachikocoffee.R;
-import com.example.hachikocoffee.YourVoucher;
+import com.example.hachikocoffee.Activity.YourVoucher;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,9 +31,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import static com.example.hachikocoffee.DiscountDetail.setInterfaceInstance;
+import static com.example.hachikocoffee.BottomSheetDialog.DiscountDetail.setInterfaceInstance;
 
 /**
  * A simple {@link Fragment} subclass.
