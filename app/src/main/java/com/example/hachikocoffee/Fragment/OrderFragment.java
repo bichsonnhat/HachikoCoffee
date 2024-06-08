@@ -19,7 +19,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
-import android.widget.Toast;
 
 import com.example.hachikocoffee.Activity.FavouriteActivity;
 import com.example.hachikocoffee.Activity.SearchItemActivity;
@@ -35,14 +34,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.gson.Gson;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 /**
@@ -66,8 +58,6 @@ public class OrderFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     public GridLayoutManager gridLayoutManager;
-    private ArrayList<CategoryDomain> categoryDomainArrayList;
-    private ArrayList<ItemsDomain> itemsDomainArrayList;
     public OrderFragment() {
         // Required empty public constructor
     }
@@ -109,7 +99,7 @@ public class OrderFragment extends Fragment {
         seekbarHorizontalScroll = view.findViewById(R.id.seekbar);
         nestedScrollView = view.findViewById(R.id.nestedScrollViewItem);
         ImageView searchButton = view.findViewById(R.id.SearchItem);
-        ImageView favouriteButton = view.findViewById(R.id.FavouriteBtn);
+        ImageView backButton = view.findViewById(R.id.FavouriteBtn);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,7 +108,7 @@ public class OrderFragment extends Fragment {
             }
         });
 
-        favouriteButton.setOnClickListener(new View.OnClickListener() {
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), FavouriteActivity.class);
@@ -126,12 +116,8 @@ public class OrderFragment extends Fragment {
             }
         });
 
-        categoryDomainArrayList = new ArrayList<>();
-        itemsDomainArrayList = new ArrayList<>();
-        initParseJSON();
-
 //        searchButton.setBackgroundResource(R.drawable.background_item);
-//        favouriteButton.setBackgroundResource(R.drawable.background_item);
+//        backButton.setBackgroundResource(R.drawable.background_item);
 
 
 
@@ -144,160 +130,82 @@ public class OrderFragment extends Fragment {
 
     }
 
-    private void initParseJSON() {
-        // Category JSON handle
-        try {
-            JSONObject jsonObject = new JSONObject(JSONDataFromAsset());
-            JSONArray jsonArray = jsonObject.getJSONArray("CATEGORY");
-            for (int i = 0; i < jsonArray.length(); ++i){
-                JSONObject currentObject = jsonArray.getJSONObject(i);
-                CategoryDomain category = new CategoryDomain(currentObject.getInt("CategoryID"), currentObject.getString("ImageURL"), currentObject.getString("Title"));
-                categoryDomainArrayList.add(category);
-            }
-        } catch (Exception e){
-
-        }
-
-        // Product JSON handle
-        try {
-            JSONObject jsonObject = new JSONObject(JSONDataFromAsset());
-            JSONArray jsonArray = jsonObject.getJSONArray("PRODUCTS");
-            for (int i = 0; i < jsonArray.length(); ++i){
-                JSONObject currentObject = jsonArray.getJSONObject(i);
-                ItemsDomain item = new ItemsDomain(currentObject.getString("Title"),
-                        currentObject.getDouble("Price"),
-                        currentObject.getString("ImageURL"),
-                        currentObject.getString("Description"),
-                        currentObject.getInt("CategoryID"),
-                        currentObject.getString("ProductID"));
-                itemsDomainArrayList.add(item);
-            }
-        } catch (Exception e){
-
-        }
-    }
-
     private void initRecyclerViewItem(View view) {
         recyclerView = view.findViewById(R.id.recyclerViewItem);
         DatabaseReference categoryRef = FirebaseDatabase.getInstance().getReference("CATEGORY");
-        ArrayList<CategoryDomain> categories = categoryDomainArrayList;
-        ArrayList<ItemsDomain> items = itemsDomainArrayList;
         ArrayList<Object> data = fetchRowData();
-        for (CategoryDomain category : categories){
-            String categoryName = category.getTitle();
-            int categoryID = category.getCategoryID();
-            data.add(categoryName);
-            for (ItemsDomain product : items){
-                if (product.getCategoryID() == categoryID){
-                    data.add(product);
+        categoryRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    ArrayList<CategoryDomain> categoryList = new ArrayList<>();
+                    for (DataSnapshot issue : snapshot.getChildren()) {
+                        if (!"idCount".equals(issue.getKey())){
+                            CategoryDomain category = issue.getValue(CategoryDomain.class);
+                            categoryList.add(category);
+                        }
+                    }
+                    DatabaseReference productRef = FirebaseDatabase.getInstance().getReference("PRODUCTS");
+                    productRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()){
+                                ArrayList<ItemsDomain> productList = new ArrayList<>();
+                                for (DataSnapshot issue : snapshot.getChildren()) {
+                                    ItemsDomain product = issue.getValue(ItemsDomain.class);
+                                    productList.add(product);
+                                }
+                                for (CategoryDomain category : categoryList){
+                                    String categoryName = category.getTitle();
+                                    int categoryID = category.getCategoryID();
+                                    data.add(categoryName);
+                                    for (ItemsDomain product : productList){
+                                        if (product.getCategoryID() == categoryID){
+                                            data.add(product);
+                                        }
+                                    }
+                                }
+
+                                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                // for Grid with header
+                                int spanCount = 1;
+                                gridLayoutManager = new GridLayoutManager(getContext(),spanCount);
+                                GridLayoutManager.SpanSizeLookup sizeLookup = new GridLayoutManager.SpanSizeLookup() {
+                                    @Override
+                                    public int getSpanSize(int position) {
+                                        // Because header takes full width therefore return spanCount for it
+                                        return data.get(position) instanceof String ? spanCount : 1;
+                                    }
+                                };
+                                // for better performance according to android docs
+                                sizeLookup.setSpanGroupIndexCacheEnabled(true);
+                                sizeLookup.setSpanIndexCacheEnabled(true);
+                                gridLayoutManager.setSpanSizeLookup(sizeLookup);
+                                recyclerView.setLayoutManager(gridLayoutManager);
+
+                                recyclerView.setAdapter(new ListHeaderItemAdapter(data));
+                                initCategory();
+                                topBarOnClick(view);
+//                                nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(10).getTop()));
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
             }
-        }
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        // for Grid with header
-        int spanCount = 1;
-        gridLayoutManager = new GridLayoutManager(getContext(),spanCount);
-        GridLayoutManager.SpanSizeLookup sizeLookup = new GridLayoutManager.SpanSizeLookup() {
+
             @Override
-            public int getSpanSize(int position) {
-                // Because header takes full width therefore return spanCount for it
-                return data.get(position) instanceof String ? spanCount : 1;
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("FirebaseError", "Failed to read value.", error.toException());
+                // Notify user about the error
             }
-        };
-        // for better performance according to android docs
-        sizeLookup.setSpanGroupIndexCacheEnabled(true);
-        sizeLookup.setSpanIndexCacheEnabled(true);
-        gridLayoutManager.setSpanSizeLookup(sizeLookup);
-        recyclerView.setLayoutManager(gridLayoutManager);
+        });
 
-        recyclerView.setAdapter(new ListHeaderItemAdapter(data));
-        initCategory();
-        topBarOnClick(view);
-//        categoryRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if (snapshot.exists()) {
-//                    ArrayList<CategoryDomain> categoryList = new ArrayList<>();
-//                    for (DataSnapshot issue : snapshot.getChildren()) {
-//                        CategoryDomain category = issue.getValue(CategoryDomain.class);
-//                        categoryList.add(category);
-//                    }
-//                    DatabaseReference productRef = FirebaseDatabase.getInstance().getReference("PRODUCTS");
-//                    productRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                            if (snapshot.exists()){
-//                                ArrayList<ItemsDomain> productList = new ArrayList<>();
-//                                for (DataSnapshot issue : snapshot.getChildren()) {
-//                                    ItemsDomain product = issue.getValue(ItemsDomain.class);
-//                                    productList.add(product);
-//                                }
-//                                for (CategoryDomain category : categoryList){
-//                                    String categoryName = category.getTitle();
-//                                    int categoryID = category.getCategoryID();
-//                                    data.add(categoryName);
-//                                    for (ItemsDomain product : productList){
-//                                        if (product.getCategoryID() == categoryID){
-//                                            data.add(product);
-//                                        }
-//                                    }
-//                                }
-//
-//                                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//                                // for Grid with header
-//                                int spanCount = 1;
-//                                gridLayoutManager = new GridLayoutManager(getContext(),spanCount);
-//                                GridLayoutManager.SpanSizeLookup sizeLookup = new GridLayoutManager.SpanSizeLookup() {
-//                                    @Override
-//                                    public int getSpanSize(int position) {
-//                                        // Because header takes full width therefore return spanCount for it
-//                                        return data.get(position) instanceof String ? spanCount : 1;
-//                                    }
-//                                };
-//                                // for better performance according to android docs
-//                                sizeLookup.setSpanGroupIndexCacheEnabled(true);
-//                                sizeLookup.setSpanIndexCacheEnabled(true);
-//                                gridLayoutManager.setSpanSizeLookup(sizeLookup);
-//                                recyclerView.setLayoutManager(gridLayoutManager);
-//
-//                                recyclerView.setAdapter(new ListHeaderItemAdapter(data));
-//                                initCategory();
-//                                topBarOnClick(view);
-////                                nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, recyclerView.getChildAt(10).getTop()));
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError error) {
-//
-//                        }
-//                    });
-//                }
-//            }
-//
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                Log.e("FirebaseError", "Failed to read value.", error.toException());
-//                // Notify user about the error
-//            }
-//        });
-    }
-
-    private String JSONDataFromAsset(){
-        String json = null;
-        try {
-            InputStream inputStream = getContext().getAssets().open("hachiko_coffee.json");
-            int size = inputStream.available();
-            byte[] buffer = new byte[size];
-            inputStream.read(buffer);
-            inputStream.close();
-            json = new String(buffer, StandardCharsets.UTF_8);
-        } catch (Exception e){
-
-        }
-        return json;
     }
 
     private ArrayList<Object> fetchRowData() {
@@ -357,27 +265,28 @@ public class OrderFragment extends Fragment {
     }
 
     private void initCategory(){
-        displayCategoryData(categoryDomainArrayList, nestedScrollView, recyclerView);
-//        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("CATEGORY");
-//        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if (snapshot.exists()) {
-//                    ArrayList<CategoryDomain> items = new ArrayList<>();
-//                    for (DataSnapshot issue : snapshot.getChildren()) {
-//                        CategoryDomain category = issue.getValue(CategoryDomain.class);
-//                        items.add(category);
-//                    }
-//                    displayCategoryData(items, nestedScrollView, recyclerView);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                Log.e("FirebaseError", "Failed to read value.", error.toException());
-//                // Notify user about the error
-//            }
-//        });
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("CATEGORY");
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    ArrayList<CategoryDomain> items = new ArrayList<>();
+                    for (DataSnapshot issue : snapshot.getChildren()) {
+                        if (!"idCount".equals(issue.getKey())){
+                            CategoryDomain category = issue.getValue(CategoryDomain.class);
+                            items.add(category);
+                        }
+                    }
+                    displayCategoryData(items, nestedScrollView, recyclerView);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("FirebaseError", "Failed to read value.", error.toException());
+                // Notify user about the error
+            }
+        });
     }
 
     private void displayCategoryData(ArrayList<CategoryDomain> items, NestedScrollView nestedScrollView, RecyclerView recyclerView) {
