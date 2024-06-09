@@ -6,14 +6,18 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -68,28 +72,43 @@ public class EditProductActivity extends AppCompatActivity {
         constraintLayoutDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseReference productRef = FirebaseDatabase.getInstance().getReference().child("PRODUCTS");
-                productRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()){
-                            for (DataSnapshot issue : snapshot.getChildren()){
-                                ItemsDomain itemsDomain = issue.getValue(ItemsDomain.class);
-                                if (itemsDomain.getProductID().equals(productID)) {
-                                    issue.getRef().removeValue();
-                                    callback.onCallback();
-                                    finish();
-                                    break;
-                                }
+                AlertDialog alertDialog = new AlertDialog.Builder(EditProductActivity.this, R.style.AlertDialog_AppCompat_Custom)
+                        .setTitle("Đăng xuất")
+                        .setMessage("Bạn có muốn đăng xuất không?")
+                        .setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                DatabaseReference productRef = FirebaseDatabase.getInstance().getReference().child("PRODUCTS");
+                                productRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (snapshot.exists()){
+                                            for (DataSnapshot issue : snapshot.getChildren()){
+                                                ItemsDomain itemsDomain = issue.getValue(ItemsDomain.class);
+                                                if (itemsDomain.getProductID().equals(productID)) {
+                                                    issue.getRef().removeValue();
+                                                    callback.onCallback();
+                                                    finish();
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
                             }
-                        }
-                    }
+                        })
+                        .setNegativeButton("Không", null)
+                        .show();
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+                Button positiveButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                Button negativeButton = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+                positiveButton.setTextColor(Color.parseColor("#000000"));
+                negativeButton.setTextColor(Color.parseColor("#E47905"));
             }
         });
         btnConfirm.setOnClickListener(new View.OnClickListener() {

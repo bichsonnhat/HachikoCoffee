@@ -1,12 +1,16 @@
 //EditStoreActivity.java
 package com.example.hachikocoffee.Activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -74,6 +78,22 @@ public class EditStoreActivity extends AppCompatActivity {
         storeMgmt_editDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AlertDialog alertDialog = new AlertDialog.Builder(EditStoreActivity.this, R.style.AlertDialog_AppCompat_Custom)
+                        .setTitle("Xoá cửa hàng")
+                        .setMessage("Xác nhận xoá cửa hàng này?")
+                        .setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                deleteStore(StoreID);
+                            }
+                        })
+                        .setNegativeButton("Không", null)
+                        .show();
+
+                Button positiveButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                Button negativeButton = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+                positiveButton.setTextColor(Color.parseColor("#000000"));
+                negativeButton.setTextColor(Color.parseColor("#E47905"));
                 deleteStore(StoreID);
             }
         });

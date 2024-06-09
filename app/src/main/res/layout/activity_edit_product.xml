@@ -111,7 +111,7 @@
             android:background="@drawable/bg_note"
             android:hint="Nhập giá sản phẩm"
             android:layout_marginTop="8dp"
-            android:inputType="numberDecimal"
+            android:inputType="number"
             android:lines="2"
             android:layout_weight="1"
             android:maxLines="2"

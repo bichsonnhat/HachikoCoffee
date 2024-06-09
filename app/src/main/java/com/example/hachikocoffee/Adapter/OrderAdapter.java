@@ -125,7 +125,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             @Override
             public void onClick(View v) {
                 AlertDialog alertDialog = new AlertDialog.Builder(v.getContext(), R.style.AlertDialog_AppCompat_Custom)
-                        .setTitle("Đăng xuất")
+                        .setTitle("Xác nhận")
                         .setMessage("Xác nhận đơn hàng đã giao thành công?")
                         .setPositiveButton("Có", new DialogInterface.OnClickListener() {
                             @Override
@@ -183,7 +183,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             @Override
             public void onClick(View v) {
                 AlertDialog alertDialog = new AlertDialog.Builder(v.getContext(), R.style.AlertDialog_AppCompat_Custom)
-                        .setTitle("Đăng xuất")
+                        .setTitle("Xác nhận")
                         .setMessage("Xác nhận huỷ đơn hàng?")
                         .setPositiveButton("Có", new DialogInterface.OnClickListener() {
                             @Override

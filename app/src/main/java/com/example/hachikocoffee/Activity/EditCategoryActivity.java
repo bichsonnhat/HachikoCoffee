@@ -4,11 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.hachikocoffee.Domain.CategoryDomain;
@@ -73,17 +77,32 @@ public class EditCategoryActivity extends AppCompatActivity {
         binding.constraintLayoutDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (category != null){
-                    DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("CATEGORY").child(String.valueOf(category.getCategoryID()));
-                    myRef.removeValue();
-                    if (onCategoryAddedListener != null) {
-                        onCategoryAddedListener.onCategoryChanged();
-                    }
-                    finish();
-                }
-                else{
-                    Toast.makeText(EditCategoryActivity.this,"Lỗi", Toast.LENGTH_SHORT).show();
-                }
+                AlertDialog alertDialog = new AlertDialog.Builder(EditCategoryActivity.this, R.style.AlertDialog_AppCompat_Custom)
+                        .setTitle("Xoá danh mục")
+                        .setMessage("Xác nhận xoá danh mục này?")
+                        .setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                if (category != null){
+                                    DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("CATEGORY").child(String.valueOf(category.getCategoryID()));
+                                    myRef.removeValue();
+                                    if (onCategoryAddedListener != null) {
+                                        onCategoryAddedListener.onCategoryChanged();
+                                    }
+                                    finish();
+                                }
+                                else{
+                                    Toast.makeText(EditCategoryActivity.this,"Lỗi", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        })
+                        .setNegativeButton("Không", null)
+                        .show();
+
+                Button positiveButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                Button negativeButton = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+                positiveButton.setTextColor(Color.parseColor("#000000"));
+                negativeButton.setTextColor(Color.parseColor("#E47905"));
             }
         });
 

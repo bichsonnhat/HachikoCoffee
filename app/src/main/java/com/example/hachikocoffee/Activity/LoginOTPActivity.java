@@ -57,7 +57,6 @@ public class LoginOTPActivity extends AppCompatActivity {
         perf = getSharedPreferences("User", MODE_PRIVATE);
         editor = perf.edit();
         editor.putInt("UserID", Integer.valueOf(getIntent().getStringExtra("mobile")));
-        editor.putBoolean("LoggedIn", true);
         editor.apply();
         setupOTPInputs();
 
@@ -92,6 +91,7 @@ public class LoginOTPActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
+                                        editor.putBoolean("LoggedIn", true);
                                         // Check account is existed
                                         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("USER");
                                         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
