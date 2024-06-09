@@ -84,7 +84,7 @@ public class AddNotificationActivity extends AppCompatActivity {
                                 index = Math.max(index, notificationDomain.getNotificationID());
                             }
                             addNotification(index + 1);
-                            Toast.makeText(AddNotificationActivity.this, "Add Notification success", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddNotificationActivity.this, "Thêm thông báo thành công!", Toast.LENGTH_SHORT).show();
                             callback.onCallback();
                             finish();
                         }
