@@ -70,7 +70,7 @@ public class EditStoreActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 updateStore(StoreID);
-                Toast.makeText(EditStoreActivity.this, "Store updated", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditStoreActivity.this, "Cập nhật cửa hàng thành công!", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
@@ -94,7 +94,6 @@ public class EditStoreActivity extends AppCompatActivity {
                 Button negativeButton = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
                 positiveButton.setTextColor(Color.parseColor("#000000"));
                 negativeButton.setTextColor(Color.parseColor("#E47905"));
-                deleteStore(StoreID);
             }
         });
     }
@@ -166,7 +165,7 @@ public class EditStoreActivity extends AppCompatActivity {
                         if (shopDomain.getStoreID() == index) {
                             issue.getRef().removeValue();
                             callback.onCallback();
-                            Toast.makeText(EditStoreActivity.this, "Deleted store", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditStoreActivity.this, "Xoá cửa hàng thành công!", Toast.LENGTH_SHORT).show();
                             finish();
                             break;
                         }

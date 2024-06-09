@@ -63,7 +63,7 @@ public class AddStoreActivity extends AppCompatActivity {
                                 index = Math.max(index, shopDomain.getStoreID());
                             }
                             addStore(index + 1);
-                            Toast.makeText(AddStoreActivity.this, "Add store success", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddStoreActivity.this, "Thêm cửa hàng thành công!", Toast.LENGTH_SHORT).show();
                             callback.onCallback();
                             finish();
                         }

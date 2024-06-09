@@ -75,6 +75,7 @@ public class AddCategoryAcivity extends AppCompatActivity {
                     if (onCategoryAddedListener != null) {
                         onCategoryAddedListener.onCategoryChanged();
                     }
+                    Toast.makeText(AddCategoryAcivity.this, "Thêm danh mục thành công!", Toast.LENGTH_SHORT).show();
                     finish();
                 }
                 else{

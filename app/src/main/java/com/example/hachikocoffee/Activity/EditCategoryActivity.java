@@ -66,6 +66,7 @@ public class EditCategoryActivity extends AppCompatActivity {
                     if (onCategoryAddedListener != null) {
                         onCategoryAddedListener.onCategoryChanged();
                     }
+                    Toast.makeText(EditCategoryActivity.this, "Cập nhật danh mục thành công!", Toast.LENGTH_SHORT).show();
                     finish();
                 }
                 else{
@@ -89,6 +90,7 @@ public class EditCategoryActivity extends AppCompatActivity {
                                     if (onCategoryAddedListener != null) {
                                         onCategoryAddedListener.onCategoryChanged();
                                     }
+                                    Toast.makeText(EditCategoryActivity.this, "Xoá danh mục thành công!", Toast.LENGTH_SHORT).show();
                                     finish();
                                 }
                                 else{

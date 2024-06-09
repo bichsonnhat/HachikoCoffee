@@ -73,8 +73,8 @@ public class EditProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog alertDialog = new AlertDialog.Builder(EditProductActivity.this, R.style.AlertDialog_AppCompat_Custom)
-                        .setTitle("Đăng xuất")
-                        .setMessage("Bạn có muốn đăng xuất không?")
+                        .setTitle("Xoá sản phẩm")
+                        .setMessage("Xác nhận xoá sản phẩm này?")
                         .setPositiveButton("Có", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -88,6 +88,7 @@ public class EditProductActivity extends AppCompatActivity {
                                                 if (itemsDomain.getProductID().equals(productID)) {
                                                     issue.getRef().removeValue();
                                                     callback.onCallback();
+                                                    Toast.makeText(EditProductActivity.this, "Xoá sản phẩm thành công!", Toast.LENGTH_SHORT).show();
                                                     finish();
                                                     break;
                                                 }
@@ -227,6 +228,7 @@ public class EditProductActivity extends AppCompatActivity {
                                                     map.put("description", etDescription.getText().toString());
                                                     map.put("categoryID", categoryDomain.getCategoryID());
                                                     item.getRef().updateChildren(map);
+                                                    Toast.makeText(EditProductActivity.this, "Cập nhật sản phẩm thành công!", Toast.LENGTH_SHORT).show();
                                                     callback.onCallback();
                                                     finish();
                                                 }
