@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
@@ -90,6 +94,7 @@ public class EditUserActivity extends AppCompatActivity {
                     myRef.child("birthday").setValue(binding.editBirthDay.getText().toString());
                     if (onUserChangedListener != null){
                         onUserChangedListener.onUserChanged();
+                        Toast.makeText(EditUserActivity.this, "Cập nhật người dùng thành công!", Toast.LENGTH_SHORT).show();
                     }
                     finish();
                 }
@@ -103,12 +108,28 @@ public class EditUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (user != null){
-                    DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("USER").child(String.valueOf(user.getUserID()));
-                    myRef.removeValue();
-                    if (onUserChangedListener != null) {
-                        onUserChangedListener.onUserChanged();
-                    }
-                    finish();
+                    AlertDialog alertDialog = new AlertDialog.Builder(EditUserActivity.this, R.style.AlertDialog_AppCompat_Custom)
+                            .setTitle("Xóa người dùng")
+                            .setMessage("Xác nhận xóa người dùng này?")
+                            .setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("USER").child(String.valueOf(user.getUserID()));
+                                    myRef.removeValue();
+                                    if (onUserChangedListener != null) {
+                                        onUserChangedListener.onUserChanged();
+                                        Toast.makeText(EditUserActivity.this, "Xóa người dùng thành công!", Toast.LENGTH_SHORT).show();
+                                    }
+                                    finish();
+                                }
+                            })
+                            .setNegativeButton("Không", null)
+                            .show();
+
+                    Button positiveButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                    Button negativeButton = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+                    positiveButton.setTextColor(Color.parseColor("#000000"));
+                    negativeButton.setTextColor(Color.parseColor("#E47905"));
                 }
                 else{
                     Toast.makeText(EditUserActivity.this,"Lỗi", Toast.LENGTH_SHORT).show();

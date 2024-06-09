@@ -1,12 +1,16 @@
 package com.example.hachikocoffee.Activity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -87,7 +91,7 @@ public class EditNotificationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 updateNotification(NotificationID);
-                Toast.makeText(EditNotificationActivity.this, "Notification updated", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditNotificationActivity.this, "Cập nhật thông báo thành công!", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
@@ -155,29 +159,45 @@ public class EditNotificationActivity extends AppCompatActivity {
     }
 
     private void deleteNotification(int index) {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("NOTIFICATION");
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    for (DataSnapshot issue : snapshot.getChildren()) {
-                        NotificationDomain notification = issue.getValue(NotificationDomain.class);
-                        if (notification.getNotificationID() == index) {
-                            issue.getRef().removeValue();
-                            Toast.makeText(EditNotificationActivity.this, "Deleted notification", Toast.LENGTH_SHORT).show();
-                            callback.onCallback();
-                            finish();
-                            break;
-                        }
-                    }
-                }
-            }
+        AlertDialog alertDialog = new AlertDialog.Builder(EditNotificationActivity.this, R.style.AlertDialog_AppCompat_Custom)
+                .setTitle("Xóa thông báo")
+                .setMessage("Xác nhận xóa thông báo này?")
+                .setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("NOTIFICATION");
+                        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists()) {
+                                    for (DataSnapshot issue : snapshot.getChildren()) {
+                                        NotificationDomain notification = issue.getValue(NotificationDomain.class);
+                                        if (notification.getNotificationID() == index) {
+                                            issue.getRef().removeValue();
+                                            Toast.makeText(EditNotificationActivity.this, "Xóa thông báo thành công!", Toast.LENGTH_SHORT).show();
+                                            callback.onCallback();
+                                            finish();
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                //
-            }
-        });
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                //
+                            }
+                        });
+                    }
+                })
+                .setNegativeButton("Không", null)
+                .show();
+
+        Button positiveButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        Button negativeButton = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+        positiveButton.setTextColor(Color.parseColor("#000000"));
+        negativeButton.setTextColor(Color.parseColor("#E47905"));
+
     }
 
     private void addAttributeTextChanged() {
