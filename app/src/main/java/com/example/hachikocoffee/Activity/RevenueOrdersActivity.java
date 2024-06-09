@@ -55,6 +55,7 @@ public class RevenueOrdersActivity extends AppCompatActivity {
         String end = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         startDate.setText(""+start);
         endDate.setText(""+end);
+        checkValidDate();
 
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -199,7 +200,8 @@ public class RevenueOrdersActivity extends AppCompatActivity {
                         Double total_cancelled = 0.0;
                         for (DataSnapshot issue : snapshot.getChildren()){
                             OrderDomain order = issue.getValue(OrderDomain.class);
-                            String[] orderDate = order.getOrderTime().split("/");
+                            String orderTime = order.getOrderTime().substring(0, 10);
+                            String[] orderDate = orderTime.split("/");
                             if (Integer.parseInt(orderDate[2]) < Integer.parseInt(startArr[2]) || Integer.parseInt(orderDate[2]) > Integer.parseInt(endArr[2])){
                                 continue;
                             }

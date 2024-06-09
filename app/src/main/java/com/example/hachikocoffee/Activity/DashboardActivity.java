@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -198,14 +199,14 @@ public class DashboardActivity extends AppCompatActivity {
                     int cancelledOrders = 0;
                     for (DataSnapshot issue : snapshot.getChildren()){
                         OrderDomain order = issue.getValue(OrderDomain.class);
-                            String date = order.getOrderCreatedTime().substring(0, 10);
-                            String status = order.getOrderStatus();
+                        String date = order.getOrderCreatedTime().substring(0, 10);
+                        String status = order.getOrderStatus();
                             // check string date is between start date and end date with format dd/MM/yyyy
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                         LocalDate LocalDate = java.time.LocalDate.parse(date, formatter);
                         LocalDate LocalStartDate = LocalDate.parse(startDate, formatter);
                         LocalDate LocalEndDate = LocalDate.parse(endDate, formatter);
-                        if (LocalDate.isAfter(LocalStartDate) && LocalDate.isBefore(LocalEndDate)){
+                        if (LocalDate.isEqual(LocalStartDate) && LocalDate.isEqual(LocalEndDate)){
                             totalRevenue += (int) order.getCost();
                             if (status.equals("Finished")){
                                 confirmOrders += 1;
@@ -220,7 +221,7 @@ public class DashboardActivity extends AppCompatActivity {
                     confirmOrdersCount.setText(""+String.valueOf(confirmOrders));
                     pendingOrdersCount.setText(""+String.valueOf(pendingOrders));
                     cancelledOrdersCount.setText(""+String.valueOf(cancelledOrders));
-                    revenueCount.setText(""+String.valueOf(totalRevenue)+"đ");
+                    revenueCount.setText(""+String.valueOf(a)+"đ");
                 }
             }
 

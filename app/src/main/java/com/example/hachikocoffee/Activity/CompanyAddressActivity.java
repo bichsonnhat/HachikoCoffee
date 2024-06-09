@@ -1,5 +1,6 @@
 package com.example.hachikocoffee.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -19,11 +20,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.hachikocoffee.Domain.AddressDomain;
+import com.example.hachikocoffee.Domain.UserDomain;
 import com.example.hachikocoffee.Listener.OnAddressChangedListener;
 import com.example.hachikocoffee.Management.ManagementUser;
 import com.example.hachikocoffee.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.UUID;
 
@@ -57,6 +62,31 @@ public class CompanyAddressActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+            }
+        });
+
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("USER");
+
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    for (DataSnapshot issue : snapshot.getChildren()){
+                        UserDomain user = issue.getValue(UserDomain.class);
+                        if (user.getUserID() == UserID){
+                            String fullname = user.getName();
+                            String[] name = fullname.split(",");
+                            etCompanyAddressReceiverName.setText(name[0]);
+                            etCompanyAddressReceiverPhone.setText(user.getPhoneNumber());
+                            break;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
         etCompanyAddress.addTextChangedListener(new TextWatcher() {
