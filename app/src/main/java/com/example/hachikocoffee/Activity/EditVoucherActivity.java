@@ -1,8 +1,11 @@
 package com.example.hachikocoffee.Activity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -132,7 +135,7 @@ public class EditVoucherActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 updateVoucher(VoucherID);
-                Toast.makeText(EditVoucherActivity.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditVoucherActivity.this, "Cập nhật voucher thành công!", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
@@ -243,29 +246,44 @@ public class EditVoucherActivity extends AppCompatActivity {
     }
 
     private void deleteVoucher() {
-        DatabaseReference voucherRef = FirebaseDatabase.getInstance().getReference().child("VOUCHER");
-        voucherRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                        DiscountDomain voucher = dataSnapshot.getValue(DiscountDomain.class);
-                        if (voucher.getVoucherID() == VoucherID){
-                            dataSnapshot.getRef().removeValue();
-                            callback.onCallback();
-                            Toast.makeText(EditVoucherActivity.this, "Xóa thành công", Toast.LENGTH_SHORT).show();
-                            finish();
-                            break;
-                        }
+        AlertDialog alertDialog = new AlertDialog.Builder(EditVoucherActivity.this, R.style.AlertDialog_AppCompat_Custom)
+                .setTitle("Xóa voucher")
+                .setMessage("Xác nhận xóa voucher này?")
+                .setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        DatabaseReference voucherRef = FirebaseDatabase.getInstance().getReference().child("VOUCHER");
+                        voucherRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists()){
+                                    for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                                        DiscountDomain voucher = dataSnapshot.getValue(DiscountDomain.class);
+                                        if (voucher.getVoucherID() == VoucherID){
+                                            dataSnapshot.getRef().removeValue();
+                                            callback.onCallback();
+                                            Toast.makeText(EditVoucherActivity.this, "Xóa voucher thành công!", Toast.LENGTH_SHORT).show();
+                                            finish();
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
                     }
-                }
-            }
+                })
+                .setNegativeButton("Không", null)
+                .show();
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        Button positiveButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        Button negativeButton = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+        positiveButton.setTextColor(Color.parseColor("#000000"));
+        negativeButton.setTextColor(Color.parseColor("#E47905"));
     }
 
     private void initDefaultVoucher() {
